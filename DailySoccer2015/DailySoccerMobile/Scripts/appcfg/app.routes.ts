@@ -10,11 +10,13 @@
 		'$urlRouterProvider'
 	];
 	function configRoutes($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) {
-		//$stateProvider.state('default', {
-		//	url: '/default',
-		//	templateUrl: 'templateUrl',
-		//	controller: 'ControllerFullName',
-		//	controllerAs: 'cx'
+		$stateProvider.state('sample', {
+			url: '/sample',
+			templateUrl: 'templates/sample.html',
+            controller: 'app.shared.SimpleDataController as cx',
+            resolve: {
+                "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+            }
 		// }).state('stateName', {
 		//     url: '/url/to/navigate',
 		//     templateUrl: 'url/to/template/:sampleId',
@@ -27,8 +29,8 @@
 		//             return defer.promise;
 		//         }]
 		//     }
-		//});
+		});
 
-		//$urlRouterProvider.otherwise('/home');
+		$urlRouterProvider.otherwise('/sample');
 	}
 }
