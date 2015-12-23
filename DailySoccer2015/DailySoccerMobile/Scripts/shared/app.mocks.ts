@@ -10,10 +10,10 @@
 
         private svc: ng.resource.IResourceClass<any>;
 
-        static $inject = ['tableName', '$resource'];
-        constructor(tableName: string, private $resource: angular.resource.IResourceService) {
+        static $inject = ['key', '$resource'];
+        constructor(key: string, private $resource: angular.resource.IResourceService) {
             // TODO: initialize service
-            this.svc = $resource("http://moman.azurewebsites.net/mgw/api/:tableName/:id", { "tableName": tableName, "id": "@id" });
+            this.svc = $resource("http://moman.azurewebsites.net/mgw/api/:key/:id", { "key": key, "id": "@id" });
 		}
 
         public getAll(): ng.IPromise<any> {
@@ -52,7 +52,7 @@
 
         static $inject = ['$resource'];
         constructor($resource: angular.resource.IResourceService) {
-            super("demo1", $resource);
+            super("mas-appmob-xpertab1", $resource);
         }
 
     }
