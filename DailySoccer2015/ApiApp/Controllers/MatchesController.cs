@@ -15,7 +15,7 @@ namespace ApiApp.Controllers
         /// GetAllMatch
         /// </summary>
         /// <returns></returns>
-        public List<MatchInformation> Get(int day)
+        public IEnumerable<MatchInformation> Get(int day)
         {
             var client = new MongoClient("mongodb://MongoLab-4o:UMOcc359jl3WoTatREpo9qAAEGFL87uwoUWVyfusDUk-@ds056288.mongolab.com:56288/MongoLab-4o");
             var database = client.GetDatabase("MongoLab-4o");
