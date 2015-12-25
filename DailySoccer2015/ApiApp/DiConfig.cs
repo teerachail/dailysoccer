@@ -1,4 +1,5 @@
-﻿using StructureMap;
+﻿using repo = ApiApp.Repositories;
+using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace ApiApp
         {
             return new Container(c =>
             {
+                c.For<repo.IDemoRepository>().Use<repo.DemoRepository>();
             });
         }
     }

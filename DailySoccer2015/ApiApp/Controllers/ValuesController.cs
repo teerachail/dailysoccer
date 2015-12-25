@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiApp.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,6 +13,13 @@ namespace ApiApp.Controllers
     /// </summary>
     public class ValuesController : ApiController
     {
+        private IDemoRepository repo;
+
+        public ValuesController(IDemoRepository repo)
+        {
+            this.repo = repo;
+        }
+
         /// <summary>
         /// List all values
         /// </summary>
@@ -19,7 +27,7 @@ namespace ApiApp.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { this.repo.GetEmail("my-user-id"), "value1", "value2" };
         }
 
         /// <summary>

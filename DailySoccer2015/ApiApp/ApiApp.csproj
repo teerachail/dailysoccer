@@ -145,7 +145,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MongoAccess\MongoUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DemoRepository.cs" />
+    <Compile Include="Repositories\IDemoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">
