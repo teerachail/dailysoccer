@@ -15,6 +15,10 @@ namespace ApiApp.Controllers
     {
         private IDemoRepository repo;
 
+        /// <summary>
+        /// The ValuesController constructor
+        /// </summary>
+        /// <param name="repo"></param>
         public ValuesController(IDemoRepository repo)
         {
             this.repo = repo;
