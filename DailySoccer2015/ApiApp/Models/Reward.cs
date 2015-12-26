@@ -18,7 +18,7 @@ namespace ApiApp.Models
         /// รหัสของรางวัล
         /// </summary>
         [BsonId]
-        public int id { get; set; }
+        public string id { get; set; }
 
         /// <summary>
         /// รหัสกลุ่มของรางวัล

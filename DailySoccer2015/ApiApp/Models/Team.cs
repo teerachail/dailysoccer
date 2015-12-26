@@ -29,7 +29,7 @@ namespace ApiApp.Models
         /// <summary>
         /// รหัสลีก
         /// </summary>
-        public int LeagueId { get; set; }
+        public string LeagueId { get; set; }
 
         #endregion Properties
     }

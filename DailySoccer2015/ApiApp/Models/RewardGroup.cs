@@ -18,7 +18,7 @@ namespace ApiApp.Models
         /// รหัสกลุ่มของรางวัล
         /// </summary>
         [BsonId]
-        public int id { get; set; }
+        public string id { get; set; }
 
         /// <summary>
         /// วันหมดอายุของกลุ่ม

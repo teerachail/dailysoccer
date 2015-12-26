@@ -53,7 +53,7 @@ namespace ApiApp.Models
         /// <summary>
         /// รหัสทีมที่ชอบ
         /// </summary>
-        public int? FavouriteTeamId { get; set; }
+        public string FavouriteTeamId { get; set; }
 
         #endregion Properties
     }

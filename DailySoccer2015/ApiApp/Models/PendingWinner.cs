@@ -21,6 +21,11 @@ namespace ApiApp.Models
         public string id { get; set; }
 
         /// <summary>
+        /// รหัสบัญชีผู้ใช้ที่จะได้เป็นผู้โชคดี
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// รหัสของรางวัลที่จะได้
         /// </summary>
         public string RewardId { get; set; }

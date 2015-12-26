@@ -16,7 +16,7 @@ namespace ApiApp.Models
         /// <summary>
         /// รหัสของรางวัล
         /// </summary>
-        public int id { get; set; }
+        public string id { get; set; }
 
         /// <summary>
         /// รหัสกลุ่มของรางวัล
