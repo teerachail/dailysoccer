@@ -23,7 +23,26 @@ namespace ApiApp.Repositories
             // TODO: GetMatchesByDate
             throw new NotImplementedException();
         }
-        
+
+        /// <summary>
+        /// ดึงลีกทั้งหมดในระบบ
+        /// </summary>
+        public IEnumerable<League> GetAllLeagues()
+        {
+            // TODO: GetAllLeagues
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// ดึงทีมจากรหัสลีก
+        /// </summary>
+        /// <param name="leagueId">รหัสลีกที่ต้องการดึงข้อมูล</param>
+        public IEnumerable<Team> GetTeamsByLeagueId(string leagueId)
+        {
+            // TODO: GetTeamsByLeagueId
+            throw new NotImplementedException();
+        }
+
         #endregion IMatchesRepository members
     }
 }

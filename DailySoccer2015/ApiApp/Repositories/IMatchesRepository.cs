@@ -20,6 +20,17 @@ namespace ApiApp.Repositories
         /// <param name="date">วันที่ที่ต้องการดึงข้อมูล</param>
         IEnumerable<MatchInformation> GetMatchesByDate(DateTime date);
 
+        /// <summary>
+        /// ดึงลีกทั้งหมดในระบบ
+        /// </summary>
+        IEnumerable<League> GetAllLeagues();
+
+        /// <summary>
+        /// ดึงทีมจากรหัสลีก
+        /// </summary>
+        /// <param name="leagueId">รหัสลีกที่ต้องการดึงข้อมูล</param>
+        IEnumerable<Team> GetTeamsByLeagueId(string leagueId);
+
         #endregion Methods
     }
 }
