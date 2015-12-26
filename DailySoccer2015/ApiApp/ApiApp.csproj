@@ -159,6 +159,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\League.cs" />
+    <Compile Include="Models\PredictionInformation.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\MatchInformation.cs" />
     <Compile Include="Models\Match.cs" />
@@ -170,6 +171,8 @@
     <Compile Include="Repositories\DemoRepository.cs" />
     <Compile Include="Repositories\IAccountRepository.cs" />
     <Compile Include="Repositories\IDemoRepository.cs" />
+    <Compile Include="Repositories\IMatchesRepository.cs" />
+    <Compile Include="Repositories\MatchesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">
