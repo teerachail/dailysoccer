@@ -85,6 +85,10 @@
       <HintPath>..\packages\MongoDB.Driver.Core.2.2.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="StructureMap, Version=2.6.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Swashbuckle.Core">
       <HintPath>..\packages\Swashbuckle.Core.5.0.0\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
@@ -108,6 +112,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebApiContrib.IoC.StructureMap, Version=0.9.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebApiContrib.IoC.StructureMap.0.9.5.0\lib\net40\WebApiContrib.IoC.StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -146,6 +154,7 @@
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DiConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,7 +162,10 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\MatchInformation.cs" />
     <Compile Include="Models\Match.cs" />
+    <Compile Include="MongoAccess\MongoUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DemoRepository.cs" />
+    <Compile Include="Repositories\IDemoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">
