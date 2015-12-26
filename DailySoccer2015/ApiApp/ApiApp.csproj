@@ -162,10 +162,13 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\MatchInformation.cs" />
     <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="MongoAccess\MongoDbHelper.cs" />
     <Compile Include="MongoAccess\MongoUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\DemoRepository.cs" />
+    <Compile Include="Repositories\IAccountRepository.cs" />
     <Compile Include="Repositories\IDemoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
