@@ -172,7 +172,9 @@
     <Compile Include="Repositories\IAccountRepository.cs" />
     <Compile Include="Repositories\IDemoRepository.cs" />
     <Compile Include="Repositories\IMatchesRepository.cs" />
+    <Compile Include="Repositories\IPredictionRepository.cs" />
     <Compile Include="Repositories\MatchesRepository.cs" />
+    <Compile Include="Repositories\PredictionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">
