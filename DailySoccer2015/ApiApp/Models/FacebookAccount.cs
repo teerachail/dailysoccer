@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +8,22 @@ using System.Threading.Tasks;
 namespace ApiApp.Models
 {
     /// <summary>
-    /// ลีก
+    /// บัญชี Facebook
     /// </summary>
-    public class League
+    public class FacebookAccount
     {
         #region Properties
 
         /// <summary>
-        /// รหัสลีก
+        /// รหัสอ้างอิง Facebook
         /// </summary>
         [BsonId]
         public string id { get; set; }
 
         /// <summary>
-        /// ชื่อลีก
+        /// รหัสบัญชีผู้ใช้
         /// </summary>
-        public string Name { get; set; }
+        public string UserId { get; set; }
 
         #endregion Properties
     }

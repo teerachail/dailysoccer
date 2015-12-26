@@ -28,8 +28,8 @@ namespace ApiApp.Controllers
 
             var currentDay = DateTime.Now;
             var selectedMatch = from match in matches.Where(it => it.BeginDate.Day == day && it.BeginDate.Year == currentDay.Year)
-                                let teamHomeName = teams.First(team => team.TeamId == match.TeamHomeId).Name
-                                let teamAwayName = teams.First(team => team.TeamId == match.TeamAwayId).Name
+                                let teamHomeName = teams.First(team => team.id == match.TeamHomeId).Name
+                                let teamAwayName = teams.First(team => team.id == match.TeamAwayId).Name
                                 select new MatchInformation
                                 {
                                      TeamHomeName = teamHomeName,

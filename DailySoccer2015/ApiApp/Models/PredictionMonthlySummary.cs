@@ -16,12 +16,7 @@ namespace ApiApp.Models
         /// <summary>
         /// เดือน
         /// </summary>
-        public int Month { get; set; }
-
-        /// <summary>
-        /// ชื่อเดือน
-        /// </summary>
-        public string Name { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// คะแนนที่ได้ทั้งหมดภายในเดือน

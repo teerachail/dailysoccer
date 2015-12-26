@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace ApiApp.Models
         /// <summary>
         /// รหัสของรางวัล
         /// </summary>
+        [BsonId]
         public int id { get; set; }
 
         /// <summary>
