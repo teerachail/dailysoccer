@@ -162,6 +162,9 @@
     <Compile Include="Models\PredictionDailyDetail.cs" />
     <Compile Include="Models\PredictionDailySummary.cs" />
     <Compile Include="Models\PredictionInformation.cs" />
+    <Compile Include="Models\MyReward.cs" />
+    <Compile Include="Models\RewardWinner.cs" />
+    <Compile Include="Models\Reward.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\MatchInformation.cs" />
     <Compile Include="Models\Match.cs" />
@@ -176,8 +179,10 @@
     <Compile Include="Repositories\IDemoRepository.cs" />
     <Compile Include="Repositories\IMatchesRepository.cs" />
     <Compile Include="Repositories\IPredictionRepository.cs" />
+    <Compile Include="Repositories\IRewardRepository.cs" />
     <Compile Include="Repositories\MatchesRepository.cs" />
     <Compile Include="Repositories\PredictionRepository.cs" />
+    <Compile Include="Repositories\RewardRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">
