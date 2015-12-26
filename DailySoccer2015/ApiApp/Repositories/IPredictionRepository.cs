@@ -38,6 +38,21 @@ namespace ApiApp.Repositories
         /// <param name="matchId">รหัสแมช์การแข่งขันที่ผู้ใช้ยกเลิก</param>
         void CancelUserPrediction(string userId, string matchId);
 
+        /// <summary>
+        /// ดึงประวัติการทายผลของผู้ใช้จากปี
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึงข้อมูล</param>
+        /// <param name="year">ปีที่ต้องการดึงข้อมูล</param>
+        IEnumerable<PredictionMonthlySummary> GetUserPredictionSummaryByYear(string userId, int year);
+
+        /// <summary>
+        /// ดึงประวัติการทายผลของผู้ใช้จากปี
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึงข้อมูล</param>
+        /// <param name="year">ปีที่ต้องการดึงข้อมูล</param>
+        /// <param name="month">เดือนที่ต้องการดึงข้อมูล</param>
+        IEnumerable<PredictionDailySummary> GetUserPredictionSummaryByMonth(string userId, int year, int month);
+
         #endregion Methods
     }
 }

@@ -50,6 +50,29 @@ namespace ApiApp.Repositories
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// ดึงประวัติการทายผลของผู้ใช้จากปี
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึงข้อมูล</param>
+        /// <param name="year">ปีที่ต้องการดึงข้อมูล</param>
+        public IEnumerable<PredictionMonthlySummary> GetUserPredictionSummaryByYear(string userId, int year)
+        {
+            // TODO: GetUserPredictionSummaryByYear
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// ดึงประวัติการทายผลของผู้ใช้จากปี
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึงข้อมูล</param>
+        /// <param name="year">ปีที่ต้องการดึงข้อมูล</param>
+        /// <param name="month">เดือนที่ต้องการดึงข้อมูล</param>
+        public IEnumerable<PredictionDailySummary> GetUserPredictionSummaryByMonth(string userId, int year, int month)
+        {
+            // TODO: GetUserPredictionSummaryByMonth
+            throw new NotImplementedException();
+        }
+
         #endregion IMatchesRepository members
     }
 }
