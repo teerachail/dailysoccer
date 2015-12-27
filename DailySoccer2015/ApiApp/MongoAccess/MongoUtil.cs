@@ -69,6 +69,29 @@ namespace ApiApp.MongoAccess
             return _winner.Read();
         }
 
+        /// <summary>
+        /// ดึงรายการบัญชีผู้ใช้
+        /// </summary>
+        public static IEnumerable<UserProfile> GetUserProfiles()
+        {
+            return _userProfile.Read();
+        }
+
+        /// <summary>
+        /// อัพเดทบัญชีผู้ใช้จากการสั่งซื้อคูปอง
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการอัพเดท</param>
+        /// <param name="remainingPoints">จำนวนแต้มที่เหลือ</param>
+        /// <param name="orderedCoupons">จำนวนคูปองที่สั่งซื้อไปแล้ว</param>
+        public static void UpdateFromBuyCoupons(string userId, int remainingPoints, int orderedCoupons)
+        {
+            var userProfile = _userProfile.Read().FirstOrDefault(it => it.id.Equals(userId));
+            if (userProfile == null) return;
+
+            _userProfile.Update(userProfile.id, it => it.Points, remainingPoints);
+            _userProfile.Update(userProfile.id, it => it.OrderedCoupon, orderedCoupons);
+        }
+
         public static string /*MongoCollection*/ GetCollection(string collectionName)
         {
             //var connectionString = WebConfigurationManager.ConnectionStrings["primaryConnectionString"].ConnectionString;

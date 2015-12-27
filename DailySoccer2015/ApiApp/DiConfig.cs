@@ -16,6 +16,7 @@ namespace ApiApp
             {
                 c.For<repo.IDemoRepository>().Use<repo.DemoRepository>();
                 c.For<repo.IRewardRepository>().Use<repo.RewardRepository>();
+                c.For<repo.IAccountRepository>().Use<repo.AccountRepository>();
             });
         }
     }

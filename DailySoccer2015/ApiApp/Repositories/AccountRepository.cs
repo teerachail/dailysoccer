@@ -25,13 +25,11 @@ namespace ApiApp.Repositories
         }
 
         /// <summary>
-        /// ดึงบัญชีผู้ใช้จากรหัสบัญชีผู้ใช้
+        /// ดึงรายการบัญชีผู้ใช้
         /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ใช้ในการตรวจสอบ</param>
-        public UserProfile GetUserProfileById(string userId)
+        public IEnumerable<UserProfile> GetUserProfiles()
         {
-            // TODO: GetUserProfileById
-            throw new NotImplementedException();
+            return MongoAccess.MongoUtil.GetUserProfiles();
         }
 
         /// <summary>
@@ -97,6 +95,17 @@ namespace ApiApp.Repositories
         {
             // TODO: SetVerifiedPhoneNumberComplete
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// อัพเดทบัญชีผู้ใช้จากการสั่งซื้อคูปอง
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการอัพเดท</param>
+        /// <param name="remainingPoints">จำนวนแต้มที่เหลือ</param>
+        /// <param name="orderedCoupons">จำนวนคูปองที่สั่งซื้อไปแล้ว</param>
+        public void UpdateFromBuyCoupons(string userId, int remainingPoints, int orderedCoupons)
+        {
+            MongoAccess.MongoUtil.UpdateFromBuyCoupons(userId, remainingPoints, orderedCoupons);
         }
 
         #endregion IAccountRepository members

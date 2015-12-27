@@ -151,6 +151,7 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\RewardsController.cs" />
@@ -159,6 +160,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BuyCouponRespond.cs" />
+    <Compile Include="Models\BuyCouponRequest.cs" />
     <Compile Include="Models\FacebookAccount.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Prediction.cs" />

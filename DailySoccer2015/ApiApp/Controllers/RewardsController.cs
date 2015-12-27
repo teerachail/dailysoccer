@@ -108,20 +108,5 @@ namespace ApiApp.Controllers
 
             return myRewards;
         }
-
-        // POST: api/Rewards
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Rewards/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Rewards/5
-        public void Delete(int id)
-        {
-        }
     }
 }

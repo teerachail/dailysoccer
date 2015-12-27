@@ -21,10 +21,9 @@ namespace ApiApp.Repositories
         void CreateUserProfile(string userId);
 
         /// <summary>
-        /// ดึงบัญชีผู้ใช้จากรหัสบัญชีผู้ใช้
+        /// ดึงรายการบัญชีผู้ใช้
         /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ใช้ในการตรวจสอบ</param>
-        UserProfile GetUserProfileById(string userId);
+        IEnumerable<UserProfile> GetUserProfiles();
 
         /// <summary>
         /// ดึงบัญชีผู้ใช้จากรหัส Facebook
@@ -66,6 +65,14 @@ namespace ApiApp.Repositories
         /// <param name="userId">รหัสบัญชีผู้ใช้ที่จะทำการกำหนด</param>
         /// <param name="completedDate">วันเวลาที่ทำการยืนยันเสร็จสิ้น</param>
         void SetVerifiedPhoneNumberComplete(string userId, DateTime completedDate);
+
+        /// <summary>
+        /// อัพเดทบัญชีผู้ใช้จากการสั่งซื้อคูปอง
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการอัพเดท</param>
+        /// <param name="remainingPoints">จำนวนแต้มที่เหลือ</param>
+        /// <param name="orderedCoupons">จำนวนคูปองที่สั่งซื้อไปแล้ว</param>
+        void UpdateFromBuyCoupons(string userId, int remainingPoints, int orderedCoupons);
 
         #endregion Methods
     }
