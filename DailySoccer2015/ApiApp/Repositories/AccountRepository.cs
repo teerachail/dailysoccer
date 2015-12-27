@@ -63,10 +63,9 @@ namespace ApiApp.Repositories
         /// </summary>
         /// <param name="userId">รหัสบัญชีผู้ใช้ที่จะทำการกำหนดทีมที่ชอบ</param>
         /// <param name="teamId">รหัสทีมที่ชอบ</param>
-        public void SetFavoriteTeam(string userId, int teamId)
+        public void SetFavoriteTeam(string userId, string teamId)
         {
-            // TODO: SetFavoriteTeam
-            throw new NotImplementedException();
+            MongoAccess.MongoUtil.SetFavoriteTeam(userId, teamId);
         }
 
         /// <summary>

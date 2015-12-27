@@ -48,7 +48,7 @@ namespace ApiApp.Repositories
         /// </summary>
         /// <param name="userId">รหัสบัญชีผู้ใช้ที่จะทำการกำหนดทีมที่ชอบ</param>
         /// <param name="teamId">รหัสทีมที่ชอบ</param>
-        void SetFavoriteTeam(string userId, int teamId);
+        void SetFavoriteTeam(string userId, string teamId);
 
         /// <summary>
         /// กำหนดรหัสสำหรับตรวจสอบเบอร์โทรศัพท์

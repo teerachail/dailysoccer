@@ -210,11 +210,17 @@ namespace ApiApp.MongoAccess
             return _league.Read();
         }
 
-        public static string /*MongoCollection*/ GetCollection(string collectionName)
+        /// <summary>
+        /// กำหนดทีมที่ชอบ
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่จะทำการกำหนดทีมที่ชอบ</param>
+        /// <param name="teamId">รหัสทีมที่ชอบ</param>
+        public static void SetFavoriteTeam(string userId, string teamId)
         {
-            //var connectionString = WebConfigurationManager.ConnectionStrings["primaryConnectionString"].ConnectionString;
-            var dbName = WebConfigurationManager.AppSettings["databaseName"];
-            return null;
+            var userprofile = _userProfile.Read().FirstOrDefault(it => it.id.Equals(userId));
+            if (userprofile == null) return;
+
+            _userProfile.Update(userId, it => it.FavouriteTeamId, teamId);
         }
     }
 }

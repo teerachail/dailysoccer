@@ -57,6 +57,22 @@ namespace ApiApp.Controllers
             return userProfile;
         }
 
+        // POST api/profile/{user-id}/favteam
+        /// <summary>
+        /// Set userprofile's favorite team
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <param name="value">Request body</param>
+        [HttpPost]
+        [Route("{id}/favteam")]
+        public void Favteam(string id, SetFavoriteTeamRequest value)
+        {
+            var areArgumentsValid = !string.IsNullOrEmpty(id) && value != null && !string.IsNullOrEmpty(value.TeamId);
+            if (!areArgumentsValid) return;
+
+            _accountRepo.SetFavoriteTeam(id, value.TeamId);
+        }
+
         // POST api/profile/facebook
         /// <summary>
         /// Get or Tie Facebook account

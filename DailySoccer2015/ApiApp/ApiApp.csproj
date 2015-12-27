@@ -184,6 +184,7 @@
     <Compile Include="Models\RewardWinner.cs" />
     <Compile Include="Models\Reward.cs" />
     <Compile Include="Models\PendingWinner.cs" />
+    <Compile Include="Models\SetFavoriteTeamRequest.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\MatchInformation.cs" />
     <Compile Include="Models\Match.cs" />
