@@ -154,6 +154,7 @@
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
+    <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\RewardsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DiConfig.cs" />
