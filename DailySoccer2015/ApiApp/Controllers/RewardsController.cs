@@ -86,7 +86,7 @@ namespace ApiApp.Controllers
         {
             if (string.IsNullOrEmpty(id)) return Enumerable.Empty<MyReward>();
 
-            var winners = _repo.GetWinners().Where(it => it.id.Equals(id)).ToList();
+            var winners = _repo.GetWinners().Where(it => it.UserId.Equals(id)).ToList();
             if (!winners.Any()) return Enumerable.Empty<MyReward>();
 
             var rewards = _repo.GetRewards().Where(reward => winners.Any(it => it.RewardId.Equals(reward.id))).ToList();
