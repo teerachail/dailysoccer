@@ -101,8 +101,7 @@ namespace ApiApp.Repositories
         /// <param name="completedDate">วันเวลาที่ทำการยืนยันเสร็จสิ้น</param>
         public void SetVerifiedPhoneNumberComplete(string userId, DateTime completedDate)
         {
-            // TODO: SetVerifiedPhoneNumberComplete
-            throw new NotImplementedException();
+            MongoAccess.MongoUtil.SetVerifiedPhoneNumberComplete(userId, completedDate);
         }
 
         /// <summary>

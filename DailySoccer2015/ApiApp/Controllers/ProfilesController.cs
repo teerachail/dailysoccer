@@ -44,7 +44,7 @@ namespace ApiApp.Controllers
             return userProfile;
         }
 
-        // PUT: api/Profiles/5/phoneno
+        // PUT: api/Profiles/0912345678/phoneno
         /// <summary>
         /// Update phone number
         /// </summary>
@@ -61,15 +61,49 @@ namespace ApiApp.Controllers
                 && value.PhoneNumber.Length >= MinimumPhoneNumberDigits;
             if (!areArgumentsValid) return;
 
-            var shipOneDigit = 1;
-            var phoneNo = value.PhoneNumber;
-            phoneNo = phoneNo.Replace("-", string.Empty);
-            phoneNo = string.Format("+66{0}", phoneNo.Substring(shipOneDigit, phoneNo.Length - shipOneDigit));
-
             _accountRepo.ResetVerifiedPhoneNumber(id);
+            var phoneNo = convertToThailandPhoneNoFormat(value.PhoneNumber);
             var verifyCode = Guid.NewGuid().ToString().Replace("-", string.Empty).ToUpper().Substring(0, 7);
             _accountRepo.SetVerifierPhoneNumber(id, phoneNo, verifyCode);
             _smsSender.Send(phoneNo, verifyCode);
+        }
+
+        // PUT: api/Profiles/0912345678/vericode
+        /// <summary>
+        /// Request verifyphone number
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <param name="value">Request body</param>
+        [HttpPut]
+        [Route("{id}/vericode")]
+        public VerificationCodeRespond vericode(string id, VerificationCodeRequest value)
+        {
+            var areArgumentsValid = !string.IsNullOrEmpty(id)
+                && value != null
+                && !string.IsNullOrEmpty(value.PhoneNumber)
+                && !string.IsNullOrEmpty(value.VerificationCode);
+            if (!areArgumentsValid) return new VerificationCodeRespond();
+
+            var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(id));
+            if (userProfile == null) return new VerificationCodeRespond();
+
+            var phoneNo = convertToThailandPhoneNoFormat(value.PhoneNumber);
+            var isSuccess = userProfile.PhoneNo.Equals(phoneNo) && userProfile.VerifierCode.Equals(value.VerificationCode);
+            if (!isSuccess) return new VerificationCodeRespond();
+            _accountRepo.SetVerifiedPhoneNumberComplete(id, DateTime.Now);
+            return new VerificationCodeRespond { IsSuccess = true };
+        }
+
+        private string convertToThailandPhoneNoFormat(string phoneNo)
+        {
+            const string ReplaceStarterPhoneNumber = "0";
+            phoneNo = phoneNo.Replace("-", string.Empty);
+            if (phoneNo.StartsWith(ReplaceStarterPhoneNumber))
+            {
+                const int shipOneDigit = 1;
+                phoneNo = string.Format("+66{0}", phoneNo.Substring(shipOneDigit, phoneNo.Length - shipOneDigit));
+            }
+            return phoneNo;
         }
     }
 }

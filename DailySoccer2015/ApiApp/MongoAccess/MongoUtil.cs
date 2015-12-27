@@ -121,6 +121,19 @@ namespace ApiApp.MongoAccess
             _userProfile.Update(userProfile.id, it => it.VerifierCode, verifierCode);
         }
 
+        /// <summary>
+        /// กำหนดการยืนยันเบอร์โทรศัพท์เสร็จสิ้น
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่จะทำการกำหนด</param>
+        /// <param name="completedDate">วันเวลาที่ทำการยืนยันเสร็จสิ้น</param>
+        public static void SetVerifiedPhoneNumberComplete(string userId, DateTime completedDate)
+        {
+            var userProfile = _userProfile.Read().FirstOrDefault(it => it.id.Equals(userId));
+            if (userProfile == null) return;
+
+            _userProfile.Update(userProfile.id, it => it.VerifiedPhoneDate, completedDate);
+        }
+
         public static string /*MongoCollection*/ GetCollection(string collectionName)
         {
             //var connectionString = WebConfigurationManager.ConnectionStrings["primaryConnectionString"].ConnectionString;

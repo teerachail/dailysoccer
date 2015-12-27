@@ -187,6 +187,8 @@
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\PredictionMonthlySummary.cs" />
+    <Compile Include="Models\VerificationCodeRespond.cs" />
+    <Compile Include="Models\VerificationCodeRequest.cs" />
     <Compile Include="Models\VerificationPhonenoRequest.cs" />
     <Compile Include="Models\Winner.cs" />
     <Compile Include="MongoAccess\MongoDbHelper.cs" />
