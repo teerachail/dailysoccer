@@ -162,6 +162,7 @@
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
+    <Compile Include="Controllers\LeaguesController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\RewardsController.cs" />
