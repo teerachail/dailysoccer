@@ -39,19 +39,9 @@ namespace ApiApp.Repositories
         void CancelUserPrediction(string userId, string matchId);
 
         /// <summary>
-        /// ดึงประวัติการทายผลของผู้ใช้จากปี
+        /// ดึงประวัติการทายผลของผู้ใช้
         /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึงข้อมูล</param>
-        /// <param name="year">ปีที่ต้องการดึงข้อมูล</param>
-        IEnumerable<PredictionMonthlySummary> GetUserPredictionSummaryByYear(string userId, int year);
-
-        /// <summary>
-        /// ดึงประวัติการทายผลของผู้ใช้จากปี
-        /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึงข้อมูล</param>
-        /// <param name="year">ปีที่ต้องการดึงข้อมูล</param>
-        /// <param name="month">เดือนที่ต้องการดึงข้อมูล</param>
-        IEnumerable<PredictionDailySummary> GetUserPredictionSummaryByMonth(string userId, int year, int month);
+        IEnumerable<Prediction> GetUserPredictions();
 
         #endregion Methods
     }

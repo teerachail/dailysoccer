@@ -15,10 +15,9 @@ namespace ApiApp.Repositories
         #region Methods
 
         /// <summary>
-        /// ดึงแมช์การแข่งขันจากวันที่
+        /// ดึงแมช์การแข่งขันทั้งหมดในระบบ
         /// </summary>
-        /// <param name="date">วันที่ที่ต้องการดึงข้อมูล</param>
-        IEnumerable<MatchInformation> GetMatchesByDate(DateTime date);
+        IEnumerable<Match> GetMatches();
 
         /// <summary>
         /// ดึงลีกทั้งหมดในระบบ

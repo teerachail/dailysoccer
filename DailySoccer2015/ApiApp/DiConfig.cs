@@ -18,6 +18,8 @@ namespace ApiApp
                 c.For<repo.IRewardRepository>().Use<repo.RewardRepository>();
                 c.For<repo.IAccountRepository>().Use<repo.AccountRepository>();
                 c.For<repo.ISMSSender>().Use<repo.TwilioSMSSender>();
+                c.For<repo.IPredictionRepository>().Use<repo.PredictionRepository>();
+                c.For<repo.IMatchesRepository>().Use<repo.MatchesRepository>();
             });
         }
     }

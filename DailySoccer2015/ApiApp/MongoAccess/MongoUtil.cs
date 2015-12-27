@@ -178,6 +178,22 @@ namespace ApiApp.MongoAccess
             _userProfile.Update(facebookAccount.UserId, it => it.IsFacebookVerified, false);
         }
 
+        /// <summary>
+        /// ดึงประวัติการทายผลของผู้ใช้
+        /// </summary>
+        public static IEnumerable<Prediction> GetUserPredictions()
+        {
+            return _prediction.Read();
+        }
+
+        /// <summary>
+        /// ดึงแมช์การแข่งขันทั้งหมดในระบบ
+        /// </summary>
+        public static IEnumerable<Match> GetMatches()
+        {
+            return _match.Read();
+        }
+
         public static string /*MongoCollection*/ GetCollection(string collectionName)
         {
             //var connectionString = WebConfigurationManager.ConnectionStrings["primaryConnectionString"].ConnectionString;

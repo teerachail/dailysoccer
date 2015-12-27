@@ -160,6 +160,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />

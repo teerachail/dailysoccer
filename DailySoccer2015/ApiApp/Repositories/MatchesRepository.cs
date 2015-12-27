@@ -15,13 +15,11 @@ namespace ApiApp.Repositories
         #region IMatchesRepository members
 
         /// <summary>
-        /// ดึงแมช์การแข่งขันจากวันที่
+        /// ดึงแมช์การแข่งขันทั้งหมดในระบบ
         /// </summary>
-        /// <param name="date">วันที่ที่ต้องการดึงข้อมูล</param>
-        public IEnumerable<MatchInformation> GetMatchesByDate(DateTime date)
+        public IEnumerable<Match> GetMatches()
         {
-            // TODO: GetMatchesByDate
-            throw new NotImplementedException();
+            return MongoAccess.MongoUtil.GetMatches();
         }
 
         /// <summary>
