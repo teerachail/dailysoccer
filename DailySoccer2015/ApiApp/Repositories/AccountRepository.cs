@@ -32,13 +32,11 @@ namespace ApiApp.Repositories
         }
 
         /// <summary>
-        /// ดึงบัญชีผู้ใช้จากรหัส Facebook
+        /// ดึงบัญชี Facebook
         /// </summary>
-        /// <param name="facebookId">รหัส Facebook ที่ใช้ในการตรวจสอบ</param>
-        public UserProfile GetUserProfileByFacebookId(string facebookId)
+        public IEnumerable<FacebookAccount> GetFacebookAccounts()
         {
-            // TODO: GetUserProfileByFacebookId
-            throw new NotImplementedException();
+            return MongoAccess.MongoUtil.GetFacebookAccounts();
         }
 
         /// <summary>
@@ -48,8 +46,7 @@ namespace ApiApp.Repositories
         /// <param name="userId">บัญชีผู้ใช้ที่จะทำการผูก</param>
         public void TieFacebookAccount(string facebookId, string userId)
         {
-            // TODO: TieFacebookAccount
-            throw new NotImplementedException();
+            MongoAccess.MongoUtil.TieFacebookAccount(facebookId, userId);
         }
 
         /// <summary>
@@ -58,8 +55,7 @@ namespace ApiApp.Repositories
         /// <param name="facebookId">รหัส Facebook ที่ต้องการยกเลิกการผูก</param>
         public void UntieFacebookAccount(string facebookId)
         {
-            // TODO: UntieFacebookAccount
-            throw new NotImplementedException();
+            MongoAccess.MongoUtil.UntieFacebookAccount(facebookId);
         }
 
         /// <summary>

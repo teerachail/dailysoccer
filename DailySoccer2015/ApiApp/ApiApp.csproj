@@ -172,6 +172,7 @@
     <Compile Include="Models\BuyCouponRespond.cs" />
     <Compile Include="Models\BuyCouponRequest.cs" />
     <Compile Include="Models\FacebookAccount.cs" />
+    <Compile Include="Models\FacebookRequest.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Prediction.cs" />
     <Compile Include="Models\PredictionDailyDetail.cs" />

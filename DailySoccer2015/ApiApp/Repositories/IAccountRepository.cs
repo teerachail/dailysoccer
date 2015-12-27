@@ -26,10 +26,9 @@ namespace ApiApp.Repositories
         IEnumerable<UserProfile> GetUserProfiles();
 
         /// <summary>
-        /// ดึงบัญชีผู้ใช้จากรหัส Facebook
+        /// ดึงบัญชี Facebook
         /// </summary>
-        /// <param name="facebookId">รหัส Facebook ที่ใช้ในการตรวจสอบ</param>
-        UserProfile GetUserProfileByFacebookId(string facebookId);
+        IEnumerable<FacebookAccount> GetFacebookAccounts();
 
         /// <summary>
         /// ผูกบัญชี Facebook เข้ากับบัญชีผู้ใช้

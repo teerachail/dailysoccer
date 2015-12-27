@@ -143,6 +143,41 @@ namespace ApiApp.MongoAccess
             _userProfile.Create(new UserProfile { id = userId });
         }
 
+        /// <summary>
+        /// ดึงบัญชี Facebook
+        /// </summary>
+        public static IEnumerable<FacebookAccount> GetFacebookAccounts()
+        {
+            return _facebookAccount.Read();
+        }
+
+        /// <summary>
+        /// ผูกบัญชี Facebook เข้ากับบัญชีผู้ใช้
+        /// </summary>
+        /// <param name="facebookId">รหัส Facebook ที่ต้องการจะผูก</param>
+        /// <param name="userId">บัญชีผู้ใช้ที่จะทำการผูก</param>
+        public static void TieFacebookAccount(string facebookId, string userId)
+        {
+            var userprofile = _userProfile.Read().FirstOrDefault(it => it.id.Equals(userId));
+            if (userprofile == null) return;
+
+            _userProfile.Update(userId, it => it.IsFacebookVerified, true);
+            _facebookAccount.Create(new FacebookAccount { id = facebookId, UserId = userId });
+        }
+
+        /// <summary>
+        /// ยกเลิกการผูกบัญชี Facebook
+        /// </summary>
+        /// <param name="facebookId">รหัส Facebook ที่ต้องการยกเลิกการผูก</param>
+        public static void UntieFacebookAccount(string facebookId)
+        {
+            var facebookAccount = _facebookAccount.Read().FirstOrDefault(it => it.id.Equals(facebookId));
+            if (facebookAccount == null) return;
+
+            _facebookAccount.Delete(it => it.id, facebookId);
+            _userProfile.Update(facebookAccount.UserId, it => it.IsFacebookVerified, false);
+        }
+
         public static string /*MongoCollection*/ GetCollection(string collectionName)
         {
             //var connectionString = WebConfigurationManager.ConnectionStrings["primaryConnectionString"].ConnectionString;
