@@ -71,24 +71,20 @@ namespace ApiApp.Controllers
             var facebookAccount = _accountRepo.GetFacebookAccounts().FirstOrDefault(it => it.id.Equals(value.FacebookId));
             if (facebookAccount == null) return null;
 
+            var userprofile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(value.UserId));
+            if (userprofile == null) return null;
+
             if (value.IsConfirmed)
             {
                 var isArgumentValid = !string.IsNullOrEmpty(value.UserId);
                 if (!isArgumentValid) return null;
-
-                var userprofile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(value.UserId));
-                if (userprofile == null) return null;
 
                 _accountRepo.UntieFacebookAccount(value.FacebookId);
                 _accountRepo.TieFacebookAccount(value.FacebookId, value.UserId);
                 userprofile.IsFacebookVerified = true;
                 return userprofile;
             }
-            else
-            {
-                var userprofile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(value.FacebookId));
-                return userprofile;
-            }
+            else return userprofile;
         }
 
         // PUT: api/profile/0912345678/phoneno
