@@ -29,6 +29,20 @@ namespace ApiApp.Controllers
             _accountRepo = accountRepo;
         }
 
+        // GET: api/coupons/summary/{user-id}
+        /// <summary>
+        /// Get user profile by user's id
+        /// </summary>
+        /// <param name="id">User id</param>
+        [HttpGet]
+        [Route("summary/{id}")]
+        public UserProfile Get(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return null;
+            var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(id));
+            return userProfile;
+        }
+
         // POST: api/Coupons
         /// <summary>
         /// Buy coupon
@@ -49,7 +63,7 @@ namespace ApiApp.Controllers
 
             var requiredPoints = currentRewardGroup.RequiredPoints * value.BuyAmount;
             var arePointsEnough = userProfile.Points >= requiredPoints;
-            if(!arePointsEnough) return new BuyCouponRespond { ErrorMessage = "แต้มที่มีไม่เพียงพอ" };
+            if (!arePointsEnough) return new BuyCouponRespond { ErrorMessage = "แต้มที่มีไม่เพียงพอ" };
 
             var remainingPoints = userProfile.Points - requiredPoints;
             var orderedCoupons = userProfile.OrderedCoupon + value.BuyAmount;
