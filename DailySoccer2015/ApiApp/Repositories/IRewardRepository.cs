@@ -30,12 +30,6 @@ namespace ApiApp.Repositories
         /// </summary>
         IEnumerable<Winner> GetWinners();
 
-        /// <summary>
-        /// ดึงของรางวัลที่ผู้ใช้เคยได้
-        /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึงข้อมูล</param>
-        IEnumerable<MyReward> GetUserRewards(string userId);
-
         #endregion Methods
     }
 }

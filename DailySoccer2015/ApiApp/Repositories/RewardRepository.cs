@@ -39,16 +39,6 @@ namespace ApiApp.Repositories
             return MongoAccess.MongoUtil.GetWinners();
         }
 
-        /// <summary>
-        /// ดึงของรางวัลที่ผู้ใช้เคยได้
-        /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึงข้อมูล</param>
-        public IEnumerable<MyReward> GetUserRewards(string userId)
-        {
-            // TODO: GetUserRewards
-            throw new NotImplementedException();
-        }
-
         #endregion IRewardRepository members
     }
 }

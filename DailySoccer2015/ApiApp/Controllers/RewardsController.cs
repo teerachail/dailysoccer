@@ -27,6 +27,10 @@ namespace ApiApp.Controllers
         }
 
         // GET: api/Rewards
+        /// <summary>
+        /// Get current rewards
+        /// </summary>
+        [HttpGet]
         public IEnumerable<Reward> Get()
         {
             var now = DateTime.Now;
@@ -38,6 +42,11 @@ namespace ApiApp.Controllers
         }
 
         // GET: api/Rewards/winners
+        /// <summary>
+        /// Get current winners
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("winners")]
         public IEnumerable<RewardWinner> winners()
         {
@@ -67,9 +76,37 @@ namespace ApiApp.Controllers
         }
 
         // GET: api/Rewards/5
-        public string Get(int id)
+        /// <summary>
+        /// Get my rewards
+        /// </summary>
+        /// <param name="id">User id</param>
+        [HttpGet]
+        [Route("myrewards/{id}")]
+        public IEnumerable<MyReward> Get(string id)
         {
-            return "value";
+            if (string.IsNullOrEmpty(id)) return Enumerable.Empty<MyReward>();
+
+            var winners = _repo.GetWinners().Where(it => it.id.Equals(id)).ToList();
+            if (!winners.Any()) return Enumerable.Empty<MyReward>();
+
+            var rewards = _repo.GetRewards().Where(reward => winners.Any(it => it.RewardId.Equals(reward.id))).ToList();
+            if (!rewards.Any()) return Enumerable.Empty<MyReward>();
+
+            var myRewards = (from winner in winners
+                             from reward in rewards
+                             where winner.RewardId.Equals(reward.id)
+                             select new MyReward
+                             {
+                                 id = reward.id,
+                                 Description = reward.Description,
+                                 OrderedNo = reward.OrderedNo,
+                                 Price = reward.Price,
+                                 ReferenceCode = winner.ReferenceCode,
+                                 ThumbImgPath = reward.ThumbImgPath,
+                                 RewardDate = winner.CreatedDate
+                             }).ToList();
+
+            return myRewards;
         }
 
         // POST: api/Rewards
