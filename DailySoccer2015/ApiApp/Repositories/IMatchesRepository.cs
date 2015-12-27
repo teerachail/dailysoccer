@@ -25,10 +25,9 @@ namespace ApiApp.Repositories
         IEnumerable<League> GetAllLeagues();
 
         /// <summary>
-        /// ดึงทีมจากรหัสลีก
+        /// ดึงทีมทั้งหมดในระบบ
         /// </summary>
-        /// <param name="leagueId">รหัสลีกที่ต้องการดึงข้อมูล</param>
-        IEnumerable<Team> GetTeamsByLeagueId(string leagueId);
+        IEnumerable<Team> GetTeams();
 
         #endregion Methods
     }

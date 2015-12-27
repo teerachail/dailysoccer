@@ -32,13 +32,11 @@ namespace ApiApp.Repositories
         }
 
         /// <summary>
-        /// ดึงทีมจากรหัสลีก
+        /// ดึงทีมทั้งหมดในระบบ
         /// </summary>
-        /// <param name="leagueId">รหัสลีกที่ต้องการดึงข้อมูล</param>
-        public IEnumerable<Team> GetTeamsByLeagueId(string leagueId)
+        public IEnumerable<Team> GetTeams()
         {
-            // TODO: GetTeamsByLeagueId
-            throw new NotImplementedException();
+            return MongoAccess.MongoUtil.GetTeams();
         }
 
         #endregion IMatchesRepository members
