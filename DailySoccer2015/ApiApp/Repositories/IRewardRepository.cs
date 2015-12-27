@@ -15,9 +15,15 @@ namespace ApiApp.Repositories
         #region Methods
 
         /// <summary>
-        /// ดึงรายการของรางวัลล่าสุด
+        /// ดึงรายการกลุ่มของรางวัล
         /// </summary>
-        IEnumerable<Reward> GetCurrentRewards();
+        /// <returns></returns>
+        IEnumerable<RewardGroup> GetRewardGroups();
+
+        /// <summary>
+        /// ดึงรายการของรางวัล
+        /// </summary>
+        IEnumerable<Reward> GetRewards();
 
         /// <summary>
         /// ดึงรายการของรางวัลและผู้ชนะล่าสุด

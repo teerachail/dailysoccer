@@ -13,16 +13,16 @@ namespace ApiApp.MongoAccess
     {
         private static IMongoClient _client;
         private static IMongoDatabase _database;
-        private static MongoDbHelper<Team> _team = new MongoDbHelper<Team>(_database, "dailysoccer.Teams");
-        private static MongoDbHelper<Match> _match = new MongoDbHelper<Match>(_database, "dailysoccer.Matches");
-        private static MongoDbHelper<League> _league = new MongoDbHelper<League>(_database, "dailysoccer.Leagues");
-        private static MongoDbHelper<Reward> _reward = new MongoDbHelper<Reward>(_database, "dailysoccer.Rewards");
-        private static MongoDbHelper<Winner> _winner = new MongoDbHelper<Winner>(_database, "dailysoccer.Winners");
-        private static MongoDbHelper<Prediction> _prediction = new MongoDbHelper<Prediction>(_database, "dailysoccer.Predictions");
-        private static MongoDbHelper<UserProfile> _userProfile = new MongoDbHelper<UserProfile>(_database, "dailysoccer.UserProfiles");
-        private static MongoDbHelper<RewardGroup> _rewardGroup = new MongoDbHelper<RewardGroup>(_database, "dailysoccer.RewardGroups");
-        private static MongoDbHelper<PendingWinner> _pendingWinner = new MongoDbHelper<PendingWinner>(_database, "dailysoccer.PendingWinners");
-        private static MongoDbHelper<FacebookAccount> _facebookAccount = new MongoDbHelper<FacebookAccount>(_database, "dailysoccer.FacebookAccounts");
+        private static MongoDbHelper<Team> _team;
+        private static MongoDbHelper<Match> _match;
+        private static MongoDbHelper<League> _league;
+        private static MongoDbHelper<Reward> _reward;
+        private static MongoDbHelper<Winner> _winner;
+        private static MongoDbHelper<Prediction> _prediction;
+        private static MongoDbHelper<UserProfile> _userProfile;
+        private static MongoDbHelper<RewardGroup> _rewardGroup;
+        private static MongoDbHelper<PendingWinner> _pendingWinner;
+        private static MongoDbHelper<FacebookAccount> _facebookAccount;
 
         static MongoUtil()
         {
@@ -31,6 +31,34 @@ namespace ApiApp.MongoAccess
 
             var dbName = WebConfigurationManager.AppSettings["databaseName"];
             _database = _client.GetDatabase(dbName);
+
+            _team = new MongoDbHelper<Team>(_database, "dailysoccer.Teams");
+            _match = new MongoDbHelper<Match>(_database, "dailysoccer.Matches");
+            _league = new MongoDbHelper<League>(_database, "dailysoccer.Leagues");
+            _reward = new MongoDbHelper<Reward>(_database, "dailysoccer.Rewards");
+            _winner = new MongoDbHelper<Winner>(_database, "dailysoccer.Winners");
+            _prediction = new MongoDbHelper<Prediction>(_database, "dailysoccer.Predictions");
+            _userProfile = new MongoDbHelper<UserProfile>(_database, "dailysoccer.UserProfiles");
+            _rewardGroup = new MongoDbHelper<RewardGroup>(_database, "dailysoccer.RewardGroups");
+            _pendingWinner = new MongoDbHelper<PendingWinner>(_database, "dailysoccer.PendingWinners");
+            _facebookAccount = new MongoDbHelper<FacebookAccount>(_database, "dailysoccer.FacebookAccounts");
+        }
+
+        /// <summary>
+        /// ดึงรายการกลุ่มของรางวัล
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<RewardGroup> GetRewardGroups()
+        {
+            return _rewardGroup.Read();
+        }
+
+        /// <summary>
+        /// ดึงรายการของรางวัลจากรหัสกลุ่ม
+        /// </summary>
+        public static IEnumerable<Reward> GetRewards()
+        {
+            return _reward.Read();
         }
 
         public static string /*MongoCollection*/ GetCollection(string collectionName)

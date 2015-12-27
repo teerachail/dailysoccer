@@ -15,12 +15,20 @@ namespace ApiApp.Repositories
         #region IRewardRepository members
 
         /// <summary>
-        /// ดึงรายการของรางวัลล่าสุด
+        /// ดึงรายการกลุ่มของรางวัล
         /// </summary>
-        public IEnumerable<Reward> GetCurrentRewards()
+        /// <returns></returns>
+        public IEnumerable<RewardGroup> GetRewardGroups()
         {
-            // TODO: GetCurrentRewards
-            throw new NotImplementedException();
+            return MongoAccess.MongoUtil.GetRewardGroups();
+        }
+
+        /// <summary>
+        /// ดึงรายการของรางวัล
+        /// </summary>
+        public IEnumerable<Reward> GetRewards()
+        {
+            return MongoAccess.MongoUtil.GetRewards();
         }
 
         /// <summary>
