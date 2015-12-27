@@ -82,8 +82,16 @@ namespace ApiApp.Repositories
         /// <param name="verifierCode">รหัสสำหรับตรวจสอบเบอร์โทรศัพท์</param>
         public void SetVerifierPhoneNumber(string userId, string phoneNumber, string verifierCode)
         {
-            // TODO: SetVerifierPhoneNumber
-            throw new NotImplementedException();
+            MongoAccess.MongoUtil.SetVerifierPhoneNumber(userId, phoneNumber, verifierCode);
+        }
+
+        /// <summary>
+        /// รีเซ็ตข้อมูลเบอร์โทรศัพท์ที่เคยยืนยันไว้
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการรีเซ็ต</param>
+        public void ResetVerifiedPhoneNumber(string userId)
+        {
+            MongoAccess.MongoUtil.ResetVerifiedPhoneNumber(userId);
         }
 
         /// <summary>

@@ -92,6 +92,35 @@ namespace ApiApp.MongoAccess
             _userProfile.Update(userProfile.id, it => it.OrderedCoupon, orderedCoupons);
         }
 
+        /// <summary>
+        /// รีเซ็ตข้อมูลเบอร์โทรศัพท์ที่เคยยืนยันไว้
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการรีเซ็ต</param>
+        public static void ResetVerifiedPhoneNumber(string userId)
+        {
+            var userProfile = _userProfile.Read().FirstOrDefault(it => it.id.Equals(userId));
+            if (userProfile == null) return;
+
+            _userProfile.Update(userProfile.id, it => it.PhoneNo, string.Empty);
+            _userProfile.Update(userProfile.id, it => it.VerifierCode, string.Empty);
+            _userProfile.Update(userProfile.id, it => it.VerifiedPhoneDate, null);
+        }
+
+        /// <summary>
+        /// กำหนดรหัสสำหรับตรวจสอบเบอร์โทรศัพท์
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่จะทำการกำหนด</param>
+        /// <param name="phoneNumber">เบอร์โทรศัพท์ที่ใช้ในการยืนยัน</param>
+        /// <param name="verifierCode">รหัสสำหรับตรวจสอบเบอร์โทรศัพท์</param>
+        public static void SetVerifierPhoneNumber(string userId, string phoneNumber, string verifierCode)
+        {
+            var userProfile = _userProfile.Read().FirstOrDefault(it => it.id.Equals(userId));
+            if (userProfile == null) return;
+
+            _userProfile.Update(userProfile.id, it => it.PhoneNo, phoneNumber);
+            _userProfile.Update(userProfile.id, it => it.VerifierCode, verifierCode);
+        }
+
         public static string /*MongoCollection*/ GetCollection(string collectionName)
         {
             //var connectionString = WebConfigurationManager.ConnectionStrings["primaryConnectionString"].ConnectionString;

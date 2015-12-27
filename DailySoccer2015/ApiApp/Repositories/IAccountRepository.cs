@@ -60,6 +60,12 @@ namespace ApiApp.Repositories
         void SetVerifierPhoneNumber(string userId, string phoneNumber, string verifierCode);
 
         /// <summary>
+        /// รีเซ็ตข้อมูลเบอร์โทรศัพท์ที่เคยยืนยันไว้
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการรีเซ็ต</param>
+        void ResetVerifiedPhoneNumber(string userId);
+
+        /// <summary>
         /// กำหนดการยืนยันเบอร์โทรศัพท์เสร็จสิ้น
         /// </summary>
         /// <param name="userId">รหัสบัญชีผู้ใช้ที่จะทำการกำหนด</param>
