@@ -222,5 +222,46 @@ namespace ApiApp.MongoAccess
 
             _userProfile.Update(userId, it => it.FavouriteTeamId, teamId);
         }
+
+        /// <summary>
+        /// กำหนดการทายผลของผู้ใช้
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการกำหนด</param>
+        /// <param name="matchId">รหัสแมช์การแข่งขันที่ผู้ใช้เลือก</param>
+        /// <param name="winnerTeamId">รหัสทีมที่ผู้ใช้เลือก</param>
+        /// <param name="predictionPoints">คะแนนที่ผู้ใช้จะได้ถ้าทายถูก</param>
+        /// <param name="currentTime">วันเวลาที่ทำการบันทึกข้อมูล</param>
+        public static void SetUserPrediction(string userId, string matchId, string winnerTeamId, int predictionPoints, DateTime currentTime)
+        {
+            var predictionId = string.Format("{0}-{1}", userId, matchId);
+            var lastPrediction = _prediction.Read().FirstOrDefault(it => it.id.Equals(predictionId));
+            if (lastPrediction == null)
+            {
+                _prediction.Create(new Prediction
+                {
+                    id = predictionId,
+                    PredictionTeamId = winnerTeamId,
+                    PredictionPoints = predictionPoints,
+                    CreatedDate = currentTime
+                });
+            }
+            else
+            {
+                _prediction.Update(predictionId, it => it.PredictionTeamId, winnerTeamId);
+                _prediction.Update(predictionId, it => it.PredictionPoints, predictionPoints);
+                _prediction.Update(predictionId, it => it.CreatedDate, currentTime);
+            }
+        }
+
+        /// <summary>
+        /// ยกเลิกการทายผลของผู้ใช้
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการกำหนด</param>
+        /// <param name="matchId">รหัสแมช์การแข่งขันที่ผู้ใช้ยกเลิก</param>
+        public static void CancelUserPrediction(string userId, string matchId)
+        {
+            var deleteId = string.Format("{0}-{1}", userId, matchId);
+            _prediction.Delete(it => it.id, deleteId);
+        }
     }
 }

@@ -163,6 +163,7 @@
     <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\LeaguesController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
+    <Compile Include="Controllers\PredictionsController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\RewardsController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Models\PredictionDailySummary.cs" />
     <Compile Include="Models\PredictionInformation.cs" />
     <Compile Include="Models\MyReward.cs" />
+    <Compile Include="Models\PredictionRequest.cs" />
     <Compile Include="Models\RewardGroup.cs" />
     <Compile Include="Models\RewardWinner.cs" />
     <Compile Include="Models\Reward.cs" />

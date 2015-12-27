@@ -24,8 +24,7 @@ namespace ApiApp.Repositories
         /// <param name="currentTime">วันเวลาที่ทำการบันทึกข้อมูล</param>
         public void SetUserPrediction(string userId, string matchId, string winnerTeamId, int predictionPoints, DateTime currentTime)
         {
-            // TODO: SetUserPrediction
-            throw new NotImplementedException();
+            MongoAccess.MongoUtil.SetUserPrediction(userId, matchId, winnerTeamId, predictionPoints, currentTime);
         }
 
         /// <summary>
@@ -35,8 +34,7 @@ namespace ApiApp.Repositories
         /// <param name="matchId">รหัสแมช์การแข่งขันที่ผู้ใช้ยกเลิก</param>
         public void CancelUserPrediction(string userId, string matchId)
         {
-            // TODO: CancelUserPrediction
-            throw new NotImplementedException();
+            MongoAccess.MongoUtil.CancelUserPrediction(userId, matchId);
         }
 
         /// <summary>

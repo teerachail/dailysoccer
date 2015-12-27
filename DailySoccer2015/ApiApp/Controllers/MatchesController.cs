@@ -15,10 +15,12 @@ namespace ApiApp.Controllers
     [RoutePrefix("api/matches")]
     public class MatchesController : ApiController
     {
+        // GET: api/matches/30/12/2015
         /// <summary>
         /// GetAllMatch
         /// </summary>
-        /// <returns></returns>
+        [HttpGet]
+        [Route("{day}")]
         public IEnumerable<MatchInformation> Get(int day)
         {
             var client = new MongoClient("mongodb://MongoLab-4o:UMOcc359jl3WoTatREpo9qAAEGFL87uwoUWVyfusDUk-@ds056288.mongolab.com:56288/MongoLab-4o");
