@@ -15,13 +15,6 @@ namespace ApiApp.Repositories
         #region Methods
 
         /// <summary>
-        /// ดึงการทายผลของผู้ใช้จากวันที่
-        /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึง</param>
-        /// <param name="date">วันที่ที่ต้องการดึงข้อมูล</param>
-        IEnumerable<PredictionInformation> GetUserPredictionsByDate(string userId, DateTime date);
-
-        /// <summary>
         /// กำหนดการทายผลของผู้ใช้
         /// </summary>
         /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการกำหนด</param>

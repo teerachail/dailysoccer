@@ -15,17 +15,6 @@ namespace ApiApp.Repositories
         #region IPredictionRepository members
 
         /// <summary>
-        /// ดึงการทายผลของผู้ใช้จากวันที่
-        /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึง</param>
-        /// <param name="date">วันที่ที่ต้องการดึงข้อมูล</param>
-        public IEnumerable<PredictionInformation> GetUserPredictionsByDate(string userId, DateTime date)
-        {
-            // TODO: GetUserPredictionsByDate
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// กำหนดการทายผลของผู้ใช้
         /// </summary>
         /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการกำหนด</param>

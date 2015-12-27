@@ -9,6 +9,10 @@ using System.Web.Http;
 
 namespace ApiApp.Controllers
 {
+    /// <summary>
+    /// Matches API
+    /// </summary>
+    [RoutePrefix("api/matches")]
     public class MatchesController : ApiController
     {
         /// <summary>
