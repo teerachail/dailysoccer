@@ -16,14 +16,17 @@ namespace ApiApp.Controllers
     public class ProfilesController : ApiController
     {
         private IAccountRepository _accountRepo;
+        private ISMSSender _smsSender;
 
         /// <summary>
         /// Initialize Profiles API
         /// </summary>
         /// <param name="accountRepo">Account repository</param>
-        public ProfilesController(IAccountRepository accountRepo)
+        /// <param name="smsSender">SMS Sender</param>
+        public ProfilesController(IAccountRepository accountRepo, ISMSSender smsSender)
         {
             _accountRepo = accountRepo;
+            _smsSender = smsSender;
         }
 
         // GET: api/Profiles/5
@@ -66,6 +69,7 @@ namespace ApiApp.Controllers
             _accountRepo.ResetVerifiedPhoneNumber(id);
             var verifyCode = Guid.NewGuid().ToString().Replace("-", string.Empty).ToUpper().Substring(0, 7);
             _accountRepo.SetVerifierPhoneNumber(id, phoneNo, verifyCode);
+            _smsSender.Send(phoneNo, verifyCode);
         }
     }
 }
