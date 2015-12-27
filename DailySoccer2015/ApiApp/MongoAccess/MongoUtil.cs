@@ -61,6 +61,14 @@ namespace ApiApp.MongoAccess
             return _reward.Read();
         }
 
+        /// <summary>
+        /// ดึงรายการของรางวัลและผู้ชนะ
+        /// </summary>
+        public static IEnumerable<Winner> GetWinners()
+        {
+            return _winner.Read();
+        }
+
         public static string /*MongoCollection*/ GetCollection(string collectionName)
         {
             //var connectionString = WebConfigurationManager.ConnectionStrings["primaryConnectionString"].ConnectionString;

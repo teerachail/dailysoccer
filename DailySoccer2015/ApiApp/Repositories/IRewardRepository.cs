@@ -26,9 +26,9 @@ namespace ApiApp.Repositories
         IEnumerable<Reward> GetRewards();
 
         /// <summary>
-        /// ดึงรายการของรางวัลและผู้ชนะล่าสุด
+        /// ดึงรายการของรางวัลและผู้ชนะ
         /// </summary>
-        IEnumerable<RewardWinner> GetCurrentWinners();
+        IEnumerable<Winner> GetWinners();
 
         /// <summary>
         /// ดึงของรางวัลที่ผู้ใช้เคยได้

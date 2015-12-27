@@ -32,12 +32,11 @@ namespace ApiApp.Repositories
         }
 
         /// <summary>
-        /// ดึงรายการของรางวัลและผู้ชนะล่าสุด
+        /// ดึงรายการของรางวัลและผู้ชนะ
         /// </summary>
-        public IEnumerable<RewardWinner> GetCurrentWinners()
+        public IEnumerable<Winner> GetWinners()
         {
-            // TODO: GetCurrentWinners
-            throw new NotImplementedException();
+            return MongoAccess.MongoUtil.GetWinners();
         }
 
         /// <summary>

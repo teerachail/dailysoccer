@@ -33,9 +33,37 @@ namespace ApiApp.Controllers
             var lastRewardGroup = _repo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
             if (lastRewardGroup == null) return Enumerable.Empty<Reward>();
 
-            var rewards = _repo.GetRewards()
-                .Where(it => it.RewardGroupId.Equals(lastRewardGroup.id));
+            var rewards = _repo.GetRewards().Where(it => it.RewardGroupId.Equals(lastRewardGroup.id)).ToList();
             return rewards;
+        }
+
+        // GET: api/Rewards/winners
+        [Route("winners")]
+        public IEnumerable<RewardWinner> winners()
+        {
+            var now = DateTime.Now;
+            var lastRewardGroup = _repo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
+            if (lastRewardGroup == null) return Enumerable.Empty<RewardWinner>();
+
+            var lastRewardQry = _repo.GetRewards().Where(it => it.RewardGroupId.Equals(lastRewardGroup.id));
+            if (!lastRewardQry.Any()) return Enumerable.Empty<RewardWinner>();
+
+            var winners = _repo.GetWinners();
+            var rewardWinners = lastRewardQry.Select(reward =>
+            new RewardWinner
+            {
+                id = reward.id,
+                Amount = reward.Amount,
+                Description = reward.Description,
+                ImgPath = reward.ImgPath,
+                ThumbImgPath = reward.ThumbImgPath,
+                OrderedNo = reward.OrderedNo,
+                Price = reward.Price,
+                RewardGroupId = reward.RewardGroupId,
+                Winners = winners.Where(it => it.RewardId == reward.id).Select(it => it.id).ToList()
+            }).ToList();
+
+            return rewardWinners;
         }
 
         // GET: api/Rewards/5
