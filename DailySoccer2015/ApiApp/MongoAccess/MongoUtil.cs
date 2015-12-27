@@ -134,6 +134,15 @@ namespace ApiApp.MongoAccess
             _userProfile.Update(userProfile.id, it => it.VerifiedPhoneDate, completedDate);
         }
 
+        /// <summary>
+        /// สร้างบัญชีผู้ใช้ใหม่
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการสร้าง</param>
+        public static void CreateUserProfile(string userId)
+        {
+            _userProfile.Create(new UserProfile { id = userId });
+        }
+
         public static string /*MongoCollection*/ GetCollection(string collectionName)
         {
             //var connectionString = WebConfigurationManager.ConnectionStrings["primaryConnectionString"].ConnectionString;

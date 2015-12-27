@@ -29,7 +29,7 @@ namespace ApiApp.Controllers
             _smsSender = smsSender;
         }
 
-        // GET: api/Profiles/5
+        // GET: api/profile/5
         /// <summary>
         /// Get user profile by user id
         /// </summary>
@@ -44,7 +44,20 @@ namespace ApiApp.Controllers
             return userProfile;
         }
 
-        // PUT: api/Profiles/0912345678/phoneno
+        // POST api/profile
+        /// <summary>
+        /// Create new guest account
+        /// </summary>
+        [HttpPost]
+        public UserProfile Post()
+        {
+            var userId = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            _accountRepo.CreateUserProfile(userId);
+            var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(userId));
+            return userProfile;
+        }
+
+        // PUT: api/profile/0912345678/phoneno
         /// <summary>
         /// Update phone number
         /// </summary>
@@ -68,7 +81,7 @@ namespace ApiApp.Controllers
             _smsSender.Send(phoneNo, verifyCode);
         }
 
-        // PUT: api/Profiles/0912345678/vericode
+        // PUT: api/profile/0912345678/vericode
         /// <summary>
         /// Request verifyphone number
         /// </summary>
@@ -94,6 +107,7 @@ namespace ApiApp.Controllers
             return new VerificationCodeRespond { IsSuccess = true };
         }
 
+        // แปลงเบอร์โทรศัพท์ให้เป็นหมายเลขประเทศไทย
         private string convertToThailandPhoneNoFormat(string phoneNo)
         {
             const string ReplaceStarterPhoneNumber = "0";

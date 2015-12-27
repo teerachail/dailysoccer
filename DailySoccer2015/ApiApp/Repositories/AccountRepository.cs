@@ -20,8 +20,7 @@ namespace ApiApp.Repositories
         /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการสร้าง</param>
         public void CreateUserProfile(string userId)
         {
-            // TODO: CreateUserProfile
-            throw new NotImplementedException();
+            MongoAccess.MongoUtil.CreateUserProfile(userId);
         }
 
         /// <summary>
