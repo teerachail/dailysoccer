@@ -202,6 +202,14 @@ namespace ApiApp.MongoAccess
             return _team.Read();
         }
 
+        /// <summary>
+        /// ดึงลีกทั้งหมดในระบบ
+        /// </summary>
+        public static IEnumerable<League> GetAllLeagues()
+        {
+            return _league.Read();
+        }
+
         public static string /*MongoCollection*/ GetCollection(string collectionName)
         {
             //var connectionString = WebConfigurationManager.ConnectionStrings["primaryConnectionString"].ConnectionString;

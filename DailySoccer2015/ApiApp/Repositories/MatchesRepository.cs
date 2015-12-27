@@ -27,8 +27,7 @@ namespace ApiApp.Repositories
         /// </summary>
         public IEnumerable<League> GetAllLeagues()
         {
-            // TODO: GetAllLeagues
-            throw new NotImplementedException();
+            return MongoAccess.MongoUtil.GetAllLeagues();
         }
 
         /// <summary>
