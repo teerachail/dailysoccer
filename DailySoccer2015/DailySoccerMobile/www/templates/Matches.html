@@ -1,7 +1,14 @@
 ﻿<ion-view  view-title="DAILY SOCCER">
     <ion-content>
+        <ion-tabs class="tabs-dark tabs-top tabs-main">
+            <ion-tab title="a<br>1"></ion-tab>
+            <ion-tab title="a<br>1"></ion-tab>
+            <ion-tab title="a<br>1"></ion-tab>
+            <ion-tab title="a<br>1"></ion-tab>
+            <ion-tab title="a<br>1"></ion-tab>
+        </ion-tabs>
         <div>
-            <img class="col" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
+            <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
         </div>
         <div class="padding">
             <a ui-sref="app.lists" class="button-small button button-energized row">
@@ -15,34 +22,32 @@
             </a>
         </div>
         <ion-list>
-            <div class="text-center">
-                <ion-item class="row  item item-light">
-                    <div class="col"></div>
-                </ion-item>
-                <div class="item">
-                    <div class="item item-stable">
-                        <div>
-                            <span class="col"></span>
+            <div ng-repeat="item in cx.data" class="text-center">
+                <div class="item match">
+                        <div class="match-status">
+                            <span class="col">{{item.Status}}</span>
                         </div>
                         <div class="row">
-                            <div class="col "></div>
-                            <div class="col ">
-                                <span></span>
+                            <div class="col">{{item.TeamHomeName}}</div>
+                            <div class="col">
+                                <span>{{item.TeamHomeScore}} - {{item.TeamAwayScore}}</span>
                             </div>
-                            <div class="col "></div>
+                            <div class="col">{{item.TeamAwayName}}</div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <button class="button button-full" ng-class="{'button-balanced': match.IsSelectedHome ,'button-royal': !match.IsSelectedHome  }" style="line-height:20px;">Home<br />{{match.TeamHomePoint}}</button>
+                                <button class="button button-dark col">{{item.TeamHomePoint}}<span class="prediction-point">{{item.PredictionPoints}}'</span></button>
+                                <small>Home</small>
                             </div>
                             <div class="col">
-                                <button class="button button-full" ng-class="{'button-balanced': match.IsSelectedDraw ,'button-royal': !match.IsSelectedDraw }" style="line-height:20px;">Draw<br />{{match.DrawPoint}}</button>
+                                <button class="button button-dark col">{{item.DrawPoint}}<span class="prediction-point">{{item.PredictionPoints}}'</span></button>
+                                <small>Draw</small>
                             </div>
                             <div class="col">
-                                <button class="button button-full " ng-class="{'button-balanced': match.IsSelectedAway ,'button-royal': !match.IsSelectedAway }" style="line-height:20px;">Away<br />{{match.TeamAwayPoint}}</button>
+                                <button class="button button-dark col">{{item.TeamAwayPoint}}<span class="prediction-point">{{item.PredictionPoints}}'</span></button>
+                                <small>Away</small>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </ion-list>

@@ -33,145 +33,100 @@
             .state('app', {
              url: '/app',
              abstract: true,
-             templateUrl: 'templates/SideMenu.html',
-             //controller: 'app.shared.SimpleDataController as cx',
-             //resolve: {
-             //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-             //}
-
+             templateUrl: 'templates/SideMenu.html'
             })
             .state('app.matches', {
-                url: '/matches',                
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/Matches.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/matches',                
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/Matches.html',
+                     controller: 'app.match.PredictionController as cx',
+                     resolve: {
+                         "data": ["app.shared.MatchService", svc => { return svc.getAll(); }]
+                     }
+                 }
+             },
 
             })
             .state('app.lists', {
-                url: '/lists',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/Rewards.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/lists',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/Rewards.html'
+                 }
+             }
             })
             .state('app.winners', {
-                url: '/winners',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/Winners.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/winners',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/Winners.html'
+                 }
+             }
             })
             .state('app.myrewards', {
-                url: '/myrewards',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/MyRewards.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/myrewards',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/MyRewards.html'
+                 }
+             }
             })
             .state('app.buy', {
-                url: '/buy',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/BuyCoupon.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/buy',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/BuyCoupon.html'
+                 }
+             }
             })
             .state('app.processing', {
-                url: '/processing',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/BuyCouponProcessing.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/processing',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/BuyCouponProcessing.html'
+                 }
+             }
             })
             .state('app.phone', {
-                url: '/phone',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/VerifyPhone.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/phone',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/VerifyPhone.html'
+                 }
+             }
             })
             .state('app.verifycode', {
-                url: '/verifycode',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/VerifyCode.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/verifycode',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/VerifyCode.html'
+                 }
+             }
             })
             .state('app.summary', {
-                url: '/summary',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/YearlyHistory.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/summary',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/YearlyHistory.html'
+                 }
+             }
             })
             .state('app.monthly', {
-                url: '/monthly',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/MonthlyHistory.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/monthly',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/MonthlyHistory.html'
+                 }
+             }
             })
             .state('app.underconstruction', {
-                url: '/underconstruction',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/UnderConstruction.html'
-                    }
-                }
-                //controller: 'app.shared.SimpleDataController as cx',
-                //resolve: {
-                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-                //}
+             url: '/underconstruction',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/UnderConstruction.html'
+                 }
+             }
             })
         ;
 
