@@ -1,20 +1,14 @@
 ﻿module app.match {
 	'use strict';
 
-	class MyController {
-
-		//public model: any = null;
-
-		static $inject = ['$scope'];
-		constructor(private $scope: ng.IScope) {
-		}
-
-		// public myMethod(): void {
-		// }
-
-	}
-
+    class PredictionController {
+        static $inject = ['data'];
+        constructor(public data) {
+        }
+    }
+   
 	angular
 		.module('app.match')
-		.controller('app.match.MyController', MyController);
+        .controller('app.match.PredictionController', PredictionController);
+
 }
