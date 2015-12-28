@@ -52,7 +52,11 @@
              url: '/lists',
              views: {
                  'menuContent': {
-                     templateUrl: 'templates/Rewards.html'
+                     templateUrl: 'templates/Rewards.html',
+                     controller: 'app.reward.RewardsController as cx',
+                     resolve: {
+                         "data": ["app.shared.RewardsService", svc => { return svc.getAll(); }]
+                     }
                  }
              }
             })
