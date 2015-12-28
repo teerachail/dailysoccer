@@ -29,18 +29,23 @@ namespace ApiApp.Controllers
 
         // GET: api/matches/30/12/2015
         /// <summary>
-        /// GetAllMatch
+        /// Get match by date
         /// </summary>
+        /// <param name="day">Filter by day</param>
+        /// <param name="month">Filter by month</param>
+        /// <param name="year">Filter by year</param>
+        /// <returns></returns>
         [HttpGet]
-        [Route("{date}")]
-        public IEnumerable<MatchInformation> Get(DateTime date)
+        [Route("{day}/{month}/{year}")]
+        public IEnumerable<MatchInformation> Get(int day, int month, int year)
         {
             var matches = _repo.GetMatches();
             var teams = _repo.GetTeams();
             var leagues = _repo.GetAllLeagues();
 
+            var selectedDate = new DateTime(year, month, day);
             
-            var selectedMatch = from match in matches.Where(it => it.BeginDate == date)
+            var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate)
                                 let teamHomeName = teams.First(team => team.id == match.TeamHomeId).Name
                                 let teamAwayName = teams.First(team => team.id == match.TeamAwayId).Name
                                 let leagueName = leagues.First(league => league.id == match.LeagueId).Name
