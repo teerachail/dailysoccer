@@ -1,0 +1,50 @@
+﻿<ion-view  view-title="DAILY SOCCER">
+    <ion-content>
+        <div>
+            <img class="col" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
+        </div>
+        <div class="padding">
+            <a menu-close ui-sref="app.lists" class="button-small button button-energized row">
+                <div class="col col-10 col-center">
+                    <i class="icon ion-star">
+                    </i>
+                </div>
+                <span class="col col-center text-left font-large">
+                    แต้มสะสม 7000
+                </span>
+            </a>
+        </div>
+        <ion-list>
+            <div class="text-center">
+                <ion-item class="row  item item-light">
+                    <div class="col"></div>
+                </ion-item>
+                <div class="item">
+                    <div class="item item-stable">
+                        <div>
+                            <span class="col"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col "></div>
+                            <div class="col ">
+                                <span></span>
+                            </div>
+                            <div class="col "></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="button button-full" ng-class="{'button-balanced': match.IsSelectedHome ,'button-royal': !match.IsSelectedHome  }" style="line-height:20px;">Home<br />{{match.TeamHomePoint}}</button>
+                            </div>
+                            <div class="col">
+                                <button class="button button-full" ng-class="{'button-balanced': match.IsSelectedDraw ,'button-royal': !match.IsSelectedDraw }" style="line-height:20px;">Draw<br />{{match.DrawPoint}}</button>
+                            </div>
+                            <div class="col">
+                                <button class="button button-full " ng-class="{'button-balanced': match.IsSelectedAway ,'button-royal': !match.IsSelectedAway }" style="line-height:20px;">Away<br />{{match.TeamAwayPoint}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

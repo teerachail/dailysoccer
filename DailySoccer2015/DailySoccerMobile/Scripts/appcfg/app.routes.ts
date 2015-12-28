@@ -29,8 +29,154 @@
 		//             return defer.promise;
 		//         }]
 		//     }
-		});
+        })
+            .state('app', {
+             url: '/app',
+             abstract: true,
+             templateUrl: 'templates/SideMenu.html',
+             //controller: 'app.shared.SimpleDataController as cx',
+             //resolve: {
+             //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+             //}
 
-		$urlRouterProvider.otherwise('/sample');
+            })
+            .state('app.matches', {
+                url: '/matches',                
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/Matches.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+
+            })
+            .state('app.lists', {
+                url: '/lists',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/Rewards.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+            .state('app.winners', {
+                url: '/winners',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/Winners.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+            .state('app.myrewards', {
+                url: '/myrewards',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/MyRewards.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+            .state('app.buy', {
+                url: '/buy',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/BuyCoupon.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+            .state('app.processing', {
+                url: '/processing',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/BuyCouponProcessing.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+            .state('app.phone', {
+                url: '/phone',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/VerifyPhone.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+            .state('app.verifycode', {
+                url: '/verifycode',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/VerifyCode.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+            .state('app.summary', {
+                url: '/summary',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/YearlyHistory.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+            .state('app.monthly', {
+                url: '/monthly',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/MonthlyHistory.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+            .state('app.underconstruction', {
+                url: '/underconstruction',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/UnderConstruction.html'
+                    }
+                }
+                //controller: 'app.shared.SimpleDataController as cx',
+                //resolve: {
+                //    "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
+                //}
+            })
+        ;
+
+
+
+        $urlRouterProvider.otherwise('/app/matches');
 	}
 }
