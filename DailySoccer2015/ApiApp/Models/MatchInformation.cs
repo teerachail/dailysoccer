@@ -93,6 +93,48 @@ namespace ApiApp.Models
         /// </summary>
         public int DrawPoints { get; set; }
 
+        /// <summary>
+        /// ผลการแข่งทีมเหย้าชนะ
+        /// </summary>
+        public bool IsTeamHomeWin { get
+            {
+                if (CompletedDate.HasValue)
+                {
+                    return TeamHomeScore > TeamAwayScore;
+                }
+                return false;
+            }}
+
+        /// <summary>
+        /// ผลการแข่งทีมเยือนชนะ
+        /// </summary>
+        public bool IsTeamAwayWin
+        {
+            get
+            {
+                if (CompletedDate.HasValue)
+                {
+                    return TeamAwayScore > TeamHomeScore;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// ผลการแข่งเสมอ
+        /// </summary>
+        public bool IsGameDraw
+        {
+            get
+            {
+                if (CompletedDate.HasValue)
+                {
+                    return TeamAwayScore == TeamHomeScore;
+                }
+                return false;
+            }
+        }
+
         #endregion Properties
     }
 }

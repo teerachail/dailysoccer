@@ -33,6 +33,11 @@ namespace ApiApp.Models
         /// </summary>
         public bool IsPredictionDraw { get; set; }
 
+        /// <summary>
+        /// คะแนนที่จะได้ถ้าทายถูก
+        /// </summary>
+        public int PredictionPoints { get; set; }
+
         #endregion Properties
     }
 }

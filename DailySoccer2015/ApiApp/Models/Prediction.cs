@@ -26,6 +26,11 @@ namespace ApiApp.Models
         public string PredictionTeamId { get; set; }
 
         /// <summary>
+        /// รหัสแมทช์ที่ทาย
+        /// </summary>
+        public string MatchId { get; set; }
+
+        /// <summary>
         /// วันเวลาที่แมทช์ที่ทายผลนี้จบ
         /// </summary>
         public DateTime? CompletedDate { get; set; }

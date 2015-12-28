@@ -29,18 +29,36 @@ namespace ApiApp.Controllers
             _predictionRepo = predictionRepo;
         }
 
-        // GET: api/prediction/{user-id}/{day}
+        // GET: api/prediction/{user-id}/30/12/2015
         /// <summary>
-        /// Get user's predictions by day
+        /// 
         /// </summary>
-        /// <param name="id">USer id</param>
+        /// <param name="id">User Id</param>
         /// <param name="day">Filter by day</param>
+        /// <param name="month">Filter by month</param>
+        /// <param name="year">Filter by year</param>
+        /// <returns>Predictions data</returns>
         [HttpGet]
-        [Route("{id}/{day}")]
-        public string Get(string id, int day)
+        [Route("{id}/{day}/{month}/{year}")]
+        public IEnumerable<PredictionInformation> Get(string id, int day, int month, int year)
         {
-            // TODO: GET user's predictions
-            throw new NotImplementedException();
+            var selectedDate = new DateTime(year, month, day);
+            var prediction = _predictionRepo.GetUserPredictions();
+            var match = _matchesRepo.GetMatches();
+            var selectedPredictions = from predict in prediction.Where(it => it.CreatedDate == selectedDate)
+                                      let selectedMatch = match.First(it => it.id == predict.MatchId)
+                                      let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
+                                      let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
+                                      let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
+                                      select new PredictionInformation
+                                      {
+                                           MatchId = predict.MatchId,
+                                           IsPredictionTeamHome = isPredictTeamHome,
+                                           IsPredictionTeamAway = isPredictTeamAway,
+                                           IsPredictionDraw = isPredictDraw,
+                                           PredictionPoints = predict.PredictionPoints
+                                      };
+            return selectedPredictions;
         }
 
         // PUT: api/prediction/{user-id}
