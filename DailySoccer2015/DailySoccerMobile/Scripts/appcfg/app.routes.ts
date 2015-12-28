@@ -97,10 +97,14 @@
              }
             })
             .state('app.verifycode', {
-             url: '/verifycode',
+             url: '/verifycode/:phoneNo',
              views: {
                  'menuContent': {
-                     templateUrl: 'templates/VerifyCode.html'
+                     templateUrl: 'templates/VerifyCode.html',
+                     controller: 'app.account.VerifySecretCodeController as cx',
+                     resolve: {
+                         "phoneNo": ["$stateParams", stateParams=> { return stateParams.phoneNo; }]
+                     }
                  }
              }
             })

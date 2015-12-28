@@ -1,21 +1,21 @@
 ﻿<ion-view view-title="DAILY SOCCER">
     <ion-content class="verify-phone-number">
-        <ion-item class="item item-royal ">
+        <ion-item class="item item-royal">
             <form class="text-center">
-                <span class="col row ">
+                <span class="col row">
                     ยืนยันเบอร์โทร
                 </span>
-                <div class=" margin-bottom col row ">
+                <div class="margin-bottom col row">
                     <p>
                         <span class="text-white col col-67 block-center no-padding text-left">กรอกเบอร์โทร</span>
                         <br />
-                        <input type="tel" class=" col col-67 input-number block-center no-padding"/>
+                        <input type="tel" ng-model="phoneNo" ng-minlength="12" ng-maxlength="12" ng-pattern="/\d{3}-\d{3}-\d{4}/" placeholder="xxx-xxx-xxxx" class="col col-67 input-number block-center no-padding"/>
                     </p>
                 </div>
                 <div class="col col-67 block-center row">
-                    <div class="button button-balanced col col-50 col-offset-50 button-small" ui-sref="app.verifycode">
+                    <button type="button" class="button button-balanced col col-50 col-offset-50 button-small" ng-disabled="!phoneNo.length" ui-sref="app.verifycode({ phoneNo: phoneNo })">
                         รับรหัสผ่าน
-                    </div>
+                    </button>
                 </div>
             </form>
         </ion-item>
@@ -27,7 +27,5 @@
                 </i>
             </span>
         </div>
-
-
     </ion-content>
 </ion-view>
