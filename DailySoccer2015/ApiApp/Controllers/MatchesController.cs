@@ -1,4 +1,5 @@
 ﻿using ApiApp.Models;
+using ApiApp.Repositories;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -15,42 +16,55 @@ namespace ApiApp.Controllers
     [RoutePrefix("api/matches")]
     public class MatchesController : ApiController
     {
+        private IMatchesRepository _repo;
+
+        /// <summary>
+        /// Initialize Leagues API
+        /// </summary>
+        /// <param name="repo">Matches repository</param>
+        public MatchesController(IMatchesRepository repo)
+        {
+            _repo = repo;
+        }
+
         // GET: api/matches/30/12/2015
         /// <summary>
         /// GetAllMatch
         /// </summary>
         [HttpGet]
-        [Route("{day}")]
-        public IEnumerable<MatchInformation> Get(int day)
+        [Route("{date}")]
+        public IEnumerable<MatchInformation> Get(DateTime date)
         {
-            var client = new MongoClient("mongodb://MongoLab-4o:UMOcc359jl3WoTatREpo9qAAEGFL87uwoUWVyfusDUk-@ds056288.mongolab.com:56288/MongoLab-4o");
-            var database = client.GetDatabase("MongoLab-4o");
+            var matches = _repo.GetMatches();
+            var teams = _repo.GetTeams();
+            var leagues = _repo.GetAllLeagues();
 
-            var matchCollection = database.GetCollection<Match>("xdailysoccer.match");
-            var teamCollection = database.GetCollection<Team>("xdailysoccer.team");           
-
-            var matches = matchCollection.Find(it => true).ToList();
-            var teams = teamCollection.Find(it => true).ToList();
-
-            var currentDay = DateTime.Now;
-            var selectedMatch = from match in matches.Where(it => it.BeginDate.Day == day && it.BeginDate.Year == currentDay.Year)
+            
+            var selectedMatch = from match in matches.Where(it => it.BeginDate == date)
                                 let teamHomeName = teams.First(team => team.id == match.TeamHomeId).Name
                                 let teamAwayName = teams.First(team => team.id == match.TeamAwayId).Name
+                                let leagueName = leagues.First(league => league.id == match.LeagueId).Name
                                 select new MatchInformation
                                 {
+                                     Id = match.id,
+                                     TeamHomeId = match.TeamHomeId,
                                      TeamHomeName = teamHomeName,
-                                     TeamAwayName = teamAwayName,
                                      TeamHomePoint = match.TeamHomePoint,
-                                     TeamAwayPoint = match.TeamAwayPoint,
                                      TeamHomeScore = match.TeamHomeScore,
+                                     TeamAwayId = match.TeamAwayId,
+                                     TeamAwayName = teamAwayName,
+                                     TeamAwayPoint = match.TeamAwayPoint,
                                      TeamAwayScore = match.TeamAwayScore,
+                                     DrawPoints = match.DrawPoints,
                                      BeginDate = match.BeginDate,
+                                     Status = match.Status,
                                      StartedDate = match.StartedDate,
                                      CompletedDate = match.CompletedDate,
-                                     LeagueId = match.LeagueId
+                                     LeagueId = match.LeagueId,
+                                     LeagueName = leagueName
                                 };
 
-            return selectedMatch.ToList();
+            return selectedMatch;
         }
     }
 }

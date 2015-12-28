@@ -79,6 +79,11 @@ namespace ApiApp.Models
         public string LeagueId { get; set; }
 
         /// <summary>
+        /// ชื่อลีค
+        /// </summary>
+        public string LeagueName { get; set; }
+
+        /// <summary>
         /// สถานะแมทช์
         /// </summary>
         public string Status { get; set; }
