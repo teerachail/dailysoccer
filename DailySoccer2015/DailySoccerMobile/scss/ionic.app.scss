@@ -100,6 +100,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     border: 0px solid #f5f5f5;
     border-radius: 50%;
     background: $energized;
+    font-weight:bold;
 }
 .match-name{
     .team-name{
@@ -113,4 +114,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .button .icon {
     vertical-align: middle;
     pointer-events: none;
+}
+.trophy{
+    border-color: transparent;
+    background-color: initial;
+    position:relative;
+    margin: 0;
+    min-height: 47px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 42px;
+    z-index: 1;
+    padding: 0 8px;
+    min-width: initial;
+    min-height: 31px;
+    line-height: 32px;
 }
