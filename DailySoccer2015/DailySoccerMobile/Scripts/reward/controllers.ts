@@ -1,12 +1,12 @@
 ﻿module app.reward {
 	'use strict';
 
-	class MyController {
+	class RewardsController {
 
 		//public model: any = null;
 
-		static $inject = ['$scope'];
-		constructor(private $scope: ng.IScope) {
+        static $inject = ['data'];
+        constructor(public data) {
 		}
 
 		// public myMethod(): void {
@@ -16,5 +16,5 @@
 
 	angular
 		.module('app.reward')
-		.controller('app.reward.MyController', MyController);
+        .controller('app.reward.RewardsController', RewardsController);
 }
