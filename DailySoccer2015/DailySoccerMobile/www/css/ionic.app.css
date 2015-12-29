@@ -9809,3 +9809,7 @@ a.button {
   min-width: initial;
   min-height: 31px;
   line-height: 32px; }
+
+.league {
+  line-height: 30px;
+  position: relative; }
