@@ -21,13 +21,17 @@
             var isRequestValid = buyAmount >= MinimumBuyAmount && buyAmount <= this.buySvc.BuyingPower;
             if (!isRequestValid) return;
 
+            this.buySvc.RequestBuyAmount = buyAmount;
             this.$state.go("app.processing");
         }
     }
 
     class BuyCouponProcessingController {
-        static $inject = ['$scope', '$timeout', '$ionicModal', '$state', 'app.reward.BuyCouponDataService', 'app.shared.UserProfileService'];
-        constructor(private $scope, private $timeout: ng.ITimeoutService, private $ionicModal, private $state: angular.ui.IStateService, private buySvc: app.reward.BuyCouponDataService, private userprofileSvc: app.shared.UserProfileService) {
+
+        private buyCouponResult: BuyCouponRespond;
+
+        static $inject = ['$scope', '$timeout', '$ionicModal', '$state', 'app.reward.BuyCouponDataService', 'app.shared.UserProfileService', 'app.reward.BuyCouponService'];
+        constructor(private $scope, private $timeout: ng.ITimeoutService, private $ionicModal, private $state: angular.ui.IStateService, private couponDataSvc: app.reward.BuyCouponDataService, private userprofileSvc: app.shared.UserProfileService, private buySvc: app.reward.BuyCouponService) {
             this.$ionicModal.fromTemplateUrl('templates/Facebook.html',
                 {
                     scope: $scope,
@@ -49,6 +53,12 @@
         }
 
         private validateUserProfile(): void {
+
+            if (this.couponDataSvc.IsBuyingCompleted) {
+                this.gobackToBuyCouponPage();
+                return;
+            }
+
             if (!this.checkPreparingPopups()) return;
 
             if (!this.checkFacebookAuthentication()) return;
@@ -56,6 +66,8 @@
 
             if (!this.checkPhoneVerification()) return;
             else console.log('Phone number verified');
+
+            this.buyCoupons();
         }
         private checkPreparingPopups(): boolean {
             var isSetupCompleted = this.$scope.FacebookPopup != null
@@ -70,7 +82,7 @@
         private checkFacebookAuthentication(): boolean {
             var userprofile = this.userprofileSvc.GetUserProfile();
             if (!userprofile.IsVerifiedFacebook) {
-                if (this.buySvc.CheckFirstTimeForRequestFacebookLogin()) this.$scope.FacebookPopup.show();
+                if (this.couponDataSvc.CheckFirstTimeForRequestFacebookLogin()) this.$scope.FacebookPopup.show();
                 else this.gobackToBuyCouponPage();
             }
             return userprofile.IsVerifiedFacebook;
@@ -80,13 +92,29 @@
             var userprofile = this.userprofileSvc.GetUserProfile();
             var isPhoneNumberVerified = userprofile.VerifiedPhoneNumber != null;
             if (!isPhoneNumberVerified) {
-                if (this.buySvc.CheckFirstTimeForRequestPhoneVerification()) this.$state.go('app.phone');
+                if (this.couponDataSvc.CheckFirstTimeForRequestPhoneVerification()) this.$state.go('app.phone');
                 else this.gobackToBuyCouponPage();
             }
             return isPhoneNumberVerified;
         }
+        private buyCoupons(): void {
+            this.couponDataSvc.SendPurchaseOrderCompleted();
+            var userprofile = this.userprofileSvc.GetUserProfile();
+            var body = new BuyCouponRequest();
+            body.UserId = userprofile.UserId;
+            body.BuyAmount = this.couponDataSvc.RequestBuyAmount;
+            this.buySvc.BuyCoupon(body)
+                .then((respond: BuyCouponRespond) => {
+                    this.buyCouponResult = respond;
+                    if (respond.IsSuccess) this.$scope.CompletedPopup.show();
+                    else {
+                        // HACK: Show the error message
+                        alert('Buy failed: ' + respond.ErrorMessage);
+                    }
+                });
+        }
         private gobackToBuyCouponPage(): void {
-            this.buySvc.ResetAllRequests();
+            this.couponDataSvc.ResetAllRequests();
             this.$state.go('app.buy');
         }
     }

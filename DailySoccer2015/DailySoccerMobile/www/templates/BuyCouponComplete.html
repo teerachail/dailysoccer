@@ -4,10 +4,10 @@
             คุณเหลือแต้มที่ใช้ได้
         </p>
         <p class="font-large">
-            10 แต้ม
+            {{ cx.couponDataSvc.RemainingPoints }} แต้ม
         </p>
         <br />
-        <p>รอประกาศผลรายชื่อผู้โชคดี <br /> ในวันที่  <br /> ขอบพระคุณที่ร่วมสนุกกับเรา</p>
+        <p>รอประกาศผลรายชื่อผู้โชคดี <br /> ในวันที่  {{ cx.buyCouponResult.AnnounceableDate | date : dd/MM/yyyy }}<br /> ขอบพระคุณที่ร่วมสนุกกับเรา</p>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-balanced">
         <h1 class="title text-right">
