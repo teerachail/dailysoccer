@@ -82,10 +82,46 @@
         }
     }
 
+    export class WinnersRewardService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-winnersReward", $resource);
+        }
+    }
+
+    export class WinnersListService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-winnersList", $resource);
+        }
+    }
+
+    export class MyRewardsService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-myReward", $resource);
+        }
+    }
+
+    export class MyOldRewardsService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-myOldReward", $resource);
+        }
+    }
+
 	angular
 		.module('app.shared')
         .service('app.shared.MatchService', MatchService)
         .service('app.shared.RewardsService', RewardsService)
+        .service('app.shared.WinnersRewardService', WinnersRewardService)
+        .service('app.shared.WinnersListService', WinnersListService)
+        .service('app.shared.MyRewardsService', MyRewardsService)
+        .service('app.shared.MyOldRewardsService', MyOldRewardsService)
         .service('app.shared.SampleDataService', SampleDataService)
         .service('app.shared.SampleUrlDataService', SampleUrlDataService)
         .service('app.shared.MockTableDataServiceBase', MockTableDataServiceBase);
