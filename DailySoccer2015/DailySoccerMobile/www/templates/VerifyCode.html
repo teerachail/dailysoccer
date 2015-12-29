@@ -1,0 +1,39 @@
+﻿<ion-view view-title="DAILY SOCCER">
+    <ion-content>
+        <ion-item class="item item-royal">
+            <div class="padding col row">
+                <span class="">
+                    <i>
+                        เบอร์รโทรศัพท์ของคุณ
+                    </i>
+                    <br />
+                    <i class="font-large">
+                        {{ cx.phoneNo }}
+                    </i>
+                </span>
+            </div>
+            <br />
+            <div class="col block-center row text-center">
+                <d class="button button-balanced col col-50 button-small block-center" ng-click="cx.ResendSMS()">
+                    ขอรหัสใหม่อีกครั้ง
+                </d>
+            </div>
+        </ion-item>
+        <br />
+        <form class="text-center">
+            <p class="col row row">
+                <b>รหัสยืนยัน</b>
+            </p>
+            <div class="col row">
+                <p>
+                    <input ng-model="verificationCode" type="text" class="col col-50 input-number block-center no-padding"/>
+                </p>
+            </div>
+            <div class="col row">
+                <div class="button button-energized col col-50 button-small block-center" ng-click="cx.SendVerificationCode(verificationCode)">
+                    ยืนยันรหัส
+                </div>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

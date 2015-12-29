@@ -29,8 +29,113 @@
 		//             return defer.promise;
 		//         }]
 		//     }
-		});
+        })
+            .state('app', {
+             url: '/app',
+             abstract: true,
+             templateUrl: 'templates/SideMenu.html'
+            })
+            .state('app.matches', {
+             url: '/matches',                
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/Matches.html',
+                     controller: 'app.match.PredictionController as cx',
+                     resolve: {
+                         "data": ["app.shared.MatchService", svc => { return svc.getAll(); }]
+                     }
+                 }
+             },
 
-		$urlRouterProvider.otherwise('/sample');
+            })
+            .state('app.lists', {
+             url: '/lists',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/Rewards.html'
+                 }
+             }
+            })
+            .state('app.winners', {
+             url: '/winners',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/Winners.html'
+                 }
+             }
+            })
+            .state('app.myrewards', {
+             url: '/myrewards',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/MyRewards.html'
+                 }
+             }
+            })
+            .state('app.buy', {
+             url: '/buy',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/BuyCoupon.html'
+                 }
+             }
+            })
+            .state('app.processing', {
+             url: '/processing',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/BuyCouponProcessing.html'
+                 }
+             }
+            })
+            .state('app.phone', {
+             url: '/phone',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/VerifyPhone.html'
+                 }
+             }
+            })
+            .state('app.verifycode', {
+             url: '/verifycode/:phoneNo',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/VerifyCode.html',
+                     controller: 'app.account.VerifySecretCodeController as cx',
+                     resolve: {
+                         "phoneNo": ["$stateParams", stateParams=> { return stateParams.phoneNo; }]
+                     }
+                 }
+             }
+            })
+            .state('app.summary', {
+             url: '/summary',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/YearlyHistory.html'
+                 }
+             }
+            })
+            .state('app.monthly', {
+             url: '/monthly',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/MonthlyHistory.html'
+                 }
+             }
+            })
+            .state('app.underconstruction', {
+             url: '/underconstruction',
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/UnderConstruction.html'
+                 }
+             }
+            })
+        ;
+
+
+
+        $urlRouterProvider.otherwise('/app/matches');
 	}
 }

@@ -1,0 +1,55 @@
+﻿<ion-view  view-title="DAILY SOCCER">
+    <ion-content>
+        <ion-tabs class="tabs-dark tabs-top tabs-main">
+            <ion-tab title="a<br>1"></ion-tab>
+            <ion-tab title="a<br>1"></ion-tab>
+            <ion-tab title="a<br>1"></ion-tab>
+            <ion-tab title="a<br>1"></ion-tab>
+            <ion-tab title="a<br>1"></ion-tab>
+        </ion-tabs>
+        <div>
+            <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
+        </div>
+        <div class="padding">
+            <a ui-sref="app.lists" class="button-small button button-energized row">
+                <div class="col col-10 col-center">
+                    <i class="icon ion-star">
+                    </i>
+                </div>
+                <span class="col col-center text-left font-large">
+                    แต้มสะสม 7000
+                </span>
+            </a>
+        </div>
+        <ion-list>
+            <div ng-repeat="item in cx.data" class="text-center">
+                <div class="item match">
+                        <div class="match-status">
+                            <span class="col">{{item.Status}}</span>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{item.TeamHomeName}}</div>
+                            <div class="col">
+                                <span>{{item.TeamHomeScore}} - {{item.TeamAwayScore}}</span>
+                            </div>
+                            <div class="col">{{item.TeamAwayName}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="button button-dark col">{{item.TeamHomePoint}}<span class="prediction-point">{{item.PredictionPoints}}'</span></button>
+                                <small>Home</small>
+                            </div>
+                            <div class="col">
+                                <button class="button button-dark col">{{item.DrawPoint}}<span class="prediction-point">{{item.PredictionPoints}}'</span></button>
+                                <small>Draw</small>
+                            </div>
+                            <div class="col">
+                                <button class="button button-dark col">{{item.TeamAwayPoint}}<span class="prediction-point">{{item.PredictionPoints}}'</span></button>
+                                <small>Away</small>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>
