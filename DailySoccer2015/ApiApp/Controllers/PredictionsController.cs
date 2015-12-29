@@ -45,14 +45,19 @@ namespace ApiApp.Controllers
             var selectedDate = new DateTime(year, month, day);
             var prediction = _predictionRepo.GetUserPredictions();
             var match = _matchesRepo.GetMatches();
-            var selectedPredictions = from predict in prediction.Where(it => it.CreatedDate == selectedDate)
-                                      let selectedMatch = match.First(it => it.id == predict.MatchId)
+
+            var splitSeparetor = '-';
+            var userIdPosition = 0;
+            var matchIdPosition = 1;
+            var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate)
+                                      let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
+                                      let selectedMatch = match.First(it => it.id == matchId)
                                       let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
                                       let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
                                       let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
                                       select new PredictionInformation
                                       {
-                                           MatchId = predict.MatchId,
+                                           MatchId = matchId,
                                            IsPredictionTeamHome = isPredictTeamHome,
                                            IsPredictionTeamAway = isPredictTeamAway,
                                            IsPredictionDraw = isPredictDraw,
