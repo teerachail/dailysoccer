@@ -1,9 +1,34 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <div>Content goes here.</div>
-</body>
-</html>
+﻿<ion-view view-title="DAILY SOCCER">
+    <ion-content>
+        <br />
+        <div class="col col-80 col-offset-10">
+            <p>
+                แต้มสะสมทั้งหมด 0 คะแนน
+            </p>
+            <p>
+                แลกคูปองได้สูงสุด 0 ใบ
+            </p>
+        </div>
+        <br />
+        <form class="text-center">
+            <p class="col row row ">
+                <b>ซื้อคูปอง จำนวน</b>
+            </p>
+            <div class="col row">
+                <p>
+                    <input type="number" class="col col-50 input-number block-center text-center" />
+                </p>
+            </div>
+            <div class="col row">
+                <div class="button button-energized col col-50 button-small block-center" ui-sref="app.processing">
+                    ส่งคูปองลุ้นรางวัล
+                </div>
+            </div>
+            <div class="col row">
+                <button ng-click="FacebookPopup.show()">Facebook</button>
+                <button ng-click="TiePopup.show()">Tie</button>
+                <button ng-click="CompletedPopup.show()">BuyCouponCompleted</button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

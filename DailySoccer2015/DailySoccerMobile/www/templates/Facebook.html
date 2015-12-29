@@ -1,9 +1,17 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <div>Content goes here.</div>
-</body>
-</html>
+﻿<ion-modal-view class="scroll-middle">
+    <ion-content>
+        <div class="text-center ">
+            <h5>กรุณาลงทะเบียนก่อนร่วมกิจกรรมลุ้นรางวัล</h5>
+        </div>
+        <div class="row row-center">
+            <div class="col col-center">
+                <div class="padding-bottom">
+                    <a class="button button-small block-center col button-calm" ng-click="TiePopup.show()">ลงทะเบียนผ่าน Facebook</a>
+                </div>
+                <div>
+                    <button class="button button-small block-center col button-royal" ng-click="FacebookPopup.hide()">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

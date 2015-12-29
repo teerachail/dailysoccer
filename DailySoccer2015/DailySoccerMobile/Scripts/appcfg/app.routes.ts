@@ -80,7 +80,8 @@
              url: '/buy',
              views: {
                  'menuContent': {
-                     templateUrl: 'templates/BuyCoupon.html'
+                     templateUrl: 'templates/BuyCoupon.html',
+                     controller: 'app.reward.BuyCouponController as cx'
                  }
              }
             })

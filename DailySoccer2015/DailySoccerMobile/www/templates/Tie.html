@@ -1,9 +1,41 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <div>Content goes here.</div>
-</body>
-</html>
+﻿<ion-modal-view class="scroll-middle">
+    <ion-content class="text-white text-center ">
+        <div class="row row-center">
+            <div class="col col-center">
+                <div class="col-67 block-center">
+                    เลือกการเชื่อมต่อข้อมูลกับ <br /> Facebook ของคุณ
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-67 block-center">
+                <a class="col button button-block button-calm button-small">ข้อมูลจาก Facebook</a>
+                <div class="col">
+                    ข้อมูลที่อยู่ใน Facebook จะถูกใช้แทนข้อมูลที่อยู่ในเครื่อง
+                </div>
+                <i class="font-large text-green">
+                    0 แต้ม
+                </i>
+            </div>
+        </div>
+        <hr />
+        <br />
+        <div class="row">
+            <div class="col col-67 block-center">
+                <a class="col button button-block button-balanced button-small">ข้อมูลที่อยู่ในเครื่อง</a>
+                <div class="col">
+                    ใช้ข้อมูลที่มีอยู่ในเครื่อง
+                </div>
+                <i class="font-large text-green">
+                    0 แต้ม
+                </i>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col col-67 block-center">
+                <a class="col button button-block button-stable button-small"  ng-click="TiePopup.hide()">ยกเลิก</a>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>
