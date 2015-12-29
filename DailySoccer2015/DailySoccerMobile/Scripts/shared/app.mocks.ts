@@ -74,9 +74,18 @@
         }
     }
 
+    export class RewardsService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-rewards", $resource);
+        }
+    }
+
 	angular
 		.module('app.shared')
         .service('app.shared.MatchService', MatchService)
+        .service('app.shared.RewardsService', RewardsService)
         .service('app.shared.SampleDataService', SampleDataService)
         .service('app.shared.SampleUrlDataService', SampleUrlDataService)
         .service('app.shared.MockTableDataServiceBase', MockTableDataServiceBase);
