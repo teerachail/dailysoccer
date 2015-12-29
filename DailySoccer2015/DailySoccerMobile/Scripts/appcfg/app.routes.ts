@@ -35,6 +35,7 @@
              abstract: true,
              templateUrl: 'templates/SideMenu.html'
             })
+
             .state('app.matches', {
              url: '/matches',                
              views: {
@@ -45,13 +46,22 @@
                          "data": ["app.shared.MatchService", svc => { return svc.getAll(); }]
                      }
                  }
-             },
-
+             }
             })
-            .state('app.lists', {
+
+            .state('app.reward', {
+                url: '/reward',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/RewardTab.html'
+                    }
+                }
+            })
+
+            .state('app.reward.lists', {
              url: '/lists',
              views: {
-                 'menuContent': {
+                 'tab-rewards': {
                      templateUrl: 'templates/Rewards.html',
                      controller: 'app.reward.RewardsController as cx',
                      resolve: {
@@ -60,22 +70,35 @@
                  }
              }
             })
-            .state('app.winners', {
+
+            .state('app.reward.winners', {
              url: '/winners',
              views: {
-                 'menuContent': {
-                     templateUrl: 'templates/Winners.html'
+                 'tab-winners': {
+                     templateUrl: 'templates/Winners.html',
+                     controller: 'app.reward.WinnersController as cx',
+                     resolve: {
+                         "data": ["app.shared.WinnersRewardService", svc => { return svc.getAll(); }],
+                         "nameData": ["app.shared.WinnersListService", svc => { return svc.getAll(); }]
+                     }
                  }
              }
             })
-            .state('app.myrewards', {
+
+            .state('app.reward.myrewards', {
              url: '/myrewards',
              views: {
-                 'menuContent': {
-                     templateUrl: 'templates/MyRewards.html'
+                 'tab-myrewards': {
+                     templateUrl: 'templates/MyRewards.html',
+                     controller: 'app.reward.MyRewardsController as cx',
+                     resolve: {
+                         "data": ["app.shared.MyRewardsService", svc => { return svc.getAll(); }],
+                         "oldData": ["app.shared.MyOldRewardsService", svc => { return svc.getAll(); }]
+                     }
                  }
              }
             })
+
             .state('app.buy', {
              url: '/buy',
              views: {
@@ -85,6 +108,7 @@
                  }
              }
             })
+
             .state('app.processing', {
              url: '/processing',
              views: {
@@ -93,6 +117,7 @@
                  }
              }
             })
+
             .state('app.phone', {
              url: '/phone',
              views: {
@@ -101,6 +126,7 @@
                  }
              }
             })
+
             .state('app.verifycode', {
              url: '/verifycode/:phoneNo',
              views: {
@@ -113,6 +139,7 @@
                  }
              }
             })
+
             .state('app.summary', {
              url: '/summary',
              views: {
@@ -121,6 +148,7 @@
                  }
              }
             })
+
             .state('app.monthly', {
              url: '/monthly',
              views: {
@@ -129,6 +157,7 @@
                  }
              }
             })
+
             .state('app.underconstruction', {
              url: '/underconstruction',
              views: {
