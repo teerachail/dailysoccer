@@ -1,25 +1,33 @@
 ﻿module app.reward {
-	'use strict';
+    'use strict';
 
-	class RewardsController {
+    class RewardsController {
 
-		//public model: any = null;
+        static $inject = ['data', 'app.reward.BuyCouponDataService'];
+        constructor(public data, private buySvc: app.reward.BuyCouponDataService) {
+            buySvc.InitialData(200, 500); // HACK: Setup coupon data
+        }
 
-        static $inject = ['data'];
-        constructor(public data) {
-		}
+    }
 
-		// public myMethod(): void {
-		// }
-        BuyCouponController
-
-	}
     class BuyCouponController {
 
-        //public model: any = null;
+        static $inject = ['$state', 'app.reward.BuyCouponDataService'];
+        constructor(private $state: angular.ui.IStateService, private buySvc: app.reward.BuyCouponDataService) {
+        }
 
-        static $inject = ['$scope', '$ionicModal'];
-        constructor(private $scope, private $ionicModal) {
+        public BuyCoupons(buyAmount: number): void {
+            const MinimumBuyAmount = 1;
+            var isRequestValid = buyAmount >= MinimumBuyAmount && buyAmount <= this.buySvc.BuyingPower;
+            if (!isRequestValid) return;
+
+            this.$state.go("app.processing");
+        }
+    }
+
+    class BuyCouponProcessingController {
+        static $inject = ['$scope', '$ionicModal', '$state', 'app.reward.BuyCouponDataService'];
+        constructor(private $scope, private $ionicModal, private $state: angular.ui.IStateService, private buySvc: app.reward.BuyCouponDataService) {
             this.$ionicModal.fromTemplateUrl('templates/Facebook.html',
                 {
                     scope: $scope,
@@ -36,11 +44,11 @@
                     animation: 'slide-in-up'
                 }).then(function (modal): void { $scope.CompletedPopup = modal; });
         }
-       
-        
     }
-	angular
-		.module('app.reward')
+
+    angular
+        .module('app.reward')
         .controller('app.reward.RewardsController', RewardsController)
-        .controller('app.reward.BuyCouponController', BuyCouponController);
+        .controller('app.reward.BuyCouponController', BuyCouponController)
+        .controller('app.reward.BuyCouponProcessingController', BuyCouponProcessingController);
 }

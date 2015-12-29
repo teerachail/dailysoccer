@@ -3,10 +3,10 @@
         <br />
         <div class="col col-80 col-offset-10">
             <p>
-                แต้มสะสมทั้งหมด 0 คะแนน
+                แต้มสะสมทั้งหมด {{ cx.buySvc.RemainingPoints }} คะแนน
             </p>
             <p>
-                แลกคูปองได้สูงสุด 0 ใบ
+                แลกคูปองได้สูงสุด {{ cx.buySvc.BuyingPower }} ใบ
             </p>
         </div>
         <br />
@@ -16,18 +16,13 @@
             </p>
             <div class="col row">
                 <p>
-                    <input type="number" class="col col-50 input-number block-center text-center" />
+                    <input type="number" ng-model="buyAmount" ng-minlength="1" class="col col-50 input-number block-center text-center" />
                 </p>
             </div>
             <div class="col row">
-                <div class="button button-energized col col-50 button-small block-center" ui-sref="app.processing">
+                <div class="button button-energized col col-50 button-small block-center" ng-click="cx.BuyCoupons(buyAmount)">
                     ส่งคูปองลุ้นรางวัล
                 </div>
-            </div>
-            <div class="col row">
-                <button ng-click="FacebookPopup.show()">Facebook</button>
-                <button ng-click="TiePopup.show()">Tie</button>
-                <button ng-click="CompletedPopup.show()">BuyCouponCompleted</button>
             </div>
         </form>
     </ion-content>

@@ -10,7 +10,7 @@
         DeleteVerifiedPhoneNo(): void;
     }
 
-    class UserProfileService implements IUserProfileService {
+    export class UserProfileService implements IUserProfileService {
 
         private userprofile: UserProfile;
 

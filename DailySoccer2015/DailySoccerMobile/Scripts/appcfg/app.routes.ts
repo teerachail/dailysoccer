@@ -89,7 +89,8 @@
              url: '/processing',
              views: {
                  'menuContent': {
-                     templateUrl: 'templates/BuyCouponProcessing.html'
+                     templateUrl: 'templates/BuyCouponProcessing.html',
+                     controller: 'app.reward.BuyCouponProcessingController as cx'
                  }
              }
             })
