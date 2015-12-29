@@ -1,4 +1,6 @@
-MatchId,TeamHomeId,TeamHomeName,TeamHomeScore,TeamHomePoint,TeamAwayId,TeamAwayName,TeamAwayScore,TeamAwayPoint,DrawPoint,Status,BeginDate,StartedDate,CompleteDate,LeagueId,LeagueName,PredictionPoints,IsSelectedHome,IsSelectedDraw,IsSelectedAway,IsTeamHomeWin,IsTeamAwayWin,IsGameDraw
-m01,t01,Chelsea,0,100,t02,Everton,0,200,300,,"1/1/2015, 10:30:00","1/1/2015, 10:30:00",,L01,Premier League,100,false,false,false,false,false,false
-m02,t03,Liverpool,0,400,t04,Watford,0,500,600,,"1/1/2015, 10:30:00","1/1/2015, 10:30:00",,L01,Premier League,200,false,false,false,false,false,false
-m03,t05,Arsenal,0,700,t06,Stoke,1,800,900,FT,"1/1/2015, 10:30:00","1/1/2015, 10:35:00","1/1/2015, 12:00:00",L02,Thai,300,true,false,false,false,true,false
+MatchId,TeamHomeId,TeamHomeName,TeamHomeScore,TeamHomePoint,TeamAwayId,TeamAwayName,TeamAwayScore,TeamAwayPoint,DrawPoint,Status,BeginDate,StartedDate,CompleteDate,LeagueId,LeagueName,IsSelectedHome,IsSelectedDraw,IsSelectedAway,PredictionPoints,IsTeamHomeWin,IsGameDraw,IsTeamAwayWin,IsWin
+m01,t01,Chelsea,0,100,t02,Everton,0,200,300,,"1/1/2015, 10:30:00",,,L01,Premier League,false,false,false,100,false,false,false,false
+m02,t03,Liverpool,0,400,t04,Watford,0,500,600,,"1/1/2015, 10:30:00",,,L01,Premier League,false,false,false,200,false,false,false,false
+m03,t05,Arsenal,0,700,t06,Stoke,1,800,900,26',"1/1/2015, 10:30:00","1/1/2015, 10:35:00",,L01,Premier League,true,false,false,300,false,false,false,false
+m04,t07,Manchester City,0,500,t08,Manchester United,0,500,600,FT,"1/1/2015, 10:30:00","1/1/2015, 10:30:00","1/1/2015, 12:00:00",L02,Thai,false,true,false,200,false,true,false,true
+m05,t09,Newcastle,0,700,t10,Tottenham Hotspur,1,800,900,FT,"1/1/2015, 10:30:00","1/1/2015, 10:35:00","1/1/2015, 12:00:00",L02,Thai,true,false,false,300,false,false,true,false
