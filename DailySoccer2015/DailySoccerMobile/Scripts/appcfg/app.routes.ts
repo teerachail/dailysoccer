@@ -44,7 +44,8 @@
                         templateUrl: 'templates/Tabs.html',
                         controller: 'app.match.PredictionController as cx',
                         resolve: {
-                            "data": ["app.shared.MatchService", svc => { return svc.getAll(); }]
+                            "data": ["app.shared.MatchService", svc => { return svc.getAll(); }],
+                            "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
                         }
                     }
                 }
@@ -77,7 +78,8 @@
                      templateUrl: 'templates/Rewards.html',
                      controller: 'app.reward.RewardsController as cx',
                      resolve: {
-                         "data": ["app.shared.RewardsService", svc => { return svc.getAll(); }]
+                         "data": ["app.shared.RewardsService", svc => { return svc.getAll(); }],
+                         "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
                      }
                  }
              }
@@ -110,10 +112,12 @@
                  }
              }
             })
+
             .state('app.coupon', {
                 url: '/coupon',
                 abstract: true,
             })
+
             .state('app.coupon.buy', {
              url: '/buy',
              views: {

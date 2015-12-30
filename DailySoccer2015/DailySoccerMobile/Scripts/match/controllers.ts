@@ -9,8 +9,8 @@
         public FutureOneDaysDate: Date = new Date();
         public FutureTwoDaysDate: Date = new Date();
 
-        static $inject = ['data'];
-        constructor(public data) {
+        static $inject = ['data','point'];
+        constructor(public data, public point) {
             this.updateDisplayDate(this.CurrentDate);
         }
 
