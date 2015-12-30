@@ -33,7 +33,8 @@ function stateContext(el) {
  * handled natively by the browser.
  *
  * You can also use relative state paths within ui-sref, just like the relative 
- * paths passed to `$state.go()`. You just need to be aware that the path is relative
+ * paths passed to `$
+()`. You just need to be aware that the path is relative
  * to the state that the link lives in, in other words the state that loaded the 
  * template containing the link.
  *

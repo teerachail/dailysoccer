@@ -22,7 +22,7 @@
             if (!isRequestValid) return;
 
             this.buySvc.RequestBuyAmount = buyAmount;
-            this.$state.go("app.processing");
+            this.$state.go("app.coupon.processing");
         }
     }
 
@@ -92,7 +92,7 @@
             var userprofile = this.userprofileSvc.GetUserProfile();
             var isPhoneNumberVerified = userprofile.VerifiedPhoneNumber != null;
             if (!isPhoneNumberVerified) {
-                if (this.couponDataSvc.CheckFirstTimeForRequestPhoneVerification()) this.$state.go('app.phone');
+                if (this.couponDataSvc.CheckFirstTimeForRequestPhoneVerification()) this.$state.go('app.verify.phone');
                 else this.gobackToBuyCouponPage();
             }
             return isPhoneNumberVerified;
@@ -115,7 +115,7 @@
         }
         private gobackToBuyCouponPage(): void {
             this.couponDataSvc.ResetAllRequests();
-            this.$state.go('app.buy');
+            this.$state.go('app.coupon.buy');
         }
     }
 

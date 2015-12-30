@@ -22,7 +22,7 @@
                     console.log("Verify phone result: " + respond.IsSuccess);
                     if (respond.IsSuccess) {
                         this.userprofileSvc.UpdateVerifiedPhoneNo(this.phoneNo);
-                        this.$state.go("app.processing", {}, { location: 'replace' });
+                        this.$state.go("app.coupon.processing", {}, { location: 'replace' });
                     }
                 });
         }

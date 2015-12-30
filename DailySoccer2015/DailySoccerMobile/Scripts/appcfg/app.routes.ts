@@ -38,18 +38,24 @@
             .state('app.main', {
                 url: '/main',
                 abstract: true,
-                //templateUrl: 'templates/SideMenu.html'
+              
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/Tabs.html',
+                        controller: 'app.match.PredictionController as cx',
+                        resolve: {
+                            "data": ["app.shared.MatchService", svc => { return svc.getAll(); }]
+                        }
+                    }
+                }
+
             })
 
             .state('app.main.matches', {
              url: '/matches',                
              views: {
-                 'menuContent': {
-                     templateUrl: 'templates/Matches.html',
-                     controller: 'app.match.PredictionController as cx',
-                     resolve: {
-                         "data": ["app.shared.MatchService", svc => { return svc.getAll(); }]
-                     }
+                 'matchContent': {
+                     templateUrl: 'templates/Matches.html'
                  }
              }
             })
@@ -186,6 +192,6 @@
 
 
 
-        $urlRouterProvider.otherwise('/app/matches');
+        $urlRouterProvider.otherwise('/app/main/matches');
 	}
 }
