@@ -12,8 +12,13 @@
 
     class BuyCouponController {
 
-        static $inject = ['$state', 'app.reward.BuyCouponDataService'];
-        constructor(private $state: angular.ui.IStateService, private buySvc: app.reward.BuyCouponDataService) {
+        static $inject = ['$ionicModal', '$scope','$state', 'app.reward.BuyCouponDataService'];
+        constructor(private $ionicModal, private $scope,private $state: angular.ui.IStateService, private buySvc: app.reward.BuyCouponDataService) {
+            this.$ionicModal.fromTemplateUrl('templates/BuyCouponPopup.html',
+                {
+                    scope: $scope,
+                    animation: 'slide-ins-up'
+                }).then(modal=> { this.$scope.ErrorPopup = modal; });
         }
 
         public BuyCoupons(buyAmount: number): void {

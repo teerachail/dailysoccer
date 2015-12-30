@@ -24,6 +24,18 @@ $dark:                            #282828 ;
 $royal:                           #404040 ; 
 $assertive:                       #D3051A ;
 
+$modal-bg-color:                  #fff !default;
+$modal-backdrop-bg-active:        #000 !default;
+$modal-backdrop-bg-inactive:      rgba(0,0,0,0) !default;
+
+$modal-inset-mode-break-point:    200px !default;  // @media min-width
+$modal-inset-mode-top:            40% !default;
+$modal-inset-mode-right:          10% !default;
+$modal-inset-mode-bottom:         35% !default;
+$modal-inset-mode-left:           10% !default;
+$modal-inset-mode-min-height:     150px !default;
+$modal-inset-mode-min-width:     80% !default;
+
 $button-energized-text:           #000000 ;
 $bar-height:                      44px;
 
