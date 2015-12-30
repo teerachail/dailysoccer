@@ -210,6 +210,7 @@
 
 
 
-        $urlRouterProvider.otherwise('/app/main/matches');
+        //$urlRouterProvider.otherwise('/app/main/matches');
+        $urlRouterProvider.otherwise('/sample');
 	}
 }
