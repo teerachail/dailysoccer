@@ -1,12 +1,5 @@
 ﻿<ion-view  view-title="DAILY SOCCER">
-    <ion-content>
-        <ion-tabs class="tabs-dark tabs-top tabs-main">
-            <ion-tab title="{{ cx.PastTwoDaysDate | date: 'EEE' }}<br>{{ cx.PastTwoDaysDate | date: 'd' }}"></ion-tab>
-            <ion-tab title="{{ cx.PastOneDaysDate | date: 'EEE' }}<br>{{ cx.PastOneDaysDate | date: 'd' }}"></ion-tab>
-            <ion-tab title="{{ cx.CurrentDate | date: 'EEE' }}<br>{{ cx.CurrentDate | date: 'd' }}"></ion-tab>
-            <ion-tab title="{{ cx.FutureOneDaysDate | date: 'EEE' }}<br>{{ cx.FutureOneDaysDate | date: 'd' }}"></ion-tab>
-            <ion-tab title="{{ cx.FutureTwoDaysDate | date: 'EEE' }}<br>{{ cx.FutureTwoDaysDate | date: 'd' }}"></ion-tab>
-        </ion-tabs>
+    <ion-content class="matches">
         <div>
             <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
         </div>

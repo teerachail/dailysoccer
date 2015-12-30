@@ -9724,6 +9724,9 @@ a.button {
   line-height: 20px;
   height: 20px; }
 
+.matches {
+  bottom: 44px !important; }
+
 .match {
   padding: 0px; }
   .match .button {
@@ -9748,7 +9751,9 @@ a.button {
   font-style: italic; }
 
 .tabs-main div.tab-nav {
-  position: initial !important; }
+  position: relative !important;
+  height: 44px;
+  line-height: 22px; }
 
 .tabs-main a, .tabs-main .tab-nav, .tabs-main span {
   border: 0px !important;
@@ -9756,9 +9761,6 @@ a.button {
 
 .tabs-main .tab-item.tab-item-active {
   background: #404040; }
-
-.tabs-main .tab-item {
-  line-height: 24px !important; }
 
 .block-center {
   margin-left: auto;
