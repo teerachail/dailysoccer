@@ -1,16 +1,17 @@
 ﻿module app.account {
     'use strict';
 
-    export class VerificationPhonenoRequest {
-        PhoneNumber: string;
+    export class VerifyPhoneRequest {
+
+        constructor(
+            public id: string,
+            public PhoneNumber: string,
+            public VerificationCode: string = null) {
+        }
+
     }
 
-    export class VerificationCodeRequest {
-        PhoneNumber: string;
-        VerificationCode: string;
-    }
-
-    export class VerificationCodeRespond {
+    export class VerifyCodeRespond {
         IsSuccess: boolean;
     }
     

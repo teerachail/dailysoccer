@@ -1,39 +1,34 @@
 ﻿module app.account {
-	'use strict';
+    'use strict';
 
-    export interface IPhoneVerificationService {
-        UpdatePhoneNo(userId: string, phoneNo: string): void;
-        SendVerificationCode(userId: string, phoneNo: string, verificationCode: string): ng.IPromise<VerificationCodeRespond>;
+    interface IVerifyPhoneResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        UpdatePhoneNo(data: T): T;
+        VerifyCode(data: T): T;
     }
 
-    export class PhoneVerificationService implements IPhoneVerificationService {
+    export class PhoneVerificationService {
 
-        private updatePhoneSvc: ng.resource.IResourceClass<any>;
-        private sendVerifierSvc: ng.resource.IResourceClass<any>;
+        private svc: IVerifyPhoneResourceClass<any>;
 
-        static $inject = ['$resource'];
-        constructor(private $resource: angular.resource.IResourceService) {
-            var saveAction: ng.resource.IActionDescriptor = { method: 'PUT' };
-            this.updatePhoneSvc = $resource('http://localhost:2394/api/profiles/:id/phoneno', { "id": "@id" }, { save: saveAction });
-            this.sendVerifierSvc = $resource<any>('http://localhost:2394/api/profiles/:id/vericode', { "id": "@id" }, { save: saveAction });
+        static $inject = ['appConfig', '$resource'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
+            this.svc = <IVerifyPhoneResourceClass<any>>$resource(appConfig.VerifyPhoneUrl, { 'id': '@id' }, {
+                UpdatePhoneNo: { method: 'PUT', params: { 'action': 'phoneno' } },
+                VerifyCode: { method: 'PUT', params: { 'action': 'vericode' } }
+            });
         }
 
         public UpdatePhoneNo(userId: string, phoneNo: string): void {
-            var body = new VerificationPhonenoRequest();
-            body.PhoneNumber = phoneNo;
-            this.updatePhoneSvc.save({ id: userId }, body);
+            this.svc.UpdatePhoneNo(new VerifyPhoneRequest(userId, phoneNo));
         }
 
-        public SendVerificationCode(userId: string, phoneNo: string, verificationCode: string): ng.IPromise<VerificationCodeRespond> {
-            var body = new VerificationCodeRequest();
-            body.PhoneNumber = phoneNo;
-            body.VerificationCode = verificationCode;
-            return (<ng.resource.IResource<VerificationCodeRespond>>this.sendVerifierSvc.save({ id: userId }, body)).$promise;
+        public SendVerificationCode(userId: string, phoneNo: string, verificationCode: string): ng.IPromise<VerifyCodeRespond> {
+            return this.svc.VerifyCode(new VerifyPhoneRequest(userId, phoneNo, verificationCode)).$promise;
         }
 
     }
 
-	angular
-		.module('app.account')
+    angular
+        .module('app.account')
         .service('app.account.PhoneVerificationService', PhoneVerificationService);
 }

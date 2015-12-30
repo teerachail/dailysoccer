@@ -18,12 +18,15 @@
 
         public SendVerificationCode(verificationCode: string): void {
             this.phoneSvc.SendVerificationCode(this.userprofile.UserId, this.phoneNo, verificationCode)
-                .then((respond: VerificationCodeRespond) => {
+                .then((respond: VerifyCodeRespond) => {
                     console.log("Verify phone result: " + respond.IsSuccess);
                     if (respond.IsSuccess) {
                         this.userprofileSvc.UpdateVerifiedPhoneNo(this.phoneNo);
                         this.$state.go("app.coupon.processing", {}, { location: 'replace' });
                     }
+                })
+                .catch(err=> { 
+                    // TODO: Inform error to user
                 });
         }
 
