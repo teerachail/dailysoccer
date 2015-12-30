@@ -63,7 +63,7 @@
         }
 
         public VerCode() {
-            this.TestPhoneService.VerifyCode(this.user.UserId, '0875698745', '3214').then((rsp: VerifyCodeResponse) => {
+            this.TestPhoneService.VerifyCode(this.user.UserId, '0875698745', '3214').then(rsp => {
                 console.log(JSON.stringify(rsp));
                 if (rsp.IsSuccess) {
                     // get new user profile (the updated one) from the server.
