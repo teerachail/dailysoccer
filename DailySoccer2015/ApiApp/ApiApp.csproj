@@ -183,6 +183,7 @@
     <Compile Include="Models\MyReward.cs" />
     <Compile Include="Models\PredictionRequest.cs" />
     <Compile Include="Models\RewardGroup.cs" />
+    <Compile Include="Models\RewardGroupRespond.cs" />
     <Compile Include="Models\RewardWinner.cs" />
     <Compile Include="Models\Reward.cs" />
     <Compile Include="Models\PendingWinner.cs" />

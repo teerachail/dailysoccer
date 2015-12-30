@@ -1,0 +1,3 @@
+RewardId,OrderedNo,Price,Amout,ThumbImgPath,RewardName,ReferenceCode,CreateDate
+r01,1,15000,5,http://www.extremetech.com/wp-content/uploads/2013/10/complete-ipad-range.jpg,iPhone5,DS1109,2015-1-1
+r02,2,7000,10,http://www.extremetech.com/wp-content/uploads/2013/10/complete-ipad-range.jpg,iPhone4,DS1120,2015-1-1

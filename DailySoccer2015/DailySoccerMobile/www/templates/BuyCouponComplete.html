@@ -1,9 +1,19 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <div>Content goes here.</div>
-</body>
-</html>
+﻿<ion-modal-view class="bg-main scroll-middle">
+    <ion-content class="text-white font-large">
+        <p>
+            คุณเหลือแต้มที่ใช้ได้
+        </p>
+        <p class="font-large">
+            {{ cx.couponDataSvc.RemainingPoints }} แต้ม
+        </p>
+        <br />
+        <p>รอประกาศผลรายชื่อผู้โชคดี <br /> ในวันที่  {{ cx.buyCouponResult.AnnounceableDate | date : dd/MM/yyyy }}<br /> ขอบพระคุณที่ร่วมสนุกกับเรา</p>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-balanced">
+        <h1 class="title text-right">
+            <a  ng-click="CompletedPopup.hide()">
+                เสร็จสิ้น >>
+            </a>
+        </h1>
+    </ion-footer-bar>
+</ion-modal-view>

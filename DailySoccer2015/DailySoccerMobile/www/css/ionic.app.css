@@ -9781,7 +9781,8 @@ a.button {
   line-height: 16px;
   border: 0px solid #f5f5f5;
   border-radius: 50%;
-  background: #FEC42A; }
+  background: #FEC42A;
+  font-weight: bold; }
 
 .match-name .team-name {
   text-overflow: ellipsis;
@@ -9793,3 +9794,35 @@ a.button {
 .button .icon {
   vertical-align: middle;
   pointer-events: none; }
+
+.trophy {
+  border-color: transparent;
+  background-color: initial;
+  position: relative;
+  margin: 0;
+  min-height: 47px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 42px;
+  z-index: 1;
+  padding: 0 8px;
+  min-width: initial;
+  min-height: 31px;
+  line-height: 32px; }
+
+.league {
+  line-height: 30px;
+  position: relative; }
+
+.scroll-middle .scroll {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center; }
+
+.scroll-middle .scroll-content {
+  display: table !important;
+  width: 100% !important;
+  height: 100% !important; }
+
+.scroll-middle .has-header {
+  top: initial; }

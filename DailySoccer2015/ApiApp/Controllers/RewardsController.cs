@@ -31,14 +31,21 @@ namespace ApiApp.Controllers
         /// Get current rewards
         /// </summary>
         [HttpGet]
-        public IEnumerable<Reward> Get()
+        public RewardGroupRespond Get()
         {
             var now = DateTime.Now;
             var lastRewardGroup = _repo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
-            if (lastRewardGroup == null) return Enumerable.Empty<Reward>();
+            if (lastRewardGroup == null) return new RewardGroupRespond { Rewards = Enumerable.Empty<Reward>() };
 
             var rewards = _repo.GetRewards().Where(it => it.RewardGroupId.Equals(lastRewardGroup.id)).ToList();
-            return rewards;
+            var rewardGroup = new RewardGroupRespond
+            {
+                IsAvailable = true,
+                ExpiredDate = lastRewardGroup.ExpiredDate,
+                RequiredPoints = lastRewardGroup.RequiredPoints,
+                Rewards = rewards
+            };
+            return rewardGroup;
         }
 
         // GET: api/Rewards/winners
