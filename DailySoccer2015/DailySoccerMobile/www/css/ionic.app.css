@@ -9828,3 +9828,12 @@ a.button {
 
 .scroll-middle .has-header {
   top: initial; }
+
+/*.modal-float{
+    top: 40%;
+    right: 10%;
+    bottom: 35%;
+    left: 10%;
+    min-height: 150px;
+    width: 80%;
+}*/
