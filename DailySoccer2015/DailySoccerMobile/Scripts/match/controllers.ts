@@ -8,11 +8,16 @@
         public PastTwoDaysDate: Date = new Date();
         public FutureOneDaysDate: Date = new Date();
         public FutureTwoDaysDate: Date = new Date();
+        public Leagues: string[];
 
-        static $inject = ['data', 'predictions'];
-        constructor(public data: app.match.MatchInformation[], public predictions: app.match.PredictionInformation[]) {
-            var leagues = data.map(it => it.LeagueName).filter(function (item, i, ar) { return ar.indexOf(item) === i; });
+        static $inject = ['matches', 'predictions'];
+        constructor(public matches: app.match.MatchInformation[], public predictions: app.match.PredictionInformation[]) {
+            this.Leagues = matches.map(it => it.LeagueName).filter(function (item, i, ar) { return ar.indexOf(item) === i; });
             this.updateDisplayDate(this.CurrentDate);
+        }
+
+        public GetMatchesByLeagueName(leagueName: string): app.match.MatchInformation[] {
+            return this.matches.filter(it => it.LeagueName == leagueName);
         }
 
         public IsGameStarted(match: app.match.MatchInformation): boolean {
