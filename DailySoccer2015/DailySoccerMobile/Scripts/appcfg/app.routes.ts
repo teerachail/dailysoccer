@@ -42,7 +42,14 @@
                      templateUrl: 'templates/Matches.html',
                      controller: 'app.match.PredictionController as cx',
                      resolve: {
-                         "data": ["app.shared.MatchService", svc => { return svc.getAll(); }]
+                         "data": ["app.match.MatchService", (svc: app.match.MatchService) => {
+                             var now = new Date();
+                             return svc.GetMatchesByDate(1, 1, 2015);
+                         }],
+                         "predictions": ["app.match.MatchService", (svc: app.match.MatchService) => {
+                             var now = new Date();
+                             return svc.GetPredictionsByDate("u01guest", 1, 1, 2015);
+                         }],
                      }
                  }
              },

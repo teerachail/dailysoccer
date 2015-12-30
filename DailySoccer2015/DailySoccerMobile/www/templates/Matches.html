@@ -43,7 +43,7 @@
                                         'button-assertive': cx.IsPredictHomeLose(item)}"
                                         ng-disabled="cx.IsGameStarted(item)"
                                         class="button col">{{item.TeamHomePoint}}
-                                <span class="prediction-point" ng-show="cx.IsSelectedHome(item)">{{item.PredictionPoints}}'</span></button>
+                                <span class="prediction-point" ng-show="cx.IsShowHomePredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span></button>
                                 <small>Home</small>
                             </div>
                             <div class="col">
@@ -53,8 +53,8 @@
                                         'button-energized': cx.IsPredictDrawWin(item), 
                                         'button-assertive': cx.IsPredictDrawLose(item)}"
                                         ng-disabled="cx.IsGameStarted(item)" 
-                                        class="button col">{{item.DrawPoint}}
-                                <span class="prediction-point" ng-show="cx.IsSelectedDraw(item)">{{item.PredictionPoints}}'</span></button>
+                                        class="button col">{{item.DrawPoints}}
+                                <span class="prediction-point" ng-show="cx.IsShowDrawPredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span></button>
                                 <small>Draw</small>
                             </div>
                             <div class="col">
@@ -65,7 +65,7 @@
                                         'button-assertive': cx.IsPredictAwayLose(item)}"
                                         ng-disabled="cx.IsGameStarted(item)"
                                         class="button col">{{item.TeamAwayPoint}}
-                                <span class="prediction-point" ng-show="cx.IsSelectedAway(item)">{{item.PredictionPoints}}'</span></button>
+                                <span class="prediction-point" ng-show="cx.IsShowAwayPredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span></button>
                                 <small>Away</small>
                             </div>
                         </div>

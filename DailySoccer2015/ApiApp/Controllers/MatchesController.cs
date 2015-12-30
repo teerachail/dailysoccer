@@ -51,7 +51,7 @@ namespace ApiApp.Controllers
                                 let leagueName = leagues.First(league => league.id == match.LeagueId).Name
                                 select new MatchInformation
                                 {
-                                     Id = match.id,
+                                     id = match.id,
                                      TeamHomeId = match.TeamHomeId,
                                      TeamHomeName = teamHomeName,
                                      TeamHomePoint = match.TeamHomePoint,
