@@ -11,4 +11,11 @@
         public AnnounceableDate: Date;
     }
 
+    export class GetCouponSummaryRequest {
+        constructor(public id: string) { }
+    }
+    export class GetCouponSummaryRespond {
+        public RemainingPoints: number;
+        public OrderedCoupons: number;
+    }
 }

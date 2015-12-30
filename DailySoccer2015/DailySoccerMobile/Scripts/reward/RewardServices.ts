@@ -50,7 +50,6 @@
     interface IBuyCouponResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
         BuyCoupon(data: T): T;
     }
-
     export class BuyCouponService {
 
         private svc: IBuyCouponResourceClass<any>;
@@ -67,8 +66,28 @@
         }
     }
 
+    interface ICouponSummaryResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        GetCouponSummary(data: T): T;
+    }
+    export class CouponSummaryService {
+
+        private svc: ICouponSummaryResourceClass<any>;
+
+        static $inject = ['appConfig', '$resource'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
+            this.svc = <ICouponSummaryResourceClass<any>>$resource(appConfig.CouponSummaryUrl, { 'id': '@id' }, {
+                GetCouponSummary: { method: 'GET' }
+            });
+        }
+
+        public GetCouponSummary(userId: string): ng.IPromise<GetCouponSummaryRespond> {
+            return this.svc.GetCouponSummary(new GetCouponSummaryRequest(userId)).$promise;
+        }
+    }
+
     angular
         .module('app.reward')
         .service('app.reward.BuyCouponDataService', BuyCouponDataService)
-        .service('app.reward.BuyCouponService', BuyCouponService);
+        .service('app.reward.BuyCouponService', BuyCouponService)
+        .service('app.reward.CouponSummaryService', CouponSummaryService);
 }

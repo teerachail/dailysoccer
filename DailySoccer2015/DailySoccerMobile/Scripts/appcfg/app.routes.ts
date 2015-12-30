@@ -77,8 +77,7 @@
                      templateUrl: 'templates/Rewards.html',
                      controller: 'app.reward.RewardsController as cx',
                      resolve: {
-                         "data": ["app.shared.RewardsService", svc => { return svc.getAll(); }],
-                         "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
+                         "data": ["app.shared.RewardsService", svc => { return svc.getAll(); }]
                      }
                  }
              }
@@ -210,7 +209,7 @@
 
 
 
-        //$urlRouterProvider.otherwise('/app/main/matches');
-        $urlRouterProvider.otherwise('/sample');
+        $urlRouterProvider.otherwise('/app/main/matches');
+        //$urlRouterProvider.otherwise('/sample');
 	}
 }
