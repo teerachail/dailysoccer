@@ -35,8 +35,13 @@
              abstract: true,
              templateUrl: 'templates/SideMenu.html'
             })
+            .state('app.main', {
+                url: '/main',
+                abstract: true,
+                //templateUrl: 'templates/SideMenu.html'
+            })
 
-            .state('app.matches', {
+            .state('app.main.matches', {
              url: '/matches',                
              views: {
                  'menuContent': {
@@ -51,6 +56,7 @@
 
             .state('app.reward', {
                 url: '/reward',
+                abstract: true,
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/RewardTab.html'
@@ -98,8 +104,11 @@
                  }
              }
             })
-
-            .state('app.buy', {
+            .state('app.coupon', {
+                url: '/coupon',
+                abstract: true,
+            })
+            .state('app.coupon.buy', {
              url: '/buy',
              views: {
                  'menuContent': {
@@ -109,7 +118,7 @@
              }
             })
 
-            .state('app.processing', {
+            .state('app.coupon.processing', {
              url: '/processing',
              views: {
                  'menuContent': {
@@ -118,8 +127,11 @@
                  }
              }
             })
-
-            .state('app.phone', {
+            .state('app.verify', {
+                url: '/verify',
+                abstract: true,
+            })
+            .state('app.verify.phone', {
              url: '/phone',
              views: {
                  'menuContent': {
@@ -128,7 +140,7 @@
              }
             })
 
-            .state('app.verifycode', {
+            .state('app.verify.verifycode', {
              url: '/verifycode/:phoneNo',
              views: {
                  'menuContent': {
@@ -140,8 +152,11 @@
                  }
              }
             })
-
-            .state('app.summary', {
+            .state('app.history', {
+                url: '/history',
+                abstract: true,
+            })
+            .state('app.history.summary', {
              url: '/summary',
              views: {
                  'menuContent': {
@@ -150,7 +165,7 @@
              }
             })
 
-            .state('app.monthly', {
+            .state('app.history.monthly', {
              url: '/monthly',
              views: {
                  'menuContent': {
