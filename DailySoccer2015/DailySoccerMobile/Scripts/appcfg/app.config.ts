@@ -4,12 +4,14 @@
     export interface IAppConfig {
         ProfileUrl: string;
         VerifyPhoneUrl: string;
+        BuyCouponUrl: string;
     }
 
     export class AppConfig implements IAppConfig {
 
         public ProfileUrl: string;
         public VerifyPhoneUrl: string;
+        public BuyCouponUrl: string;
 
         static $inject = ['defaultUrl'];
         constructor(defaultUrl: string) {
@@ -17,6 +19,7 @@
 
             this.ProfileUrl = apiUrl + '/profiles/:id';
             this.VerifyPhoneUrl = this.ProfileUrl + '/:action';
+            this.BuyCouponUrl = apiUrl + '/coupons/buy';
         }
 
     }

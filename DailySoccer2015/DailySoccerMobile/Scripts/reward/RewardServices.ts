@@ -47,22 +47,23 @@
         }
     }
 
-    interface IBuyCouponService {
-        BuyCoupon(body: BuyCouponRequest): ng.IPromise<BuyCouponRespond>;
+    interface IBuyCouponResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        BuyCoupon(data: T): T;
     }
 
-    export class BuyCouponService implements IBuyCouponService {
+    export class BuyCouponService {
 
-        private updatePhoneSvc: ng.resource.IResourceClass<any>;
+        private svc: IBuyCouponResourceClass<any>;
 
-        static $inject = ['$resource'];
-        constructor(private $resource: angular.resource.IResourceService) {
-            var saveAction: ng.resource.IActionDescriptor = { method: 'PUT' };
-            this.updatePhoneSvc = $resource('http://localhost:2394/api/coupons/buy');
+        static $inject = ['appConfig', '$resource'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
+            this.svc = <IBuyCouponResourceClass<any>>$resource(appConfig.BuyCouponUrl, {}, {
+                BuyCoupon: { method: 'POST' }
+            });
         }
 
-        public BuyCoupon(body: BuyCouponRequest): ng.IPromise<BuyCouponRespond> {
-            return (<ng.resource.IResource<BuyCouponRespond>>this.updatePhoneSvc.save(body)).$promise;
+        public BuyCoupon(userId: string, buyAmount: number): ng.IPromise<BuyCouponRespond> {
+            return this.svc.BuyCoupon(new BuyCouponRequest(userId, buyAmount)).$promise;
         }
     }
 

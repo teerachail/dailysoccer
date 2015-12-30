@@ -105,10 +105,7 @@
         private buyCoupons(): void {
             this.couponDataSvc.SendPurchaseOrderCompleted();
             var userprofile = this.userprofileSvc.GetUserProfile();
-            var body = new BuyCouponRequest();
-            body.UserId = userprofile.UserId;
-            body.BuyAmount = this.couponDataSvc.RequestBuyAmount;
-            this.buySvc.BuyCoupon(body)
+            this.buySvc.BuyCoupon(userprofile.UserId, this.couponDataSvc.RequestBuyAmount)
                 .then((respond: BuyCouponRespond) => {
                     this.buyCouponResult = respond;
                     if (respond.IsSuccess) this.$scope.CompletedPopup.show();
@@ -116,6 +113,9 @@
                         // HACK: Show the error message
                         alert('Buy failed: ' + respond.ErrorMessage);
                     }
+                })
+                .catch(err=> {
+                    // TODO: Inform error to user
                 });
         }
         private gobackToBuyCouponPage(): void {

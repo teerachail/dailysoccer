@@ -2,9 +2,9 @@
     'use strict';
 
     export class BuyCouponRequest {
-        public UserId: string;
-        public BuyAmount: number;
+        constructor(public UserId: string, public BuyAmount: number) { }
     }
+
     export class BuyCouponRespond {
         public IsSuccess: boolean;
         public ErrorMessage: string;
