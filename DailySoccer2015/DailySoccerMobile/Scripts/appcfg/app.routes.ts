@@ -56,11 +56,9 @@
                      controller: 'app.match.PredictionController as cx',
                      resolve: {
                          "matches": ["$stateParams", "app.match.MatchService", (params, svc: app.match.MatchService) => {
-                             var now = new Date();
                              return svc.GetMatchesByDate(params.day, params.month, params.year);
                          }],
                          "predictions": ["$stateParams", "app.match.MatchService", (params,svc: app.match.MatchService) => {
-                             var now = new Date();
                              return svc.GetPredictionsByDate(params.id, params.day, params.month, params.year);
                          }],
                      }
@@ -202,7 +200,8 @@
         {
             var now = new Date;
             var userId = 'u01guest';
-            return '/app/main/matches/' + userId + '/' + now.getDay() + '/' + now.getMonth() + '/' + now.getFullYear();
+            var month = now.getMonth() + 1;
+            return '/app/main/matches/' + userId + '/' + now.getDate() + '/' + month + '/' + now.getFullYear();
         });
 	}
 }
