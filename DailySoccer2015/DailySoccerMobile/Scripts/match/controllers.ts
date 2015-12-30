@@ -1,7 +1,7 @@
 ﻿module app.match {
-	'use strict';
+    'use strict';
 
-    class PredictionController {
+    class MainController {
 
         public CurrentDate: Date = new Date();
         public PastOneDaysDate: Date = new Date();
@@ -10,11 +10,41 @@
         public FutureTwoDaysDate: Date = new Date();
         public Leagues: string[];
 
-        static $inject = ['matches', 'predictions'];
-        constructor(public matches: app.match.MatchInformation[], public predictions: app.match.PredictionInformation[]) {
-            this.Leagues = matches.map(it => it.LeagueName).filter(function (item, i, ar) { return ar.indexOf(item) === i; });
+        static $inject = ['$state'];
+        constructor(private $state: angular.ui.IStateService) {
             this.updateDisplayDate(this.CurrentDate);
         }
+
+        private updateDisplayDate(currentDate: Date): void {
+            this.CurrentDate = currentDate;
+
+            currentDate = new Date(currentDate.toString());
+            this.PastOneDaysDate.setDate(currentDate.getDate() - 1);
+            this.PastTwoDaysDate.setDate(currentDate.getDate() - 2);
+            this.FutureOneDaysDate.setDate(currentDate.getDate() + 1);
+            this.FutureTwoDaysDate.setDate(currentDate.getDate() + 2);
+            console.log('# Update date completed.');
+        }
+
+        public SelectDay(selectedDate: Date): void {
+            this.$state.go('app.main.matches', {
+                id: 'u01guest',
+                day: selectedDate.getDay(),
+                month: selectedDate.getMonth(),
+                year: selectedDate.getFullYear()
+            });
+        }
+    }
+
+    class PredictionController {
+
+        public Leagues: string[];
+
+        static $inject = ['matches', 'predictions'];
+        constructor(public matches: app.match.MatchInformation[], public predictions: app.match.PredictionInformation[]) {
+            this.Leagues = matches.map(it => it.LeagueName).filter(function (item, i, ar) { return ar.indexOf(item) === i; });            
+        }
+
 
         public GetMatchesByLeagueName(leagueName: string): app.match.MatchInformation[] {
             return this.matches.filter(it => it.LeagueName == leagueName);
@@ -155,21 +185,11 @@
                 return selectedPrediction.PredictionPoints;
             } else 0;
         }
-
-        private updateDisplayDate(currentDate: Date): void {
-            this.CurrentDate = currentDate;
-
-            currentDate = new Date(currentDate.toString());
-            this.PastOneDaysDate.setDate(currentDate.getDate() - 1);
-            this.PastTwoDaysDate.setDate(currentDate.getDate() - 2);
-            this.FutureOneDaysDate.setDate(currentDate.getDate() + 1);
-            this.FutureTwoDaysDate.setDate(currentDate.getDate() + 2);
-            console.log('# Update date completed.');
-        }
     }
    
 	angular
-		.module('app.match')
+        .module('app.match')
+        .controller('app.match.MainController', MainController)
         .controller('app.match.PredictionController', PredictionController);
 
 }

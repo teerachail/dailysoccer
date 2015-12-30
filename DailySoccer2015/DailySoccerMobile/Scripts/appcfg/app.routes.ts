@@ -41,28 +41,29 @@
               
              views: {
                  'menuContent': {
-                        templateUrl: 'templates/Tabs.html',
-                     controller: 'app.match.PredictionController as cx',
-                     resolve: {
-                         "matches": ["app.match.MatchService", (svc: app.match.MatchService) => {
-                             var now = new Date();
-                             return svc.GetMatchesByDate(28, 12, 2015);
-                         }],
-                         "predictions": ["app.match.MatchService", (svc: app.match.MatchService) => {
-                             var now = new Date();
-                             return svc.GetPredictionsByDate("u01guest", 28, 12, 2015);
-                         }],
-                     }
+                     templateUrl: 'templates/Tabs.html',
+                     controller: 'app.match.MainController as cx',
                  }
              }
 
             })
 
             .state('app.main.matches', {
-             url: '/matches',                
+             url: '/matches/:id/:day/:month/:year',                
              views: {
                  'matchContent': {
-                     templateUrl: 'templates/Matches.html'
+                     templateUrl: 'templates/Matches.html',
+                     controller: 'app.match.PredictionController as cx',
+                     resolve: {
+                         "matches": ["$stateParams", "app.match.MatchService", (params, svc: app.match.MatchService) => {
+                             var now = new Date();
+                             return svc.GetMatchesByDate(params.day, params.month, params.year);
+                         }],
+                         "predictions": ["$stateParams", "app.match.MatchService", (params,svc: app.match.MatchService) => {
+                             var now = new Date();
+                             return svc.GetPredictionsByDate(params.id, params.day, params.month, params.year);
+                         }],
+                     }
                  }
              }
             })
@@ -197,8 +198,11 @@
             })
         ;
 
-
-
-        $urlRouterProvider.otherwise('/app/main/matches');
+        $urlRouterProvider.otherwise(()=>
+        {
+            var now = new Date;
+            var userId = 'u01guest';
+            return '/app/main/matches/' + userId + '/' + now.getDay() + '/' + now.getMonth() + '/' + now.getFullYear();
+        });
 	}
 }

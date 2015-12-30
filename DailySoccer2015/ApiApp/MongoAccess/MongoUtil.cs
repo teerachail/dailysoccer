@@ -32,16 +32,16 @@ namespace ApiApp.MongoAccess
             var dbName = WebConfigurationManager.AppSettings["databaseName"];
             _database = _client.GetDatabase(dbName);
 
-            _team = new MongoDbHelper<Team>(_database, "dailysoccer.Teams");
-            _match = new MongoDbHelper<Match>(_database, "dailysoccer.Matches");
-            _league = new MongoDbHelper<League>(_database, "dailysoccer.Leagues");
-            _reward = new MongoDbHelper<Reward>(_database, "dailysoccer.Rewards");
-            _winner = new MongoDbHelper<Winner>(_database, "dailysoccer.Winners");
-            _prediction = new MongoDbHelper<Prediction>(_database, "dailysoccer.Predictions");
-            _userProfile = new MongoDbHelper<UserProfile>(_database, "dailysoccer.UserProfiles");
-            _rewardGroup = new MongoDbHelper<RewardGroup>(_database, "dailysoccer.RewardGroups");
-            _pendingWinner = new MongoDbHelper<PendingWinner>(_database, "dailysoccer.PendingWinners");
-            _facebookAccount = new MongoDbHelper<FacebookAccount>(_database, "dailysoccer.FacebookAccounts");
+            _team = new MongoDbHelper<Team>(_database, "test.joker.Teams");
+            _match = new MongoDbHelper<Match>(_database, "test.joker.Matches");
+            _league = new MongoDbHelper<League>(_database, "test.joker.Leagues");
+            _reward = new MongoDbHelper<Reward>(_database, "test.joker.Rewards");
+            _winner = new MongoDbHelper<Winner>(_database, "test.joker.Winners");
+            _prediction = new MongoDbHelper<Prediction>(_database, "test.joker.Predictions");
+            _userProfile = new MongoDbHelper<UserProfile>(_database, "test.joker.UserProfiles");
+            _rewardGroup = new MongoDbHelper<RewardGroup>(_database, "test.joker.RewardGroups");
+            _pendingWinner = new MongoDbHelper<PendingWinner>(_database, "test.joker.PendingWinners");
+            _facebookAccount = new MongoDbHelper<FacebookAccount>(_database, "test.joker.FacebookAccounts");
         }
 
         /// <summary>
