@@ -12,13 +12,8 @@
 
     class BuyCouponController {
 
-        static $inject = ['$ionicModal', '$scope','$state', 'app.reward.BuyCouponDataService'];
-        constructor(private $ionicModal, private $scope,private $state: angular.ui.IStateService, private buySvc: app.reward.BuyCouponDataService) {
-            this.$ionicModal.fromTemplateUrl('templates/BuyCouponPopup.html',
-                {
-                    scope: $scope,
-                    animation: 'slide-ins-up'
-                }).then(modal=> { this.$scope.ErrorPopup = modal; });
+        static $inject = ['$ionicModal', '$scope', '$state', 'app.reward.BuyCouponDataService'];
+        constructor(private $ionicModal, private $scope, private $state: angular.ui.IStateService, private buySvc: app.reward.BuyCouponDataService) {
         }
 
         public BuyCoupons(buyAmount: number): void {
@@ -52,6 +47,11 @@
                     scope: $scope,
                     animation: 'slide-in-up'
                 }).then(modal=> { this.$scope.CompletedPopup = modal; });
+            this.$ionicModal.fromTemplateUrl('templates/BuyCouponPopup.html',
+                {
+                    scope: $scope,
+                    animation: 'slide-ins-up'
+                }).then(modal=> { this.$scope.ErrorPopup = modal; });
 
             this.$scope.$on('modal.hidden', () => this.validateUserProfile());
             this.validateUserProfile();
@@ -77,7 +77,8 @@
         private checkPreparingPopups(): boolean {
             var isSetupCompleted = this.$scope.FacebookPopup != null
                 && this.$scope.TiePopup != null
-                && this.$scope.CompletedPopup != null;
+                && this.$scope.CompletedPopup != null
+                && this.$scope.ErrorPopup != null;
             if (!isSetupCompleted) {
                 console.log('Preparing...');
                 this.$timeout(() => this.validateUserProfile(), 333);
@@ -103,16 +104,13 @@
             return isPhoneNumberVerified;
         }
         private buyCoupons(): void {
-            this.couponDataSvc.SendPurchaseOrderCompleted();
             var userprofile = this.userprofileSvc.GetUserProfile();
             this.buySvc.BuyCoupon(userprofile.UserId, this.couponDataSvc.RequestBuyAmount)
                 .then((respond: BuyCouponRespond) => {
                     this.buyCouponResult = respond;
+                    this.couponDataSvc.SendPurchaseOrderCompleted(respond.IsSuccess);
                     if (respond.IsSuccess) this.$scope.CompletedPopup.show();
-                    else {
-                        // HACK: Show the error message
-                        alert('Buy failed: ' + respond.ErrorMessage);
-                    }
+                    else this.$scope.ErrorPopup.show();
                 })
                 .catch(err=> {
                     // TODO: Inform error to user

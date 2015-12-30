@@ -39,10 +39,10 @@
             this.RequestBuyAmount = 0;
         }
 
-        public SendPurchaseOrderCompleted(): void {
+        public SendPurchaseOrderCompleted(isSuccess: boolean): void {
             if (!this.IsBuyingCompleted) {
                 this.IsBuyingCompleted = true;
-                this.RemainingPoints -= this.CouponCost * this.RequestBuyAmount;
+                if (isSuccess) this.RemainingPoints -= this.CouponCost * this.RequestBuyAmount;
             }
         }
     }
