@@ -73,14 +73,15 @@
 
         private svc: ICouponSummaryResourceClass<any>;
 
-        static $inject = ['appConfig', '$resource'];
-        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
+        static $inject = ['appConfig', '$resource', 'app.shared.UserProfileService'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService, private userprofileSvc: app.shared.UserProfileService) {
             this.svc = <ICouponSummaryResourceClass<any>>$resource(appConfig.CouponSummaryUrl, { 'id': '@id' }, {
                 GetCouponSummary: { method: 'GET' }
             });
         }
 
-        public GetCouponSummary(userId: string): ng.IPromise<GetCouponSummaryRespond> {
+        public GetCouponSummary(): ng.IPromise<GetCouponSummaryRespond> {
+            var userId = this.userprofileSvc.GetUserProfile().UserId;
             return this.svc.GetCouponSummary(new GetCouponSummaryRequest(userId)).$promise;
         }
     }
