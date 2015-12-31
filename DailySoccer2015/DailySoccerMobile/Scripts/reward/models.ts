@@ -18,4 +18,18 @@
         public RemainingPoints: number;
         public OrderedCoupons: number;
     }
+
+    export class RewardGroupRespond {
+        public IsAvailable: boolean;
+        public RequiredPoints: number;
+        public Rewards: Reward[] = [];
+    }
+    export class Reward {
+        public OrderedNo: number;
+        public Price: number;
+        public Amount: number;
+        public ImgPath: string;
+        public ThumbImgPath: string;
+        public Description: string;
+    }
 }

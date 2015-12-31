@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="item no-border text-right" ng-repeat="item in cx.data | orderBy:'OrderedNo'">
+        <div ng-show="cx.data.IsAvailable" class="item no-border text-right" ng-repeat="item in cx.data.Rewards | orderBy:'OrderedNo'">
             <div>
                 <img class="col" src="{{ item.ImgPath }}" />
             </div>
@@ -33,12 +33,10 @@
                 จำนวน {{ item.Amount }} รางวัล
             </div>
         </div>
-
-        <!-- No item -->
-        <!--<div class="item no-border text-right" ng-show="cx.data.length == 0">
+        <div ng-show="!cx.data.IsAvailable" class="item no-border text-right">
             <div>
                 <img class="col" src="img/Logos/Noitemx1.png" bh-src-responsive="[ [ 'small', 'img/Logos/Noitemx2.png' ], [ 'medium', 'img/Logos/Noitemx3.png' ], [ 'retina', 'img/Logos/Noitemx3.png' ] ]" />
             </div>
-        </div>-->
+        </div>
     </ion-content>
 </ion-view>

@@ -86,9 +86,35 @@
         }
     }
 
+    interface IRewardResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        GetRewardGroup(): T;
+        GetWinners(): T;
+        GetMyRewards(id: string): T;
+    }
+    export class RewardService {
+
+        private svc: IRewardResourceClass<any>;
+
+        static $inject = ['appConfig', '$resource', 'app.shared.UserProfileService'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService, private userprofileSvc: app.shared.UserProfileService) {
+            this.svc = <IRewardResourceClass<any>>$resource(appConfig.RewardUrl, { 'id': '@id' }, {
+                GetRewardGroup: { method: 'GET' },
+                GetWinners: { method: 'GET', params: { 'action': 'winners' } },
+                GetMyRewards: { method: 'GET', params: { 'action': 'myrewards' } }
+            });
+        }
+
+        public GetRewardGroup(): ng.IPromise<RewardGroupRespond> {
+            return this.svc.GetRewardGroup().$promise;
+        }
+        //public GetWinners(): T;
+        //public GetMyRewards(id: string): T;
+    }
+
     angular
         .module('app.reward')
         .service('app.reward.BuyCouponDataService', BuyCouponDataService)
         .service('app.reward.BuyCouponService', BuyCouponService)
-        .service('app.reward.CouponSummaryService', CouponSummaryService);
+        .service('app.reward.CouponSummaryService', CouponSummaryService)
+        .service('app.reward.RewardService', RewardService);
 }

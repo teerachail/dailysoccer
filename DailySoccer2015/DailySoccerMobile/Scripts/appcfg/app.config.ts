@@ -6,6 +6,7 @@
         VerifyPhoneUrl: string;
         BuyCouponUrl: string;
         CouponSummaryUrl: string;
+        RewardUrl: string;
     }
 
     export class AppConfig implements IAppConfig {
@@ -14,6 +15,7 @@
         public VerifyPhoneUrl: string;
         public BuyCouponUrl: string;
         public CouponSummaryUrl: string;
+        RewardUrl: string;
 
         static $inject = ['defaultUrl'];
         constructor(defaultUrl: string) {
@@ -23,6 +25,7 @@
             this.VerifyPhoneUrl = this.ProfileUrl + '/:action';
             this.BuyCouponUrl = apiUrl + '/coupons/buy';
             this.CouponSummaryUrl = apiUrl + '/coupons/summary/:id';
+            this.RewardUrl = apiUrl + '/rewards/:action/:id';
         }
 
     }

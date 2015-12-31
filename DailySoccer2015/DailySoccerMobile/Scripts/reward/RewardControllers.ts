@@ -4,8 +4,8 @@
     class RewardsController {
 
         static $inject = ['data', 'couponSummary', 'app.reward.BuyCouponDataService'];
-        constructor(public data, private couponSummary: GetCouponSummaryRespond, private buySvc: app.reward.BuyCouponDataService) {
-            buySvc.InitialData(200, 500); // HACK: Setup coupon data
+        constructor(public data: RewardGroupRespond, private couponSummary: GetCouponSummaryRespond, private buySvc: app.reward.BuyCouponDataService) {
+            buySvc.InitialData(data.RequiredPoints, couponSummary.RemainingPoints);
         }
 
     }

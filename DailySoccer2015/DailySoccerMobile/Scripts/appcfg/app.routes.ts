@@ -83,8 +83,8 @@
                      templateUrl: 'templates/Rewards.html',
                      controller: 'app.reward.RewardsController as cx',
                      resolve: {
-                         "data": ["app.shared.RewardsService", svc => { return svc.getAll(); }],
-                         "couponSummary": ["app.reward.CouponSummaryService", svc=> { return svc.GetCouponSummary(); }]
+                         "data": ["app.reward.RewardService", svc => { return svc.GetRewardGroup(); }],
+                         "couponSummary": ["app.reward.CouponSummaryService", svc => { return svc.GetCouponSummary(); }]
                      }
                  }
              }
