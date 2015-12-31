@@ -10,9 +10,14 @@
         public FutureTwoDaysDate: Date = new Date();
         public Leagues: string[];
 
-        static $inject = ['$state'];
-        constructor(private $state: angular.ui.IStateService) {
+        static $inject = ['data', 'point','$ionicModal','$scope'];
+        constructor(public data, public point, private $ionicModal, private $scope ) {
             this.updateDisplayDate(this.CurrentDate);
+            this.$ionicModal.fromTemplateUrl('templates/MatchesPopup.html',
+                {
+                    scope: $scope,
+                    animation: 'slide-ins-up'
+                }).then(modal=> { this.$scope.MatchPopup = modal; });
         }
 
         private updateDisplayDate(currentDate: Date): void {

@@ -66,6 +66,14 @@
 
     }
 
+    export class CouponPointsService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-couponPoints", $resource);
+        }
+    }
+
     export class MatchService extends MockTableDataServiceBase {
 
         static $inject = ['$resource'];
@@ -115,7 +123,8 @@
     }
 
 	angular
-		.module('app.shared')
+        .module('app.shared')
+        .service('app.shared.CouponPointsService', CouponPointsService)
         .service('app.shared.MatchService', MatchService)
         .service('app.shared.RewardsService', RewardsService)
         .service('app.shared.WinnersRewardService', WinnersRewardService)

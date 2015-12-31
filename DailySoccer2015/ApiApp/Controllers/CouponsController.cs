@@ -36,11 +36,16 @@ namespace ApiApp.Controllers
         /// <param name="id">User id</param>
         [HttpGet]
         [Route("summary/{id}")]
-        public UserProfile Get(string id)
+        public CouponSummaryRespond Get(string id)
         {
             if (string.IsNullOrEmpty(id)) return null;
             var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(id));
-            return userProfile;
+
+            return new CouponSummaryRespond
+            {
+                RemainingPoints = userProfile.Points,
+                OrderedCoupons = userProfile.OrderedCoupon
+            };
         }
 
         // POST: api/Coupons

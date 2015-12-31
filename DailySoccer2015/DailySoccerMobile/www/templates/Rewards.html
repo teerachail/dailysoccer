@@ -6,7 +6,7 @@
                 </i>
             </div>
             <div class="col col-center">
-                แต้มสะสม 7000
+                แต้มสะสม {{ cx.couponSummary.RemainingPoints }}
             </div>
             <div class="col col-center">
                 <a ui-sref="app.coupon.buy" class="button-block button button-energized">
@@ -16,7 +16,7 @@
         </ion-item>
         <div class="item item-stable no-border">
             <div class="">
-                แลกซื้อคูปองไปแล้วทั้งหมด 0 ใบ
+                แลกซื้อคูปองไปแล้วทั้งหมด {{ cx.couponSummary.OrderedCoupons }} ใบ
             </div>
         </div>
         <div class="item no-border text-center no-padding-bottom">

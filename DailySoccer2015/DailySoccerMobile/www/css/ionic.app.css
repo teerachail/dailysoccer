@@ -5285,14 +5285,14 @@ ion-tabs.tabs-color-active-dark .tab-item {
   width: 100%;
   background-color: #fff; }
 
-@media (min-width: 680px) {
+@media (min-width: 200px) {
   .modal {
-    top: 20%;
-    right: 20%;
-    bottom: 20%;
-    left: 20%;
-    min-height: 240px;
-    width: 60%; }
+    top: 40%;
+    right: 10%;
+    bottom: 35%;
+    left: 10%;
+    min-height: 150px;
+    width: 80%; }
   .modal.ng-leave-active {
     bottom: 0; }
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {
@@ -9828,3 +9828,12 @@ a.button {
 
 .scroll-middle .has-header {
   top: initial; }
+
+/*.modal-float{
+    top: 40%;
+    right: 10%;
+    bottom: 35%;
+    left: 10%;
+    min-height: 150px;
+    width: 80%;
+}*/

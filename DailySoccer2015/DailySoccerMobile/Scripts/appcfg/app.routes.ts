@@ -37,8 +37,7 @@
             })
             .state('app.main', {
                 url: '/main',
-                abstract: true,
-              
+                abstract: true,              
              views: {
                  'menuContent': {
                      templateUrl: 'templates/Tabs.html',
@@ -116,10 +115,17 @@
                  }
              }
             })
+
             .state('app.coupon', {
                 url: '/coupon',
                 abstract: true,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/BlankLayout.html'
+                    }
+                }
             })
+
             .state('app.coupon.buy', {
              url: '/buy',
              views: {
@@ -142,6 +148,11 @@
             .state('app.verify', {
                 url: '/verify',
                 abstract: true,
+                views: {
+                'menuContent': {
+                    templateUrl: 'templates/BlankLayout.html'
+                }
+            }
             })
             .state('app.verify.phone', {
              url: '/phone',
@@ -167,6 +178,11 @@
             .state('app.history', {
                 url: '/history',
                 abstract: true,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/BlankLayout.html'
+                    }
+                }
             })
             .state('app.history.summary', {
              url: '/summary',
@@ -203,5 +219,6 @@
             var month = now.getMonth() + 1;
             return '/app/main/matches/' + userId + '/' + now.getDate() + '/' + month + '/' + now.getFullYear();
         });
+        //$urlRouterProvider.otherwise('/sample');
 	}
 }
