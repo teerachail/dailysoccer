@@ -99,7 +99,7 @@
         constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService, private userprofileSvc: app.shared.UserProfileService) {
             this.svc = <IRewardResourceClass<any>>$resource(appConfig.RewardUrl, { 'id': '@id' }, {
                 GetRewardGroup: { method: 'GET' },
-                GetWinners: { method: 'GET', params: { 'action': 'winners' } },
+                GetWinners: { method: 'GET', isArray: true, params: { 'action': 'winners' } },
                 GetMyRewards: { method: 'GET', params: { 'action': 'myrewards' } }
             });
         }
@@ -107,7 +107,10 @@
         public GetRewardGroup(): ng.IPromise<RewardGroupRespond> {
             return this.svc.GetRewardGroup().$promise;
         }
-        //public GetWinners(): T;
+
+        public GetWinners(): ng.IPromise<RewardWinner[]> {
+            return this.svc.GetWinners().$promise;
+        }
         //public GetMyRewards(id: string): T;
     }
 

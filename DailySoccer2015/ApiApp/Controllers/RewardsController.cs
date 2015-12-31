@@ -65,21 +65,12 @@ namespace ApiApp.Controllers
             if (!lastRewardQry.Any()) return Enumerable.Empty<RewardWinner>();
 
             var winners = _repo.GetWinners();
-            var rewardWinners = lastRewardQry.Select(reward =>
-            new RewardWinner
+            var result = lastRewardQry.Select(reward => new RewardWinner
             {
                 id = reward.id,
-                Amount = reward.Amount,
-                Description = reward.Description,
-                ImgPath = reward.ImgPath,
-                ThumbImgPath = reward.ThumbImgPath,
-                OrderedNo = reward.OrderedNo,
-                Price = reward.Price,
-                RewardGroupId = reward.RewardGroupId,
-                Winners = winners.Where(it => it.RewardId == reward.id).Select(it => it.id).ToList()
-            }).ToList();
-
-            return rewardWinners;
+                Winners = winners.Where(winner => winner.RewardId.Equals(reward.id)).Select(it => it.UserId).ToList()
+            });
+            return result;
         }
 
         // GET: api/Rewards/5

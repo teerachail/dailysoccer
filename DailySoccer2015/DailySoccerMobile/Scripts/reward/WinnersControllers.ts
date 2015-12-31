@@ -1,26 +1,23 @@
 ﻿module app.reward {
 	'use strict';
 
-	class WinnersController {
+    class WinnersController {
 
-		//public model: any = null;
-
-        static $inject = ['data', 'nameData'];
-        constructor(public data, public nameData) {
-		}
-
-		// public myMethod(): void {
-		// }
-
-        public ShowNoWinner(Id: string): number {
-            var count = -1;
-            for (var i = 0; i < this.nameData.length || count <= -1; i++)
-                if (this.nameData[i].RewardId == Id)
-                    count++;
-            return count;
+        static $inject = ['data', 'winnerData'];
+        constructor(public data: RewardGroupRespond, public winnerData: RewardWinner[]) {
         }
 
-	}
+        public AnyRewardWinner(rewardId: string): boolean {
+            var result = this.GetWinnersNameByRewardId(rewardId).length > 0;
+            return result;
+        }
+
+        public GetWinnersNameByRewardId(rewardId: string): string[] {
+            var qry = this.winnerData.filter(it=> it.id == rewardId);
+            if (qry.length <= 0) return [];
+            return qry[0].Winners;
+        }
+    }
 
 	angular
 		.module('app.reward')

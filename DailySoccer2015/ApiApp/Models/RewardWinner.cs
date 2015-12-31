@@ -19,41 +19,6 @@ namespace ApiApp.Models
         public string id { get; set; }
 
         /// <summary>
-        /// รหัสกลุ่มของรางวัล
-        /// </summary>
-        public string RewardGroupId { get; set; }
-
-        /// <summary>
-        /// ลำดับที่
-        /// </summary>
-        public int OrderedNo { get; set; }
-
-        /// <summary>
-        /// มูลค่า
-        /// </summary>
-        public int Price { get; set; }
-
-        /// <summary>
-        /// จำนวนรางวัล
-        /// </summary>
-        public int Amount { get; set; }
-
-        /// <summary>
-        /// รูปของรางวัล
-        /// </summary>
-        public string ImgPath { get; set; }
-
-        /// <summary>
-        /// รูปของรางวัลขนาดเล็ก
-        /// </summary>
-        public string ThumbImgPath { get; set; }
-
-        /// <summary>
-        /// รายละเอียด
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
         /// รายชื่อผู้โชคดี
         /// </summary>
         public IEnumerable<string> Winners { get; set; }

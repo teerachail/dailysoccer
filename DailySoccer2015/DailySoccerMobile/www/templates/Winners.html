@@ -1,38 +1,36 @@
 ﻿<ion-view view-title="DAILY SOCCER">
     <ion-content>
-        <!-- มีผู้รับรางวัล -->
-        <div class="item no-border" ng-repeat="item in cx.data">
+        <div ng-show="cx.data.IsAvailable" class="item no-border" ng-repeat="item in cx.data.Rewards">
             <div>
                 <b>
                     รางวัลที่ {{ item.OrderedNo }}
                 </b>
                 <h2>
                     <b>
-                        {{ item.RewardName }} มูลค่า {{ item.Price }} บาท
+                        {{ item.Description }} มูลค่า {{ item.Price }} บาท
                     </b>
                 </h2>
             </div>
             <div>
-                <p ng-show="cx.ShowNoWinner(item.RewardId) == -1">
+                <p ng-show="!cx.AnyRewardWinner(item.id)">
                     <i>
                         - ไม่มีผู้โชคดีได้รับรางวัล
                     </i>
                 </p>
-                <p ng-repeat="name in cx.nameData | filter:item.RewardId">
+                <p ng-show="cx.AnyRewardWinner(item.id)" ng-repeat="name in cx.GetWinnersNameByRewardId(item.id)">
                     <i>
-                        - {{name.WinnerName}}
+                        - {{ name }}
                     </i>
                 </p>
             </div>
             <div>
-                <img class="col" src="{{item.ImgPath}}" />
+                <img class="col" src="{{ item.ImgPath }}" />
             </div>
         </div>
-        <!-- ไม่มีรางวัล -->
-        <!--<div class="item no-border text-right" ng-show="itemCtrl.WinnersInfo.Winners.length==0">
+        <div ng-show="!cx.data.IsAvailable" class="item no-border text-right">
             <div>
                 <img class="col" src="img/Logos/Noitemx1.png" bh-src-responsive="[ [ 'small', 'img/Logos/Noitemx2.png' ], [ 'medium', 'img/Logos/Noitemx3.png' ], [ 'retina', 'img/Logos/Noitemx3.png' ] ]" />
             </div>
-        </div>-->
+        </div>
     </ion-content>
 </ion-view>

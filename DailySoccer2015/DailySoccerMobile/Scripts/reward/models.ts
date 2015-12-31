@@ -25,11 +25,16 @@
         public Rewards: Reward[] = [];
     }
     export class Reward {
+        public id: string;
         public OrderedNo: number;
         public Price: number;
         public Amount: number;
         public ImgPath: string;
         public ThumbImgPath: string;
         public Description: string;
+    }
+    export class RewardWinner {
+        public id: string;
+        public Winners: string[] = [];
     }
 }

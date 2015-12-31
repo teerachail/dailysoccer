@@ -97,8 +97,8 @@
                      templateUrl: 'templates/Winners.html',
                      controller: 'app.reward.WinnersController as cx',
                      resolve: {
-                         "data": ["app.shared.WinnersRewardService", svc => { return svc.getAll(); }],
-                         "nameData": ["app.shared.WinnersListService", svc => { return svc.getAll(); }]
+                         "data": ["app.reward.RewardService", svc => { return svc.GetRewardGroup(); }],
+                         "winnerData": ["app.reward.RewardService", svc => { return svc.GetWinners(); }]
                      }
                  }
              }
