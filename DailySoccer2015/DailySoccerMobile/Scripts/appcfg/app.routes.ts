@@ -60,6 +60,7 @@
                          "predictions": ["$stateParams", "app.match.MatchService", (params,svc: app.match.MatchService) => {
                              return svc.GetPredictionsByDate(params.id, params.day, params.month, params.year);
                          }],
+                         "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
                      }
                  }
              }

@@ -10,14 +10,9 @@
         public FutureTwoDaysDate: Date = new Date();
         public Leagues: string[];
 
-        static $inject = ['data', 'point','$ionicModal','$scope'];
-        constructor(public data, public point, private $ionicModal, private $scope ) {
+        static $inject = ['$state'];
+        constructor(public $state ) {
             this.updateDisplayDate(this.CurrentDate);
-            this.$ionicModal.fromTemplateUrl('templates/MatchesPopup.html',
-                {
-                    scope: $scope,
-                    animation: 'slide-ins-up'
-                }).then(modal=> { this.$scope.MatchPopup = modal; });
         }
 
         private updateDisplayDate(currentDate: Date): void {
@@ -45,9 +40,15 @@
 
         public Leagues: string[];
 
-        static $inject = ['matches', 'predictions'];
-        constructor(public matches: app.match.MatchInformation[], public predictions: app.match.PredictionInformation[]) {
-            this.Leagues = matches.map(it => it.LeagueName).filter(function (item, i, ar) { return ar.indexOf(item) === i; });            
+        static $inject = ['matches', 'predictions', 'point', '$ionicModal', '$scope'];
+        constructor(public matches: app.match.MatchInformation[], public predictions: app.match.PredictionInformation[], public point, private $ionicModal, private $scope) {
+            this.Leagues = matches.map(it => it.LeagueName).filter(function (item, i, ar) { return ar.indexOf(item) === i; });  
+            
+            this.$ionicModal.fromTemplateUrl('templates/MatchesPopup.html',
+                {
+                    scope: $scope,
+                    animation: 'slide-ins-up'
+                }).then(modal=> { this.$scope.MatchPopup = modal; });          
         }
 
 
