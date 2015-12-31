@@ -16,7 +16,7 @@ namespace ApiApp.Models
         /// <summary>
         /// รหัสแมช์การแข่งขัน
         /// </summary>
-        public string Id { get; set; }
+        public string id { get; set; }
 
         /// <summary>
         /// รหัสทีมเจ้าบ้าน

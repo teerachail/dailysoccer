@@ -1,4 +1,4 @@
-﻿<ion-view view-title="DAILY SOCCER">
+﻿<ion-view  view-title="DAILY SOCCER">
     <ion-content class="matches">
         <div>
             <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
@@ -14,63 +14,66 @@
                 </span>
             </a>
         </div>
-        <div class="bar bar-stable col league text-center">Premeier League</div>
-        <ion-list>
-            <div ng-repeat="item in cx.data" class="text-center">
-                <div class="item match">
-                    <div class="match-status">
-                        <span class="col">{{item.Status}}</span>
-                    </div>
-                    <div class="row match-name">
-                        <div class="col team-name">{{item.TeamHomeName}}</div>
-                        <div class="col">
-                            <span>{{item.TeamHomeScore}} - {{item.TeamAwayScore}}</span>
-                        </div>
-                        <div class="col team-name">{{item.TeamAwayName}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <button ng-class="{
+        <div ng-repeat="league in cx.Leagues">
+            <div class="bar bar-stable col league text-center">{{ league }}</div>
+                <ion-list>
+                    <div ng-repeat="item in cx.GetMatchesByLeagueName(league)" class="text-center">
+                        <div class="item match">
+                            <div class="match-status">
+                                <span class="col">{{item.Status}}</span>
+                            </div>
+                            <div class="row match-name">
+                                <div class="col team-name">{{item.TeamHomeName}}</div>
+                                <div class="col">
+                                    <span>{{item.TeamHomeScore}} - {{item.TeamAwayScore}}</span>
+                                </div>
+                                <div class="col team-name">{{item.TeamAwayName}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button ng-class="{
                                         'button-dark': cx.IsUnSelectedHome(item),
                                         'button-balanced': cx.IsSelectedHome(item),
                                         'button-energized': cx.IsPredictHomeWin(item),
                                         'button-assertive': cx.IsPredictHomeLose(item)}"
-                                    ng-disabled="cx.IsGameStarted(item)"
-                                    class="button col">
-                                {{item.TeamHomePoint}}
-                                <span class="prediction-point" ng-show="cx.IsSelectedHome(item)">{{item.PredictionPoints}}'</span>
-                            </button>
-                            <small>Home</small>
-                        </div>
-                        <div class="col">
-                            <button ng-class="{
+                                            ng-disabled="cx.IsGameStarted(item)"
+                                            class="button col">
+                                        {{item.TeamHomePoint}}
+                                        <span class="prediction-point" ng-show="cx.IsShowHomePredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span>
+                                    </button>
+                                    <small>Home</small>
+                                </div>
+                                <div class="col">
+                                    <button ng-class="{
                                         'button-dark': cx.IsUnSelectedDraw(item),
                                         'button-balanced': cx.IsSelectedDraw(item),
                                         'button-energized': cx.IsPredictDrawWin(item),
                                         'button-assertive': cx.IsPredictDrawLose(item)}"
-                                    ng-disabled="cx.IsGameStarted(item)"
-                                    class="button col">
-                                {{item.DrawPoint}}
-                                <span class="prediction-point" ng-show="cx.IsSelectedDraw(item)">{{item.PredictionPoints}}'</span>
-                            </button>
-                            <small>Draw</small>
-                        </div>
-                        <div class="col">
-                            <button ng-class="{
+                                            ng-disabled="cx.IsGameStarted(item)"
+                                            class="button col">
+                                        {{item.DrawPoints}}
+                                        <span class="prediction-point" ng-show="cx.IsShowDrawPredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span>
+                                    </button>
+                                    <small>Draw</small>
+                                </div>
+                                <div class="col">
+                                    <button ng-class="{
                                         'button-dark': cx.IsUnSelectedAway(item),
                                         'button-balanced': cx.IsSelectedAway(item),
                                         'button-energized': cx.IsPredictAwayWin(item),
                                         'button-assertive': cx.IsPredictAwayLose(item)}"
-                                    ng-disabled="cx.IsGameStarted(item)"
-                                    class="button col">
-                                {{item.TeamAwayPoint}}
-                                <span class="prediction-point" ng-show="cx.IsSelectedAway(item)">{{item.PredictionPoints}}'</span>
-                            </button>
-                            <small>Away</small>
+                                            ng-disabled="cx.IsGameStarted(item)"
+                                            class="button col">
+                                        {{item.TeamAwayPoint}}
+                                        <span class="prediction-point" ng-show="cx.IsShowAwayPredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span>
+                                    </button>
+                                    <small>Away</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </ion-list>
+                </ion-list>
+        </div>
+        
     </ion-content>
 </ion-view>

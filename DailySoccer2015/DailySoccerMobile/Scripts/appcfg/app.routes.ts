@@ -38,24 +38,30 @@
             .state('app.main', {
                 url: '/main',
                 abstract: true,              
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/Tabs.html',
-                        controller: 'app.match.PredictionController as cx',
-                        resolve: {
-                            "data": ["app.shared.MatchService", svc => { return svc.getAll(); }],
-                            "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
-                        }
-                    }
-                }
+             views: {
+                 'menuContent': {
+                     templateUrl: 'templates/Tabs.html',
+                     controller: 'app.match.MainController as cx',
+                 }
+             }
 
             })
 
             .state('app.main.matches', {
-             url: '/matches',                
+             url: '/matches/:id/:day/:month/:year',                
              views: {
                  'matchContent': {
-                     templateUrl: 'templates/Matches.html'
+                     templateUrl: 'templates/Matches.html',
+                     controller: 'app.match.PredictionController as cx',
+                     resolve: {
+                         "matches": ["$stateParams", "app.match.MatchService", (params, svc: app.match.MatchService) => {
+                             return svc.GetMatchesByDate(params.day, params.month, params.year);
+                         }],
+                         "predictions": ["$stateParams", "app.match.MatchService", (params,svc: app.match.MatchService) => {
+                             return svc.GetPredictionsByDate(params.id, params.day, params.month, params.year);
+                         }],
+                         "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
+                     }
                  }
              }
             })
@@ -215,9 +221,13 @@
             })
         ;
 
-
-
-        $urlRouterProvider.otherwise('/app/main/matches');
+        $urlRouterProvider.otherwise(()=>
+        {
+            var now = new Date;
+            var userId = 'u01guest';
+            var month = now.getMonth() + 1;
+            return '/app/main/matches/' + userId + '/' + now.getDate() + '/' + month + '/' + now.getFullYear();
+        });
         //$urlRouterProvider.otherwise('/sample');
 	}
 }
