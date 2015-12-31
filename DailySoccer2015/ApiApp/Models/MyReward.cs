@@ -48,6 +48,11 @@ namespace ApiApp.Models
         /// </summary>
         public string ReferenceCode { get; set; }
 
+        /// <summary>
+        /// เป็นของรางวัลในปัจจุบันหรือไม่
+        /// </summary>
+        public bool IsPresent { get; set; }
+
         #endregion Properties
     }
 }

@@ -111,8 +111,7 @@
                      templateUrl: 'templates/MyRewards.html',
                      controller: 'app.reward.MyRewardsController as cx',
                      resolve: {
-                         "data": ["app.shared.MyRewardsService", svc => { return svc.getAll(); }],
-                         "oldData": ["app.shared.MyOldRewardsService", svc => { return svc.getAll(); }]
+                         "data": ["app.reward.RewardService", svc => { return svc.GetMyRewards(); }]
                      }
                  }
              }

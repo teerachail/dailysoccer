@@ -89,7 +89,7 @@
     interface IRewardResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
         GetRewardGroup(): T;
         GetWinners(): T;
-        GetMyRewards(id: string): T;
+        GetMyRewards(data: T): T;
     }
     export class RewardService {
 
@@ -100,7 +100,7 @@
             this.svc = <IRewardResourceClass<any>>$resource(appConfig.RewardUrl, { 'id': '@id' }, {
                 GetRewardGroup: { method: 'GET' },
                 GetWinners: { method: 'GET', isArray: true, params: { 'action': 'winners' } },
-                GetMyRewards: { method: 'GET', params: { 'action': 'myrewards' } }
+                GetMyRewards: { method: 'GET', isArray: true, params: { 'action': 'myrewards' } }
             });
         }
 
@@ -111,7 +111,11 @@
         public GetWinners(): ng.IPromise<RewardWinner[]> {
             return this.svc.GetWinners().$promise;
         }
-        //public GetMyRewards(id: string): T;
+
+        public GetMyRewards(): ng.IPromise<MyReward[]> {
+            var userprofile = this.userprofileSvc.GetUserProfile();
+            return this.svc.GetMyRewards(new GetMyRewardsRequest(userprofile.UserId)).$promise;
+        }
     }
 
     angular

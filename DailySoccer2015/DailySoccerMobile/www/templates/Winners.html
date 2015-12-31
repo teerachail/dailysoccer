@@ -1,6 +1,6 @@
 ﻿<ion-view view-title="DAILY SOCCER">
     <ion-content>
-        <div ng-show="cx.data.IsAvailable" class="item no-border" ng-repeat="item in cx.data.Rewards">
+        <div ng-show="cx.data.IsAvailable" class="item no-border" ng-repeat="item in cx.data.Rewards | orderBy:'OrderedNo'">
             <div>
                 <b>
                     รางวัลที่ {{ item.OrderedNo }}

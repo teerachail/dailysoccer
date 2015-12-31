@@ -37,4 +37,17 @@
         public id: string;
         public Winners: string[] = [];
     }
+
+    export class GetMyRewardsRequest {
+        constructor(public id: string) { }
+    }
+    export class MyReward {
+        public RewardDate: Date;
+        public OrderedNo: number;
+        public Price: number;
+        public ThumbImgPath: string;
+        public Description: string;
+        public ReferenceCode: string;
+        public IsPresent: boolean;
+    }
 }

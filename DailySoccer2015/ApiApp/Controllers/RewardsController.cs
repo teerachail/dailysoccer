@@ -90,6 +90,10 @@ namespace ApiApp.Controllers
             var rewards = _repo.GetRewards().Where(reward => winners.Any(it => it.RewardId.Equals(reward.id))).ToList();
             if (!rewards.Any()) return Enumerable.Empty<MyReward>();
 
+            var now = DateTime.Now;
+            var lastRewardGroup = _repo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
+            var presentGroupId = lastRewardGroup != null ? lastRewardGroup.id : string.Empty;
+
             var myRewards = (from winner in winners
                              from reward in rewards
                              where winner.RewardId.Equals(reward.id)
@@ -101,7 +105,8 @@ namespace ApiApp.Controllers
                                  Price = reward.Price,
                                  ReferenceCode = winner.ReferenceCode,
                                  ThumbImgPath = reward.ThumbImgPath,
-                                 RewardDate = winner.CreatedDate
+                                 RewardDate = winner.CreatedDate,
+                                 IsPresent = reward.RewardGroupId.Equals(presentGroupId)
                              }).ToList();
 
             return myRewards;
