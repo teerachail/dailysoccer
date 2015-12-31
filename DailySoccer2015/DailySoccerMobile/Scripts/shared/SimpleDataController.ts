@@ -47,11 +47,14 @@
 
 	class SimpleDataController {
 
+        public data;
         private user: UserProfile;
 
-        static $inject = ['data', '$scope', 'app.shared.TestPhoneService', 'app.shared.UserProfileService'];
-        constructor(public data, private $scope: ng.IScope, public TestPhoneService: TestPhoneService, profSvc: app.shared.UserProfileService) {
+        static $inject = [/*'data', */'$scope', 'app.shared.SampleDataService', 'app.shared.TestPhoneService', 'app.shared.UserProfileService'];
+        constructor(/*public data, */private $scope: ng.IScope, private svc: app.shared.SampleDataService, public TestPhoneService: TestPhoneService, profSvc: app.shared.UserProfileService) {
             this.user = profSvc.GetUserProfile();
+            svc.getAll().then(d => this.data = d);
+            alert('SimpleDataController constructor');
         }
 
         public VerPhone() {
