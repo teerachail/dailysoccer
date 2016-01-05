@@ -14,10 +14,10 @@
                 </span>
             </a>
         </div>
-        <div ng-repeat="league in cx.Leagues">
-            <div class="bar bar-stable col league text-center">{{ league }}</div>
+        <div ng-repeat="league in cx.leagues">
+            <div class="bar bar-stable col league text-center">{{ league.Name }}</div>
                 <ion-list>
-                    <div ng-repeat="item in cx.GetMatchesByLeagueName(league)" class="text-center">
+                    <div ng-repeat="item in league.Matches" class="text-center">
                         <div class="item match">
                             <div class="match-status">
                                 <span class="col">{{item.Status}}</span>

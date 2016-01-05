@@ -1,8 +1,8 @@
 ﻿module app.match {
 	'use strict';
 
-	export interface IMatchService {
-        GetMatchesByDate(day: number): ng.IPromise<MatchInformation[]>;
+    export interface IMatchService {
+        GetMatchesByDate(day: number): ng.IPromise<LeagueInformation[]>;
         GetPredictionsByDate(userId: string, day: number): ng.IPromise<PredictionInformation[]>;
 	}
 
@@ -17,7 +17,7 @@
             this.getPredictionsByDate = $resource('http://dailysoccer-joker.azurewebsites.net/api/predictions/:id/:day', { "id": "@id", "day": "@day"});
 		}
 
-        public GetMatchesByDate(day: number): ng.IPromise<MatchInformation[]> {
+        public GetMatchesByDate(day: number): ng.IPromise<LeagueInformation[]> {
             return this.getMatchesByDate.query({ day: day}).$promise;
         }
 

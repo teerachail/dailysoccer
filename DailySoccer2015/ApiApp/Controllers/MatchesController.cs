@@ -50,7 +50,7 @@ namespace ApiApp.Controllers
 
             if (selectedDate != null)
             {
-                var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate)
+                var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate.Date)
                                     let teamHomeName = teams.First(team => team.id == match.TeamHomeId).Name
                                     let teamAwayName = teams.First(team => team.id == match.TeamAwayId).Name
                                     let leagueName = leagues.First(league => league.id == match.LeagueId).Name

@@ -1,6 +1,11 @@
 ﻿module app.match {
     'use strict';
 
+    export class LeagueInformation {
+        Name: string;
+        Matches: MatchInformation[];
+    }
+
     export class MatchInformation {
         id: string;
         TeamHomeId: string;
