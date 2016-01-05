@@ -21,15 +21,20 @@
             .state('app', {
              url: '/app',
              abstract: true,
-             templateUrl: 'templates/SideMenu.html'
+             templateUrl: 'templates/SideMenu.html',
+             controller: 'app.shared.SideMenu as cx',
+             resolve: {
+                 "couponSummary": ["app.reward.CouponSummaryService", svc => { return svc.GetCouponSummary(); }]
+             }
             })
+
             .state('app.main', {
                 url: '/main',
                 abstract: true,              
              views: {
                  'menuContent': {
                      templateUrl: 'templates/Tabs.html',
-                     controller: 'app.match.MainController as cx',
+                     controller: 'app.match.MainController as cx'
                  }
              }
 
@@ -48,7 +53,12 @@
                          "predictions": ["$stateParams", "app.match.MatchService", (params,svc: app.match.MatchService) => {
                              return svc.GetPredictionsByDate(params.id, params.day);
                          }],
-                         "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
+                         "point": ["app.shared.CouponPointsService", svc => {
+                             return svc.getAll();
+                         }],
+                         "couponSummary": ["app.reward.CouponSummaryService", svc => {
+                             return svc.GetCouponSummary();
+                         }]
                      }
                  }
              }

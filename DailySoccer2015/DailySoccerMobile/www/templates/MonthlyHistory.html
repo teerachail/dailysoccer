@@ -5,7 +5,7 @@
         </div>
         <ion-list>
             <div ng-repeat="day in cx.day">
-                <ion-item class="item-stable row">
+                <ion-item class="item-stable row" ng-click="cx.toggleGroup(day)">
                     <div class="col col-20 col-center text-center">
                         <b>+{{day.DayTotslPoints}}</b>
                     </div>
@@ -13,10 +13,10 @@
                         {{day.PredictionDate | date: 'longDate' }}
                     </div>
                     <dsiv class="col col-20 col-center text-right">
-                        <i class="icon ion-chevron-down"></i>
+                        <i class="icon" ng-class="cx.isGroupShown(day) ? 'ion-chevron-down' : 'ion-chevron-up'"></i>
                     </dsiv>
                 </ion-item>
-                <div ng-repeat="item in cx.data | filter: {BeginDate: cx.filterDay(day.PredictionDate)}" class="padding-bottom row text-center">
+                <div ng-repeat="item in cx.data | filter: {BeginDate: cx.filterDay(day.PredictionDate)}" ng-show="cx.isGroupShown(day)" class="padding-bottom row text-center">
                     <div class="col col-20 col-center"><strong>+{{item.ActualPoints}}</strong> 
                     </div>
                     <div class="col col-center">

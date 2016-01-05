@@ -38,8 +38,8 @@
 
         public Leagues: string[];
 
-        static $inject = ['matches', 'predictions', 'point', '$ionicModal', '$scope'];
-        constructor(public leagues: app.match.LeagueInformation[], public predictions: app.match.PredictionInformation[], public point, private $ionicModal, private $scope) {
+        static $inject = ['matches', 'predictions', 'point', 'couponSummary', '$ionicModal', '$scope'];
+        constructor(public leagues: app.match.LeagueInformation[], public predictions: app.match.PredictionInformation[], public point, public couponSummary, private $ionicModal, private $scope) {
             
             this.$ionicModal.fromTemplateUrl('templates/MatchesPopup.html',
                 {
@@ -187,6 +187,8 @@
 
     class DaylyHistoryController {
 
+        public shownGroup;
+
         static $inject = ['data', 'day'];
         constructor(public data, public day) {
 
@@ -197,6 +199,18 @@
             value = value.substring(0, value.indexOf('T'));
             return value;
         }
+
+        public toggleGroup(group): void {
+            if (this.isGroupShown(group)) {
+                this.shownGroup = null;
+            } else {
+                this.shownGroup = group;
+            }
+        };
+
+        public isGroupShown(group): boolean {
+            return this.shownGroup == group;
+        };
     }
 
     class MonthlyHistoryController {
@@ -204,7 +218,6 @@
         static $inject = ['data'];
         constructor(public data) {
         }
-
     }
 
     angular
