@@ -9770,7 +9770,7 @@ a.button {
   border: 0px !important;
   margin: 0px !important; }
 
-.tabs-main .tab-item.tab-item-active {
+.tabs-main .tab-item.tab-item-active, .tabs-main .tab-item.active, .tabs-main tab-item.activated {
   background: #404040; }
 
 .tabs-reward div.tab-nav {

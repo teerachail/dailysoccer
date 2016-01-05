@@ -98,7 +98,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
         margin: 0px !important;
     }
 
-    .tab-item.tab-item-active {
+    .tab-item.tab-item-active,.tab-item.active,tab-item.activated {
         background: $royal;
     }
 }
