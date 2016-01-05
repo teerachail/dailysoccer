@@ -25,6 +25,7 @@
             </div>
         </div>
 
+        <div ng-show="!cx.data.IsAvailable" class="col text-center">ไม่มีข้อมูล</div>
         <div ng-show="cx.data.IsAvailable" class="item no-border text-right" ng-repeat="item in cx.data.Rewards | orderBy:'OrderedNo'">
             <div>
                 <img class="col" src="{{ item.ImgPath }}" />

@@ -4,6 +4,7 @@
             <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
         </div>
         <div class="list">
+            <div ng-show="cx.data.length == 0" class="col text-center">ไม่มีข้อมูล</div>
             <div class="row padding-bottom line-height-small" ng-hide="cx.data.length == 0" ng-repeat="item in cx.data">
                 <a class="row item item-stable no-border no-padding" ui-sref="app.history.monthly">
                     <div class="item item-royal col col-20 col-center text-center">
