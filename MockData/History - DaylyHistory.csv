@@ -1,0 +1,6 @@
+BeginDate,ActualPoints,TeamHomeName,TeamHomeScore,TeamAwayName,TeamAwayScore,IsSelectedHome,IsSelectedDraw,IsSelectedAway,IsTeamHomeWin,IsGameDraw,IsTeamAwayWin
+2015-1-1,20,Chelsea,1,Everton,1,false,true,false,false,true,false
+2015-1-1,30,Liverpool,0,Watford,1,false,false,true,false,false,true
+2015-1-2,0,Arsenal,3,Stoke,2,false,true,false,true,false,false
+2015-1-5,0,Newcastle,0,Tottenham Hotspur,0,false,false,true,false,true,false
+2015-1-5,50,Tottenham Hotspur,2,Arsenal,4,false,false,true,false,false,true
