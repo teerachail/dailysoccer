@@ -21,14 +21,16 @@ namespace ApiApp.Repositories
         void CreateUserProfile(string userId);
 
         /// <summary>
-        /// ดึงรายการบัญชีผู้ใช้
+        /// ดึงบัญชีผู้ใช้จากรหัสบัญชีผู้ใช้
         /// </summary>
-        IEnumerable<UserProfile> GetUserProfiles();
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึง</param>
+        UserProfile GetUserProfileById(string userId);
 
         /// <summary>
-        /// ดึงบัญชี Facebook
+        /// ดึงบัญชี Facebook จากรหัสบัญชี facebook
         /// </summary>
-        IEnumerable<FacebookAccount> GetFacebookAccounts();
+        /// <param name="facebookId">รหัสบัญชี facebook ที่ต้องการดึง</param>
+        FacebookAccount GetFacebookAccountsById(string facebookId);
 
         /// <summary>
         /// ผูกบัญชี Facebook เข้ากับบัญชีผู้ใช้
@@ -57,12 +59,6 @@ namespace ApiApp.Repositories
         /// <param name="phoneNumber">เบอร์โทรศัพท์ที่ใช้ในการยืนยัน</param>
         /// <param name="verifierCode">รหัสสำหรับตรวจสอบเบอร์โทรศัพท์</param>
         void SetVerifierPhoneNumber(string userId, string phoneNumber, string verifierCode);
-
-        /// <summary>
-        /// รีเซ็ตข้อมูลเบอร์โทรศัพท์ที่เคยยืนยันไว้
-        /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการรีเซ็ต</param>
-        void ResetVerifiedPhoneNumber(string userId);
 
         /// <summary>
         /// กำหนดการยืนยันเบอร์โทรศัพท์เสร็จสิ้น

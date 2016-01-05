@@ -34,13 +34,12 @@ namespace ApiApp.Controllers
         /// Get user profile by user id
         /// </summary>
         /// <param name="id">User id</param>
-        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         public UserProfile Get(string id)
         {
             if (string.IsNullOrEmpty(id)) return null;
-            var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(id));
+            var userProfile = _accountRepo.GetUserProfileById(id);
             return userProfile;
         }
 
@@ -53,7 +52,7 @@ namespace ApiApp.Controllers
         {
             var userId = Guid.NewGuid().ToString().Replace("-", string.Empty);
             _accountRepo.CreateUserProfile(userId);
-            var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(userId));
+            var userProfile = _accountRepo.GetUserProfileById(userId);
             return userProfile;
         }
 
@@ -84,10 +83,10 @@ namespace ApiApp.Controllers
             var areArgumentsValid = value != null && !string.IsNullOrEmpty(value.FacebookId);
             if (!areArgumentsValid) return null;
 
-            var facebookAccount = _accountRepo.GetFacebookAccounts().FirstOrDefault(it => it.id.Equals(value.FacebookId));
+            var facebookAccount = _accountRepo.GetFacebookAccountsById(value.FacebookId);
             if (facebookAccount == null) return null;
 
-            var userprofile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(value.UserId));
+            var userprofile = _accountRepo.GetUserProfileById(value.UserId);
             if (userprofile == null) return null;
 
             if (value.IsConfirmed)
@@ -120,7 +119,6 @@ namespace ApiApp.Controllers
                 && value.PhoneNumber.Length >= MinimumPhoneNumberDigits;
             if (!areArgumentsValid) return;
 
-            _accountRepo.ResetVerifiedPhoneNumber(id);
             var phoneNo = convertToThailandPhoneNoFormat(value.PhoneNumber);
             var verifyCode = Guid.NewGuid().ToString().Replace("-", string.Empty).ToUpper().Substring(0, 7);
             _accountRepo.SetVerifierPhoneNumber(id, phoneNo, verifyCode);
@@ -143,7 +141,7 @@ namespace ApiApp.Controllers
                 && !string.IsNullOrEmpty(value.VerificationCode);
             if (!areArgumentsValid) return new VerificationCodeRespond();
 
-            var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(id));
+            var userProfile = _accountRepo.GetUserProfileById(id);
             if (userProfile == null) return new VerificationCodeRespond();
 
             var phoneNo = convertToThailandPhoneNoFormat(value.PhoneNumber);
