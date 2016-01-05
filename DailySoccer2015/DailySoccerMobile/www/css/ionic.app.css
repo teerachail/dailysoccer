@@ -9799,7 +9799,8 @@ a.button {
 
 .match-name .team-name {
   text-overflow: ellipsis;
-  overflow: hidden; }
+  overflow: hidden;
+  white-space: nowrap; }
 
 .back-button .back-text {
   display: none !important; }
@@ -9839,12 +9840,9 @@ a.button {
 
 .scroll-middle .has-header {
   top: initial; }
-<<<<<<< HEAD
 
 ion-side-menu ion-content {
   background: #404040; }
   ion-side-menu ion-content ion-item {
     border: 0px !important;
     margin: 0px !important; }
-=======
->>>>>>> joker

@@ -124,6 +124,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     .team-name{
         text-overflow:ellipsis;
         overflow:hidden;
+        white-space: nowrap;
     }
 }
 .back-button .back-text{

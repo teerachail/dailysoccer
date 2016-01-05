@@ -4,8 +4,8 @@
             <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
         </div>
         <ion-list>
-            <div ng-repeat="day in cx.day" class="padding-bottom">
-                <ion-item class="item-stable bg-gray row no-padding no-border line-height-small">
+            <div ng-repeat="day in cx.day">
+                <ion-item class="item-stable row">
                     <div class="col col-20 col-center text-center">
                         <b>+{{day.DayTotslPoints}}</b>
                     </div>
@@ -20,14 +20,14 @@
                     <div class="col col-20 col-center"><strong>+{{item.ActualPoints}}</strong> 
                     </div>
                     <div class="col col-center">
-                        <div class="row">
-                            <div class="col">
+                        <div class="row match-name">
+                            <div class="col team-name">
                                 {{item.TeamHomeName}}
                             </div>
-                            <span class="col">
+                            <div class="col col-30">
                                 {{item.TeamHomeScore}} - {{item.TeamAwayScore}}
-                            </span>
-                            <div class="col">
+                            </div>
+                            <div class="col team-name">
                                 {{item.TeamAwayName}}
                             </div>
                         </div>
