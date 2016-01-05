@@ -35,35 +35,43 @@ namespace ApiApp.Controllers
         /// </summary>
         /// <param name="id">User Id</param>
         /// <param name="day">Filter by day</param>
-        /// <param name="month">Filter by month</param>
-        /// <param name="year">Filter by year</param>
         /// <returns>Predictions data</returns>
         [HttpGet]
-        [Route("{id}/{day}/{month}/{year}")]
-        public IEnumerable<PredictionInformation> Get(string id, int day, int month, int year)
+        [Route("{id}/{day}")]
+        public IEnumerable<PredictionInformation> Get(string id, int day)
         {
-            var selectedDate = new DateTime(year, month, day);
-            var prediction = _predictionRepo.GetUserPredictions();
-            var match = _matchesRepo.GetMatches();
+            var fromDate = DateTime.Now.AddDays(-3);
+            var toDate = DateTime.Now.AddDays(3);
+            var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1)
+                                      .Select(d => fromDate.AddDays(d));
 
-            var splitSeparetor = '-';
-            var userIdPosition = 0;
-            var matchIdPosition = 1;
-            var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate)
-                                      let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
-                                      let selectedMatch = match.First(it => it.id == matchId)
-                                      let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
-                                      let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
-                                      let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
-                                      select new PredictionInformation
-                                      {
-                                           MatchId = matchId,
-                                           IsPredictionTeamHome = isPredictTeamHome,
-                                           IsPredictionTeamAway = isPredictTeamAway,
-                                           IsPredictionDraw = isPredictDraw,
-                                           PredictionPoints = predict.PredictionPoints
-                                      };
-            return selectedPredictions;
+            var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
+            if (selectedDate != null)
+            {
+
+                var prediction = _predictionRepo.GetUserPredictions();
+                var match = _matchesRepo.GetMatches();
+
+                var splitSeparetor = '-';
+                var userIdPosition = 0;
+                var matchIdPosition = 1;
+                var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate.Date)
+                                          let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
+                                          let selectedMatch = match.First(it => it.id == matchId)
+                                          let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
+                                          let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
+                                          let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
+                                          select new PredictionInformation
+                                          {
+                                              MatchId = matchId,
+                                              IsPredictionTeamHome = isPredictTeamHome,
+                                              IsPredictionTeamAway = isPredictTeamAway,
+                                              IsPredictionDraw = isPredictDraw,
+                                              PredictionPoints = predict.PredictionPoints
+                                          };
+                return selectedPredictions;
+
+            } else return null;
         }
 
         // PUT: api/prediction/{user-id}

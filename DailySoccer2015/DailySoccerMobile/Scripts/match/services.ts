@@ -1,9 +1,9 @@
 ﻿module app.match {
 	'use strict';
 
-	export interface IMatchService {
-        GetMatchesByDate(day: number, month: number, year: number): ng.IPromise<MatchInformation[]>;
-        GetPredictionsByDate(userId: string, day: number, month: number, year: number): ng.IPromise<PredictionInformation[]>;
+    export interface IMatchService {
+        GetMatchesByDate(day: number): ng.IPromise<LeagueInformation[]>;
+        GetPredictionsByDate(userId: string, day: number): ng.IPromise<PredictionInformation[]>;
 	}
 
     export class MatchService implements IMatchService {
@@ -17,12 +17,12 @@
             this.getPredictionsByDate = $resource('http://dailysoccer-au.azurewebsites.net/api/predictions/:id/:day/:month/:year', { "id": "@id", "day": "@day", "month": "@month", "year": "@year" });
 		}
 
-        public GetMatchesByDate(day: number, month: number, year: number): ng.IPromise<MatchInformation[]> {
-            return this.getMatchesByDate.query({ day: day, month: month, year: year}).$promise;
+        public GetMatchesByDate(day: number): ng.IPromise<LeagueInformation[]> {
+            return this.getMatchesByDate.query({ day: day}).$promise;
         }
 
-        public GetPredictionsByDate(userId: string, day: number, month: number, year: number): ng.IPromise<PredictionInformation[]> {
-            return this.getPredictionsByDate.query({ id: userId ,day: day, month: month, year: year }).$promise;
+        public GetPredictionsByDate(userId: string, day: number): ng.IPromise<PredictionInformation[]> {
+            return this.getPredictionsByDate.query({ id: userId ,day: day}).$promise;
         }
 
 	}

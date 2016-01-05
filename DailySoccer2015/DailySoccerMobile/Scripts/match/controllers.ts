@@ -29,9 +29,7 @@
         public SelectDay(selectedDate: Date): void {
             this.$state.go('app.main.matches', {
                 id: 'u01guest',
-                day: selectedDate.getDate(),
-                month: selectedDate.getMonth() + 1,
-                year: selectedDate.getFullYear()
+                day: selectedDate.getDate()
             });
         }
     }
@@ -41,19 +39,13 @@
         public Leagues: string[];
 
         static $inject = ['matches', 'predictions', 'point', '$ionicModal', '$scope'];
-        constructor(public matches: app.match.MatchInformation[], public predictions: app.match.PredictionInformation[], public point, private $ionicModal, private $scope) {
-            this.Leagues = matches.map(it => it.LeagueName).filter(function (item, i, ar) { return ar.indexOf(item) === i; });
-
+        constructor(public leagues: app.match.LeagueInformation[], public predictions: app.match.PredictionInformation[], public point, private $ionicModal, private $scope) {
+            
             this.$ionicModal.fromTemplateUrl('templates/MatchesPopup.html',
                 {
                     scope: $scope,
                     animation: 'slide-ins-up'
                 }).then(modal=> { this.$scope.MatchPopup = modal; });
-        }
-
-
-        public GetMatchesByLeagueName(leagueName: string): app.match.MatchInformation[] {
-            return this.matches.filter(it => it.LeagueName == leagueName);
         }
 
         public IsGameStarted(match: app.match.MatchInformation): boolean {
