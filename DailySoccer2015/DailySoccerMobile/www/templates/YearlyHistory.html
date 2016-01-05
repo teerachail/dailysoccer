@@ -1,9 +1,23 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <div>Content goes here.</div>
-</body>
-</html>
+﻿<ion-view view-title="DAILY SOCCER">
+    <ion-content class="history">
+        <div>
+            <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
+        </div>
+        <div class="list">
+            <div class="row padding-bottom line-height-small" ng-hide="cx.data.length == 0" ng-repeat="item in cx.data">
+                <a class="row item item-stable no-border no-padding" ui-sref="app.history.monthly">
+                    <div class="item item-royal col col-20 col-center text-center">
+                        <b>+{{item.TotalPoints}}</b>
+                    </div>
+                    <div class="col  col-center text-center">
+                        {{item.HistoryDate | date: 'MMMM yyyy'}}
+                    </div>
+                    <div class="col col-20 col-center text-right">
+                        <i class="icon ion-chevron-right">
+                        </i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

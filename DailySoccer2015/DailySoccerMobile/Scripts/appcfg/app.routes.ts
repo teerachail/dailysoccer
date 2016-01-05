@@ -197,7 +197,11 @@
              url: '/summary',
              views: {
                  'menuContent': {
-                     templateUrl: 'templates/YearlyHistory.html'
+                     templateUrl: 'templates/YearlyHistory.html',
+                     controller: 'app.match.MonthlyHistoryController as cx',
+                     resolve: {
+                         "data": ["app.shared.YearlyHistoryService", svc => { return svc.getAll(); }]
+                     }
                  }
              }
             })
@@ -206,7 +210,12 @@
              url: '/monthly',
              views: {
                  'menuContent': {
-                     templateUrl: 'templates/MonthlyHistory.html'
+                     templateUrl: 'templates/MonthlyHistory.html',
+                     controller: 'app.match.DaylyHistoryController as cx',
+                     resolve: {
+                         "day": ["app.shared.MouthlyHistoryService", svc => { return svc.getAll(); }],
+                         "data": ["app.shared.DaylyHistoryService", svc => { return svc.getAll(); }]
+                     }
                  }
              }
             })

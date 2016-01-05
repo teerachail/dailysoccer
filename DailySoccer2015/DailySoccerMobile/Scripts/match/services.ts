@@ -13,8 +13,8 @@
 
 		static $inject = ['$resource'];
 		constructor(private $resource: angular.resource.IResourceService) {
-            this.getMatchesByDate = $resource('http://dailysoccer-joker.azurewebsites.net/api/matches/:day/:month/:year', { "day": "@day", "month": "@month", "year": "@year" });
-            this.getPredictionsByDate = $resource('http://dailysoccer-joker.azurewebsites.net/api/predictions/:id/:day/:month/:year', { "id": "@id", "day": "@day", "month": "@month", "year": "@year" });
+            this.getMatchesByDate = $resource('http://dailysoccer-au.azurewebsites.net/api/matches/:day/:month/:year', { "day": "@day", "month": "@month", "year": "@year" });
+            this.getPredictionsByDate = $resource('http://dailysoccer-au.azurewebsites.net/api/predictions/:id/:day/:month/:year', { "id": "@id", "day": "@day", "month": "@month", "year": "@year" });
 		}
 
         public GetMatchesByDate(day: number, month: number, year: number): ng.IPromise<MatchInformation[]> {

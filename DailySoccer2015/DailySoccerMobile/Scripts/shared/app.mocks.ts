@@ -122,6 +122,30 @@
         }
     }
 
+    export class YearlyHistoryService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-yearHistory", $resource);
+        }
+    }
+
+    export class MouthlyHistoryService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-mouthHistory", $resource);
+        }
+    }
+
+    export class DaylyHistoryService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-dayHistory", $resource);
+        }
+    }
+
 	angular
         .module('app.shared')
         .service('app.shared.CouponPointsService', CouponPointsService)
@@ -131,6 +155,9 @@
         .service('app.shared.WinnersListService', WinnersListService)
         .service('app.shared.MyRewardsService', MyRewardsService)
         .service('app.shared.MyOldRewardsService', MyOldRewardsService)
+        .service('app.shared.YearlyHistoryService', YearlyHistoryService)
+        .service('app.shared.MouthlyHistoryService', MouthlyHistoryService)
+        .service('app.shared.DaylyHistoryService', DaylyHistoryService)
         .service('app.shared.SampleDataService', SampleDataService)
         .service('app.shared.SampleUrlDataService', SampleUrlDataService)
         .service('app.shared.MockTableDataServiceBase', MockTableDataServiceBase);
