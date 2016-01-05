@@ -17,18 +17,6 @@
             resolve: {
                 "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
             }
-		// }).state('stateName', {
-		//     url: '/url/to/navigate',
-		//     templateUrl: 'url/to/template/:sampleId',
-		//     controller: 'ControllerFullName',
-		//     controllerAs: 'cx',
-		//     resolve: {
-		//         'ctlrInputId': ['$stateParams', '$q', ($stateParams: ng.ui.IStateParamsService, $q: ng.IQService): ng.IPromise<number> => {
-		//             var defer = $q.defer<number>();
-		//             defer.resolve((<any>$stateParams).sampleId);
-		//             return defer.promise;
-		//         }]
-		//     }
         })
             .state('app', {
              url: '/app',
@@ -48,17 +36,17 @@
             })
 
             .state('app.main.matches', {
-             url: '/matches/:id/:day/:month/:year',                
+             url: '/matches/:id/:day',                
              views: {
                  'matchContent': {
                      templateUrl: 'templates/Matches.html',
                      controller: 'app.match.PredictionController as cx',
                      resolve: {
                          "matches": ["$stateParams", "app.match.MatchService", (params, svc: app.match.MatchService) => {
-                             return svc.GetMatchesByDate(params.day, params.month, params.year);
+                             return svc.GetMatchesByDate(params.day);
                          }],
                          "predictions": ["$stateParams", "app.match.MatchService", (params,svc: app.match.MatchService) => {
-                             return svc.GetPredictionsByDate(params.id, params.day, params.month, params.year);
+                             return svc.GetPredictionsByDate(params.id, params.day);
                          }],
                          "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
                      }
@@ -217,8 +205,7 @@
         {
             var now = new Date;
             var userId = 'u01guest';
-            var month = now.getMonth() + 1;
-            return '/app/main/matches/' + userId + '/' + now.getDate() + '/' + month + '/' + now.getFullYear();
+            return '/app/main/matches/' + userId + '/' + now.getDate();
         });
         //$urlRouterProvider.otherwise('/sample');
 	}

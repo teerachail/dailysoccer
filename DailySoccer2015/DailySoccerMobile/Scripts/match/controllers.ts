@@ -29,9 +29,7 @@
         public SelectDay(selectedDate: Date): void {
             this.$state.go('app.main.matches', {
                 id: 'u01guest',
-                day: selectedDate.getDate(),
-                month: selectedDate.getMonth() + 1,
-                year: selectedDate.getFullYear()
+                day: selectedDate.getDate()
             });
         }
     }

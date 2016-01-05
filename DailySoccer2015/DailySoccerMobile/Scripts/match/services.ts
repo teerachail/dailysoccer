@@ -2,8 +2,8 @@
 	'use strict';
 
 	export interface IMatchService {
-        GetMatchesByDate(day: number, month: number, year: number): ng.IPromise<MatchInformation[]>;
-        GetPredictionsByDate(userId: string, day: number, month: number, year: number): ng.IPromise<PredictionInformation[]>;
+        GetMatchesByDate(day: number): ng.IPromise<MatchInformation[]>;
+        GetPredictionsByDate(userId: string, day: number): ng.IPromise<PredictionInformation[]>;
 	}
 
     export class MatchService implements IMatchService {
@@ -13,16 +13,16 @@
 
 		static $inject = ['$resource'];
 		constructor(private $resource: angular.resource.IResourceService) {
-            this.getMatchesByDate = $resource('http://dailysoccer-joker.azurewebsites.net/api/matches/:day/:month/:year', { "day": "@day", "month": "@month", "year": "@year" });
-            this.getPredictionsByDate = $resource('http://dailysoccer-joker.azurewebsites.net/api/predictions/:id/:day/:month/:year', { "id": "@id", "day": "@day", "month": "@month", "year": "@year" });
+            this.getMatchesByDate = $resource('http://dailysoccer-joker.azurewebsites.net/api/matches/:day', { "day": "@day"});
+            this.getPredictionsByDate = $resource('http://dailysoccer-joker.azurewebsites.net/api/predictions/:id/:day', { "id": "@id", "day": "@day"});
 		}
 
-        public GetMatchesByDate(day: number, month: number, year: number): ng.IPromise<MatchInformation[]> {
-            return this.getMatchesByDate.query({ day: day, month: month, year: year}).$promise;
+        public GetMatchesByDate(day: number): ng.IPromise<MatchInformation[]> {
+            return this.getMatchesByDate.query({ day: day}).$promise;
         }
 
-        public GetPredictionsByDate(userId: string, day: number, month: number, year: number): ng.IPromise<PredictionInformation[]> {
-            return this.getPredictionsByDate.query({ id: userId ,day: day, month: month, year: year }).$promise;
+        public GetPredictionsByDate(userId: string, day: number): ng.IPromise<PredictionInformation[]> {
+            return this.getPredictionsByDate.query({ id: userId ,day: day}).$promise;
         }
 
 	}
