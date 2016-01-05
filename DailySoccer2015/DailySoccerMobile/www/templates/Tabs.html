@@ -1,5 +1,4 @@
-﻿
- <ion-tabs class="tabs-dark tabs-top tabs-main has-header">
+﻿ <ion-tabs class="tabs-dark tabs-top tabs-main has-header">
     <ion-tab title="{{ cx.PastTwoDaysDate | date: 'EEE' }}<br>{{ cx.PastTwoDaysDate | date: 'd' }}" on-select="cx.SelectDay(cx.PastTwoDaysDate)"></ion-tab>
     <ion-tab title="{{ cx.PastOneDaysDate | date: 'EEE' }}<br>{{ cx.PastOneDaysDate | date: 'd' }}" on-select="cx.SelectDay(cx.PastOneDaysDate)"></ion-tab>
     <ion-tab title="{{ cx.CurrentDate | date: 'EEE' }}<br>{{ cx.CurrentDate | date: 'd' }}" on-select="cx.SelectDay(cx.CurrentDate)"></ion-tab>

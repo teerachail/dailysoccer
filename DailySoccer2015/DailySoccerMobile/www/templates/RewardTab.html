@@ -1,18 +1,9 @@
-﻿<ion-side-menus enable-menu-with-back-views="false">
-    <ion-side-menu-content>
-        <ion-tabs class="tabs-stable tabs-top text-dark">
-            <ion-tab title="ของรางวัล" ui-sref="app.reward.lists" class="text-dark">
-                <!-- Tab 1 content -->
-                <ion-nav-view name="tab-rewards"></ion-nav-view>
-            </ion-tab>
-            <ion-tab title="รายชื่อผู้โชคดี" ui-sref="app.reward.winners" class="text-dark">
-                <!-- Tab 2 content -->
-                <ion-nav-view name="tab-winners"></ion-nav-view>
-            </ion-tab>
-            <ion-tab title="ติดต่อรับของ" ui-sref="app.reward.myrewards" class="text-dark">
-                <!-- Tab 3 content -->
-                <ion-nav-view name="tab-myrewards"></ion-nav-view>
-            </ion-tab>
-        </ion-tabs>
-    </ion-side-menu-content>
-</ion-side-menus>
+﻿<ion-tabs class="tabs-stable tabs-top tabs-reward">
+    <ion-tab title="ของรางวัล" ui-sref="app.reward.lists" class="text-dark">
+    </ion-tab>
+    <ion-tab title="รายชื่อผู้โชคดี" ui-sref="app.reward.winners" class="text-dark">
+    </ion-tab>
+    <ion-tab title="ติดต่อรับของ" ui-sref="app.reward.myrewards" class="text-dark">
+    </ion-tab>
+</ion-tabs>
+<ion-nav-view name="rewardContent"></ion-nav-view>

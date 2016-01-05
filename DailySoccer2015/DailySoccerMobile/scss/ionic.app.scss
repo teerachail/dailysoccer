@@ -14,15 +14,15 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
-$light:                           #fff ;
-$stable:                          #dedede ;
-$positive:                        #233b83 ;
-$calm:                            #4F629c ;
-$balanced:                        #00b95c ;
-$energized:                       #FEC42A ;
-$dark:                            #282828 ;
-$royal:                           #404040 ; 
-$assertive:                       #D3051A ;
+$light: #fff;
+$stable: #dedede;
+$positive: #233b83;
+$calm: #4F629c;
+$balanced: #00b95c;
+$energized: #FEC42A;
+$dark: #282828;
+$royal: #404040;
+$assertive: #D3051A;
 
 /*$modal-bg-color:                  #fff !default;
 $modal-backdrop-bg-active:        #000 !default;
@@ -36,8 +36,8 @@ $modal-inset-mode-left:           10% !default;
 $modal-inset-mode-min-height:     150px !default;
 $modal-inset-mode-min-width:     80% !default;*/
 
-$button-energized-text:           #000000 ;
-$bar-height:                      44px;
+$button-energized-text: #000000;
+$bar-height: 44px;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -48,32 +48,36 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "www/lib/ionic/scss/ionic";
 
 .match-status {
-    line-height:20px;
-    height:20px;
-}
-.matches{
-    bottom:$bar-height !important;
+    line-height: 20px;
+    height: 20px;
 }
 
-.match{
-    padding:0px;
-    .button{
-        line-height:30px;
-        padding:0px;
+.matches ,.rewards{
+    bottom: $bar-height !important;
+}
+
+.match {
+    padding: 0px;
+
+    .button {
+        line-height: 30px;
+        padding: 0px;
         border: 0;
         min-height: 40px;
     }
+
     .button.disabled, .button[disabled] {
-    opacity: 0.8;
-    cursor: default !important;
-    pointer-events: none;
-}
+        opacity: 0.8;
+        cursor: default !important;
+        pointer-events: none;
+    }
 }
 
-.banner{
-    padding:0px;
+.banner {
+    padding: 0px;
 }
-.prediction-point{
+
+.prediction-point {
     position: absolute;
     top: 0;
     right: 3px;
@@ -81,32 +85,54 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     line-height: 14px;
     font-style: italic;
 }
-.tabs-main{
-    div.tab-nav{
-        position:relative !important;
-        height:$bar-height;
-        line-height:$bar-height/2;
+
+.tabs-main {
+    div.tab-nav {
+        position: relative !important;
+        height: $bar-height;
+        line-height: $bar-height/2;
     }
-    a,.tab-nav,span{
-        border:0px !important;
-        margin:0px !important;
+
+    a, .tab-nav, span {
+        border: 0px !important;
+        margin: 0px !important;
     }
-    .tab-item.tab-item-active{
-        background:$royal;
+
+    .tab-item.tab-item-active {
+        background: $royal;
+    }
+}
+.tabs-reward
+{
+    div.tab-nav {
+        position: relative !important;
+        height: $bar-height;
+        line-height: $bar-height;
+    }
+
+    a, .tab-nav, span {
+        border: 0px !important;
+        margin: 0px !important;
+    }
+
+    .tab-item.tab-item-active {
+        background: darken($stable,15%) ;
     }
 }
 
-.block-center{
-    margin-left:auto;
-    margin-right:auto;
-    float:none;
+.block-center {
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
 }
-.input-number{
-        border: 1px solid black !important;
+
+.input-number {
+    border: 1px solid black !important;
     border-radius: 4px !important;
 }
-.soccer-number{
-    position:absolute;
+
+.soccer-number {
+    position: absolute;
     font-size: 12px !important;
     margin: 0 !important;
     bottom: 4px;
@@ -118,26 +144,30 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     border: 0px solid #f5f5f5;
     border-radius: 50%;
     background: $energized;
-    font-weight:bold;
+    font-weight: bold;
 }
-.match-name{
-    .team-name{
-        text-overflow:ellipsis;
-        overflow:hidden;
+
+.match-name {
+    .team-name {
+        text-overflow: ellipsis;
+        overflow: hidden;
         white-space: nowrap;
     }
 }
-.back-button .back-text{
-    display:none !important;
+
+.back-button .back-text {
+    display: none !important;
 }
+
 .button .icon {
     vertical-align: middle;
     pointer-events: none;
 }
-.trophy{
+
+.trophy {
     border-color: transparent;
     background-color: initial;
-    position:relative;
+    position: relative;
     margin: 0;
     min-height: 47px;
     text-align: center;
@@ -149,30 +179,36 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     min-height: 31px;
     line-height: 32px;
 }
-.league{
-    line-height:30px;
-    position:relative;
+
+.league {
+    line-height: 30px;
+    position: relative;
 }
+
 .scroll-middle {
     .scroll {
-      display: table-cell;
-      vertical-align: middle;
-      text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
     }
-    .scroll-content {
-      display: table !important;
-      width: 100% !important;
-      height: 100% !important;
-    }
-    .has-header{
-        top:initial;
-    }
-}
-ion-side-menu ion-content {
-    background:$royal;
 
-    ion-item{
-            border:0px !important;
-            margin:0px !important;
+    .scroll-content {
+        display: table !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .has-header {
+        top: initial;
     }
 }
+
+ion-side-menu ion-content {
+    background: $royal;
+
+    ion-item {
+        border: 0px !important;
+        margin: 0px !important;
+    }
+}
+

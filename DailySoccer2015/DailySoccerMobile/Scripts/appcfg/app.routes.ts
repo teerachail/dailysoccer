@@ -77,7 +77,7 @@
             .state('app.reward.lists', {
              url: '/lists',
              views: {
-                 'tab-rewards': {
+                 'rewardContent': {
                      templateUrl: 'templates/Rewards.html',
                      controller: 'app.reward.RewardsController as cx',
                      resolve: {
@@ -91,7 +91,7 @@
             .state('app.reward.winners', {
              url: '/winners',
              views: {
-                 'tab-winners': {
+                 'rewardContent': {
                      templateUrl: 'templates/Winners.html',
                      controller: 'app.reward.WinnersController as cx',
                      resolve: {
@@ -105,7 +105,7 @@
             .state('app.reward.myrewards', {
              url: '/myrewards',
              views: {
-                 'tab-myrewards': {
+                 'rewardContent': {
                      templateUrl: 'templates/MyRewards.html',
                      controller: 'app.reward.MyRewardsController as cx',
                      resolve: {
