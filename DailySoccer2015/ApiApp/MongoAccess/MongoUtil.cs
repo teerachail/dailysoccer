@@ -35,40 +35,25 @@ namespace ApiApp.MongoAccess
             _team = new MongoDbHelper<Team>(_database, "dailysoccer.Teams");
             _match = new MongoDbHelper<Match>(_database, "dailysoccer.Matches");
             _league = new MongoDbHelper<League>(_database, "dailysoccer.Leagues");
-            _reward = new MongoDbHelper<Reward>(_database, "dailysoccer.Rewards");
-            _winner = new MongoDbHelper<Winner>(_database, "dailysoccer.Winners");
+            //_reward = new MongoDbHelper<Reward>(_database, "dailysoccer.Rewards");
+            //_winner = new MongoDbHelper<Winner>(_database, "dailysoccer.Winners");
             _prediction = new MongoDbHelper<Prediction>(_database, "dailysoccer.Predictions");
             _userProfile = new MongoDbHelper<UserProfile>(_database, "dailysoccer.UserProfiles");
-            _rewardGroup = new MongoDbHelper<RewardGroup>(_database, "dailysoccer.RewardGroups");
+            //_rewardGroup = new MongoDbHelper<RewardGroup>(_database, "dailysoccer.RewardGroups");
             _pendingWinner = new MongoDbHelper<PendingWinner>(_database, "dailysoccer.PendingWinners");
             _facebookAccount = new MongoDbHelper<FacebookAccount>(_database, "dailysoccer.FacebookAccounts");
         }
 
         /// <summary>
-        /// ดึงรายการกลุ่มของรางวัล
+        /// ดึงข้อมูลจากตาราง
         /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<RewardGroup> GetRewardGroups()
+        /// <typeparam name="T">ข้อมูลที่ทำงานด้วย</typeparam>
+        /// <param name="tableName">ชื่อตาราง</param>
+        public static IMongoCollection<T> GetCollection<T>(string tableName)
         {
-            return _rewardGroup.Read();
+            return _database.GetCollection<T>(tableName);
         }
-
-        /// <summary>
-        /// ดึงรายการของรางวัลจากรหัสกลุ่ม
-        /// </summary>
-        public static IEnumerable<Reward> GetRewards()
-        {
-            return _reward.Read();
-        }
-
-        /// <summary>
-        /// ดึงรายการของรางวัลและผู้ชนะ
-        /// </summary>
-        public static IEnumerable<Winner> GetWinners()
-        {
-            return _winner.Read();
-        }
-
+        
         /// <summary>
         /// ดึงรายการบัญชีผู้ใช้
         /// </summary>

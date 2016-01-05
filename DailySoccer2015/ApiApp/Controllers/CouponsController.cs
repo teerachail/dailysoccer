@@ -63,7 +63,7 @@ namespace ApiApp.Controllers
             var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(value.UserId));
             if (userProfile == null) return new BuyCouponRespond { ErrorMessage = "ข้อมูลผู้ใช้ไม่ถูกต้อง" };
 
-            var currentRewardGroup = _rewardRepo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
+            var currentRewardGroup = _rewardRepo.GetCurrentRewardGroups();
             if (currentRewardGroup == null) return new BuyCouponRespond { ErrorMessage = "ยังไม่สามารถสั่งซื้อได้ในช่วงเวลานี้" };
 
             var requiredPoints = currentRewardGroup.RequiredPoints * value.BuyAmount;

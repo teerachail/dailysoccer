@@ -15,20 +15,33 @@ namespace ApiApp.Repositories
         #region Methods
 
         /// <summary>
-        /// ดึงรายการกลุ่มของรางวัล
+        /// ดึงรายการกลุ่มของรางวัลล่าสุด
         /// </summary>
-        /// <returns></returns>
-        IEnumerable<RewardGroup> GetRewardGroups();
+        RewardGroup GetCurrentRewardGroups();
 
         /// <summary>
-        /// ดึงรายการของรางวัล
+        /// ดึงรายการของรางวัลจากรหัสกลุ่มของรางวัล
         /// </summary>
-        IEnumerable<Reward> GetRewards();
+        /// <param name="rewardGroupId">รหัสกลุ่มของรางวัลที่ต้องการหา</param>
+        IEnumerable<Reward> GetRewardsByRewardGroupId(string rewardGroupId);
 
         /// <summary>
-        /// ดึงรายการของรางวัลและผู้ชนะ
+        /// ดึงรายการของรางวัลจากรหัสของรางวัล
         /// </summary>
-        IEnumerable<Winner> GetWinners();
+        /// <param name="rewardIds">รายการรหัสของรางวัลที่ต้องการหา</param>
+        IEnumerable<Reward> GetRewardsByIds(IEnumerable<string> rewardIds);
+
+        /// <summary>
+        /// ดึงรายการของรางวัลและผู้ชนะจากรหัสบัญชีผู้ใช้
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้</param>
+        IEnumerable<Winner> GetWinnersByUserId(string userId);
+
+        /// <summary>
+        /// ดึงรายการของรางวัลและผู้ชนะจากรหัสบัญชีผู้ใช้
+        /// </summary>
+        /// <param name="rewardId">รหัสบัญชีผู้ใช้</param>
+        IEnumerable<Winner> GetWinnersByRewardId(string rewardId);
 
         #endregion Methods
     }
