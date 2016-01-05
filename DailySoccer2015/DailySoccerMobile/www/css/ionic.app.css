@@ -15,6 +15,17 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
+/*$modal-bg-color:                  #fff !default;
+$modal-backdrop-bg-active:        #000 !default;
+$modal-backdrop-bg-inactive:      rgba(0,0,0,0) !default;
+
+$modal-inset-mode-break-point:    200px !default;  // @media min-width
+$modal-inset-mode-top:            40% !default;
+$modal-inset-mode-right:          10% !default;
+$modal-inset-mode-bottom:         35% !default;
+$modal-inset-mode-left:           10% !default;
+$modal-inset-mode-min-height:     150px !default;
+$modal-inset-mode-min-width:     80% !default;*/
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -5285,14 +5296,14 @@ ion-tabs.tabs-color-active-dark .tab-item {
   width: 100%;
   background-color: #fff; }
 
-@media (min-width: 200px) {
+@media (min-width: 680px) {
   .modal {
-    top: 40%;
-    right: 10%;
-    bottom: 35%;
-    left: 10%;
-    min-height: 150px;
-    width: 80%; }
+    top: 20%;
+    right: 20%;
+    bottom: 20%;
+    left: 20%;
+    min-height: 240px;
+    width: 60%; }
   .modal.ng-leave-active {
     bottom: 0; }
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {
@@ -9829,11 +9840,8 @@ a.button {
 .scroll-middle .has-header {
   top: initial; }
 
-/*.modal-float{
-    top: 40%;
-    right: 10%;
-    bottom: 35%;
-    left: 10%;
-    min-height: 150px;
-    width: 80%;
-}*/
+ion-side-menu ion-content {
+  background: #404040; }
+  ion-side-menu ion-content ion-item {
+    border: 0px !important;
+    margin: 0px !important; }

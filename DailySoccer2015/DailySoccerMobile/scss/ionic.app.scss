@@ -167,3 +167,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
         top:initial;
     }
 }
+ion-side-menu ion-content {
+    background:$royal;
+
+    ion-item{
+            border:0px !important;
+            margin:0px !important;
+    }
+}
