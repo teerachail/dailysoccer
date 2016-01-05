@@ -38,14 +38,56 @@
 
         public Leagues: string[];
 
-        static $inject = ['matches', 'predictions', 'point', '$ionicModal', '$scope'];
-        constructor(public leagues: app.match.LeagueInformation[], public predictions: app.match.PredictionInformation[], public point, private $ionicModal, private $scope) {
+        static $inject = ['matches', 'predictions', 'point', 'app.match.PredictionsService', '$ionicModal', '$scope'];
+        constructor(public leagues: app.match.LeagueInformation[], public predictions: app.match.PredictionInformation[], public point, private predictSvc: app.match.PredictionsService, private $ionicModal, private $scope) {
             
             this.$ionicModal.fromTemplateUrl('templates/MatchesPopup.html',
                 {
                     scope: $scope,
                     animation: 'slide-ins-up'
                 }).then(modal=> { this.$scope.MatchPopup = modal; });          
+        }
+
+        private refrestPredictions(): void {
+            var now = new Date();
+            this.predictSvc.GetPredictionsByDate("u01guest", now.getDate())
+                .then((respond: PredictionInformation[]): void => {
+                    this.predictions = respond;
+                });
+        }
+
+        public predictTeamHome(match: app.match.MatchInformation): void {
+            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[0];
+            var isCancel: boolean = false;
+            if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionTeamHome;
+
+            this.predictSvc.Predict("u01guest", match.id, match.TeamHomeId, isCancel)
+                .then((respond: app.match.PredictionInformation[]): void => {
+                    this.predictions = respond;
+            });
+            
+        }
+
+        public predictTeamAway(match: app.match.MatchInformation): void {
+            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[0];
+            var isCancel: boolean = false;
+            if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionTeamAway;
+
+            this.predictSvc.Predict("u01guest", match.id, match.TeamAwayId, isCancel)
+                .then((respond: app.match.PredictionInformation[]): void => {
+                    this.predictions = respond;
+                });
+        }
+
+        public predictDraw(match: app.match.MatchInformation): void {
+            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[0];
+            var isCancel: boolean = false;
+            if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionDraw;
+
+            this.predictSvc.Predict("u01guest", match.id, null, isCancel)
+                .then((respond: app.match.PredictionInformation[]): void => {
+                    this.predictions = respond;
+                });
         }
 
         public IsGameStarted(match: app.match.MatchInformation): boolean {

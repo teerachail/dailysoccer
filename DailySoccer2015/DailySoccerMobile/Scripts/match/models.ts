@@ -35,5 +35,9 @@
         IsPredictionDraw: boolean;
         PredictionPoints: number;
     }
+
+    export class PredictionRequest {
+        constructor(public id: string, public MatchId: string, public TeamId: string, public IsCancel: boolean) { }
+    }
     
 }

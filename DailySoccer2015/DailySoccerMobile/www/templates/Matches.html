@@ -37,6 +37,7 @@
                                         'button-energized': cx.IsPredictHomeWin(item),
                                         'button-assertive': cx.IsPredictHomeLose(item)}"
                                             ng-disabled="cx.IsGameStarted(item)"
+                                            ng-click="cx.predictTeamHome(item)"
                                             class="button col">
                                         {{item.TeamHomePoint}}
                                         <span class="prediction-point" ng-show="cx.IsShowHomePredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span>
@@ -50,6 +51,7 @@
                                         'button-energized': cx.IsPredictDrawWin(item),
                                         'button-assertive': cx.IsPredictDrawLose(item)}"
                                             ng-disabled="cx.IsGameStarted(item)"
+                                            ng-click="cx.predictDraw(item)"
                                             class="button col">
                                         {{item.DrawPoints}}
                                         <span class="prediction-point" ng-show="cx.IsShowDrawPredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span>
@@ -63,6 +65,7 @@
                                         'button-energized': cx.IsPredictAwayWin(item),
                                         'button-assertive': cx.IsPredictAwayLose(item)}"
                                             ng-disabled="cx.IsGameStarted(item)"
+                                            ng-click="cx.predictTeamAway(item)"
                                             class="button col">
                                         {{item.TeamAwayPoint}}
                                         <span class="prediction-point" ng-show="cx.IsShowAwayPredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span>
