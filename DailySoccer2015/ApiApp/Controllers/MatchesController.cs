@@ -32,44 +32,51 @@ namespace ApiApp.Controllers
         /// Get match by date
         /// </summary>
         /// <param name="day">Filter by day</param>
-        /// <param name="month">Filter by month</param>
-        /// <param name="year">Filter by year</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{day}/{month}/{year}")]
-        public IEnumerable<MatchInformation> Get(int day, int month, int year)
+        [Route("{day}")]
+        public IEnumerable<MatchInformation> Get(int day)
         {
             var matches = _repo.GetMatches();
             var teams = _repo.GetTeams();
             var leagues = _repo.GetAllLeagues();
 
-            var selectedDate = new DateTime(year, month, day);
-            
-            var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate)
-                                let teamHomeName = teams.First(team => team.id == match.TeamHomeId).Name
-                                let teamAwayName = teams.First(team => team.id == match.TeamAwayId).Name
-                                let leagueName = leagues.First(league => league.id == match.LeagueId).Name
-                                select new MatchInformation
-                                {
-                                     id = match.id,
-                                     TeamHomeId = match.TeamHomeId,
-                                     TeamHomeName = teamHomeName,
-                                     TeamHomePoint = match.TeamHomePoint,
-                                     TeamHomeScore = match.TeamHomeScore,
-                                     TeamAwayId = match.TeamAwayId,
-                                     TeamAwayName = teamAwayName,
-                                     TeamAwayPoint = match.TeamAwayPoint,
-                                     TeamAwayScore = match.TeamAwayScore,
-                                     DrawPoints = match.DrawPoints,
-                                     BeginDate = match.BeginDate,
-                                     Status = match.Status,
-                                     StartedDate = match.StartedDate,
-                                     CompletedDate = match.CompletedDate,
-                                     LeagueId = match.LeagueId,
-                                     LeagueName = leagueName
-                                };
+            var fromDate = DateTime.Now.AddDays(-3);
+            var toDate = DateTime.Now.AddDays(3);
+            var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1)
+                                      .Select(d => fromDate.AddDays(d));
 
-            return selectedMatch;
+            var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
+            if (selectedDate != null)
+            {
+
+                var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate)
+                                    let teamHomeName = teams.First(team => team.id == match.TeamHomeId).Name
+                                    let teamAwayName = teams.First(team => team.id == match.TeamAwayId).Name
+                                    let leagueName = leagues.First(league => league.id == match.LeagueId).Name
+                                    select new MatchInformation
+                                    {
+                                        id = match.id,
+                                        TeamHomeId = match.TeamHomeId,
+                                        TeamHomeName = teamHomeName,
+                                        TeamHomePoint = match.TeamHomePoint,
+                                        TeamHomeScore = match.TeamHomeScore,
+                                        TeamAwayId = match.TeamAwayId,
+                                        TeamAwayName = teamAwayName,
+                                        TeamAwayPoint = match.TeamAwayPoint,
+                                        TeamAwayScore = match.TeamAwayScore,
+                                        DrawPoints = match.DrawPoints,
+                                        BeginDate = match.BeginDate,
+                                        Status = match.Status,
+                                        StartedDate = match.StartedDate,
+                                        CompletedDate = match.CompletedDate,
+                                        LeagueId = match.LeagueId,
+                                        LeagueName = leagueName
+                                    };
+
+                return selectedMatch;
+
+            }else return null;
         }
     }
 }
