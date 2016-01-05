@@ -35,7 +35,7 @@ namespace ApiApp.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{day}")]
-        public IEnumerable<MatchInformation> Get(int day)
+        public IEnumerable<LeagueInformation> Get(int day)
         {
             var matches = _repo.GetMatches();
             var teams = _repo.GetTeams();
@@ -47,9 +47,9 @@ namespace ApiApp.Controllers
                                       .Select(d => fromDate.AddDays(d));
 
             var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
+
             if (selectedDate != null)
             {
-
                 var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate)
                                     let teamHomeName = teams.First(team => team.id == match.TeamHomeId).Name
                                     let teamAwayName = teams.First(team => team.id == match.TeamAwayId).Name
@@ -74,9 +74,17 @@ namespace ApiApp.Controllers
                                         LeagueName = leagueName
                                     };
 
-                return selectedMatch;
+                var selectedLeagueGroup = from leagueGroup in selectedMatch.GroupBy(it => it.LeagueName)
+                                          let match = leagueGroup
+                                          select new LeagueInformation
+                                          {
+                                              Name = leagueGroup.Key,
+                                              Matches = leagueGroup.ToList()
+                                          };
 
-            }else return null;
+                return selectedLeagueGroup;
+
+            } else return null;
         }
     }
 }
