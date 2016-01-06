@@ -38,6 +38,6 @@
 
     angular
         .module('app')
-        .constant('defaultUrl', 'http://localhost:2394')
+        .constant('defaultUrl', 'http://dailysoccer-joker.azurewebsites.net')
         .service('appConfig', AppConfig);
 }

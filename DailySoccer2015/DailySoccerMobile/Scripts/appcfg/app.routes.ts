@@ -10,14 +10,7 @@
 		'$urlRouterProvider'
 	];
 	function configRoutes($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) {
-		$stateProvider/*.state('sample', {
-			url: '/sample',
-			templateUrl: 'templates/sample.html',
-            controller: 'app.shared.SimpleDataController as cx',
-            resolve: {
-                "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-            } */
-        /*})*/
+		$stateProvider
             .state('app', {
              url: '/app',
              abstract: true,
@@ -53,9 +46,6 @@
                          "predictions": ["$stateParams", "app.match.PredictionsService", (params, svc: app.match.PredictionsService) => {
                              var user = "u01guest";
                              return svc.GetPredictionsByDate(user, params.day);
-                         }],
-                         "point": ["app.shared.CouponPointsService", svc => {
-                             return svc.getAll();
                          }],
                          "couponSummary": ["app.reward.CouponSummaryService", svc => {
                              return svc.GetCouponSummary();

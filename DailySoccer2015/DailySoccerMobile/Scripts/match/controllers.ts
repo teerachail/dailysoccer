@@ -37,8 +37,8 @@
 
         public Leagues: string[];
 
-        static $inject = ['matches', 'predictions', 'point', 'app.match.PredictionsService', '$ionicModal', '$scope'];
-        constructor(public leagues: app.match.LeagueInformation[], public predictions: app.match.PredictionInformation[], public point, private predictSvc: app.match.PredictionsService, private $ionicModal, private $scope) {
+        static $inject = ['matches', 'predictions', 'couponSummary', 'app.match.PredictionsService', '$ionicModal', '$scope'];
+        constructor(public leagues: app.match.LeagueInformation[], public predictions: app.match.PredictionInformation[], public couponSummary, private predictSvc: app.match.PredictionsService, private $ionicModal, private $scope) {
             
             this.$ionicModal.fromTemplateUrl('templates/MatchesPopup.html',
                 {
