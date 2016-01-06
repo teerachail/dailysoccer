@@ -18,11 +18,13 @@
             </div>
         </div>
         <div class="title padding row" ng-repeat="item in cx.team | filter: {LeagueId: (cx.league[cx.Pages].LeagueId) }">
-            <label class="col no-border row item item-radio item-stable ng-valid">
+            <label class="col borderless row item item-radio item-stable ng-valid">
                 <input type="radio" name="radio-group" ng-value="{{item.TeamId}}">
                 <div class="radio-content">
                     <span class="title">{{item.TeamName}}</span>
-                    <i class="radio-icon disable-pointer-events icon ion-ios-star"></i>
+                    <span>
+                        <i class="radio-icon disable-pointer-events icon ion-ios-star"></i>
+                    </span>
                 </div>
             </label>
         </div>

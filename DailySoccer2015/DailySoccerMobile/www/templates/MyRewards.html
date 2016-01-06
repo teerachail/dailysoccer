@@ -1,7 +1,7 @@
 ﻿<ion-view view-title="DAILY SOCCER">
     <ion-content class="rewards">
         <div class="padding">
-            <ion-item class="item-balanced text-center text-dark no-border">
+            <ion-item class="item-balanced text-center">
                 <b>
                     เงื่อนไขการรับรางวัล
                 </b>
@@ -19,7 +19,7 @@
                 <span>คุณเป็นผู้โชคดีได้รับรางวัล</span>
             </div>
             <div class="list">
-                <div class="item item-thumbnail-left no-border" ng-repeat="item in cx.GetPresentRewards() | orderBy:'OrderedNo'">
+                <div class="item item-thumbnail-left" ng-repeat="item in cx.GetPresentRewards() | orderBy:'OrderedNo'">
                     <img src="{{ item.ThumbImgPath }}" />
                     <p>
                         <i>
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div>
-            <div class="col item item-stable no-border text-center">
+            <div class="col item item-stable text-center">
                 รางวัลที่เคยได้รับ
             </div>
             <div ng-show="cx.AnyPastRewards()" class="padding" ng-repeat="item in cx.GetPastRewards() | orderBy:'-RewardDate'">

@@ -14,19 +14,19 @@
                 </a>
             </div>
         </ion-item>
-        <div class="item item-stable no-border">
+        <div class="item item-stable">
             <div class="">
                 แลกซื้อคูปองไปแล้วทั้งหมด {{ cx.couponSummary.OrderedCoupons }} ใบ
             </div>
         </div>
-        <div class="item no-border text-center no-padding-bottom">
+        <div class="item text-center no-padding-bottom">
             <div class="">
                 รางวัลประจำสัปดาห์
             </div>
         </div>
 
         <div ng-show="!cx.data.IsAvailable" class="col text-center">ไม่มีข้อมูล</div>
-        <div ng-show="cx.data.IsAvailable" class="item no-border text-right" ng-repeat="item in cx.data.Rewards | orderBy:'OrderedNo'">
+        <div ng-show="cx.data.IsAvailable" class="item text-right" ng-repeat="item in cx.data.Rewards | orderBy:'OrderedNo'">
             <div>
                 <img class="col" src="{{ item.ImgPath }}" />
             </div>
@@ -34,7 +34,7 @@
                 จำนวน {{ item.Amount }} รางวัล
             </div>
         </div>
-        <div ng-show="!cx.data.IsAvailable" class="item no-border text-right">
+        <div ng-show="!cx.data.IsAvailable" class="item text-right">
             <div>
                 <img class="col" src="img/Logos/Noitemx1.png" bh-src-responsive="[ [ 'small', 'img/Logos/Noitemx2.png' ], [ 'medium', 'img/Logos/Noitemx3.png' ], [ 'retina', 'img/Logos/Noitemx3.png' ] ]" />
             </div>
