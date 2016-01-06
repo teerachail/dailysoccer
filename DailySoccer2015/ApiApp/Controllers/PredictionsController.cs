@@ -67,7 +67,7 @@ namespace ApiApp.Controllers
                 _predictionRepo.SetUserPrediction(id, value.MatchId, value.TeamId, predictionPoints, DateTime.Now);
             }
             var now = DateTime.Now;
-            return GetPredictions(id, now.Date.Day);
+            return GetPredictions(id, selectedMatch.BeginDate.Date.Day);
         }
 
         /// <summary>
