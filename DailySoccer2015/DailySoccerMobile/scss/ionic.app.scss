@@ -240,5 +240,11 @@ ion-side-menu ion-content {
     border:0px;
 }
 .no-padding{
-    padding:0px;
+    padding:0px !important;
+}
+.padding-small{
+    padding:5px;
+}
+.small-line-height{
+    line-height:30px;
 }

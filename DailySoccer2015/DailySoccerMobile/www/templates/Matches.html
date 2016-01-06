@@ -13,19 +13,19 @@
             <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
         </div>
         <div class="padding">
-            <a ui-sref="app.reward.lists" class="button-small button button-energized row">
-                <div class="col col-10 col-center">
+            <a ui-sref="app.reward.lists" class="button button-energized row small-line-height no-padding">
+                <div class="col col-10 col-center no-padding">
                     <i class="icon ion-star">
                     </i>
                 </div>
-                <span class="col col-center text-left font-large">
+                <span class="col col-center text-left">
                     แต้มสะสม {{ cx.couponSummary.RemainingPoints }}
                 </span>
             </a>
         </div>
         <div ng-show="cx.leagues.length == 0" class="col text-center">ไม่มีข้อมูล</div>
         <div ng-repeat="league in cx.leagues">
-            <div class="bar bar-stable col league text-center">{{ league.Name }}</div>
+            <div class="item item-stable col league text-center borderless small-line-height">{{ league.Name }}</div>
                 <ion-list>
                     <div ng-repeat="item in league.Matches" class="text-center">
                         <div class="item match">

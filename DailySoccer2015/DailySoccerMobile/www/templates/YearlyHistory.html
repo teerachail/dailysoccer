@@ -5,8 +5,8 @@
         </div>
         <div class="list">
             <div ng-show="cx.data.length == 0" class="col text-center">ไม่มีข้อมูล</div>
-            <div class="padding" ng-hide="cx.data.length == 0" ng-repeat="item in cx.data">
-                <a class="row item item-stable" ui-sref="app.history.monthly">
+            <div class="padding-small" ng-hide="cx.data.length == 0" ng-repeat="item in cx.data">
+                <a class="row item item-stable borderless no-padding  small-line-height" ui-sref="app.history.monthly">
                     <div class="item item-royal col col-20 col-center text-center">
                         <b>+{{item.TotalPoints}}</b>
                     </div>
