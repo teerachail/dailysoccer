@@ -47,44 +47,42 @@ namespace ApiApp.Controllers
                                       .Select(d => fromDate.AddDays(d));
 
             var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
+            if (selectedDate == null) return null;
 
-            if (selectedDate != null)
-            {
-                var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate.Date)
-                                    let teamHomeName = teams.First(team => team.id == match.TeamHomeId).Name
-                                    let teamAwayName = teams.First(team => team.id == match.TeamAwayId).Name
-                                    let leagueName = leagues.First(league => league.id == match.LeagueId).Name
-                                    select new MatchInformation
-                                    {
-                                        id = match.id,
-                                        TeamHomeId = match.TeamHomeId,
-                                        TeamHomeName = teamHomeName,
-                                        TeamHomePoint = match.TeamHomePoint,
-                                        TeamHomeScore = match.TeamHomeScore,
-                                        TeamAwayId = match.TeamAwayId,
-                                        TeamAwayName = teamAwayName,
-                                        TeamAwayPoint = match.TeamAwayPoint,
-                                        TeamAwayScore = match.TeamAwayScore,
-                                        DrawPoints = match.DrawPoints,
-                                        BeginDate = match.BeginDate,
-                                        Status = match.Status,
-                                        StartedDate = match.StartedDate,
-                                        CompletedDate = match.CompletedDate,
-                                        LeagueId = match.LeagueId,
-                                        LeagueName = leagueName
-                                    };
+            var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate.Date)
+                                let teamHomeName = teams.First(team => team.id == match.TeamHomeId).Name
+                                let teamAwayName = teams.First(team => team.id == match.TeamAwayId).Name
+                                let leagueName = leagues.First(league => league.id == match.LeagueId).Name
+                                select new MatchInformation
+                                {
+                                    id = match.id,
+                                    TeamHomeId = match.TeamHomeId,
+                                    TeamHomeName = teamHomeName,
+                                    TeamHomePoint = match.TeamHomePoint,
+                                    TeamHomeScore = match.TeamHomeScore,
+                                    TeamAwayId = match.TeamAwayId,
+                                    TeamAwayName = teamAwayName,
+                                    TeamAwayPoint = match.TeamAwayPoint,
+                                    TeamAwayScore = match.TeamAwayScore,
+                                    DrawPoints = match.DrawPoints,
+                                    BeginDate = match.BeginDate,
+                                    Status = match.Status,
+                                    StartedDate = match.StartedDate,
+                                    CompletedDate = match.CompletedDate,
+                                    LeagueId = match.LeagueId,
+                                    LeagueName = leagueName
+                                };
 
-                var selectedLeagueGroup = from leagueGroup in selectedMatch.GroupBy(it => it.LeagueName)
-                                          let match = leagueGroup
-                                          select new LeagueInformation
-                                          {
-                                              Name = leagueGroup.Key,
-                                              Matches = leagueGroup.ToList()
-                                          };
+            var selectedLeagueGroup = from leagueGroup in selectedMatch.GroupBy(it => it.LeagueName)
+                                      let match = leagueGroup
+                                      select new LeagueInformation
+                                      {
+                                          Name = leagueGroup.Key,
+                                          Matches = leagueGroup.ToList()
+                                      };
 
-                return selectedLeagueGroup;
+            return selectedLeagueGroup;
 
-            } else return null;
         }
     }
 }

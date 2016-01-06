@@ -28,7 +28,6 @@
 
         public SelectDay(selectedDate: Date): void {
             this.$state.go('app.main.matches', {
-                id: 'u01guest',
                 day: selectedDate.getDate()
             });
         }

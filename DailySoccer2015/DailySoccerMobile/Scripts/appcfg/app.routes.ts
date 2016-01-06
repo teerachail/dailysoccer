@@ -36,7 +36,7 @@
             })
 
             .state('app.main.matches', {
-             url: '/matches/:id/:day',                
+             url: '/matches/:day',                
              views: {
                  'matchContent': {
                      templateUrl: 'templates/Matches.html',
@@ -45,8 +45,9 @@
                          "matches": ["$stateParams", "app.match.MatchService", (params, svc: app.match.MatchService) => {
                              return svc.GetMatchesByDate(params.day);
                          }],
-                         "predictions": ["$stateParams", "app.match.PredictionsService", (params,svc: app.match.PredictionsService) => {
-                             return svc.GetPredictionsByDate(params.id, params.day);
+                         "predictions": ["$stateParams", "app.match.PredictionsService", (params, svc: app.match.PredictionsService) => {
+                             var user = "u01guest";
+                             return svc.GetPredictionsByDate(user, params.day);
                          }],
                          "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
                      }
@@ -205,7 +206,7 @@
         {
             var now = new Date;
             var userId = 'u01guest';
-            return '/app/main/matches/' + userId + '/' + now.getDate();
+            return '/app/main/matches/'+ now.getDate();
         });
         //$urlRouterProvider.otherwise('/sample');
 	}

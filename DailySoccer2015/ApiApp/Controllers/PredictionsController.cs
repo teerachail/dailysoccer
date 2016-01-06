@@ -84,33 +84,29 @@ namespace ApiApp.Controllers
                                       .Select(d => fromDate.AddDays(d));
 
             var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
-            if (selectedDate != null)
-            {
+            if (selectedDate != null) return null;
 
-                var prediction = _predictionRepo.GetUserPredictions();
-                var match = _matchesRepo.GetMatches();
+            var prediction = _predictionRepo.GetUserPredictions();
+            var match = _matchesRepo.GetMatches();
 
-                var splitSeparetor = '-';
-                var userIdPosition = 0;
-                var matchIdPosition = 1;
-                var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate.Date)
-                                          let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
-                                          let selectedMatch = match.First(it => it.id == matchId)
-                                          let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
-                                          let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
-                                          let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
-                                          select new PredictionInformation
-                                          {
-                                              MatchId = matchId,
-                                              IsPredictionTeamHome = isPredictTeamHome,
-                                              IsPredictionTeamAway = isPredictTeamAway,
-                                              IsPredictionDraw = isPredictDraw,
-                                              PredictionPoints = predict.PredictionPoints
-                                          };
-                return selectedPredictions;
-
-            }
-            else return null;
+            var splitSeparetor = '-';
+            var userIdPosition = 0;
+            var matchIdPosition = 1;
+            var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate.Date)
+                                      let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
+                                      let selectedMatch = match.First(it => it.id == matchId)
+                                      let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
+                                      let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
+                                      let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
+                                      select new PredictionInformation
+                                      {
+                                          MatchId = matchId,
+                                          IsPredictionTeamHome = isPredictTeamHome,
+                                          IsPredictionTeamAway = isPredictTeamAway,
+                                          IsPredictionDraw = isPredictDraw,
+                                          PredictionPoints = predict.PredictionPoints
+                                      };
+            return selectedPredictions;
         }
     }
 }
