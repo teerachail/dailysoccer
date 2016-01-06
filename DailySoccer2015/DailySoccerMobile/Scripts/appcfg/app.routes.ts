@@ -15,7 +15,7 @@
              url: '/app',
              abstract: true,
              templateUrl: 'templates/SideMenu.html',
-             controller: 'app.shared.SideMenu as cx',
+             controller: 'app.shared.SideMenuController as cx',
              resolve: {
                  "couponSummary": ["app.reward.CouponSummaryService", svc => { return svc.GetCouponSummary(); }]
              }
