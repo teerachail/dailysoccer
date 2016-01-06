@@ -39,7 +39,8 @@ namespace ApiApp.Controllers
         public CouponSummaryRespond Get(string id)
         {
             if (string.IsNullOrEmpty(id)) return null;
-            var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(id));
+            var userProfile = _accountRepo.GetUserProfileById(id);
+            if (userProfile == null) return new CouponSummaryRespond();
 
             return new CouponSummaryRespond
             {
@@ -60,10 +61,10 @@ namespace ApiApp.Controllers
             var isArgumentValid = value != null && !string.IsNullOrEmpty(value.UserId) && value.BuyAmount >= MinimumBuyAmount;
             if (!isArgumentValid) return new BuyCouponRespond { ErrorMessage = "คำขอสั่งซื้อไม่ถูกต้อง" };
 
-            var userProfile = _accountRepo.GetUserProfiles().FirstOrDefault(it => it.id.Equals(value.UserId));
+            var userProfile = _accountRepo.GetUserProfileById(value.UserId);
             if (userProfile == null) return new BuyCouponRespond { ErrorMessage = "ข้อมูลผู้ใช้ไม่ถูกต้อง" };
 
-            var currentRewardGroup = _rewardRepo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
+            var currentRewardGroup = _rewardRepo.GetCurrentRewardGroups();
             if (currentRewardGroup == null) return new BuyCouponRespond { ErrorMessage = "ยังไม่สามารถสั่งซื้อได้ในช่วงเวลานี้" };
 
             var requiredPoints = currentRewardGroup.RequiredPoints * value.BuyAmount;

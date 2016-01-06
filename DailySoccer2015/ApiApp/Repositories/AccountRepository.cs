@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApiApp.MongoAccess;
+using MongoDB.Driver;
 
 namespace ApiApp.Repositories
 {
@@ -12,6 +14,13 @@ namespace ApiApp.Repositories
     /// </summary>
     public class AccountRepository : IAccountRepository
     {
+        #region Fields
+
+        private const string UserProfileTableName = "dailysoccer.UserProfiles";
+        private const string FacebookTableName = "dailysoccer.FacebookAccounts";
+
+        #endregion Fields
+
         #region IAccountRepository members
 
         /// <summary>
@@ -20,23 +29,32 @@ namespace ApiApp.Repositories
         /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการสร้าง</param>
         public void CreateUserProfile(string userId)
         {
-            MongoAccess.MongoUtil.CreateUserProfile(userId);
+            var newProfile = new UserProfile { id = userId };
+            MongoUtil.GetCollection<UserProfile>(UserProfileTableName).InsertOne(newProfile);
         }
 
         /// <summary>
-        /// ดึงรายการบัญชีผู้ใช้
+        /// ดึงบัญชีผู้ใช้จากรหัสบัญชีผู้ใช้
         /// </summary>
-        public IEnumerable<UserProfile> GetUserProfiles()
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการดึง</param>
+        public UserProfile GetUserProfileById(string userId)
         {
-            return MongoAccess.MongoUtil.GetUserProfiles();
+            var selectedUserProfile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName)
+                .Find(it => it.id.Equals(userId))
+                .FirstOrDefault();
+            return selectedUserProfile;
         }
 
         /// <summary>
-        /// ดึงบัญชี Facebook
+        /// ดึงบัญชี Facebook จากรหัสบัญชี facebook
         /// </summary>
-        public IEnumerable<FacebookAccount> GetFacebookAccounts()
+        /// <param name="facebookId">รหัสบัญชี facebook ที่ต้องการดึง</param>
+        public FacebookAccount GetFacebookAccountsById(string facebookId)
         {
-            return MongoAccess.MongoUtil.GetFacebookAccounts();
+            var selectedFacebookAccount = MongoUtil.GetCollection<FacebookAccount>(FacebookTableName)
+                .Find(it => it.id.Equals(facebookId))
+                .FirstOrDefault();
+            return selectedFacebookAccount;
         }
 
         /// <summary>
@@ -46,7 +64,12 @@ namespace ApiApp.Repositories
         /// <param name="userId">บัญชีผู้ใช้ที่จะทำการผูก</param>
         public void TieFacebookAccount(string facebookId, string userId)
         {
-            MongoAccess.MongoUtil.TieFacebookAccount(facebookId, userId);
+            var updateUserProfile = Builders<UserProfile>.Update.Set(it => it.IsFacebookVerified, true);
+            var userprofile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName);
+            userprofile.UpdateMany(it => it.id.Equals(userId), updateUserProfile);
+
+            var newFacebookAccount = new FacebookAccount { id = facebookId, UserId = userId };
+            MongoUtil.GetCollection<FacebookAccount>(FacebookTableName).InsertOne(newFacebookAccount);
         }
 
         /// <summary>
@@ -55,7 +78,17 @@ namespace ApiApp.Repositories
         /// <param name="facebookId">รหัส Facebook ที่ต้องการยกเลิกการผูก</param>
         public void UntieFacebookAccount(string facebookId)
         {
-            MongoAccess.MongoUtil.UntieFacebookAccount(facebookId);
+            var facebookTable = MongoUtil.GetCollection<FacebookAccount>(FacebookTableName);
+            var selectedFacebookAccount = facebookTable
+                .Find(it => it.id.Equals(facebookId))
+                .FirstOrDefault();
+            if (selectedFacebookAccount == null) return;
+
+            var updateUserProfile = Builders<UserProfile>.Update.Set(it => it.IsFacebookVerified, false);
+            var userprofile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName);
+            userprofile.UpdateOne(it => it.id.Equals(selectedFacebookAccount.UserId), updateUserProfile);
+
+            facebookTable.DeleteOne(it => it.id.Equals(facebookId));
         }
 
         /// <summary>
@@ -65,7 +98,9 @@ namespace ApiApp.Repositories
         /// <param name="teamId">รหัสทีมที่ชอบ</param>
         public void SetFavoriteTeam(string userId, string teamId)
         {
-            MongoAccess.MongoUtil.SetFavoriteTeam(userId, teamId);
+            var update = Builders<UserProfile>.Update.Set(it => it.FavouriteTeamId, teamId);
+            var userprofile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName);
+            userprofile.UpdateOne(it => it.id.Equals(userId), update);
         }
 
         /// <summary>
@@ -76,16 +111,13 @@ namespace ApiApp.Repositories
         /// <param name="verifierCode">รหัสสำหรับตรวจสอบเบอร์โทรศัพท์</param>
         public void SetVerifierPhoneNumber(string userId, string phoneNumber, string verifierCode)
         {
-            MongoAccess.MongoUtil.SetVerifierPhoneNumber(userId, phoneNumber, verifierCode);
-        }
+            var update = Builders<UserProfile>.Update
+              .Set(it => it.PhoneNo, phoneNumber)
+              .Set(it => it.VerifierCode, verifierCode)
+              .Set(it => it.VerifiedPhoneDate, null);
 
-        /// <summary>
-        /// รีเซ็ตข้อมูลเบอร์โทรศัพท์ที่เคยยืนยันไว้
-        /// </summary>
-        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการรีเซ็ต</param>
-        public void ResetVerifiedPhoneNumber(string userId)
-        {
-            MongoAccess.MongoUtil.ResetVerifiedPhoneNumber(userId);
+            var userprofile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName);
+            userprofile.UpdateMany(it => it.id.Equals(userId), update);
         }
 
         /// <summary>
@@ -95,7 +127,11 @@ namespace ApiApp.Repositories
         /// <param name="completedDate">วันเวลาที่ทำการยืนยันเสร็จสิ้น</param>
         public void SetVerifiedPhoneNumberComplete(string userId, DateTime completedDate)
         {
-            MongoAccess.MongoUtil.SetVerifiedPhoneNumberComplete(userId, completedDate);
+            var update = Builders<UserProfile>.Update
+              .Set(it => it.VerifiedPhoneDate, completedDate);
+
+            var userprofile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName);
+            userprofile.UpdateMany(it => it.id.Equals(userId), update);
         }
 
         /// <summary>
@@ -106,7 +142,12 @@ namespace ApiApp.Repositories
         /// <param name="orderedCoupons">จำนวนคูปองที่สั่งซื้อไปแล้ว</param>
         public void UpdateFromBuyCoupons(string userId, int remainingPoints, int orderedCoupons)
         {
-            MongoAccess.MongoUtil.UpdateFromBuyCoupons(userId, remainingPoints, orderedCoupons);
+            var update = Builders<UserProfile>.Update
+                .Set(it => it.Points, remainingPoints)
+                .Set(it => it.OrderedCoupon, orderedCoupons);
+
+            var userprofile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName);
+            userprofile.UpdateMany(it => it.id.Equals(userId), update);
         }
 
         #endregion IAccountRepository members

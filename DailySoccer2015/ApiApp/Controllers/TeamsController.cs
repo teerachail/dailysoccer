@@ -34,7 +34,9 @@ namespace ApiApp.Controllers
         [HttpGet]
         public IEnumerable<Team> Get(string id)
         {
-            return _repo.GetTeams().Where(it => it.LeagueId.Equals(id));
+            if (string.IsNullOrEmpty(id)) return Enumerable.Empty<Team>();
+
+            return _repo.GetTeamsByLeagueId(id);
         }
     }
 }

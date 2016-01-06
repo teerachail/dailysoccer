@@ -34,10 +34,10 @@ namespace ApiApp.Controllers
         public RewardGroupRespond Get()
         {
             var now = DateTime.Now;
-            var lastRewardGroup = _repo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
+            var lastRewardGroup = _repo.GetCurrentRewardGroups();
             if (lastRewardGroup == null) return new RewardGroupRespond { Rewards = Enumerable.Empty<Reward>() };
 
-            var rewards = _repo.GetRewards().Where(it => it.RewardGroupId.Equals(lastRewardGroup.id)).ToList();
+            var rewards = _repo.GetRewardsByRewardGroupId(lastRewardGroup.id).ToList();
             var rewardGroup = new RewardGroupRespond
             {
                 IsAvailable = true,
@@ -52,23 +52,21 @@ namespace ApiApp.Controllers
         /// <summary>
         /// Get current winners
         /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [Route("winners")]
         public IEnumerable<RewardWinner> winners()
         {
             var now = DateTime.Now;
-            var lastRewardGroup = _repo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
+            var lastRewardGroup = _repo.GetCurrentRewardGroups();
             if (lastRewardGroup == null) return Enumerable.Empty<RewardWinner>();
 
-            var lastRewardQry = _repo.GetRewards().Where(it => it.RewardGroupId.Equals(lastRewardGroup.id));
+            var lastRewardQry = _repo.GetRewardsByRewardGroupId(lastRewardGroup.id).ToList();
             if (!lastRewardQry.Any()) return Enumerable.Empty<RewardWinner>();
 
-            var winners = _repo.GetWinners();
             var result = lastRewardQry.Select(reward => new RewardWinner
             {
                 id = reward.id,
-                Winners = winners.Where(winner => winner.RewardId.Equals(reward.id)).Select(it => it.UserId).ToList()
+                Winners = _repo.GetWinnersByRewardId(reward.id).Select(it => it.UserId).ToList()
             });
             return result;
         }
@@ -84,14 +82,14 @@ namespace ApiApp.Controllers
         {
             if (string.IsNullOrEmpty(id)) return Enumerable.Empty<MyReward>();
 
-            var winners = _repo.GetWinners().Where(it => it.UserId.Equals(id)).ToList();
+            var winners = _repo.GetWinnersByUserId(id).ToList();
             if (!winners.Any()) return Enumerable.Empty<MyReward>();
 
-            var rewards = _repo.GetRewards().Where(reward => winners.Any(it => it.RewardId.Equals(reward.id))).ToList();
+            var rewards = _repo.GetRewardsByIds(winners.Select(it => it.RewardId)).ToList();
             if (!rewards.Any()) return Enumerable.Empty<MyReward>();
 
             var now = DateTime.Now;
-            var lastRewardGroup = _repo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
+            var lastRewardGroup = _repo.GetCurrentRewardGroups();
             var presentGroupId = lastRewardGroup != null ? lastRewardGroup.id : string.Empty;
 
             var myRewards = (from winner in winners
