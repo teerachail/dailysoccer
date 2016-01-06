@@ -56,7 +56,7 @@ namespace ApiApp.Controllers
             var areArgumentsValid = !string.IsNullOrEmpty(id) && value != null && !string.IsNullOrEmpty(value.MatchId);
             if (!areArgumentsValid) return null;
 
-            var selectedMatch = _matchesRepo.GetMatches().FirstOrDefault(it => it.id.Equals(value.MatchId));
+            var selectedMatch = _matchesRepo.GetMatchById(value.MatchId);
             if (selectedMatch == null || selectedMatch.StartedDate.HasValue) return null;
 
             if (value.IsCancel) _predictionRepo.CancelUserPrediction(id, value.MatchId);
@@ -107,28 +107,5 @@ namespace ApiApp.Controllers
                                       };
             return selectedPredictions;
         }
-
-        // PUT: api/prediction/{user-id}
-        /// <summary>
-        /// Update user's prediction
-        /// </summary>
-        /// <param name="id">User id</param>
-        /// <param name="value">Request body</param>
-        [HttpPut]
-        [Route("{id}")]
-        public void Put(string id, PredictionRequest value)
-        {
-            var areArgumentsValid = !string.IsNullOrEmpty(id) && value != null && !string.IsNullOrEmpty(value.MatchId);
-            if (!areArgumentsValid) return;
-
-            var selectedMatch = _matchesRepo.GetMatchById(value.MatchId);
-            if (selectedMatch == null || selectedMatch.StartedDate.HasValue) return;
-
-            if (value.IsCancel) _predictionRepo.CancelUserPrediction(id, value.MatchId);
-            else
-            {
-                var predictionPoints = string.IsNullOrEmpty(value.TeamId) ? selectedMatch.DrawPoints :
-                    value.TeamId.Equals(selectedMatch.TeamHomeId) ? selectedMatch.TeamHomePoint : selectedMatch.TeamAwayPoint;
-                _predictionRepo.SetUserPrediction(id, value.MatchId, value.TeamId, predictionPoints, DateTime.Now);
     }
 }
