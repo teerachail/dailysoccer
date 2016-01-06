@@ -65,21 +65,12 @@ namespace ApiApp.Controllers
             if (!lastRewardQry.Any()) return Enumerable.Empty<RewardWinner>();
 
             var winners = _repo.GetWinners();
-            var rewardWinners = lastRewardQry.Select(reward =>
-            new RewardWinner
+            var result = lastRewardQry.Select(reward => new RewardWinner
             {
                 id = reward.id,
-                Amount = reward.Amount,
-                Description = reward.Description,
-                ImgPath = reward.ImgPath,
-                ThumbImgPath = reward.ThumbImgPath,
-                OrderedNo = reward.OrderedNo,
-                Price = reward.Price,
-                RewardGroupId = reward.RewardGroupId,
-                Winners = winners.Where(it => it.RewardId == reward.id).Select(it => it.id).ToList()
-            }).ToList();
-
-            return rewardWinners;
+                Winners = winners.Where(winner => winner.RewardId.Equals(reward.id)).Select(it => it.UserId).ToList()
+            });
+            return result;
         }
 
         // GET: api/Rewards/5
@@ -99,6 +90,10 @@ namespace ApiApp.Controllers
             var rewards = _repo.GetRewards().Where(reward => winners.Any(it => it.RewardId.Equals(reward.id))).ToList();
             if (!rewards.Any()) return Enumerable.Empty<MyReward>();
 
+            var now = DateTime.Now;
+            var lastRewardGroup = _repo.GetRewardGroups().OrderBy(it => it.ExpiredDate).LastOrDefault();
+            var presentGroupId = lastRewardGroup != null ? lastRewardGroup.id : string.Empty;
+
             var myRewards = (from winner in winners
                              from reward in rewards
                              where winner.RewardId.Equals(reward.id)
@@ -110,7 +105,8 @@ namespace ApiApp.Controllers
                                  Price = reward.Price,
                                  ReferenceCode = winner.ReferenceCode,
                                  ThumbImgPath = reward.ThumbImgPath,
-                                 RewardDate = winner.CreatedDate
+                                 RewardDate = winner.CreatedDate,
+                                 IsPresent = reward.RewardGroupId.Equals(presentGroupId)
                              }).ToList();
 
             return myRewards;

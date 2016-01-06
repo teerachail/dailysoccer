@@ -1,10 +1,9 @@
-﻿
- <ion-tabs class="tabs-dark tabs-top tabs-main has-header">
-    <ion-tab title="{{ cx.PastTwoDaysDate | date: 'EEE' }}<br>{{ cx.PastTwoDaysDate | date: 'd' }}" on-select="cx.SelectDay(cx.PastTwoDaysDate)"></ion-tab>
-    <ion-tab title="{{ cx.PastOneDaysDate | date: 'EEE' }}<br>{{ cx.PastOneDaysDate | date: 'd' }}" on-select="cx.SelectDay(cx.PastOneDaysDate)"></ion-tab>
-    <ion-tab title="{{ cx.CurrentDate | date: 'EEE' }}<br>{{ cx.CurrentDate | date: 'd' }}" on-select="cx.SelectDay(cx.CurrentDate)"></ion-tab>
-    <ion-tab title="{{ cx.FutureOneDaysDate | date: 'EEE' }}<br>{{ cx.FutureOneDaysDate | date: 'd' }}" on-select="cx.SelectDay(cx.FutureOneDaysDate)"></ion-tab>
-    <ion-tab title="{{ cx.FutureTwoDaysDate | date: 'EEE' }}<br>{{ cx.FutureTwoDaysDate | date: 'd' }}" on-select="cx.SelectDay(cx.PastTwoDaysDate)"></ion-tab>
+﻿ <ion-tabs class="tabs-dark tabs-top tabs-main has-header">
+    <ion-tab title="{{ cx.PastTwoDaysDate | date: 'EEE' }}<br>{{ cx.PastTwoDaysDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.PastTwoDaysDate.getDate()})"></ion-tab>
+    <ion-tab title="{{ cx.PastOneDaysDate | date: 'EEE' }}<br>{{ cx.PastOneDaysDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.PastOneDaysDate.getDate()})"></ion-tab>
+    <ion-tab title="{{ cx.CurrentDate | date: 'EEE' }}<br>{{ cx.CurrentDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.CurrentDate.getDate()})"></ion-tab>
+    <ion-tab title="{{ cx.FutureOneDaysDate | date: 'EEE' }}<br>{{ cx.FutureOneDaysDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.FutureOneDaysDate.getDate()})"></ion-tab>
+    <ion-tab title="{{ cx.FutureTwoDaysDate | date: 'EEE' }}<br>{{ cx.FutureTwoDaysDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.FutureTwoDaysDate.getDate()})"></ion-tab>
 </ion-tabs>
 <ion-nav-view name="matchContent"></ion-nav-view>
 

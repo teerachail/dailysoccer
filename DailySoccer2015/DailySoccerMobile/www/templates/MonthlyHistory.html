@@ -1,9 +1,52 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <div>Content goes here.</div>
-</body>
-</html>
+﻿<ion-view view-title="DAILY SOCCER">
+    <ion-content class="today-match">
+        <div>
+            <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
+        </div>
+        <ion-list>
+            <div ng-repeat="day in cx.day" class="padding">
+                <ion-item class="item-stable row" ng-click="cx.toggleGroup(day)">
+                    <div class="col col-20 col-center text-center">
+                        <b>+{{day.DayTotslPoints}}</b>
+                    </div>
+                    <div class="col col-center text-center">
+                        {{day.PredictionDate | date: 'longDate' }}
+                    </div>
+                    <dsiv class="col col-20 col-center text-right">
+                        <i class="icon" ng-class="cx.isGroupShown(day) ? 'ion-chevron-down' : 'ion-chevron-up'"></i>
+                    </dsiv>
+                </ion-item>
+                <div ng-repeat="item in cx.data | filter: {BeginDate: cx.filterDay(day.PredictionDate)}" ng-show="cx.isGroupShown(day)" class="row text-center">
+                    <div class="col col-20 col-center"><strong>+{{item.ActualPoints}}</strong> 
+                    </div>
+                    <div class="col col-center">
+                        <div class="row match-name">
+                            <div class="col team-name">
+                                {{item.TeamHomeName}}
+                            </div>
+                            <div class="col col-30">
+                                {{item.TeamHomeScore}} - {{item.TeamAwayScore}}
+                            </div>
+                            <div class="col team-name">
+                                {{item.TeamAwayName}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-20 col-center">
+                        <div ng-show="{{item.IsSelectedHome}}">
+                            Home
+                        </div>
+                        <div ng-show="{{item.IsSelectedDraw}}">
+                            Draw
+                        </div>
+                        <div ng-show="{{item.IsSelectedAway}}">
+                            Away
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

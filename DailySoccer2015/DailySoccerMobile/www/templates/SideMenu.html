@@ -3,15 +3,6 @@
         <ion-nav-bar class="bar-balanced" align-title="center">
             <ion-nav-back-button>
             </ion-nav-back-button>
-            <ion-nav-buttons side="left">
-                <div class="trophy">
-                    <i class="ion-trophy" style="color:black; font-size:24px;">
-                        <span class="soccer-number" style="font-size:initial;">
-                            0
-                        </span>
-                    </i>
-                </div>                
-            </ion-nav-buttons>
             <ion-nav-buttons side="right">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
             </ion-nav-buttons>
@@ -20,20 +11,80 @@
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
     <ion-side-menu side="right">
-        <ion-header-bar class="bar-dark">
-            <h1 class="title">right</h1>
+        <ion-header-bar class="bar-dark row">
+            <div class="col col-10 col-center">
+                <i>
+                </i>
+            </div>
+            <div class="col col-center">
+                แต้มสะสม {{ cx.couponSummary.RemainingPoints }}
+            </div>
+            <div class="col col-center">
+                <a menu-close href="#" ui-sref="app.reward.lists" class="button-small block button button-energized">
+                    แลกของรางวัล
+                </a>
+            </div>
         </ion-header-bar>
-        <ion-content>
+        <ion-content class="padding">
             <ion-list>
-                <ion-item menu-close href="" ui-sref="app.main.matches">
-                    Matches
+                <ion-item href="#" menu-close ui-sref="app.main.matches" class="item-royal ">
+                    <div>
+                        <i>
+                        </i>
+                        <span>
+                            ตารางแข่งขัน
+                        </span>
+                    </div>
                 </ion-item>
-                <ion-item menu-close href="" ui-sref="app.verify.phone">
-                    VerifyPhone
+                <ion-item href="#" menu-close ui-sref="app.underconstruction" class="item-royal">
+                    <div>
+                        <i>
+                        </i>
+                        <span>
+                            ทีมและลีค
+                        </span>
+                    </div>
                 </ion-item>
-                <ion-item menu-close href="" ui-sref="app.verify.verifycode">
-                    VerifyCode
+                <ion-item href="#" menu-close ui-sref="app.history.summary" class="item-royal">
+                    <div>
+                        <i>
+                        </i>
+                        <span>
+                            สถิติการทายผล
+                        </span>
+                    </div>
                 </ion-item>
+                <ion-item href="#" menu-close class="item-royal" ui-sref="app.underconstruction">
+                    <div>
+                        <i>
+                        </i>
+                        <span>
+                            ตั้งค่า
+                        </span>
+                    </div>
+
+                </ion-item>
+                <ion-item menu-close href="#" class="item-royal">
+                    <div class="text-gray">
+                        <i>
+                        </i>
+                        <span>
+                            ออกจากระบบ
+                        </span>
+                    </div>
+                </ion-item>
+
+                <a class="button button-block bg-gray text-dark" href="#">เข้าสู่ระบบ</a>
+
+                <div>
+                    <a href="#" menu-close class="button button-block button-balanced " ui-sref="app.underconstruction">
+                        <div>
+                            <h2 class="text-white">
+                                เล่นเกมส์
+                            </h2>
+                        </div>
+                    </a>
+                </div>
             </ion-list>
         </ion-content>
     </ion-side-menu>

@@ -9735,7 +9735,7 @@ a.button {
   line-height: 20px;
   height: 20px; }
 
-.matches {
+.matches, .rewards {
   bottom: 44px !important; }
 
 .match {
@@ -9770,8 +9770,20 @@ a.button {
   border: 0px !important;
   margin: 0px !important; }
 
-.tabs-main .tab-item.tab-item-active {
+.tabs-main .tab-item.tab-item-active, .tabs-main .tab-item.active, .tabs-main tab-item.activated {
   background: #404040; }
+
+.tabs-reward div.tab-nav {
+  position: relative !important;
+  height: 44px;
+  line-height: 44px; }
+
+.tabs-reward a, .tabs-reward .tab-nav, .tabs-reward span {
+  border: 0px !important;
+  margin: 0px !important; }
+
+.tabs-reward .tab-item.tab-item-active {
+  background: #b8b8b8; }
 
 .block-center {
   margin-left: auto;
@@ -9799,7 +9811,8 @@ a.button {
 
 .match-name .team-name {
   text-overflow: ellipsis;
-  overflow: hidden; }
+  overflow: hidden;
+  white-space: nowrap; }
 
 .back-button .back-text {
   display: none !important; }
@@ -9839,3 +9852,9 @@ a.button {
 
 .scroll-middle .has-header {
   top: initial; }
+
+ion-side-menu ion-content {
+  background: #404040; }
+  ion-side-menu ion-content ion-item {
+    border: 0px !important;
+    margin: 0px !important; }

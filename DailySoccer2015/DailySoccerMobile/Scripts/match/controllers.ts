@@ -11,7 +11,7 @@
         public Leagues: string[];
 
         static $inject = ['$state'];
-        constructor(public $state ) {
+        constructor(public $state) {
             this.updateDisplayDate(this.CurrentDate);
         }
 
@@ -44,7 +44,7 @@
                 {
                     scope: $scope,
                     animation: 'slide-ins-up'
-                }).then(modal=> { this.$scope.MatchPopup = modal; });          
+                }).then(modal=> { this.$scope.MatchPopup = modal; });
         }
 
         private refrestPredictions(): void {
@@ -106,7 +106,7 @@
                 if (!match.CompletedDate) {
                     return selectedPrediction.IsPredictionTeamHome;
                 } else return false;
-            } else return false;                         
+            } else return false;
         }
 
         public IsPredictHomeWin(match: app.match.MatchInformation): boolean {
@@ -124,7 +124,7 @@
                 if (match.CompletedDate) {
                     return !match.IsTeamHomeWin && selectedPrediction.IsPredictionTeamHome;
                 } else return false;
-            } else return false;       
+            } else return false;
         }
 
         public IsUnSelectedAway(match: app.match.MatchInformation): boolean {
@@ -157,7 +157,7 @@
             var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[0];
             if (selectedPrediction != null) {
                 if (match.CompletedDate) {
-                    return !match.IsTeamAwayWin && selectedPrediction.IsPredictionTeamAway; 
+                    return !match.IsTeamAwayWin && selectedPrediction.IsPredictionTeamAway;
                 } else return false;
             } else return false;
         }
@@ -225,10 +225,47 @@
             } else 0;
         }
     }
-   
+
+    class DaylyHistoryController {
+
+        public shownGroup;
+
+        static $inject = ['data', 'day'];
+        constructor(public data, public day) {
+
+        }
+
+        public filterDay(day: Date): string {
+            var value = day.toString();
+            value = value.substring(0, value.indexOf('T'));
+            return value;
+        }
+
+        public toggleGroup(group): void {
+            if (this.isGroupShown(group)) {
+                this.shownGroup = null;
+            } else {
+                this.shownGroup = group;
+            }
+        };
+
+        public isGroupShown(group): boolean {
+            return this.shownGroup == group;
+        };
+    }
+
+    class MonthlyHistoryController {
+
+        static $inject = ['data'];
+        constructor(public data) {
+        }
+    }
+
 	angular
         .module('app.match')
         .controller('app.match.MainController', MainController)
+        .controller('app.match.DaylyHistoryController', DaylyHistoryController)
+        .controller('app.match.MonthlyHistoryController', MonthlyHistoryController)
         .controller('app.match.PredictionController', PredictionController);
 
 }

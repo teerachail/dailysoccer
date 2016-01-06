@@ -1,5 +1,5 @@
 ﻿<ion-view view-title="DAILY SOCCER">
-    <ion-content>
+    <ion-content class="rewards">
         <div class="padding">
             <ion-item class="item-balanced text-center text-dark no-border">
                 <b>
@@ -14,24 +14,23 @@
                 </div>
             </ion-item>
         </div>
-        <!-- รางวัลที่ได้ -->
-        <div ng-show="cx.data.length != 0">
+        <div ng-show="cx.AnyPresentRewards()">
             <div class="padding">
                 <span>คุณเป็นผู้โชคดีได้รับรางวัล</span>
             </div>
             <div class="list">
-                <div class="item item-thumbnail-left no-border" ng-repeat="item in cx.data | orderBy:'OrderedNo'">
+                <div class="item item-thumbnail-left no-border" ng-repeat="item in cx.GetPresentRewards() | orderBy:'OrderedNo'">
                     <img src="{{ item.ThumbImgPath }}" />
                     <p>
                         <i>
-                            วันที่ {{ item.CreateDate | date: 'longDate' }}
+                            วันที่ {{ item.RewardDate | date: 'longDate' }}
                         </i>
                     </p>
                     <p>
                         รางวัลที่ {{ item.OrderedNo }}
                     </p>
                     <p>
-                        {{ item.RewardName }} มูลค่า {{item.Price}} บาท
+                        {{ item.Description }} มูลค่า {{ item.Price }} บาท
                     </p>
                     <p>
                         <i>
@@ -46,23 +45,20 @@
                 </div>
             </div>
         </div>
-        <!-- รางวัลที่เคยได้รับ -->
         <div>
-            <!-- มีของรางวัล -->
             <div class="col item item-stable no-border text-center">
                 รางวัลที่เคยได้รับ
             </div>
-            <div class="padding" ng-repeat="item in cx.oldData | orderBy:'-CreateDate'">
+            <div ng-show="cx.AnyPastRewards()" class="padding" ng-repeat="item in cx.GetPastRewards() | orderBy:'-RewardDate'">
                 <span>
-                    - วันที่ {{ item.CreateDate | date: 'longDate' }}
+                    - วันที่ {{ item.RewardDate | date: 'longDate' }}
                 </span>
                 <br />
                 <span>
-                    {{ item.RewardName }} มูลค่า {{item.Price}} บาท ( {{ item.ReferenceCode }} )
+                    {{ item.Description }} มูลค่า {{ item.Price }} บาท ( {{ item.ReferenceCode }} )
                 </span>
             </div>
-            <!-- ไม่มีของรางวัล -->
-            <div class="padding text-center" ng-show="cx.oldData.length == 0">
+            <div class="padding text-center" ng-show="!cx.AnyPastRewards()">
                 <i>
                     ไม่มีข้อมูลของรางวัล !
                 </i>

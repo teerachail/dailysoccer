@@ -73,15 +73,48 @@
 
         private svc: ICouponSummaryResourceClass<any>;
 
-        static $inject = ['appConfig', '$resource'];
-        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
+        static $inject = ['appConfig', '$resource', 'app.shared.UserProfileService'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService, private userprofileSvc: app.shared.UserProfileService) {
             this.svc = <ICouponSummaryResourceClass<any>>$resource(appConfig.CouponSummaryUrl, { 'id': '@id' }, {
                 GetCouponSummary: { method: 'GET' }
             });
         }
 
-        public GetCouponSummary(userId: string): ng.IPromise<GetCouponSummaryRespond> {
+        public GetCouponSummary(): ng.IPromise<GetCouponSummaryRespond> {
+            var userId = this.userprofileSvc.GetUserProfile().UserId;
             return this.svc.GetCouponSummary(new GetCouponSummaryRequest(userId)).$promise;
+        }
+    }
+
+    interface IRewardResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        GetRewardGroup(): T;
+        GetWinners(): T;
+        GetMyRewards(data: T): T;
+    }
+    export class RewardService {
+
+        private svc: IRewardResourceClass<any>;
+
+        static $inject = ['appConfig', '$resource', 'app.shared.UserProfileService'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService, private userprofileSvc: app.shared.UserProfileService) {
+            this.svc = <IRewardResourceClass<any>>$resource(appConfig.RewardUrl, { 'id': '@id' }, {
+                GetRewardGroup: { method: 'GET' },
+                GetWinners: { method: 'GET', isArray: true, params: { 'action': 'winners' } },
+                GetMyRewards: { method: 'GET', isArray: true, params: { 'action': 'myrewards' } }
+            });
+        }
+
+        public GetRewardGroup(): ng.IPromise<RewardGroupRespond> {
+            return this.svc.GetRewardGroup().$promise;
+        }
+
+        public GetWinners(): ng.IPromise<RewardWinner[]> {
+            return this.svc.GetWinners().$promise;
+        }
+
+        public GetMyRewards(): ng.IPromise<MyReward[]> {
+            var userprofile = this.userprofileSvc.GetUserProfile();
+            return this.svc.GetMyRewards(new GetMyRewardsRequest(userprofile.UserId)).$promise;
         }
     }
 
@@ -89,5 +122,6 @@
         .module('app.reward')
         .service('app.reward.BuyCouponDataService', BuyCouponDataService)
         .service('app.reward.BuyCouponService', BuyCouponService)
-        .service('app.reward.CouponSummaryService', CouponSummaryService);
+        .service('app.reward.CouponSummaryService', CouponSummaryService)
+        .service('app.reward.RewardService', RewardService);
 }

@@ -10,26 +10,31 @@
 		'$urlRouterProvider'
 	];
 	function configRoutes($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) {
-		$stateProvider.state('sample', {
+		$stateProvider/*.state('sample', {
 			url: '/sample',
 			templateUrl: 'templates/sample.html',
             controller: 'app.shared.SimpleDataController as cx',
             resolve: {
                 "data": ["app.shared.SampleDataService", svc => { return svc.getAll(); }]
-            }
-        })
+            } */
+        /*})*/
             .state('app', {
              url: '/app',
              abstract: true,
-             templateUrl: 'templates/SideMenu.html'
+             templateUrl: 'templates/SideMenu.html',
+             controller: 'app.shared.SideMenu as cx',
+             resolve: {
+                 "couponSummary": ["app.reward.CouponSummaryService", svc => { return svc.GetCouponSummary(); }]
+             }
             })
+
             .state('app.main', {
                 url: '/main',
                 abstract: true,              
              views: {
                  'menuContent': {
                      templateUrl: 'templates/Tabs.html',
-                     controller: 'app.match.MainController as cx',
+                     controller: 'app.match.MainController as cx'
                  }
              }
 
@@ -49,7 +54,12 @@
                              var user = "u01guest";
                              return svc.GetPredictionsByDate(user, params.day);
                          }],
-                         "point": ["app.shared.CouponPointsService", svc => { return svc.getAll(); }]
+                         "point": ["app.shared.CouponPointsService", svc => {
+                             return svc.getAll();
+                         }],
+                         "couponSummary": ["app.reward.CouponSummaryService", svc => {
+                             return svc.GetCouponSummary();
+                         }]
                      }
                  }
              }
@@ -68,11 +78,12 @@
             .state('app.reward.lists', {
              url: '/lists',
              views: {
-                 'tab-rewards': {
+                 'rewardContent': {
                      templateUrl: 'templates/Rewards.html',
                      controller: 'app.reward.RewardsController as cx',
                      resolve: {
-                         "data": ["app.shared.RewardsService", svc => { return svc.getAll(); }]
+                         "data": ["app.reward.RewardService", svc => { return svc.GetRewardGroup(); }],
+                         "couponSummary": ["app.reward.CouponSummaryService", svc => { return svc.GetCouponSummary(); }]
                      }
                  }
              }
@@ -81,12 +92,12 @@
             .state('app.reward.winners', {
              url: '/winners',
              views: {
-                 'tab-winners': {
+                 'rewardContent': {
                      templateUrl: 'templates/Winners.html',
                      controller: 'app.reward.WinnersController as cx',
                      resolve: {
-                         "data": ["app.shared.WinnersRewardService", svc => { return svc.getAll(); }],
-                         "nameData": ["app.shared.WinnersListService", svc => { return svc.getAll(); }]
+                         "data": ["app.reward.RewardService", svc => { return svc.GetRewardGroup(); }],
+                         "winnerData": ["app.reward.RewardService", svc => { return svc.GetWinners(); }]
                      }
                  }
              }
@@ -95,12 +106,11 @@
             .state('app.reward.myrewards', {
              url: '/myrewards',
              views: {
-                 'tab-myrewards': {
+                 'rewardContent': {
                      templateUrl: 'templates/MyRewards.html',
                      controller: 'app.reward.MyRewardsController as cx',
                      resolve: {
-                         "data": ["app.shared.MyRewardsService", svc => { return svc.getAll(); }],
-                         "oldData": ["app.shared.MyOldRewardsService", svc => { return svc.getAll(); }]
+                         "data": ["app.reward.RewardService", svc => { return svc.GetMyRewards(); }]
                      }
                  }
              }
@@ -115,6 +125,14 @@
                     }
                 }
             })
+                .state('app.coupon.sample', {
+                    url: '/sample',
+                    views: {
+                        'menuContent': {
+                            templateUrl: 'templates/sample.html'
+                        }
+                    }
+                })
 
             .state('app.coupon.buy', {
              url: '/buy',
@@ -178,7 +196,11 @@
              url: '/summary',
              views: {
                  'menuContent': {
-                     templateUrl: 'templates/YearlyHistory.html'
+                     templateUrl: 'templates/YearlyHistory.html',
+                     controller: 'app.match.MonthlyHistoryController as cx',
+                     resolve: {
+                         "data": ["app.shared.YearlyHistoryService", svc => { return svc.getAll(); }]
+                     }
                  }
              }
             })
@@ -187,7 +209,12 @@
              url: '/monthly',
              views: {
                  'menuContent': {
-                     templateUrl: 'templates/MonthlyHistory.html'
+                     templateUrl: 'templates/MonthlyHistory.html',
+                     controller: 'app.match.DaylyHistoryController as cx',
+                     resolve: {
+                         "day": ["app.shared.MouthlyHistoryService", svc => { return svc.getAll(); }],
+                         "data": ["app.shared.DaylyHistoryService", svc => { return svc.getAll(); }]
+                     }
                  }
              }
             })

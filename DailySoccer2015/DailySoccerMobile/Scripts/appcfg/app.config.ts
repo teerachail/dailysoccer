@@ -7,6 +7,7 @@
         BuyCouponUrl: string;
         CouponSummaryUrl: string;
         PredictUrl: string;
+        RewardUrl: string;
         MatchesUrl: string;
     }
 
@@ -18,6 +19,7 @@
         public CouponSummaryUrl: string;
         public PredictUrl: string;
         public MatchesUrl: string;
+        RewardUrl: string;
 
         static $inject = ['defaultUrl'];
         constructor(defaultUrl: string) {
@@ -28,6 +30,7 @@
             this.BuyCouponUrl = apiUrl + '/coupons/buy';
             this.CouponSummaryUrl = apiUrl + '/coupons/summary/:id';
             this.PredictUrl = apiUrl + '/predictions/:id';
+            this.RewardUrl = apiUrl + '/rewards/:action/:id';
             this.MatchesUrl = apiUrl + '/matches/:day';
         }
 
