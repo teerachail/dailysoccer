@@ -20,6 +20,12 @@ namespace ApiApp.Repositories
         IEnumerable<Match> GetAllMatches();
 
         /// <summary>
+        /// ดึงแมช์การแข่งขันจากวันที่แข่งขัน
+        /// </summary>
+        /// <param name="beginDate">วันที่แข่งขันที่ต้องการดึงข้อมูล</param>
+        IEnumerable<Match> GetMatchesByDate(DateTime beginDate);
+
+        /// <summary>
         /// ดึงแมช์การแข่งขันจากรหัสการแข่งขัน
         /// </summary>
         /// <param name="matchId">รหัสการแข่งขันที่ต้องการดึงข้อมูล</param>
@@ -47,6 +53,12 @@ namespace ApiApp.Repositories
         /// </summary>
         /// <param name="leagueId">รหัสลีกที่ต้องการดึงข้อมูล</param>
         IEnumerable<Team> GetTeamsByLeagueId(string leagueId);
+
+        /// <summary>
+        /// ดึงรายการทีมจากรหัสทีม
+        /// </summary>
+        /// <param name="teamIds">รหัสทีมที่ต้องการดึงข้อมูล</param>
+        IEnumerable<Team> GetTeamsByIds(IEnumerable<string> teamIds);
 
         /// <summary>
         /// ดึงทีมจากรหัสทีม

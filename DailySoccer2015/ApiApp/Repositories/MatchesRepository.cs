@@ -36,6 +36,19 @@ namespace ApiApp.Repositories
         }
 
         /// <summary>
+        /// ดึงแมช์การแข่งขันจากวันที่แข่งขัน
+        /// </summary>
+        /// <param name="beginDate">วันที่แข่งขันที่ต้องการดึงข้อมูล</param>
+        public IEnumerable<Match> GetMatchesByDate(DateTime beginDate)
+        {
+            var qry = MongoUtil.GetCollection<Match>(MatchTableName)
+               .Find(it => true)
+               .ToEnumerable()
+               .Where(it => it.BeginDate.Date == beginDate.Date);
+            return qry;
+        }
+
+        /// <summary>
         /// ดึงแมช์การแข่งขันจากรหัสการแข่งขัน
         /// </summary>
         /// <param name="matchId">รหัสการแข่งขันที่ต้องการดึงข้อมูล</param>
@@ -91,6 +104,18 @@ namespace ApiApp.Repositories
         {
             var qry = MongoUtil.GetCollection<Team>(TeamTableName)
                 .Find(it => it.LeagueId.Equals(leagueId))
+                .ToEnumerable();
+            return qry;
+        }
+
+        /// <summary>
+        /// ดึงรายการทีมจากรหัสทีม
+        /// </summary>
+        /// <param name="teamIds">รหัสทีมที่ต้องการดึงข้อมูล</param>
+        public IEnumerable<Team> GetTeamsByIds(IEnumerable<string> teamIds)
+        {
+            var qry = MongoUtil.GetCollection<Team>(TeamTableName)
+                .Find(it => teamIds.Contains(it.id))
                 .ToEnumerable();
             return qry;
         }

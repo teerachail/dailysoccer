@@ -37,10 +37,6 @@ namespace ApiApp.Controllers
         [Route("{day}")]
         public IEnumerable<LeagueInformation> Get(int day)
         {
-            var matches = _repo.GetAllMatches();
-            var leagueIds = matches.Select(it => it.LeagueId).Distinct();
-            var leagues = _repo.GetLeaguesByIds(leagueIds);
-
             var fromDate = DateTime.Now.AddDays(-3);
             var toDate = DateTime.Now.AddDays(3);
             var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1)
@@ -49,11 +45,18 @@ namespace ApiApp.Controllers
             var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
             if (selectedDate == null) return null;
 
-            var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate.Date)
-                                let teamHome = _repo.GetTeamById(match.TeamHomeId)
+            var matches = _repo.GetMatchesByDate(selectedDate).ToList();
+            var leagueIds = matches.Select(it => it.LeagueId).Distinct().ToList();
+            var leagues = _repo.GetLeaguesByIds(leagueIds).ToList();
+
+            var teamIds = matches.Select(it => it.TeamAwayId).Union(matches.Select(it => it.TeamHomeId)).Distinct().ToList();
+            var teams = _repo.GetTeamsByIds(teamIds).ToList();
+
+            var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate.Date).ToList()
+                                let teamHome = teams.FirstOrDefault(it => it.id == match.TeamHomeId)
                                 where teamHome != null
                                 let teamHomeName = teamHome.Name
-                                let teamAway = _repo.GetTeamById(match.TeamAwayId)
+                                let teamAway = teams.FirstOrDefault(it => it.id == match.TeamAwayId)
                                 where teamAway != null
                                 let teamAwayName = teamAway.Name
                                 let leagueName = leagues.First(league => league.id == match.LeagueId).Name
@@ -77,7 +80,7 @@ namespace ApiApp.Controllers
                                     LeagueName = leagueName
                                 };
 
-            var selectedLeagueGroup = from leagueGroup in selectedMatch.GroupBy(it => it.LeagueName)
+            var selectedLeagueGroup = from leagueGroup in selectedMatch.GroupBy(it => it.LeagueName).ToList()
                                       let match = leagueGroup
                                       select new LeagueInformation
                                       {
