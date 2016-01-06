@@ -75,6 +75,45 @@ namespace DailySoccer.Specs
 #line 7
  testRunner.Given("Create mocking", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "UserId"});
+            table1.AddRow(new string[] {
+                        "f01",
+                        "u01"});
+#line 8
+ testRunner.And("Facebook accounts in the system are", ((string)(null)), table1, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "Points",
+                        "OrderedCoupon",
+                        "PhoneNo",
+                        "VerifierCode",
+                        "VerifiedPhoneDate",
+                        "IsFacebookVerified",
+                        "FavouriteTeamId"});
+            table2.AddRow(new string[] {
+                        "u01",
+                        "0",
+                        "0",
+                        "",
+                        "",
+                        "",
+                        "true",
+                        ""});
+            table2.AddRow(new string[] {
+                        "u02",
+                        "1000",
+                        "5",
+                        "",
+                        "",
+                        "",
+                        "false",
+                        "t01"});
+#line 11
+ testRunner.And("UserProfile accounts in the system are", ((string)(null)), table2, "And ");
+#line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
@@ -85,18 +124,244 @@ namespace DailySoccer.Specs
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new guest account, system create new account success", new string[] {
                         "mock"});
-#line 10
+#line 17
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 11
+#line 18
  testRunner.When("Call POST api/profile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 12
+#line 19
  testRunner.Then("System create new guest account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 13
- testRunner.And("System return the new account to the caller", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
+#line 20
  testRunner.And("the new account data should be newly account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Create new account with tie facebook (isConfirmed = true), system create new acco" +
+            "unt success")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Register")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void CreateNewAccountWithTieFacebookIsConfirmedTrueSystemCreateNewAccountSuccess()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new account with tie facebook (isConfirmed = true), system create new acco" +
+                    "unt success", new string[] {
+                        "mock"});
+#line 23
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 24
+ testRunner.When("Call POST api/profile/facebook [FacebookId: \'new-facebook-id\', UserId: \'\', IsConf" +
+                    "irmed: \'true\']", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
+ testRunner.Then("System create new guest account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 26
+ testRunner.And("the new account data should be newly account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Create new account with tie facebook (isConfirmed = false), system create new acc" +
+            "ount success")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Register")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void CreateNewAccountWithTieFacebookIsConfirmedFalseSystemCreateNewAccountSuccess()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new account with tie facebook (isConfirmed = false), system create new acc" +
+                    "ount success", new string[] {
+                        "mock"});
+#line 29
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 30
+ testRunner.When("Call POST api/profile/facebook [FacebookId: \'new-facebook-id\', UserId: \'\', IsConf" +
+                    "irmed: \'false\']", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
+ testRunner.Then("System create new guest account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 32
+ testRunner.And("the new account data should be newly account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Tie facebook with existing user profile, system tie user profile success")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Register")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void TieFacebookWithExistingUserProfileSystemTieUserProfileSuccess()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Tie facebook with existing user profile, system tie user profile success", new string[] {
+                        "mock"});
+#line 35
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 36
+ testRunner.When("Call POST api/profile/facebook [FacebookId: \'new-facebook-id\', UserId: \'u02\', IsC" +
+                    "onfirmed: \'true\']", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
+ testRunner.Then("System not create new guest account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "Points",
+                        "OrderedCoupon",
+                        "PhoneNo",
+                        "VerifierCode",
+                        "VerifiedPhoneDate",
+                        "IsFacebookVerified",
+                        "FavouriteTeamId"});
+            table3.AddRow(new string[] {
+                        "u02",
+                        "1000",
+                        "5",
+                        "",
+                        "",
+                        "",
+                        "true",
+                        "t01"});
+#line 38
+ testRunner.And("system return account data are", ((string)(null)), table3, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Get facebook account, system return the selected user profile")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Register")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void GetFacebookAccountSystemReturnTheSelectedUserProfile()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get facebook account, system return the selected user profile", new string[] {
+                        "mock"});
+#line 43
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 44
+ testRunner.When("Call POST api/profile/facebook [FacebookId: \'f01\', UserId: \'u02\', IsConfirmed: \'f" +
+                    "alse\']", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 45
+ testRunner.Then("System not create new guest account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "Points",
+                        "OrderedCoupon",
+                        "PhoneNo",
+                        "VerifierCode",
+                        "VerifiedPhoneDate",
+                        "IsFacebookVerified",
+                        "FavouriteTeamId"});
+            table4.AddRow(new string[] {
+                        "u01",
+                        "0",
+                        "0",
+                        "",
+                        "",
+                        "",
+                        "true",
+                        ""});
+#line 46
+ testRunner.And("system return account data are", ((string)(null)), table4, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Try to create new account by incorrect facebook id, then system reject the reques" +
+            "t")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Register")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void TryToCreateNewAccountByIncorrectFacebookIdThenSystemRejectTheRequest()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Try to create new account by incorrect facebook id, then system reject the reques" +
+                    "t", new string[] {
+                        "mock"});
+#line 51
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 52
+ testRunner.When("Call POST api/profile/facebook [FacebookId: \'\', UserId: \'\', IsConfirmed: \'false\']" +
+                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 53
+ testRunner.Then("System not create new guest account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 54
+ testRunner.And("system return null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Try to tie account by incorrect facebook id (isConfirmed = true), then system rej" +
+            "ect the request")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Register")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void TryToTieAccountByIncorrectFacebookIdIsConfirmedTrueThenSystemRejectTheRequest()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Try to tie account by incorrect facebook id (isConfirmed = true), then system rej" +
+                    "ect the request", new string[] {
+                        "mock"});
+#line 57
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 58
+ testRunner.When("Call POST api/profile/facebook [FacebookId: \'f01\', UserId: \'unknow-user-id\', IsCo" +
+                    "nfirmed: \'true\']", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 59
+ testRunner.Then("System not create new guest account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 60
+ testRunner.And("system return null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Try to tie account by incorrect facebook id (isConfirmed = false), then system re" +
+            "ject the request")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Register")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void TryToTieAccountByIncorrectFacebookIdIsConfirmedFalseThenSystemRejectTheRequest()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Try to tie account by incorrect facebook id (isConfirmed = false), then system re" +
+                    "ject the request", new string[] {
+                        "mock"});
+#line 63
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 64
+ testRunner.When("Call POST api/profile/facebook [FacebookId: \'f01\', UserId: \'unknow-user-id\', IsCo" +
+                    "nfirmed: \'false\']", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 65
+ testRunner.Then("System not create new guest account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "Points",
+                        "OrderedCoupon",
+                        "PhoneNo",
+                        "VerifierCode",
+                        "VerifiedPhoneDate",
+                        "IsFacebookVerified",
+                        "FavouriteTeamId"});
+            table5.AddRow(new string[] {
+                        "u01",
+                        "0",
+                        "0",
+                        "",
+                        "",
+                        "",
+                        "true",
+                        ""});
+#line 66
+ testRunner.And("system return account data are", ((string)(null)), table5, "And ");
 #line hidden
             this.ScenarioCleanup();
         }

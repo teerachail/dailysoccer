@@ -50,8 +50,7 @@ namespace ApiApp.Controllers
         [HttpPost]
         public UserProfile Post()
         {
-            var userId = Guid.NewGuid().ToString().Replace("-", string.Empty);
-            _accountRepo.CreateUserProfile(userId);
+            var userId = createNewAccountProfile();
             var userProfile = _accountRepo.GetUserProfileById(userId);
             return userProfile;
         }
@@ -82,24 +81,36 @@ namespace ApiApp.Controllers
         {
             var areArgumentsValid = value != null && !string.IsNullOrEmpty(value.FacebookId);
             if (!areArgumentsValid) return null;
-
+            
             var facebookAccount = _accountRepo.GetFacebookAccountsById(value.FacebookId);
-            if (facebookAccount == null) return null;
-
-            var userprofile = _accountRepo.GetUserProfileById(value.UserId);
-            if (userprofile == null) return null;
-
-            if (value.IsConfirmed)
+            var isRequireCreateNewAccount = facebookAccount == null && string.IsNullOrEmpty(value.UserId);
+            if (isRequireCreateNewAccount)
             {
-                var isArgumentValid = !string.IsNullOrEmpty(value.UserId);
-                if (!isArgumentValid) return null;
+                var userId = createNewAccountProfile();
+                _accountRepo.TieFacebookAccount(value.FacebookId, userId);
+                return _accountRepo.GetUserProfileById(userId);
+            }
+
+            var isTieFacebook = value.IsConfirmed && !string.IsNullOrEmpty(value.UserId);
+            if (isTieFacebook)
+            {
+                var userprofile = _accountRepo.GetUserProfileById(value.UserId);
+                if (userprofile == null) return null;
 
                 _accountRepo.UntieFacebookAccount(value.FacebookId);
                 _accountRepo.TieFacebookAccount(value.FacebookId, value.UserId);
                 userprofile.IsFacebookVerified = true;
                 return userprofile;
             }
-            else return userprofile;
+
+            return _accountRepo.GetUserProfileById(facebookAccount.UserId);
+        }
+
+        private string createNewAccountProfile()
+        {
+            var userId = Guid.NewGuid().ToString().Replace("-", string.Empty);
+            _accountRepo.CreateUserProfile(userId);
+            return userId;
         }
 
         // PUT: api/profile/0912345678/phoneno
