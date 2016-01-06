@@ -54,8 +54,9 @@ namespace ApiApp.Repositories
         public IEnumerable<Match> GetMatchesByYear(int year)
         {
             var qry = MongoUtil.GetCollection<Match>(MatchTableName)
-               .Find(it => it.BeginDate.Year == year)
-               .ToEnumerable();
+                .Find(it => true)
+                .ToEnumerable()
+                .Where(it => it.BeginDate.Year == year);
             return qry;
         }
 
