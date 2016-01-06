@@ -45,23 +45,27 @@ namespace ApiApp.Controllers
             var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1)
                                       .Select(d => fromDate.AddDays(d));
 
+            var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
+            if (selectedDate == null) return null;
+
+            var prediction = _predictionRepo.GetUserPredictions();
+
             var splitSeparetor = '-';
             var userIdPosition = 0;
             var matchIdPosition = 1;
             var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate)
                                       let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
                                       let selectedMatch = _matchesRepo.GetMatchById(matchId)
-                                      where selectedMatch != null
                                       let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
                                       let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
                                       let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
                                       select new PredictionInformation
                                       {
-                                           MatchId = matchId,
-                                           IsPredictionTeamHome = isPredictTeamHome,
-                                           IsPredictionTeamAway = isPredictTeamAway,
-                                           IsPredictionDraw = isPredictDraw,
-                                           PredictionPoints = predict.PredictionPoints
+                                          MatchId = matchId,
+                                          IsPredictionTeamHome = isPredictTeamHome,
+                                          IsPredictionTeamAway = isPredictTeamAway,
+                                          IsPredictionDraw = isPredictDraw,
+                                          PredictionPoints = predict.PredictionPoints
                                       };
             return selectedPredictions;
         }

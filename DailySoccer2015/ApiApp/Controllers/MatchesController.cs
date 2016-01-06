@@ -45,7 +45,11 @@ namespace ApiApp.Controllers
             var toDate = DateTime.Now.AddDays(3);
             var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1)
                                       .Select(d => fromDate.AddDays(d));
-            var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate)
+
+            var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
+            if (selectedDate == null) return null;
+
+            var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate.Date)
                                 let teamHome = _repo.GetTeamById(match.TeamHomeId)
                                 where teamHome != null
                                 let teamHomeName = teamHome.Name
@@ -73,6 +77,15 @@ namespace ApiApp.Controllers
                                     LeagueName = leagueName
                                 };
 
+            var selectedLeagueGroup = from leagueGroup in selectedMatch.GroupBy(it => it.LeagueName)
+                                      let match = leagueGroup
+                                      select new LeagueInformation
+                                      {
+                                          Name = leagueGroup.Key,
+                                          Matches = leagueGroup.ToList()
+                                      };
+
+            return selectedLeagueGroup;
         }
     }
 }
