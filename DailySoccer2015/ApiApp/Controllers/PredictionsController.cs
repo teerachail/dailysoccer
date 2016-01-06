@@ -84,7 +84,7 @@ namespace ApiApp.Controllers
                                       .Select(d => fromDate.AddDays(d));
 
             var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
-            if (selectedDate != null) return null;
+            if (selectedDate == null) return null;
 
             var prediction = _predictionRepo.GetUserPredictions();
             var match = _matchesRepo.GetMatches();
