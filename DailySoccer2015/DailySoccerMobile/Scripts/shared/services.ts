@@ -14,11 +14,16 @@
 
         private userprofile: UserProfile;
 
-        constructor() {
-            // HACK: Initial UserProfile (Load data from ionic user)
+        constructor() {           
             this.userprofile = new UserProfile();
             this.userprofile.UserId = "u01guest";
             this.userprofile.IsVerifiedFacebook = true;
+
+            // HACK: Initial UserProfile (Load data from ionic user)
+            //var user = Ionic.User.current();
+            //this.userprofile.UserId = user.id;
+            //this.userprofile.IsVerifiedFacebook = user.get('IsVerifiedFacebook', false);
+            //this.userprofile.VerifiedPhoneNumber = user.get('VerifiedPhoneNumber', null);
         }
 
         public GetUserProfile(): UserProfile {
@@ -52,7 +57,11 @@
         }
 
         private updateUserProfile(): void {
-            // HACK: UpdateUserProfile (Save data to ionic user)
+            var user = Ionic.User.current();
+            user.id = this.userprofile.UserId;
+            user.set('IsVerifiedFacebook', this.userprofile.IsVerifiedFacebook);
+            user.set('VerifiedPhoneNumber', this.userprofile.VerifiedPhoneNumber);
+            user.save();
         }
     }
 
