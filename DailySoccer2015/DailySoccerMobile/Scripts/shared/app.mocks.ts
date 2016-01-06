@@ -146,6 +146,22 @@
         }
     }
 
+    export class FavoriteTeamService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-favoriteTeam", $resource);
+        }
+    }
+
+    export class FavoriteLeagueService extends MockTableDataServiceBase {
+
+        static $inject = ['$resource'];
+        constructor($resource: angular.resource.IResourceService) {
+            super("mas-appmob-favoriteLeague", $resource);
+        }
+    }
+
 	angular
         .module('app.shared')
         .service('app.shared.CouponPointsService', CouponPointsService)
@@ -158,6 +174,8 @@
         .service('app.shared.YearlyHistoryService', YearlyHistoryService)
         .service('app.shared.MouthlyHistoryService', MouthlyHistoryService)
         .service('app.shared.DaylyHistoryService', DaylyHistoryService)
+        .service('app.shared.FavoriteTeamService', FavoriteTeamService)
+        .service('app.shared.FavoriteLeagueService', FavoriteLeagueService)
         .service('app.shared.SampleDataService', SampleDataService)
         .service('app.shared.SampleUrlDataService', SampleUrlDataService)
         .service('app.shared.MockTableDataServiceBase', MockTableDataServiceBase);
