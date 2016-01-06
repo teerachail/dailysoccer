@@ -10,6 +10,11 @@
                     scope: $scope,
                     animation: 'slide-in-up'
                 }).then(function (modal): void { $scope.Favorite = modal; });
+                this.$ionicModal.fromTemplateUrl('templates/Login.html',
+                {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(function (modal): void { $scope.Login = modal; });
         }
 
         public ShowPopUp(): void {
@@ -18,6 +23,13 @@
 
         public ClosePopUp(): void {
             this.$scope.Favorite.hide();
+        }
+        public LoginShow(): void {
+            this.$scope.Login.show();
+        }
+
+        public LoginHide(): void {
+            this.$scope.Login.hide();
         }
     }
 
