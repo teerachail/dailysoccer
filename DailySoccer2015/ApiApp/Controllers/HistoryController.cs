@@ -40,7 +40,7 @@ namespace ApiApp.Controllers
             if (string.IsNullOrEmpty(id)) return null;
 
             var now = DateTime.Now;
-            var matches = _matchesRepo.GetMatches().Where(it => it.BeginDate.Year == now.Year).ToList();
+            var matches = _matchesRepo.GetMatchesByYear(now.Year).ToList();
             var predictionQry = getPredictions(id, matches);
 
             var result = new List<PredictionMonthlySummary>();
@@ -69,12 +69,8 @@ namespace ApiApp.Controllers
         {
             if (string.IsNullOrEmpty(id)) return null;
 
-            var matches = _matchesRepo.GetMatches()
-                .Where(it => it.BeginDate.Year == year)
-                .Where(it => it.BeginDate.Month == month)
-                .ToList();
+            var matches = _matchesRepo.GetMatchesByYear(year).Where(it => it.BeginDate.Month == month).ToList();
             var teamIds = matches.Select(it => it.TeamAwayId).Union(matches.Select(it => it.TeamHomeId)).Distinct();
-            var teams = _matchesRepo.GetTeams().Where(it => teamIds.Contains(it.id));
             var predictionQry = getPredictions(id, matches);
 
             var result = new List<PredictionDailySummary>();
@@ -86,9 +82,9 @@ namespace ApiApp.Controllers
                 var predictionResults = (from prediction in predictions
                                          let matchId = prediction.id.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[1]
                                          let match = todayMatches.First(it => it.id.Equals(matchId))
-                                         let teamHome = teams.FirstOrDefault(it => it.id.Equals(match.TeamHomeId))
+                                         let teamHome = _matchesRepo.GetTeamById(match.TeamHomeId)
                                          where teamHome != null
-                                         let teamAway = teams.FirstOrDefault(it => it.id.Equals(match.TeamAwayId))
+                                         let teamAway = _matchesRepo.GetTeamById(match.TeamAwayId)
                                          where teamAway != null
                                          select new PredictionDailyDetail
                                          {
@@ -111,7 +107,7 @@ namespace ApiApp.Controllers
         private IEnumerable<Prediction> getPredictions(string id, IEnumerable<Match> matches)
         {
             const int MaximumDataElements = 2;
-            var predictionQry = from prediction in _predictionRepo.GetUserPredictions()
+            var predictionQry = from prediction in _predictionRepo.GetUserPredictions().ToList()
                                 let data = prediction.id.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries)
                                 where data.Any() && data.Count() == MaximumDataElements
                                 let userId = data[0]

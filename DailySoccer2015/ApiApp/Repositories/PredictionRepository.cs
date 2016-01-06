@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApiApp.MongoAccess;
+using MongoDB.Driver;
 
 namespace ApiApp.Repositories
 {
@@ -12,6 +14,12 @@ namespace ApiApp.Repositories
     /// </summary>
     public class PredictionRepository : IPredictionRepository
     {
+        #region Fields
+
+        private const string PredictionTableName = "dailysoccer.Predictions";
+
+        #endregion Fields
+
         #region IPredictionRepository members
 
         /// <summary>
@@ -24,7 +32,28 @@ namespace ApiApp.Repositories
         /// <param name="currentTime">วันเวลาที่ทำการบันทึกข้อมูล</param>
         public void SetUserPrediction(string userId, string matchId, string winnerTeamId, int predictionPoints, DateTime currentTime)
         {
-            MongoAccess.MongoUtil.SetUserPrediction(userId, matchId, winnerTeamId, predictionPoints, currentTime);
+            var predictionId = createPredictionId(userId, matchId);
+            var table = MongoUtil.GetCollection<Prediction>(PredictionTableName);
+            var isUpdate = table.Find(it => it.id.Equals(predictionId)).Any();
+            if (isUpdate)
+            {
+                var update = Builders<Prediction>.Update
+                      .Set(it => it.PredictionTeamId, winnerTeamId)
+                      .Set(it => it.PredictionPoints, predictionPoints)
+                      .Set(it => it.CreatedDate, currentTime);
+                table.UpdateOne(it => it.id.Equals(predictionId), update);
+            }
+            else
+            {
+                var newData = new Prediction
+                {
+                    id = predictionId,
+                    PredictionTeamId = winnerTeamId,
+                    PredictionPoints = predictionPoints,
+                    CreatedDate = currentTime
+                };
+                table.InsertOne(newData);
+            }
         }
 
         /// <summary>
@@ -34,7 +63,9 @@ namespace ApiApp.Repositories
         /// <param name="matchId">รหัสแมช์การแข่งขันที่ผู้ใช้ยกเลิก</param>
         public void CancelUserPrediction(string userId, string matchId)
         {
-            MongoAccess.MongoUtil.CancelUserPrediction(userId, matchId);
+            var deleteId = createPredictionId(userId, matchId);
+            var table = MongoUtil.GetCollection<Prediction>(PredictionTableName);
+            table.DeleteOne(it => it.id.Equals(deleteId));
         }
 
         /// <summary>
@@ -42,7 +73,15 @@ namespace ApiApp.Repositories
         /// </summary>
         public IEnumerable<Prediction> GetUserPredictions()
         {
-            return MongoAccess.MongoUtil.GetUserPredictions();
+            var qry = MongoUtil.GetCollection<Prediction>(PredictionTableName)
+                .Find(it => true)
+                .ToEnumerable();
+            return qry;
+        }
+
+        private static string createPredictionId(string userId, string matchId)
+        {
+            return string.Format("{0}-{1}", userId, matchId);
         }
 
         #endregion IMatchesRepository members

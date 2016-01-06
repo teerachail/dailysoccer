@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApiApp.MongoAccess;
+using MongoDB.Driver;
 
 namespace ApiApp.Repositories
 {
@@ -12,14 +14,49 @@ namespace ApiApp.Repositories
     /// </summary>
     public class MatchesRepository : IMatchesRepository
     {
+        #region Fields
+
+        private const string MatchTableName = "dailysoccer.Matches";
+        private const string TeamTableName = "dailysoccer.Teams";
+        private const string LeagueTableName = "dailysoccer.Leagues";
+
+        #endregion Fields
+
         #region IMatchesRepository members
 
         /// <summary>
         /// ดึงแมช์การแข่งขันทั้งหมดในระบบ
         /// </summary>
-        public IEnumerable<Match> GetMatches()
+        public IEnumerable<Match> GetAllMatches()
         {
-            return MongoAccess.MongoUtil.GetMatches();
+            var qry = MongoUtil.GetCollection<Match>(MatchTableName)
+                .Find(it => true)
+                .ToEnumerable();
+            return qry;
+        }
+
+        /// <summary>
+        /// ดึงแมช์การแข่งขันจากรหัสการแข่งขัน
+        /// </summary>
+        /// <param name="matchId">รหัสการแข่งขันที่ต้องการดึงข้อมูล</param>
+        public Match GetMatchById(string matchId)
+        {
+            var selectedMatch = MongoUtil.GetCollection<Match>(MatchTableName)
+                .Find(it => it.id.Equals(matchId))
+                .FirstOrDefault();
+            return selectedMatch;
+        }
+
+        /// <summary>
+        /// ดึงแมช์การแข่งขันจากปี
+        /// </summary>
+        /// <param name="year">ปีที่ต้องการดึงข้อมูล</param>
+        public IEnumerable<Match> GetMatchesByYear(int year)
+        {
+            var qry = MongoUtil.GetCollection<Match>(MatchTableName)
+               .Find(it => it.BeginDate.Year == year)
+               .ToEnumerable();
+            return qry;
         }
 
         /// <summary>
@@ -27,15 +64,45 @@ namespace ApiApp.Repositories
         /// </summary>
         public IEnumerable<League> GetAllLeagues()
         {
-            return MongoAccess.MongoUtil.GetAllLeagues();
+            var qry = MongoUtil.GetCollection<League>(LeagueTableName)
+                .Find(it => true)
+                .ToEnumerable();
+            return qry;
         }
 
         /// <summary>
-        /// ดึงทีมทั้งหมดในระบบ
+        /// ดึงรายการลีกจากรหัสลีก
         /// </summary>
-        public IEnumerable<Team> GetTeams()
+        /// <param name="leagueIds">รหัสลีกที่ต้องการดึง</param>
+        public IEnumerable<League> GetLeaguesByIds(IEnumerable<string> leagueIds)
         {
-            return MongoAccess.MongoUtil.GetTeams();
+            var qry = MongoUtil.GetCollection<League>(LeagueTableName)
+                .Find(it => leagueIds.Contains(it.id))
+                .ToEnumerable();
+            return qry;
+        }
+
+        /// <summary>
+        /// ดึงรายการทีมจากรหัสลีก
+        /// </summary>
+        /// <param name="leagueId">รหัสลีกที่ต้องการดึงข้อมูล</param>
+        public IEnumerable<Team> GetTeamsByLeagueId(string leagueId)
+        {
+            var qry = MongoUtil.GetCollection<Team>(TeamTableName)
+                .Find(it => it.LeagueId.Equals(leagueId))
+                .ToEnumerable();
+            return qry;
+        }
+
+        /// <summary>
+        /// ดึงทีมจากรหัสทีม
+        /// </summary>
+        public Team GetTeamById(string teamId)
+        {
+            var selectedTeam = MongoUtil.GetCollection<Team>(TeamTableName)
+                .Find(it => it.id.Equals(teamId))
+                .FirstOrDefault();
+            return selectedTeam;
         }
 
         #endregion IMatchesRepository members
