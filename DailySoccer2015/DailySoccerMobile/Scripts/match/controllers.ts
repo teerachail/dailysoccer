@@ -10,6 +10,13 @@
         public FutureTwoDaysDate: Date = new Date();
         public Leagues: string[];
 
+        public CurrentDay: number;
+        public PastOneDay: number;
+        public PastTwoDay: number;
+        public FutureOneDay: number;
+        public FutureTwoDay: number;
+
+
         static $inject = ['$state'];
         constructor(public $state) {
             this.updateDisplayDate(this.CurrentDate);
@@ -23,6 +30,13 @@
             this.PastTwoDaysDate.setDate(currentDate.getDate() - 2);
             this.FutureOneDaysDate.setDate(currentDate.getDate() + 1);
             this.FutureTwoDaysDate.setDate(currentDate.getDate() + 2);
+
+            this.CurrentDay = currentDate.getDate();
+            this.PastOneDay = this.PastOneDaysDate.getDate();
+            this.PastTwoDay = this.PastTwoDaysDate.getDate();
+            this.FutureOneDay = this.FutureOneDaysDate.getDate();
+            this.FutureTwoDay = this.FutureTwoDaysDate.getDate();
+
             console.log('# Update date completed.');
         }
 
