@@ -42,7 +42,9 @@ $bar-height: 44px;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
-
+.bg-main{
+    background:$positive;
+}
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
@@ -210,5 +212,15 @@ ion-side-menu ion-content {
         border: 0px !important;
         margin: 0px !important;
     }
+}
+
+.text-right{
+    text-align: right !important;
+}
+.text-center{
+    text-align: center !important;
+}
+.text-left{
+    text-align: left !important;
 }
 
