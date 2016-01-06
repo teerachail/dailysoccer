@@ -91,7 +91,7 @@ namespace ApiApp.Controllers
             var splitSeparetor = '-';
             var userIdPosition = 0;
             var matchIdPosition = 1;
-            var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate)
+            var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate.Date)
                                       let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
                                       let selectedMatch = _matchesRepo.GetMatchById(matchId)
                                       let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
