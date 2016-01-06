@@ -61,19 +61,20 @@
   <ItemGroup>
     <Compile Include="Hooks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Specs\SpecFlowFeature1.feature.cs">
+    <Compile Include="Specs\Register.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SpecFlowFeature1.feature</DependentUpon>
+      <DependentUpon>Register.feature</DependentUpon>
     </Compile>
-    <Compile Include="Specs\Steps\SpecFlowFeature1Steps.cs" />
+    <Compile Include="Specs\Steps\BackgroundSteps.cs" />
+    <Compile Include="Specs\Steps\RegisterSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Specs\SpecFlowFeature1.feature">
+    <None Include="Specs\Register.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SpecFlowFeature1.feature.cs</LastGenOutput>
+      <LastGenOutput>Register.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup />
