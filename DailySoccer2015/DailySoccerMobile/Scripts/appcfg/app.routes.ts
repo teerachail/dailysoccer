@@ -208,11 +208,10 @@
                      templateUrl: 'templates/MonthlyHistory.html',
                      controller: 'app.match.DaylyHistoryController as cx',
                      resolve: {
-                         "day": ["app.shared.MouthlyHistoryService", svc => { return svc.getAll(); }],
                          "data": ["$stateParams", "app.shared.UserProfileService", "app.match.HistoryService", (params, userService: app.shared.UserProfileService, svc) => {
                              var userId = userService.GetUserProfile().UserId;
                              var now = new Date();
-                             var currentYear = now.getMonth();
+                             var currentYear = now.getFullYear();
                              return svc.GetHistoryDaily(userId, currentYear, params.month);
                          }]
                      }

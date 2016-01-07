@@ -245,8 +245,8 @@
         public shownGroup;
 
         static $inject = ['data'];
-        constructor(public data) {
-
+        constructor(public data: app.match.PredictionDailySummary[]) {
+            alert(data[0].PredictionResults[0].TeamHomeName);
         }
 
         public filterDay(day: Date): string {
