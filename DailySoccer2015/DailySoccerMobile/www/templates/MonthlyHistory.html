@@ -16,7 +16,7 @@
                         <i class="icon" ng-class="cx.isGroupShown(day) ? 'ion-chevron-down' : 'ion-chevron-up'"></i>
                     </dsiv>
                 </ion-item>
-                <div ng-repeat="item in day.PredictionResults | filter: {BeginDate: cx.filterDay(day.Date)}" ng-show="cx.isGroupShown(day)" class="row text-center">
+                <div ng-repeat="item in day.PredictionResults" ng-show="cx.isGroupShown(day)" class="row text-center">
                     <div class="col col-20 col-center"><strong>+{{item.GainPoints}}</strong> 
                     </div>
                     <div class="col col-center">

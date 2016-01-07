@@ -208,7 +208,7 @@
                      templateUrl: 'templates/MonthlyHistory.html',
                      controller: 'app.match.DaylyHistoryController as cx',
                      resolve: {
-                         "data": ["$stateParams", "app.shared.UserProfileService", "app.match.HistoryService", (params, userService: app.shared.UserProfileService, svc) => {
+                         "data": ["$stateParams", "app.shared.UserProfileService", "app.match.HistoryService", (params, userService: app.shared.UserProfileService, svc: app.match.HistoryService) => {
                              var userId = userService.GetUserProfile().UserId;
                              var now = new Date();
                              var currentYear = now.getFullYear();
