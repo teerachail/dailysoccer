@@ -82,18 +82,18 @@ namespace ApiApp.Controllers
             var toDate = DateTime.Now.AddDays(3);
             var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1)
                                       .Select(d => fromDate.AddDays(d));
-
             var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
+            var matches = _matchesRepo.GetMatchesByDate(selectedDate).ToList();
             if (selectedDate == null) return null;
 
-            var prediction = _predictionRepo.GetUserPredictions();
+            var prediction = _predictionRepo.GetUserPredictions().ToList();
 
             var splitSeparetor = '-';
             var userIdPosition = 0;
             var matchIdPosition = 1;
-            var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate.Date)
+            var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate.Date).ToList()
                                       let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
-                                      let selectedMatch = _matchesRepo.GetMatchById(matchId)
+                                      let selectedMatch = matches.FirstOrDefault(it => it.id == matchId)
                                       let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
                                       let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
                                       let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)

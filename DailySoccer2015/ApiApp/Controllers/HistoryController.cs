@@ -70,11 +70,14 @@ namespace ApiApp.Controllers
             if (string.IsNullOrEmpty(id)) return null;
 
             var matches = _matchesRepo.GetMatchesByYear(year).Where(it => it.BeginDate.Month == month).ToList();
-            var teamIds = matches.Select(it => it.TeamAwayId).Union(matches.Select(it => it.TeamHomeId)).Distinct();
+            //var teamIds = matches.Select(it => it.TeamAwayId).Union(matches.Select(it => it.TeamHomeId)).Distinct();
             var predictionQry = getPredictions(id, matches);
 
             var result = new List<PredictionDailySummary>();
             var days = matches.Select(it => it.BeginDate.Day).Distinct().OrderByDescending(it => it);
+            var matchQry = matches.Where(it => days.Contains(it.BeginDate.Day));
+            var teamIds = matchQry.Select(it => it.TeamAwayId).Union(matchQry.Select(it => it.TeamHomeId)).Distinct();
+            var teams = _matchesRepo.GetTeamsByIds(teamIds).ToList();
             foreach (var day in days)
             {
                 var todayMatches = matches.Where(it => it.BeginDate.Day == day);
@@ -82,9 +85,9 @@ namespace ApiApp.Controllers
                 var predictionResults = (from prediction in predictions
                                          let matchId = prediction.id.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[1]
                                          let match = todayMatches.First(it => it.id.Equals(matchId))
-                                         let teamHome = _matchesRepo.GetTeamById(match.TeamHomeId)
+                                         let teamHome = teams.FirstOrDefault(it=>it.id == match.TeamHomeId)
                                          where teamHome != null
-                                         let teamAway = _matchesRepo.GetTeamById(match.TeamAwayId)
+                                         let teamAway = teams.FirstOrDefault(it => it.id == match.TeamAwayId)
                                          where teamAway != null
                                          select new PredictionDailyDetail
                                          {
