@@ -9885,13 +9885,13 @@ ion-side-menu ion-content {
   padding: initial; }
 
 .borderless {
-  border: 0px; }
+  border: 0px !important; }
 
 .no-padding {
   padding: 0px !important; }
 
 .padding-small {
-  padding: 5px; }
+  padding: 5px !important; }
 
 .small-line-height {
   line-height: 30px; }
