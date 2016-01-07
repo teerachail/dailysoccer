@@ -7,4 +7,8 @@
         public IsVerifiedFacebook: boolean;
     }
 
+    export class TeamRequest {
+        constructor(public id: string) { }
+    }
+
 }

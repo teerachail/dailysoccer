@@ -18,8 +18,7 @@
              controller: 'app.shared.SideMenuController as cx',
              resolve: {
                  "couponSummary": ["app.reward.CouponSummaryService", svc => { return svc.GetCouponSummary(); }],
-                 "team": ["app.shared.FavoriteTeamService", svc => { return svc.getAll(); }],
-                 "league": ["app.shared.FavoriteLeagueService", svc => { return svc.getAll(); }]
+                 "league": ["app.shared.FavoriteTeamService", svc => { return svc.GetLeagues(); }]
 
              }
             })

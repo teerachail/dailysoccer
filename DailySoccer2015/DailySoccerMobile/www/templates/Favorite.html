@@ -10,18 +10,18 @@
                     <button class="button button-icon button-small icon-left ion-chevron-left button-clear button-white"></button>
                 </div>
                 <div class="text-center col">
-                    <span>{{cx.league[cx.Pages].LeagueName}}</span>
+                    <span>{{cx.league[cx.Pages].Name}}</span>
                 </div>
-                <div class="buttons buttons-icon bar-balanced" ng-click="cx.NextPages()">
+                <div class="buttons buttons-icon bar-balanced" ng-click="cx.NextPages(cx.league[cx.Pages].id)">
                     <button class="button button-icon button-small icon-left ion-chevron-right button-clear button-white"></button>
                 </div>
             </div>
         </div>
-        <div class="title padding row" ng-repeat="item in cx.team | filter: {LeagueId: (cx.league[cx.Pages].LeagueId) }">
+        <div class="title padding row" ng-repeat="item in cx.team">
             <label class="col borderless row item item-radio item-stable ng-valid">
-                <input type="radio" name="radio-group" ng-value="{{item.TeamId}}">
+                <input type="radio" name="radio-group" ng-value="{{item.id}}">
                 <div class="radio-content">
-                    <span class="title">{{item.TeamName}}</span>
+                    <span class="title">{{item.Name}}</span>
                     <span>
                         <i class="radio-icon disable-pointer-events icon ion-ios-star"></i>
                     </span>

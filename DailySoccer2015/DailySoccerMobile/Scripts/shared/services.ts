@@ -10,6 +10,14 @@
         DeleteVerifiedPhoneNo(): void;
     }
 
+    interface ITeamResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        GetTeams(data: T): T;
+    }
+
+    interface ILeagueResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        GetLeagues(): T;
+    }
+
     export class UserProfileService implements IUserProfileService {
 
         private userprofile: UserProfile;
@@ -65,7 +73,32 @@
         }
     }
 
+    export class FavoriteTeamService {
+        private teamSvc: ITeamResourceClass<any>;
+        private leagueSvc: ILeagueResourceClass<any>;
+
+
+        static $inject = ['appConfig', '$resource'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
+            this.teamSvc = <ITeamResourceClass<any>>$resource(appConfig.TeamUrl + '/:id', { "id": "@id"}, {
+                GetTeams: { method: 'GET', isArray: true},
+            });
+            this.leagueSvc = <ILeagueResourceClass<any>>$resource(appConfig.LeagueUrl, {}, {
+                GetLeagues: { method: 'GET', isArray: true },
+            });
+        }
+
+        public GetTeams(id: string): ng.IPromise<any> {
+            return this.teamSvc.GetTeams(new TeamRequest(id));
+        }
+
+        public GetLeagues(): ng.IPromise<any> {
+            return this.leagueSvc.GetLeagues();
+        }
+    }
+
     angular
         .module('app.shared')
-        .service('app.shared.UserProfileService', UserProfileService);
+        .service('app.shared.UserProfileService', UserProfileService)
+        .service('app.shared.FavoriteTeamService', FavoriteTeamService);
 }

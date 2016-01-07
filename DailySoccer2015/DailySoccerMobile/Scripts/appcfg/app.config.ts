@@ -10,6 +10,8 @@
         RewardUrl: string;
         MatchesUrl: string;
         HistoryUrl: string;
+        TeamUrl: string;
+        LeagueUrl: string;
     }
 
     export class AppConfig implements IAppConfig {
@@ -22,6 +24,8 @@
         public MatchesUrl: string;
         public RewardUrl: string;
         public HistoryUrl: string;
+        public TeamUrl: string;
+        public LeagueUrl: string;
 
         static $inject = ['defaultUrl'];
         constructor(defaultUrl: string) {
@@ -35,6 +39,8 @@
             this.RewardUrl = apiUrl + '/rewards/:action/:id';
             this.MatchesUrl = apiUrl + '/matches/:day';
             this.HistoryUrl = apiUrl + '/history';
+            this.TeamUrl = apiUrl + '/teams';
+            this.LeagueUrl = apiUrl + '/leagues';
         }
 
     }
