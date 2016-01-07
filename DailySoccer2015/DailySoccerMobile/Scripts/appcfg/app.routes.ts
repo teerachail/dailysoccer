@@ -43,12 +43,14 @@
                      templateUrl: 'templates/Matches.html',
                      controller: 'app.match.PredictionController as cx',
                      resolve: {
-                         "matches": ["$stateParams", "app.match.MatchService", (params, svc: app.match.MatchService) => {
+                         "matches": ["$stateParams", "app.match.MatchService",
+                             (params, svc: app.match.MatchService) => {
                              return svc.GetMatchesByDate(params.day);
                          }],
-                         "predictions": ["$stateParams", "app.match.PredictionsService", (params, svc: app.match.PredictionsService) => {
-                             var user = "u01guest";
-                             return svc.GetPredictionsByDate(user, params.day);
+                         "predictions": ["$stateParams", "app.match.PredictionsService", "app.shared.UserProfileService",
+                             (params, svc: app.match.PredictionsService, userService: app.shared.UserProfileService) => {
+                             var userId = userService.GetUserProfile().UserId;
+                             return svc.GetPredictionsByDate(userId, params.day);
                          }],
                          "couponSummary": ["app.reward.CouponSummaryService", svc => {
                              return svc.GetCouponSummary();
@@ -192,7 +194,8 @@
                      templateUrl: 'templates/YearlyHistory.html',
                      controller: 'app.match.MonthlyHistoryController as cx',
                      resolve: {
-                         "data": ["app.shared.UserProfileService", "app.match.HistoryService", (userService: app.shared.UserProfileService, svc) => {
+                         "data": ["app.shared.UserProfileService", "app.match.HistoryService",
+                             (userService: app.shared.UserProfileService, svc) => {
                              var userId = userService.GetUserProfile().UserId;
                              return svc.GetHistoryMonthly(userId);
                          }]
@@ -208,7 +211,8 @@
                      templateUrl: 'templates/MonthlyHistory.html',
                      controller: 'app.match.DaylyHistoryController as cx',
                      resolve: {
-                         "data": ["$stateParams", "app.shared.UserProfileService", "app.match.HistoryService", (params, userService: app.shared.UserProfileService, svc: app.match.HistoryService) => {
+                         "data": ["$stateParams", "app.shared.UserProfileService", "app.match.HistoryService",
+                             (params, userService: app.shared.UserProfileService, svc: app.match.HistoryService) => {
                              var userId = userService.GetUserProfile().UserId;
                              var now = new Date();
                              var currentYear = now.getFullYear();
@@ -232,7 +236,6 @@
         $urlRouterProvider.otherwise(()=>
         {
             var now = new Date;
-            var userId = 'u01guest';
             return '/app/main/matches/'+ now.getDate();
         });
         //$urlRouterProvider.otherwise('/sample');

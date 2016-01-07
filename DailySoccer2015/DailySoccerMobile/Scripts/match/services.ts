@@ -46,7 +46,6 @@
         public GetPredictionsByDate(userId: string, day: number): ng.IPromise<PredictionInformation[]> {
             return this.getPredictionsByDate.query({ id: userId, day: day }).$promise;
         }
-
         public Predict(userId: string, matchId: string, teamId: string, isCancel: boolean): ng.IPromise<PredictionInformation[]> {
             return this.svc.Predict(new PredictionRequest(userId, matchId, teamId, isCancel)).$promise;
         }
@@ -56,6 +55,7 @@
         private historyMonthlyScv: IHistoryResourceClass<any>;
         private historyDailyScv: IHistoryResourceClass<any>;
 
+        static $inject = ['appConfig', '$resource'];
         constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
             this.historyMonthlyScv = <IHistoryResourceClass<any>>$resource(appConfig.HistoryUrl + '/:id', {}, {
                 GetHistoryMonthly: { method: 'GET', isArray: true }

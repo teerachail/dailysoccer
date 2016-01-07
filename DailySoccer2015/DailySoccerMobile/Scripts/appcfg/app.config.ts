@@ -27,8 +27,8 @@
         constructor(defaultUrl: string) {
             var apiUrl = defaultUrl + '/api';
 
-            this.ProfileUrl = apiUrl + '/profiles/:id';
-            this.VerifyPhoneUrl = this.ProfileUrl + '/:action';
+            this.ProfileUrl = apiUrl + '/profiles';
+            this.VerifyPhoneUrl = this.ProfileUrl + '/:id/:action';
             this.BuyCouponUrl = apiUrl + '/coupons/buy';
             this.CouponSummaryUrl = apiUrl + '/coupons/summary/:id';
             this.PredictUrl = apiUrl + '/predictions/:id';

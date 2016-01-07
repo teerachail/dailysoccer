@@ -50,10 +50,11 @@
     class PredictionController {
 
         public Leagues: string[];
+        private userProfile: app.shared.UserProfile;
 
-        static $inject = ['matches', 'predictions', 'couponSummary', 'app.match.PredictionsService', '$ionicModal', '$scope'];
-        constructor(public leagues: app.match.LeagueInformation[], public predictions: app.match.PredictionInformation[], public couponSummary, private predictSvc: app.match.PredictionsService, private $ionicModal, private $scope) {
-            
+        static $inject = ['matches', "app.shared.UserProfileService", 'predictions', 'couponSummary', 'app.match.PredictionsService', '$ionicModal', '$scope'];
+        constructor(public leagues: app.match.LeagueInformation[], public userSvc: app.shared.UserProfileService, public predictions: app.match.PredictionInformation[], public couponSummary, private predictSvc: app.match.PredictionsService, private $ionicModal, private $scope) {
+            this.userProfile = this.userSvc.GetUserProfile();
             this.$ionicModal.fromTemplateUrl('templates/MatchesPopup.html',
                 {
                     scope: $scope,
@@ -63,7 +64,7 @@
 
         private refrestPredictions(): void {
             var now = new Date();
-            this.predictSvc.GetPredictionsByDate("u01guest", now.getDate())
+            this.predictSvc.GetPredictionsByDate(this.userProfile.UserId, now.getDate())
                 .then((respond: PredictionInformation[]): void => {
                     this.predictions = respond;
                 });
@@ -74,7 +75,7 @@
             var isCancel: boolean = false;
             if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionTeamHome;
 
-            this.predictSvc.Predict("u01guest", match.id, match.TeamHomeId, isCancel)
+            this.predictSvc.Predict(this.userProfile.UserId, match.id, match.TeamHomeId, isCancel)
                 .then((respond: app.match.PredictionInformation[]): void => {
                     this.predictions = respond;
             });
@@ -86,7 +87,7 @@
             var isCancel: boolean = false;
             if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionTeamAway;
 
-            this.predictSvc.Predict("u01guest", match.id, match.TeamAwayId, isCancel)
+            this.predictSvc.Predict(this.userProfile.UserId, match.id, match.TeamAwayId, isCancel)
                 .then((respond: app.match.PredictionInformation[]): void => {
                     this.predictions = respond;
                 });
@@ -97,7 +98,7 @@
             var isCancel: boolean = false;
             if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionDraw;
 
-            this.predictSvc.Predict("u01guest", match.id, null, isCancel)
+            this.predictSvc.Predict(this.userProfile.UserId, match.id, null, isCancel)
                 .then((respond: app.match.PredictionInformation[]): void => {
                     this.predictions = respond;
                 });

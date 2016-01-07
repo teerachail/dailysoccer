@@ -4,9 +4,12 @@
     class SideMenuController {
 
         public Pages: number;
+        public CurrentDay: number;
 
         static $inject = ['couponSummary', 'team', 'league', '$scope', '$ionicModal'];
         constructor(public couponSummary, public team, public league, private $scope, private $ionicModal) {
+            var now = new Date();
+            this.CurrentDay = now.getDate();
             this.$ionicModal.fromTemplateUrl('templates/Favorite.html',
                 {
                     scope: $scope,
