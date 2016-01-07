@@ -244,8 +244,8 @@
 
         public shownGroup;
 
-        static $inject = ['data', 'day'];
-        constructor(public data, public day) {
+        static $inject = ['data'];
+        constructor(public data) {
 
         }
 
@@ -271,7 +271,7 @@
     class MonthlyHistoryController {
 
         static $inject = ['data'];
-        constructor(public data) {
+        constructor(public data: app.match.PredictionMonthlySummary[]) {
         }
     }
 

@@ -97,7 +97,10 @@ namespace ApiApp.Controllers
                                              IsPredictionTeamHome = string.IsNullOrEmpty(prediction.PredictionTeamId) ? false : prediction.PredictionTeamId.Equals(teamHome.id),
                                              IsPredictionTeamAway = string.IsNullOrEmpty(prediction.PredictionTeamId) ? false : prediction.PredictionTeamId.Equals(teamAway.id),
                                              TeamHomeName = teamHome.Name,
-                                             TeamAwayName = teamAway.Name
+                                             TeamAwayName = teamAway.Name,
+                                             TeamHomeScore = match.TeamHomeScore,
+                                             TeamAwayScore = match.TeamAwayScore,
+
                                          }).ToList();
 
                 var date = new DateTime(year, month, day);

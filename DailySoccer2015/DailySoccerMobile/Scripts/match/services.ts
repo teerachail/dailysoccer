@@ -1,13 +1,16 @@
 ﻿module app.match {
 	'use strict';
 
-    export interface IMatchResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+    interface IMatchResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
         GetMatchesByDate(data: T): T;
         GetPredictionsByDate(data: T): T;
-
     }
     interface IPredictResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
         Predict(data: T): T;
+    }
+    interface IHistoryResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        GetHistoryMonthly(data: T): T;
+        GetHistoryDaily(data: T): T;
     }
 
     export class MatchService {
@@ -49,8 +52,30 @@
         }
     }
 
+    export class HistoryService {
+        private historyMonthlyScv: IHistoryResourceClass<any>;
+        private historyDailyScv: IHistoryResourceClass<any>;
+
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
+            this.historyMonthlyScv = <IHistoryResourceClass<any>>$resource(appConfig.HistoryUrl + '/:id', {}, {
+                GetHistoryMonthly: { method: 'GET', isArray: true }
+            });
+            this.historyDailyScv = <IHistoryResourceClass<any>>$resource(appConfig.HistoryUrl + '/:id/:year/:month', {}, {
+                GetHistoryDaily: { method: 'GET', isArray: true }
+            });
+        }
+
+        public GetHistoryMonthly(id: string): ng.IPromise<PredictionMonthlySummary[]> {
+            return this.historyMonthlyScv.GetHistoryMonthly(new HistoryMonthlyRequest(id));
+        }
+        public GetHistoryDaily(id: string, year: number, month: number): ng.IPromise<PredictionDailySummary[]> {
+            return this.historyDailyScv.GetHistoryDaily(new HistoryDailyRequest(id, year, month));
+        }
+    }
+
 	angular
 		.module('app.match')
         .service('app.match.MatchService', MatchService)
-        .service('app.match.PredictionsService', PredictionsService);
+        .service('app.match.PredictionsService', PredictionsService)
+        .service('app.match.HistoryService', HistoryService);;
 }

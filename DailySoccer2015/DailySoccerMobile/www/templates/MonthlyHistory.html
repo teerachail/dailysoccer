@@ -4,20 +4,20 @@
             <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
         </div>
         <ion-list>
-            <div ng-repeat="day in cx.day" class="padding-small">
+            <div ng-repeat="day in cx.data" class="padding-small">
                 <ion-item class="item-stable row borderless small-line-height no-padding" ng-click="cx.toggleGroup(day)">
                     <div class="col col-20 col-center text-center">
-                        <b>+{{day.DayTotslPoints}}</b>
+                        <b>+{{day.TotalPoints}}</b>
                     </div>
                     <div class="col col-center text-center">
-                        {{day.PredictionDate | date: 'longDate' }}
+                        {{day.Date | date: 'longDate' }}
                     </div>
                     <dsiv class="col col-20 col-center text-right">
                         <i class="icon" ng-class="cx.isGroupShown(day) ? 'ion-chevron-down' : 'ion-chevron-up'"></i>
                     </dsiv>
                 </ion-item>
-                <div ng-repeat="item in cx.data | filter: {BeginDate: cx.filterDay(day.PredictionDate)}" ng-show="cx.isGroupShown(day)" class="row text-center">
-                    <div class="col col-20 col-center"><strong>+{{item.ActualPoints}}</strong> 
+                <div ng-repeat="item in day.PredictionResults | filter: {BeginDate: cx.filterDay(day.Date)}" ng-show="cx.isGroupShown(day)" class="row text-center">
+                    <div class="col col-20 col-center"><strong>+{{item.GainPoints}}</strong> 
                     </div>
                     <div class="col col-center">
                         <div class="row match-name">
@@ -34,13 +34,13 @@
                     </div>
 
                     <div class="col col-20 col-center">
-                        <div ng-show="{{item.IsSelectedHome}}">
+                        <div ng-show="{{item.IsPredictionTeamHome}}">
                             Home
                         </div>
-                        <div ng-show="{{item.IsSelectedDraw}}">
+                        <div ng-show="{{item.IsPredictionTeamAway}}">
                             Draw
                         </div>
-                        <div ng-show="{{item.IsSelectedAway}}">
+                        <div ng-show="{{item.IsPredictionDraw}}">
                             Away
                         </div>
                     </div>

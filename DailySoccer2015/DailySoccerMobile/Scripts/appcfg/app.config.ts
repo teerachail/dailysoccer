@@ -9,6 +9,7 @@
         PredictUrl: string;
         RewardUrl: string;
         MatchesUrl: string;
+        HistoryUrl: string;
     }
 
     export class AppConfig implements IAppConfig {
@@ -19,7 +20,8 @@
         public CouponSummaryUrl: string;
         public PredictUrl: string;
         public MatchesUrl: string;
-        RewardUrl: string;
+        public RewardUrl: string;
+        public HistoryUrl: string;
 
         static $inject = ['defaultUrl'];
         constructor(defaultUrl: string) {
@@ -32,6 +34,7 @@
             this.PredictUrl = apiUrl + '/predictions/:id';
             this.RewardUrl = apiUrl + '/rewards/:action/:id';
             this.MatchesUrl = apiUrl + '/matches/:day';
+            this.HistoryUrl = apiUrl + '/history';
         }
 
     }

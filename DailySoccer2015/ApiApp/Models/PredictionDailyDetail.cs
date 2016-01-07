@@ -24,6 +24,16 @@ namespace ApiApp.Models
         public string TeamAwayName { get; set; }
 
         /// <summary>
+        /// คะแนนเจ้าบ้าน
+        /// </summary>
+        public int TeamHomeScore { get; set; }
+
+        /// <summary>
+        /// คะแนนทีมเยือน
+        /// </summary>
+        public int TeamAwayScore { get; set; }
+
+        /// <summary>
         /// แมช์การแข่งขันจบแล้วหรือยัง
         /// </summary>
         public bool IsMatchFinish { get; set; }

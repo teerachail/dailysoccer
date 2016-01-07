@@ -192,21 +192,29 @@
                      templateUrl: 'templates/YearlyHistory.html',
                      controller: 'app.match.MonthlyHistoryController as cx',
                      resolve: {
-                         "data": ["app.shared.YearlyHistoryService", svc => { return svc.getAll(); }]
+                         "data": ["app.shared.UserProfileService", "app.match.HistoryService", (userService: app.shared.UserProfileService, svc) => {
+                             var userId = userService.GetUserProfile().UserId;
+                             return svc.GetHistoryMonthly(userId);
+                         }]
                      }
                  }
              }
             })
 
             .state('app.history.monthly', {
-             url: '/monthly',
+             url: '/monthly/:month',
              views: {
                  'menuContent': {
                      templateUrl: 'templates/MonthlyHistory.html',
                      controller: 'app.match.DaylyHistoryController as cx',
                      resolve: {
                          "day": ["app.shared.MouthlyHistoryService", svc => { return svc.getAll(); }],
-                         "data": ["app.shared.DaylyHistoryService", svc => { return svc.getAll(); }]
+                         "data": ["$stateParams", "app.shared.UserProfileService", "app.match.HistoryService", (params, userService: app.shared.UserProfileService, svc) => {
+                             var userId = userService.GetUserProfile().UserId;
+                             var now = new Date();
+                             var currentYear = now.getMonth();
+                             return svc.GetHistoryDaily(userId, currentYear, params.month);
+                         }]
                      }
                  }
              }
