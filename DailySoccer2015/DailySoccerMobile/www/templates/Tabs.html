@@ -1,9 +1,9 @@
 ﻿ <ion-tabs class="tabs-dark tabs-top tabs-main has-header">
-    <ion-tab title="{{ cx.PastTwoDaysDate | date: 'EEE' }}<br>{{ cx.PastTwoDaysDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.PastTwoDay})"></ion-tab>
-    <ion-tab title="{{ cx.PastOneDaysDate | date: 'EEE' }}<br>{{ cx.PastOneDaysDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.PastOneDay})"></ion-tab>
-    <ion-tab title="{{ cx.CurrentDate | date: 'EEE' }}<br>{{ cx.CurrentDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.CurrentDay})"></ion-tab>
-    <ion-tab title="{{ cx.FutureOneDaysDate | date: 'EEE' }}<br>{{ cx.FutureOneDaysDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.FutureOneDay})"></ion-tab>
-    <ion-tab title="{{ cx.FutureTwoDaysDate | date: 'EEE' }}<br>{{ cx.FutureTwoDaysDate | date: 'd' }}" ui-sref="app.main.matches({day: cx.FutureOneDay})"></ion-tab>
+     <ion-tab title="{{ cx.PastTwoDaysDate | date: 'EEE' }}<br>{{ cx.PastTwoDaysDate | date: 'd' }}" href="#/app/main/matches/{{cx.PastTwoDay}}"></ion-tab>
+     <ion-tab title="{{ cx.PastOneDaysDate | date: 'EEE' }}<br>{{ cx.PastOneDaysDate | date: 'd' }}" href="#/app/main/matches/{{cx.PastOneDay}}"></ion-tab>
+     <ion-tab title="{{ cx.CurrentDate | date: 'EEE' }}<br>{{ cx.CurrentDate | date: 'd' }}" href="#/app/main/matches/{{cx.CurrentDay}}"></ion-tab>
+     <ion-tab title="{{ cx.FutureOneDaysDate | date: 'EEE' }}<br>{{ cx.FutureOneDaysDate | date: 'd' }}" href="#/app/main/matches/{{cx.FutureOneDay}}"></ion-tab>
+     <ion-tab title="{{ cx.FutureTwoDaysDate | date: 'EEE' }}<br>{{ cx.FutureTwoDaysDate | date: 'd' }}" href="#/app/main/matches/{{cx.FutureTwoDay}}"></ion-tab>
 </ion-tabs>
 <ion-nav-view name="matchContent"></ion-nav-view>
 
