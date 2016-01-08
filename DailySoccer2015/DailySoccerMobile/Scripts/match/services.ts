@@ -66,10 +66,10 @@
         }
 
         public GetHistoryMonthly(id: string): ng.IPromise<PredictionMonthlySummary[]> {
-            return this.historyMonthlyScv.GetHistoryMonthly(new HistoryMonthlyRequest(id));
+            return this.historyMonthlyScv.GetHistoryMonthly(new HistoryMonthlyRequest(id)).$promise;
         }
         public GetHistoryDaily(id: string, year: number, month: number): ng.IPromise<PredictionDailySummary[]> {
-            return this.historyDailyScv.GetHistoryDaily(new HistoryDailyRequest(id, year, month));
+            return this.historyDailyScv.GetHistoryDaily(new HistoryDailyRequest(id, year, month)).$promise;
         }
     }
 

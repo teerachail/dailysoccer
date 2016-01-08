@@ -1,4 +1,4 @@
-﻿<ion-modal-view>
+﻿<ion-modal-view ng-controller="app.shared.FavoriteController as favCtlr">
     <ion-header-bar class="bar-positive">
             <h1 class="title">เลือกทีมที่ชอบ</h1>
     </ion-header-bar>
@@ -6,18 +6,18 @@
 
         <div class="title padding row">
             <div class="border-radius-large row item item-positive bar-balanced">
-                <div class="buttons buttons-icon" ng-click="cx.PreviousPages()">
+                <div class="buttons buttons-icon" ng-click="favCtlr.PreviousPages()">
                     <button class="button button-icon button-small icon-left ion-chevron-left button-clear button-white"></button>
                 </div>
                 <div class="text-center col">
-                    <span>{{cx.league[cx.Pages].Name}}</span>
+                    <span>{{favCtlr.league[favCtlr.Pages].Name}}</span>
                 </div>
-                <div class="buttons buttons-icon bar-balanced" ng-click="cx.NextPages(cx.league[cx.Pages].id)">
+                <div class="buttons buttons-icon bar-balanced" ng-click="favCtlr.NextPages(favCtlr.league[favCtlr.Pages].id)">
                     <button class="button button-icon button-small icon-left ion-chevron-right button-clear button-white"></button>
                 </div>
             </div>
         </div>
-        <div class="title padding row" ng-repeat="item in cx.team">
+        <div class="title padding row" ng-repeat="item in favCtlr.team">
             <label class="col borderless row item item-radio item-stable ng-valid">
                 <input type="radio" name="radio-group" ng-value="{{item.id}}">
                 <div class="radio-content">

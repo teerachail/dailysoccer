@@ -52,8 +52,23 @@
         public Leagues: string[];
         private userProfile: app.shared.UserProfile;
 
-        static $inject = ['matches', "app.shared.UserProfileService", 'predictions', 'couponSummary', 'app.match.PredictionsService', '$ionicModal', '$scope'];
-        constructor(public leagues: app.match.LeagueInformation[], public userSvc: app.shared.UserProfileService, public predictions: app.match.PredictionInformation[], public couponSummary, private predictSvc: app.match.PredictionsService, private $ionicModal, private $scope) {
+        static $inject = [
+            'matches',
+            'app.shared.UserProfileService',
+            'predictions',
+            'couponSummary',
+            'app.match.PredictionsService',
+            '$ionicModal',
+            '$scope'];
+        constructor(
+            public leagues: app.match.LeagueInformation[],
+            public userSvc: app.shared.UserProfileService,
+            public predictions: app.match.PredictionInformation[],
+            public couponSummary,
+            private predictSvc: app.match.PredictionsService,
+            private $ionicModal,
+            private $scope) {
+
             this.userProfile = this.userSvc.GetUserProfile();
             this.$ionicModal.fromTemplateUrl('templates/MatchesPopup.html',
                 {

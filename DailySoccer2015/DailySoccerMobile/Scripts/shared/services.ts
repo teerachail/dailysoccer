@@ -89,11 +89,11 @@
         }
 
         public GetTeams(id: string): ng.IPromise<any> {
-            return this.teamSvc.GetTeams(new TeamRequest(id));
+            return this.teamSvc.GetTeams(new TeamRequest(id)).$promise;
         }
 
         public GetLeagues(): ng.IPromise<any> {
-            return this.leagueSvc.GetLeagues();
+            return this.leagueSvc.GetLeagues().$promise;
         }
     }
 
