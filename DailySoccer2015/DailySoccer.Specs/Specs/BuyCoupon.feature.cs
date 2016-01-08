@@ -99,8 +99,35 @@ namespace DailySoccer.Specs
                         "u01",
                         "1000",
                         "0",
-                        "",
-                        "",
+                        "+66912345678",
+                        "v01",
+                        "1/1/2016",
+                        "true",
+                        "t01"});
+            table2.AddRow(new string[] {
+                        "u02",
+                        "500",
+                        "3",
+                        "+66912345678",
+                        "v02",
+                        "1/1/2016",
+                        "true",
+                        ""});
+            table2.AddRow(new string[] {
+                        "u03-unverify-facebook",
+                        "400",
+                        "0",
+                        "+66812345678",
+                        "v03",
+                        "1/1/2016",
+                        "false",
+                        ""});
+            table2.AddRow(new string[] {
+                        "u04-unverify-phone",
+                        "400",
+                        "0",
+                        "+66812345678",
+                        "v03",
                         "",
                         "true",
                         ""});
@@ -110,21 +137,274 @@ namespace DailySoccer.Specs
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช่ที่มีข้อมูลถูกต้องซื้อคูปองใบเดียว ระบบทำการซื้อคูปองสำเร็จ")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ที่มีข้อมูลถูกต้องซื้อคูปองใบเดียว ระบบทำการซื้อคูปองสำเร็จ")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
         public virtual void ผใชทมขอมลถกตองซอคปองใบเดยวระบบทำการซอคปองสำเรจ()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช่ที่มีข้อมูลถูกต้องซื้อคูปองใบเดียว ระบบทำการซื้อคูปองสำเร็จ", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่มีข้อมูลถูกต้องซื้อคูปองใบเดียว ระบบทำการซื้อคูปองสำเร็จ", new string[] {
                         "mock"});
-#line 16
+#line 19
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 17
+#line 20
  testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 18
- testRunner.Then("ระบบทำการซื้อคูปอง \'1\' ใบ ให้กับ UserId: \'u01\' พร้อมกับลดแต้มเหลือ Points: \'800\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+ testRunner.Then("ระบบอัพเดท UserId: \'u01\' ว่าเหลือ Points: \'800\' และมีจำนวนคูปอง \'1\' ใบ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้มีข้อมูลถูกต้องซื้อคูปองหลายใบ ระบบทำการซื้อคูปองสำเร็จ")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชมขอมลถกตองซอคปองหลายใบระบบทำการซอคปองสำเรจ()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้มีข้อมูลถูกต้องซื้อคูปองหลายใบ ระบบทำการซื้อคูปองสำเร็จ", new string[] {
+                        "mock"});
+#line 24
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 25
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
+ testRunner.Then("ระบบอัพเดท UserId: \'u01\' ว่าเหลือ Points: \'400\' และมีจำนวนคูปอง \'3\' ใบ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ซื้อคูปองโดยใช้ points ทั้งหมด ระบบทำการซื้อคูปองสำเร็จ")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชซอคปองโดยใชPointsทงหมดระบบทำการซอคปองสำเรจ()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ซื้อคูปองโดยใช้ points ทั้งหมด ระบบทำการซื้อคูปองสำเร็จ", new string[] {
+                        "mock"});
+#line 29
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 30
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'5\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
+ testRunner.Then("ระบบอัพเดท UserId: \'u01\' ว่าเหลือ Points: \'0\' และมีจำนวนคูปอง \'5\' ใบ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ซื้อคูปองโดยใช้ points เกิดที่กำหนด ระบบไม่ทำการซื้อคูปอง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชซอคปองโดยใชPointsเกดทกำหนดระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ซื้อคูปองโดยใช้ points เกิดที่กำหนด ระบบไม่ทำการซื้อคูปอง", new string[] {
+                        "mock"});
+#line 34
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 35
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'6\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 36
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ที่เคยซื้อคูปองแล้วทำการซื้อคูปองเพิ่ม ระบบทำการซื้อคูปองสำเร็จ")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทเคยซอคปองแลวทำการซอคปองเพมระบบทำการซอคปองสำเรจ()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่เคยซื้อคูปองแล้วทำการซื้อคูปองเพิ่ม ระบบทำการซื้อคูปองสำเร็จ", new string[] {
+                        "mock"});
+#line 39
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 40
+ testRunner.When("Call POST api/Coupons UserId: \'u02\', BuyAmount: \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 41
+ testRunner.Then("ระบบอัพเดท UserId: \'u02\' ว่าเหลือ Points: \'100\' และมีจำนวนคูปอง \'5\' ใบ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("0ผู้ใช้ซื้อคูปอง ในขณะที่ระบบยังไม่เปิดให้ซื้อ ระบบไม่ทำการซื้อคูปอง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void _0ผใชซอคปองในขณะทระบบยงไมเปดใหซอระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("0ผู้ใช้ซื้อคูปอง ในขณะที่ระบบยังไม่เปิดให้ซื้อ ระบบไม่ทำการซื้อคูปอง", new string[] {
+                        "mock"});
+#line 44
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "ExpiredDate",
+                        "RequiredPoints"});
+#line 45
+ testRunner.Given("Reward groups in the system are", ((string)(null)), table3, "Given ");
+#line 47
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 48
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ที่ยังไม่ได้ยืนยัน facebook ซื้อคูปอง ระบบไม่ทำการซื้อคูปอง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทยงไมไดยนยนFacebookซอคปองระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่ยังไม่ได้ยืนยัน facebook ซื้อคูปอง ระบบไม่ทำการซื้อคูปอง", new string[] {
+                        "mock"});
+#line 51
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 52
+ testRunner.When("Call POST api/Coupons UserId: \'u03-unverify-facebook\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 53
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ที่ยังไม่ได้ยืนยันเบอร์โทรศัพท์ซื้อคูปอง ระบบไม่ทำการซื้อคูปอง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทยงไมไดยนยนเบอรโทรศพทซอคปองระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่ยังไม่ได้ยืนยันเบอร์โทรศัพท์ซื้อคูปอง ระบบไม่ทำการซื้อคูปอง", new string[] {
+                        "mock"});
+#line 56
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 57
+ testRunner.When("Call POST api/Coupons UserId: \'u04-unverify-phone\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 58
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ที่ไม่มีในระบบซื้อคูปอง ระบบไม่ทำการซื้อคูปอง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทไมมในระบบซอคปองระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่ไม่มีในระบบซื้อคูปอง ระบบไม่ทำการซื้อคูปอง", new string[] {
+                        "mock"});
+#line 61
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 62
+ testRunner.When("Call POST api/Coupons UserId: \'unknow\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 63
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ระบุชื่อผู้ใช้ไม่ถูกต้อง (ชื่อผู้ใช้ว่าง) แล้วทำการซื้อคูปอง ระบบไม่ทำการซื้อคูปอ" +
+            "ง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ระบชอผใชไมถกตองชอผใชวางแลวทำการซอคปองระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ระบุชื่อผู้ใช้ไม่ถูกต้อง (ชื่อผู้ใช้ว่าง) แล้วทำการซื้อคูปอง ระบบไม่ทำการซื้อคูปอ" +
+                    "ง", new string[] {
+                        "mock"});
+#line 66
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 67
+ testRunner.When("Call POST api/Coupons UserId: \'\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 68
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ระบุชื่อผู้ใช้ไม่ถูกต้อง (ชื่อผู้ใช้ null) แล้วทำการซื้อคูปอง ระบบไม่ทำการซื้อคูป" +
+            "อง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ระบชอผใชไมถกตองชอผใชNullแลวทำการซอคปองระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ระบุชื่อผู้ใช้ไม่ถูกต้อง (ชื่อผู้ใช้ null) แล้วทำการซื้อคูปอง ระบบไม่ทำการซื้อคูป" +
+                    "อง", new string[] {
+                        "mock"});
+#line 71
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 72
+ testRunner.When("Call POST api/Coupons UserId: \'NULL\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 73
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ซื้อคูปองโดยระบุจำนวนคูปองไม่ถูกต้อง (ระบุศูนย์ใบ) ระบบไม่ทำการซื้อคูปอง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชซอคปองโดยระบจำนวนคปองไมถกตองระบศนยใบระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ซื้อคูปองโดยระบุจำนวนคูปองไม่ถูกต้อง (ระบุศูนย์ใบ) ระบบไม่ทำการซื้อคูปอง", new string[] {
+                        "mock"});
+#line 76
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 77
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 78
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ซื้อคูปองโดยระบุจำนวนคูปองไม่ถูกต้อง (ระบุต่ำกว่าศูนย์ใบ) ระบบไม่ทำการซื้อค" +
+            "ูปอง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชซอคปองโดยระบจำนวนคปองไมถกตองระบตำกวาศนยใบระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ซื้อคูปองโดยระบุจำนวนคูปองไม่ถูกต้อง (ระบุต่ำกว่าศูนย์ใบ) ระบบไม่ทำการซื้อค" +
+                    "ูปอง", new string[] {
+                        "mock"});
+#line 81
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 82
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'-1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 83
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -62,7 +62,12 @@ namespace ApiApp.Controllers
             if (!isArgumentValid) return new BuyCouponRespond { ErrorMessage = "คำขอสั่งซื้อไม่ถูกต้อง" };
 
             var userProfile = _accountRepo.GetUserProfileById(value.UserId);
-            if (userProfile == null) return new BuyCouponRespond { ErrorMessage = "ข้อมูลผู้ใช้ไม่ถูกต้อง" };
+            var isUserProfileValid = userProfile != null
+                && userProfile.IsFacebookVerified
+                && userProfile.VerifiedPhoneDate.HasValue
+                && !string.IsNullOrEmpty(userProfile.PhoneNo)
+                && !string.IsNullOrEmpty(userProfile.VerifierCode);
+            if (!isUserProfileValid) return new BuyCouponRespond { ErrorMessage = "ข้อมูลผู้ใช้ไม่ถูกต้อง" };
 
             var currentRewardGroup = _rewardRepo.GetCurrentRewardGroups();
             if (currentRewardGroup == null) return new BuyCouponRespond { ErrorMessage = "ยังไม่สามารถสั่งซื้อได้ในช่วงเวลานี้" };
