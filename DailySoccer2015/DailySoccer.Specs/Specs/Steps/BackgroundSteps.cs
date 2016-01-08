@@ -19,12 +19,25 @@ namespace DailySoccer.Specs.Steps
             var mock = ScenarioContext.Current.Get<MockRepository>();
 
             var accountRepo = mock.Create<IAccountRepository>();
+            var rewardRepo = mock.Create<IRewardRepository>();
             var smsSender = mock.Create<ISMSSender>();
             ScenarioContext.Current.Set(accountRepo);
+            ScenarioContext.Current.Set(rewardRepo);
             ScenarioContext.Current.Set(smsSender);
 
             var profile = new ProfilesController(accountRepo.Object, smsSender.Object);
+            var coupon = new CouponsController(rewardRepo.Object, accountRepo.Object);
             ScenarioContext.Current.Set(profile);
+            ScenarioContext.Current.Set(coupon);
+        }
+
+        [Given(@"Reward groups in the system are")]
+        public void GivenRewardGroupsInTheSystemAre(Table table)
+        {
+            var rewardGroups = table.CreateSet<RewardGroup>().ToList();
+            var mockRewardRepo = ScenarioContext.Current.Get<Moq.Mock<IRewardRepository>>();
+            mockRewardRepo.Setup(dac => dac.GetCurrentRewardGroups())
+                .Returns(() => rewardGroups.OrderByDescending(it => it.ExpiredDate).FirstOrDefault());
         }
 
         [Given(@"Facebook accounts in the system are")]
