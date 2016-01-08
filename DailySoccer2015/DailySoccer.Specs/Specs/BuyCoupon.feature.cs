@@ -127,8 +127,17 @@ namespace DailySoccer.Specs
                         "400",
                         "0",
                         "+66812345678",
-                        "v03",
+                        "v04",
                         "",
+                        "true",
+                        ""});
+            table2.AddRow(new string[] {
+                        "u05-invalid-phone",
+                        "400",
+                        "0",
+                        "",
+                        "",
+                        "1/1/2016",
                         "true",
                         ""});
 #line 11
@@ -144,13 +153,13 @@ namespace DailySoccer.Specs
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่มีข้อมูลถูกต้องซื้อคูปองใบเดียว ระบบทำการซื้อคูปองสำเร็จ", new string[] {
                         "mock"});
-#line 19
+#line 20
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 20
- testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 21
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
  testRunner.Then("ระบบอัพเดท UserId: \'u01\' ว่าเหลือ Points: \'800\' และมีจำนวนคูปอง \'1\' ใบ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -164,13 +173,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้มีข้อมูลถูกต้องซื้อคูปองหลายใบ ระบบทำการซื้อคูปองสำเร็จ", new string[] {
                         "mock"});
-#line 24
+#line 25
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 25
- testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 26
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 27
  testRunner.Then("ระบบอัพเดท UserId: \'u01\' ว่าเหลือ Points: \'400\' และมีจำนวนคูปอง \'3\' ใบ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -184,13 +193,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ซื้อคูปองโดยใช้ points ทั้งหมด ระบบทำการซื้อคูปองสำเร็จ", new string[] {
                         "mock"});
-#line 29
+#line 30
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 30
- testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'5\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 31
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'5\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 32
  testRunner.Then("ระบบอัพเดท UserId: \'u01\' ว่าเหลือ Points: \'0\' และมีจำนวนคูปอง \'5\' ใบ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -204,13 +213,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ซื้อคูปองโดยใช้ points เกิดที่กำหนด ระบบไม่ทำการซื้อคูปอง", new string[] {
                         "mock"});
-#line 34
+#line 35
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 35
- testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'6\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 36
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'6\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
  testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -224,27 +233,27 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่เคยซื้อคูปองแล้วทำการซื้อคูปองเพิ่ม ระบบทำการซื้อคูปองสำเร็จ", new string[] {
                         "mock"});
-#line 39
+#line 40
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 40
- testRunner.When("Call POST api/Coupons UserId: \'u02\', BuyAmount: \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 41
+ testRunner.When("Call POST api/Coupons UserId: \'u02\', BuyAmount: \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 42
  testRunner.Then("ระบบอัพเดท UserId: \'u02\' ว่าเหลือ Points: \'100\' และมีจำนวนคูปอง \'5\' ใบ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("0ผู้ใช้ซื้อคูปอง ในขณะที่ระบบยังไม่เปิดให้ซื้อ ระบบไม่ทำการซื้อคูปอง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ซื้อคูปอง ในขณะที่ระบบยังไม่เปิดให้ซื้อ ระบบไม่ทำการซื้อคูปอง")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
-        public virtual void _0ผใชซอคปองในขณะทระบบยงไมเปดใหซอระบบไมทำการซอคปอง()
+        public virtual void ผใชซอคปองในขณะทระบบยงไมเปดใหซอระบบไมทำการซอคปอง()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("0ผู้ใช้ซื้อคูปอง ในขณะที่ระบบยังไม่เปิดให้ซื้อ ระบบไม่ทำการซื้อคูปอง", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ซื้อคูปอง ในขณะที่ระบบยังไม่เปิดให้ซื้อ ระบบไม่ทำการซื้อคูปอง", new string[] {
                         "mock"});
-#line 44
+#line 45
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -253,11 +262,11 @@ this.FeatureBackground();
                         "id",
                         "ExpiredDate",
                         "RequiredPoints"});
-#line 45
+#line 46
  testRunner.Given("Reward groups in the system are", ((string)(null)), table3, "Given ");
-#line 47
- testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 48
+ testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 49
  testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -271,13 +280,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่ยังไม่ได้ยืนยัน facebook ซื้อคูปอง ระบบไม่ทำการซื้อคูปอง", new string[] {
                         "mock"});
-#line 51
+#line 52
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 52
- testRunner.When("Call POST api/Coupons UserId: \'u03-unverify-facebook\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 53
+ testRunner.When("Call POST api/Coupons UserId: \'u03-unverify-facebook\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 54
  testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -291,13 +300,33 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่ยังไม่ได้ยืนยันเบอร์โทรศัพท์ซื้อคูปอง ระบบไม่ทำการซื้อคูปอง", new string[] {
                         "mock"});
-#line 56
+#line 57
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 57
- testRunner.When("Call POST api/Coupons UserId: \'u04-unverify-phone\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 58
+ testRunner.When("Call POST api/Coupons UserId: \'u04-unverify-phone\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 59
+ testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ที่มีข้อมูลการยืนยันเบอร์โทรศัพท์ไม่ถูกต้องซื้อคูปอง ระบบไม่ทำการซื้อคูปอง")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BuyCoupon")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทมขอมลการยนยนเบอรโทรศพทไมถกตองซอคปองระบบไมทำการซอคปอง()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่มีข้อมูลการยืนยันเบอร์โทรศัพท์ไม่ถูกต้องซื้อคูปอง ระบบไม่ทำการซื้อคูปอง", new string[] {
+                        "mock"});
+#line 62
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 63
+ testRunner.When("Call POST api/Coupons UserId: \'u05-invalid-phone\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 64
  testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -311,13 +340,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่ไม่มีในระบบซื้อคูปอง ระบบไม่ทำการซื้อคูปอง", new string[] {
                         "mock"});
-#line 61
+#line 67
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 62
+#line 68
  testRunner.When("Call POST api/Coupons UserId: \'unknow\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 63
+#line 69
  testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -333,13 +362,13 @@ this.FeatureBackground();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ระบุชื่อผู้ใช้ไม่ถูกต้อง (ชื่อผู้ใช้ว่าง) แล้วทำการซื้อคูปอง ระบบไม่ทำการซื้อคูปอ" +
                     "ง", new string[] {
                         "mock"});
-#line 66
+#line 72
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 67
+#line 73
  testRunner.When("Call POST api/Coupons UserId: \'\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 68
+#line 74
  testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -355,13 +384,13 @@ this.FeatureBackground();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ระบุชื่อผู้ใช้ไม่ถูกต้อง (ชื่อผู้ใช้ null) แล้วทำการซื้อคูปอง ระบบไม่ทำการซื้อคูป" +
                     "อง", new string[] {
                         "mock"});
-#line 71
+#line 77
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 72
+#line 78
  testRunner.When("Call POST api/Coupons UserId: \'NULL\', BuyAmount: \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 73
+#line 79
  testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -375,13 +404,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ซื้อคูปองโดยระบุจำนวนคูปองไม่ถูกต้อง (ระบุศูนย์ใบ) ระบบไม่ทำการซื้อคูปอง", new string[] {
                         "mock"});
-#line 76
+#line 82
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 77
+#line 83
  testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 78
+#line 84
  testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -397,13 +426,13 @@ this.FeatureBackground();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ซื้อคูปองโดยระบุจำนวนคูปองไม่ถูกต้อง (ระบุต่ำกว่าศูนย์ใบ) ระบบไม่ทำการซื้อค" +
                     "ูปอง", new string[] {
                         "mock"});
-#line 81
+#line 87
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 82
+#line 88
  testRunner.When("Call POST api/Coupons UserId: \'u01\', BuyAmount: \'-1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 83
+#line 89
  testRunner.Then("ระบบไม่ทำการซื้อคูปอง", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
