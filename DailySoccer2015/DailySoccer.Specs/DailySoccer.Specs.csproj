@@ -66,6 +66,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BuyCoupon.feature</DependentUpon>
     </Compile>
+    <Compile Include="Specs\Prediction.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Prediction.feature</DependentUpon>
+    </Compile>
     <Compile Include="Specs\Register.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,6 +78,7 @@
     </Compile>
     <Compile Include="Specs\Steps\BackgroundSteps.cs" />
     <Compile Include="Specs\Steps\BuyCouponSteps.cs" />
+    <Compile Include="Specs\Steps\PredictionSteps.cs" />
     <Compile Include="Specs\Steps\RegisterSteps.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +87,10 @@
     <None Include="Specs\BuyCoupon.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BuyCoupon.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Specs\Prediction.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Prediction.feature.cs</LastGenOutput>
     </None>
     <None Include="Specs\Register.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

@@ -40,7 +40,7 @@ namespace ApiApp.Controllers
         [Route("{id}/{day}")]
         public IEnumerable<PredictionInformation> Get(string id, int day)
         {
-            return GetPredictions(id, day);
+            return getPredictionsByDay(id, day);
         }
 
         // PUT: api/prediction/{user-id}
@@ -67,16 +67,11 @@ namespace ApiApp.Controllers
                 _predictionRepo.SetUserPrediction(id, value.MatchId, value.TeamId, predictionPoints, DateTime.Now);
             }
             var now = DateTime.Now;
-            return GetPredictions(id, selectedMatch.BeginDate.Date.Day);
+            return getPredictionsByDay(id, selectedMatch.BeginDate.Date.Day);
         }
 
-        /// <summary>
-        /// Get Prediction by day
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="day"></param>
-        /// <returns></returns>
-        private IEnumerable<PredictionInformation> GetPredictions(string id, int day)
+        // Get Prediction by day
+        private IEnumerable<PredictionInformation> getPredictionsByDay(string id, int day)
         {
             var fromDate = DateTime.Now.AddDays(-3);
             var toDate = DateTime.Now.AddDays(3);

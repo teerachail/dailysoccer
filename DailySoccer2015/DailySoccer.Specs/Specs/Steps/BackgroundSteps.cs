@@ -20,15 +20,21 @@ namespace DailySoccer.Specs.Steps
 
             var accountRepo = mock.Create<IAccountRepository>();
             var rewardRepo = mock.Create<IRewardRepository>();
+            var matchRepo = mock.Create<IMatchesRepository>();
+            var predictionRepo = mock.Create<IPredictionRepository>();
             var smsSender = mock.Create<ISMSSender>();
             ScenarioContext.Current.Set(accountRepo);
             ScenarioContext.Current.Set(rewardRepo);
+            ScenarioContext.Current.Set(matchRepo);
+            ScenarioContext.Current.Set(predictionRepo);
             ScenarioContext.Current.Set(smsSender);
 
             var profile = new ProfilesController(accountRepo.Object, smsSender.Object);
             var coupon = new CouponsController(rewardRepo.Object, accountRepo.Object);
+            var prediction = new PredictionsController(matchRepo.Object, predictionRepo.Object);
             ScenarioContext.Current.Set(profile);
             ScenarioContext.Current.Set(coupon);
+            ScenarioContext.Current.Set(prediction);
         }
 
         [Given(@"Reward groups in the system are")]
@@ -57,6 +63,28 @@ namespace DailySoccer.Specs.Steps
             var mockAccountRepo = ScenarioContext.Current.Get<Moq.Mock<IAccountRepository>>();
             mockAccountRepo.Setup(dac => dac.GetUserProfileById(It.IsAny<string>()))
                 .Returns<string>(id => ScenarioContext.Current.Get<List<UserProfile>>().FirstOrDefault(it => it.id == id));
+        }
+
+        [Given(@"Matches in the system are")]
+        public void GivenMatchesInTheSystemAre(Table table)
+        {
+            var matches = table.CreateSet<ApiApp.Models.Match>().ToList();
+            ScenarioContext.Current.Set(matches);
+            var mockMatchRepo = ScenarioContext.Current.Get<Moq.Mock<IMatchesRepository>>();
+            mockMatchRepo.Setup(dac => dac.GetMatchById(It.IsAny<string>()))
+                .Returns<string>(id => ScenarioContext.Current.Get<List<ApiApp.Models.Match>>().FirstOrDefault(it => it.id == id));
+            mockMatchRepo.Setup(dac => dac.GetMatchesByDate(It.IsAny<DateTime>()))
+                .Returns<DateTime>(date => ScenarioContext.Current.Get<List<ApiApp.Models.Match>>().Where(it => it.BeginDate.Date == date.Date));
+        }
+
+        [Given(@"Predictions in the system are")]
+        public void GivenPredictionsInTheSystemAre(Table table)
+        {
+            var predictions = table.CreateSet<Prediction>().ToList();
+            ScenarioContext.Current.Set(predictions);
+            var mockPredictionRepo = ScenarioContext.Current.Get<Moq.Mock<IPredictionRepository>>();
+            mockPredictionRepo.Setup(dac => dac.GetUserPredictions())
+                .Returns(ScenarioContext.Current.Get<List<Prediction>>());
         }
     }
 }
