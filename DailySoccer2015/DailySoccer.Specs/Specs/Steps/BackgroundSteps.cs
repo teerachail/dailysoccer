@@ -31,7 +31,7 @@ namespace DailySoccer.Specs.Steps
 
             var profile = new ProfilesController(accountRepo.Object, smsSender.Object);
             var coupon = new CouponsController(rewardRepo.Object, accountRepo.Object);
-            var prediction = new PredictionsController(matchRepo.Object, predictionRepo.Object);
+            var prediction = new PredictionsController(matchRepo.Object, predictionRepo.Object, accountRepo.Object);
             ScenarioContext.Current.Set(profile);
             ScenarioContext.Current.Set(coupon);
             ScenarioContext.Current.Set(prediction);

@@ -17,16 +17,19 @@ namespace ApiApp.Controllers
     {
         private IMatchesRepository _matchesRepo;
         private IPredictionRepository _predictionRepo;
+        private IAccountRepository _accountRepo;
 
         /// <summary>
         /// Initialize Prediction API
         /// </summary>
         /// <param name="matchesRepo">Matches repository</param>
         /// <param name="predictionRepo">Prediction repository</param>
-        public PredictionsController(IMatchesRepository matchesRepo, IPredictionRepository predictionRepo)
+        /// <param name="accountRepo">Account repository</param>
+        public PredictionsController(IMatchesRepository matchesRepo, IPredictionRepository predictionRepo, IAccountRepository accountRepo)
         {
             _matchesRepo = matchesRepo;
             _predictionRepo = predictionRepo;
+            _accountRepo = accountRepo;
         }
 
         // GET: api/prediction/{user-id}/30/12/2015
@@ -57,7 +60,14 @@ namespace ApiApp.Controllers
             if (!areArgumentsValid) return null;
 
             var selectedMatch = _matchesRepo.GetMatchById(value.MatchId);
-            if (selectedMatch == null || selectedMatch.StartedDate.HasValue) return null;
+            var isMatchReadyForPrediction = selectedMatch != null
+                && !selectedMatch.StartedDate.HasValue
+                && !selectedMatch.CompletedDate.HasValue
+                && (selectedMatch.TeamAwayId.Equals(value.TeamId) || selectedMatch.TeamHomeId.Equals(value.TeamId) || string.IsNullOrEmpty(value.TeamId));
+            if (!isMatchReadyForPrediction) return null;
+
+            var selectedProfile = _accountRepo.GetUserProfileById(id);
+            if (selectedProfile == null) return null;
 
             if (value.IsCancel) _predictionRepo.CancelUserPrediction(id, value.MatchId);
             else

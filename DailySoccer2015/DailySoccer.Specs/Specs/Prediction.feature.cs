@@ -96,22 +96,32 @@ namespace DailySoccer.Specs
 #line 8
  testRunner.And("UserProfile accounts in the system are", ((string)(null)), table1, "And ");
 #line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "PredictionTeamId",
+                        "CompletedDate",
+                        "ActualPoints",
+                        "PredictionPoints",
+                        "CreatedDate"});
+#line 11
+ testRunner.And("Predictions in the system are", ((string)(null)), table2, "And ");
+#line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลในขณะที่สามารถทายผลได้ ระบบบันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลทีมเจ้าบ้านชนะในขณะที่สามารถทายผลได้ ระบบบันทึกการทายผล")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
-        public virtual void ผใชทายผลในขณะทสามารถทายผลไดระบบบนทกการทายผล()
+        public virtual void ผใชทายผลทมเจาบานชนะในขณะทสามารถทายผลไดระบบบนทกการทายผล()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลในขณะที่สามารถทายผลได้ ระบบบันทึกการทายผล", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลทีมเจ้าบ้านชนะในขณะที่สามารถทายผลได้ ระบบบันทึกการทายผล", new string[] {
                         "mock"});
-#line 13
+#line 15
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
                         "BeginDate",
                         "StartedDate",
@@ -121,7 +131,7 @@ this.FeatureBackground();
                         "TeamAwayId",
                         "TeamAwayPoint",
                         "DrawPoints"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
                         "",
@@ -131,24 +141,749 @@ this.FeatureBackground();
                         "t02",
                         "120",
                         "150"});
-#line 14
- testRunner.And("Matches in the system are", ((string)(null)), table2, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "id",
-                        "PredictionTeamId",
-                        "CompletedDate",
-                        "ActualPoints",
-                        "PredictionPoints",
-                        "CreatedDate"});
-#line 17
- testRunner.And("Predictions in the system are", ((string)(null)), table3, "And ");
+#line 16
+ testRunner.And("Matches in the system are", ((string)(null)), table3, "And ");
 #line 19
  testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'t01\', IsCancel: \'" +
                     "false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 20
  testRunner.Then("ระบบทำการบันทึกการทายผลให้กับ UserId: \'u01\', MatchId: \'m01\', TeamId: \'t01\', Predi" +
                     "ctionPoints: \'110\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลทีมเยือนชนะในขณะที่สามารถทายผลได้ ระบบบันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทายผลทมเยอนชนะในขณะทสามารถทายผลไดระบบบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลทีมเยือนชนะในขณะที่สามารถทายผลได้ ระบบบันทึกการทายผล", new string[] {
+                        "mock"});
+#line 24
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table4.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 25
+ testRunner.And("Matches in the system are", ((string)(null)), table4, "And ");
+#line 28
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'t02\', IsCancel: \'" +
+                    "false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 29
+ testRunner.Then("ระบบทำการบันทึกการทายผลให้กับ UserId: \'u01\', MatchId: \'m01\', TeamId: \'t02\', Predi" +
+                    "ctionPoints: \'120\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 30
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลว่าแมช์จะเสมอในขณะที่สามารถทายผลได้ ระบบบันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทายผลวาแมชจะเสมอในขณะทสามารถทายผลไดระบบบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลว่าแมช์จะเสมอในขณะที่สามารถทายผลได้ ระบบบันทึกการทายผล", new string[] {
+                        "mock"});
+#line 33
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table5.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 34
+ testRunner.And("Matches in the system are", ((string)(null)), table5, "And ");
+#line 37
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'\', IsCancel: \'fal" +
+                    "se\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 38
+ testRunner.Then("ระบบทำการบันทึกการทายผลให้กับ UserId: \'u01\', MatchId: \'m01\', TeamId: \'\', Predicti" +
+                    "onPoints: \'150\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 39
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ยกเลิกการทายผลในขณะที่สามารถทายผลได้ ระบบบันทึกการยกเลิก")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชยกเลกการทายผลในขณะทสามารถทายผลไดระบบบนทกการยกเลก()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ยกเลิกการทายผลในขณะที่สามารถทายผลได้ ระบบบันทึกการยกเลิก", new string[] {
+                        "mock"});
+#line 42
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table6.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 43
+ testRunner.And("Matches in the system are", ((string)(null)), table6, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "PredictionTeamId",
+                        "CompletedDate",
+                        "ActualPoints",
+                        "PredictionPoints",
+                        "CreatedDate"});
+            table7.AddRow(new string[] {
+                        "p01",
+                        "t01",
+                        "",
+                        "",
+                        "110",
+                        "1/1/2015"});
+#line 46
+ testRunner.And("Predictions in the system are", ((string)(null)), table7, "And ");
+#line 49
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'\', IsCancel: \'tru" +
+                    "e\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 50
+ testRunner.Then("ระบบบันทึกการยกเลิกการทายผลของ UserId: \'u01\', MatchId: \'m01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 51
+ testRunner.And("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลในขณะที่แมช์ได้เริ่มแข่งแล้ว ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทายผลในขณะทแมชไดเรมแขงแลวระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลในขณะที่แมช์ได้เริ่มแข่งแล้ว ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 54
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table8.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "1/1/2015",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 55
+ testRunner.And("Matches in the system are", ((string)(null)), table8, "And ");
+#line 58
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'t01\', IsCancel: \'" +
+                    "false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 59
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 60
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลในขณะที่แมช์แข่งจบแล้ว ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทายผลในขณะทแมชแขงจบแลวระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลในขณะที่แมช์แข่งจบแล้ว ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 63
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table9.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "1/1/2015",
+                        "1/1/2015",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 64
+ testRunner.And("Matches in the system are", ((string)(null)), table9, "And ");
+#line 67
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'t01\', IsCancel: \'" +
+                    "false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 68
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 69
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลในขณะที่ระบบไม่มีแมช์การแข่งขัน ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทายผลในขณะทระบบไมมแมชการแขงขนระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลในขณะที่ระบบไม่มีแมช์การแข่งขัน ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 72
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+#line 73
+ testRunner.And("Matches in the system are", ((string)(null)), table10, "And ");
+#line 75
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'t01\', IsCancel: \'" +
+                    "false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 76
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 77
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ที่ไม่มีในระบบทำการทายผล ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทไมมในระบบทำการทายผลระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่ไม่มีในระบบทำการทายผล ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 80
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table11.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 81
+ testRunner.And("Matches in the system are", ((string)(null)), table11, "And ");
+#line 84
+ testRunner.When("Call PUT api/prediction UserId: \'unknow-user-id\', MatchId: \'m01\', TeamId: \'t01\', " +
+                    "IsCancel: \'false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 85
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 86
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ที่ไม่มีในระบบทำการทายผล (Empty) ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทไมมในระบบทำการทายผลEmptyระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่ไม่มีในระบบทำการทายผล (Empty) ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 89
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table12.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 90
+ testRunner.And("Matches in the system are", ((string)(null)), table12, "And ");
+#line 93
+ testRunner.When("Call PUT api/prediction UserId: \'\', MatchId: \'m01\', TeamId: \'t01\', IsCancel: \'fal" +
+                    "se\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 94
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 95
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ที่ไม่มีในระบบทำการทายผล (NULL) ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทไมมในระบบทำการทายผลNULLระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ที่ไม่มีในระบบทำการทายผล (NULL) ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 98
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table13.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 99
+ testRunner.And("Matches in the system are", ((string)(null)), table13, "And ");
+#line 102
+ testRunner.When("Call PUT api/prediction UserId: \'NULL\', MatchId: \'m01\', TeamId: \'t01\', IsCancel: " +
+                    "\'false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 103
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 104
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลที่รหัสแมช์ไม่ถูกต้อง ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทายผลทรหสแมชไมถกตองระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลที่รหัสแมช์ไม่ถูกต้อง ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 107
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table14.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 108
+ testRunner.And("Matches in the system are", ((string)(null)), table14, "And ");
+#line 111
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'unknow-match-id\', TeamId: \'t01\'," +
+                    " IsCancel: \'false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 112
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 113
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลที่รหัสแมช์ไม่ถูกต้อง (Empty) ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทายผลทรหสแมชไมถกตองEmptyระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลที่รหัสแมช์ไม่ถูกต้อง (Empty) ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 116
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table15.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 117
+ testRunner.And("Matches in the system are", ((string)(null)), table15, "And ");
+#line 120
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'\', TeamId: \'t01\', IsCancel: \'fal" +
+                    "se\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 121
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 122
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลที่รหัสแมช์ไม่ถูกต้อง (NULL) ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทายผลทรหสแมชไมถกตองNULLระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลที่รหัสแมช์ไม่ถูกต้อง (NULL) ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 125
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table16.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 126
+ testRunner.And("Matches in the system are", ((string)(null)), table16, "And ");
+#line 129
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'NULL\', TeamId: \'t01\', IsCancel: " +
+                    "\'false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 130
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 131
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ยกเลิกการทายผลในขณะที่แมช์ได้เริ่มแข่งไปแล้ว ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชยกเลกการทายผลในขณะทแมชไดเรมแขงไปแลวระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ยกเลิกการทายผลในขณะที่แมช์ได้เริ่มแข่งไปแล้ว ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 134
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table17.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "1/1/2015",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 135
+ testRunner.And("Matches in the system are", ((string)(null)), table17, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "PredictionTeamId",
+                        "CompletedDate",
+                        "ActualPoints",
+                        "PredictionPoints",
+                        "CreatedDate"});
+            table18.AddRow(new string[] {
+                        "p01",
+                        "t01",
+                        "",
+                        "",
+                        "110",
+                        "1/1/2015"});
+#line 138
+ testRunner.And("Predictions in the system are", ((string)(null)), table18, "And ");
+#line 141
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'\', IsCancel: \'tru" +
+                    "e\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 142
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 143
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ยกเลิกการทายผลในขณะที่แมช์แข่งจบไปแล้ว ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชยกเลกการทายผลในขณะทแมชแขงจบไปแลวระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ยกเลิกการทายผลในขณะที่แมช์แข่งจบไปแล้ว ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 146
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table19.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "1/1/2015",
+                        "1/1/2015",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 147
+ testRunner.And("Matches in the system are", ((string)(null)), table19, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "PredictionTeamId",
+                        "CompletedDate",
+                        "ActualPoints",
+                        "PredictionPoints",
+                        "CreatedDate"});
+            table20.AddRow(new string[] {
+                        "p01",
+                        "t01",
+                        "",
+                        "",
+                        "110",
+                        "1/1/2015"});
+#line 150
+ testRunner.And("Predictions in the system are", ((string)(null)), table20, "And ");
+#line 153
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'\', IsCancel: \'tru" +
+                    "e\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 154
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 155
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("ผู้ใช้ทายผลที่รหัสทีมไม่ถูกต้อง ระบบไม่บันทึกการทายผล")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Prediction")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mock")]
+        public virtual void ผใชทายผลทรหสทมไมถกตองระบบไมบนทกการทายผล()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("ผู้ใช้ทายผลที่รหัสทีมไม่ถูกต้อง ระบบไม่บันทึกการทายผล", new string[] {
+                        "mock"});
+#line 158
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
+                        "id",
+                        "BeginDate",
+                        "StartedDate",
+                        "CompletedDate",
+                        "TeamHomeId",
+                        "TeamHomePoint",
+                        "TeamAwayId",
+                        "TeamAwayPoint",
+                        "DrawPoints"});
+            table21.AddRow(new string[] {
+                        "m01",
+                        "1/1/2015",
+                        "",
+                        "",
+                        "t01",
+                        "110",
+                        "t02",
+                        "120",
+                        "150"});
+#line 159
+ testRunner.And("Matches in the system are", ((string)(null)), table21, "And ");
+#line 162
+ testRunner.When("Call PUT api/prediction UserId: \'u01\', MatchId: \'m01\', TeamId: \'unknow-team-id\', " +
+                    "IsCancel: \'false\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 163
+ testRunner.Then("ระบบไม่ทำการบันทึกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 164
+ testRunner.And("ระบบไม่บันทึกการยกเลิกการทายผล", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
