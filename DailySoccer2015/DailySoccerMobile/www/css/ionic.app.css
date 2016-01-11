@@ -9854,7 +9854,7 @@ a.button {
   height: 100% !important; }
 
 .scroll-middle .has-header {
-  top: initial; }
+  top: initial !important; }
 
 ion-side-menu ion-content {
   background: #404040; }
