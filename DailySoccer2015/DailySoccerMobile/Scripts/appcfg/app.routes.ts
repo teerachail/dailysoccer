@@ -220,6 +220,23 @@
                  }
              }
             })
+            .state('app.config', {
+                url: '/config',
+                abstract: true,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/BlankLayout.html'
+                    }
+                }
+            })
+            .state('app.config.setting', {
+                url: '/setting',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/Setting.html'
+                    }
+                }
+            })
 
             .state('app.underconstruction', {
              url: '/underconstruction',
