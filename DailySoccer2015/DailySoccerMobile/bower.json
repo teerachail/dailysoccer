@@ -9,6 +9,7 @@
     "angular": ">= 1.0.8"
   },
   "dependencies": {
-    "angular-resource": "1.4.6"
+    "angular-resource": "1.4.6",
+    "angular-responsive-images": "~0.1.0"
   }
 }
