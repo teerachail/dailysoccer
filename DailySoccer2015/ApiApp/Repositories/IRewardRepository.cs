@@ -17,7 +17,12 @@ namespace ApiApp.Repositories
         /// <summary>
         /// ดึงรายการกลุ่มของรางวัลล่าสุด
         /// </summary>
-        RewardGroup GetCurrentRewardGroups();
+        RewardGroup GetCurrentRewardGroup();
+
+        /// <summary>
+        /// ดึงรายการกลุ่มของรางวัลล่าที่จบแล้วล่าสุด
+        /// </summary>
+        RewardGroup GetLastCompletedRewardGroup();
 
         /// <summary>
         /// ดึงรายการของรางวัลจากรหัสกลุ่มของรางวัล
@@ -32,16 +37,16 @@ namespace ApiApp.Repositories
         IEnumerable<Reward> GetRewardsByIds(IEnumerable<string> rewardIds);
 
         /// <summary>
-        /// ดึงรายการของรางวัลและผู้ชนะจากรหัสบัญชีผู้ใช้
+        /// ดึงรายการของผู้โชคดีจากรหัสบัญชีผู้ใช้
         /// </summary>
         /// <param name="userId">รหัสบัญชีผู้ใช้</param>
         IEnumerable<Winner> GetWinnersByUserId(string userId);
 
         /// <summary>
-        /// ดึงรายการของรางวัลและผู้ชนะจากรหัสบัญชีผู้ใช้
+        /// ดึงรายการของผู้โชคดีจากรหัสของรางวัล
         /// </summary>
-        /// <param name="rewardId">รหัสบัญชีผู้ใช้</param>
-        IEnumerable<Winner> GetWinnersByRewardId(string rewardId);
+        /// <param name="rewardIds">รหัสของรางวัลที่ต้องการขอ</param>
+        IEnumerable<Winner> GetWinnersByRewardIds(IEnumerable<string> rewardIds);
 
         #endregion Methods
     }

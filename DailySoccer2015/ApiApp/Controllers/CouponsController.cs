@@ -69,7 +69,7 @@ namespace ApiApp.Controllers
                 && !string.IsNullOrEmpty(userProfile.VerifierCode);
             if (!isUserProfileValid) return new BuyCouponRespond { ErrorMessage = "ข้อมูลผู้ใช้ไม่ถูกต้อง" };
 
-            var currentRewardGroup = _rewardRepo.GetCurrentRewardGroups();
+            var currentRewardGroup = _rewardRepo.GetCurrentRewardGroup();
             if (currentRewardGroup == null) return new BuyCouponRespond { ErrorMessage = "ยังไม่สามารถสั่งซื้อได้ในช่วงเวลานี้" };
 
             var requiredPoints = currentRewardGroup.RequiredPoints * value.BuyAmount;

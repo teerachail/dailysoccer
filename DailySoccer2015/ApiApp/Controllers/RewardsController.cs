@@ -34,7 +34,7 @@ namespace ApiApp.Controllers
         public RewardGroupRespond Get()
         {
             var now = DateTime.Now;
-            var lastRewardGroup = _repo.GetCurrentRewardGroups();
+            var lastRewardGroup = _repo.GetCurrentRewardGroup();
             if (lastRewardGroup == null) return new RewardGroupRespond { Rewards = Enumerable.Empty<Reward>() };
 
             var rewards = _repo.GetRewardsByRewardGroupId(lastRewardGroup.id).ToList();
@@ -57,16 +57,25 @@ namespace ApiApp.Controllers
         public IEnumerable<RewardWinner> winners()
         {
             var now = DateTime.Now;
-            var lastRewardGroup = _repo.GetCurrentRewardGroups();
+            var lastRewardGroup = _repo.GetLastCompletedRewardGroup();
             if (lastRewardGroup == null) return Enumerable.Empty<RewardWinner>();
 
             var lastRewardQry = _repo.GetRewardsByRewardGroupId(lastRewardGroup.id).ToList();
             if (!lastRewardQry.Any()) return Enumerable.Empty<RewardWinner>();
 
+            var rewardIds = lastRewardQry.Select(it => it.id);
+            var winners = _repo.GetWinnersByRewardIds(rewardIds).ToList();
+
             var result = lastRewardQry.Select(reward => new RewardWinner
             {
                 id = reward.id,
-                Winners = _repo.GetWinnersByRewardId(reward.id).Select(it => it.UserId).ToList()
+                Amount = reward.Amount,
+                Description = reward.Description,
+                ImgPath = reward.ImgPath,
+                OrderedNo = reward.OrderedNo,
+                Price = reward.Price,
+                ThumbImgPath = reward.ThumbImgPath,
+                Winners = winners.Where(it => it.RewardId == reward.id).Select(it => it.UserId).ToList()
             });
             return result;
         }
@@ -89,7 +98,7 @@ namespace ApiApp.Controllers
             if (!rewards.Any()) return Enumerable.Empty<MyReward>();
 
             var now = DateTime.Now;
-            var lastRewardGroup = _repo.GetCurrentRewardGroups();
+            var lastRewardGroup = _repo.GetCurrentRewardGroup();
             var presentGroupId = lastRewardGroup != null ? lastRewardGroup.id : string.Empty;
 
             var myRewards = (from winner in winners

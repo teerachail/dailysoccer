@@ -1,7 +1,6 @@
 ﻿<ion-view view-title="DAILY SOCCER">
     <ion-content class="rewards">
-        <div ng-show="!cx.data.IsAvailable" class="col text-center">ไม่มีข้อมูล</div>
-        <div ng-show="cx.data.IsAvailable" class="item" ng-repeat="item in cx.data.Rewards | orderBy:'OrderedNo'">
+        <div ng-show="cx.winnerData.length > 0" class="item" ng-repeat="item in cx.winnerData | orderBy:'OrderedNo'">
             <div>
                 <b>
                     รางวัลที่ {{ item.OrderedNo }}
@@ -13,12 +12,12 @@
                 </h2>
             </div>
             <div>
-                <p ng-show="!cx.AnyRewardWinner(item.id)">
+                <p ng-show="!(item.Winners.length > 0)">
                     <i>
                         - ไม่มีผู้โชคดีได้รับรางวัล
                     </i>
                 </p>
-                <p ng-show="cx.AnyRewardWinner(item.id)" ng-repeat="name in cx.GetWinnersNameByRewardId(item.id)">
+                <p ng-show="item.Winners.length > 0" ng-repeat="name in item.Winners">
                     <i>
                         - {{ name }}
                     </i>
@@ -28,7 +27,7 @@
                 <img class="col" src="{{ item.ImgPath }}" />
             </div>
         </div>
-        <div ng-show="!cx.data.IsAvailable" class="item text-right">
+        <div ng-show="!(cx.winnerData.length > 0)" class="item text-right">
             <div>
                 <img class="col" src="img/Logos/Noitemx1.png" bh-src-responsive="[ [ 'small', 'img/Logos/Noitemx2.png' ], [ 'medium', 'img/Logos/Noitemx3.png' ], [ 'retina', 'img/Logos/Noitemx3.png' ] ]" />
             </div>

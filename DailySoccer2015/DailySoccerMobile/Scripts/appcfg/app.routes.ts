@@ -90,7 +90,6 @@
                      templateUrl: 'templates/Winners.html',
                      controller: 'app.reward.WinnersController as cx',
                      resolve: {
-                         "data": ["app.reward.RewardService", svc => { return svc.GetRewardGroup(); }],
                          "winnerData": ["app.reward.RewardService", svc => { return svc.GetWinners(); }]
                      }
                  }

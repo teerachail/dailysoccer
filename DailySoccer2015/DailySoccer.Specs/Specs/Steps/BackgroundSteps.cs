@@ -42,7 +42,7 @@ namespace DailySoccer.Specs.Steps
         {
             var rewardGroups = table.CreateSet<RewardGroup>().ToList();
             var mockRewardRepo = ScenarioContext.Current.Get<Moq.Mock<IRewardRepository>>();
-            mockRewardRepo.Setup(dac => dac.GetCurrentRewardGroups())
+            mockRewardRepo.Setup(dac => dac.GetCurrentRewardGroup())
                 .Returns(() => rewardGroups.OrderByDescending(it => it.ExpiredDate).FirstOrDefault());
         }
 

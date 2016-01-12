@@ -27,11 +27,25 @@ namespace ApiApp.Repositories
         /// <summary>
         /// ดึงรายการกลุ่มของรางวัลล่าสุด
         /// </summary>
-        public RewardGroup GetCurrentRewardGroups()
+        public RewardGroup GetCurrentRewardGroup()
         {
             var currentRewardGroup = MongoUtil.GetCollection<RewardGroup>(RewardGroupTableName)
                 .Find(it => true)
                 .SortByDescending(it => it.ExpiredDate)
+                .FirstOrDefault();
+            return currentRewardGroup;
+        }
+
+        /// <summary>
+        /// ดึงรายการกลุ่มของรางวัลล่าที่จบแล้วล่าสุด
+        /// </summary>
+        public RewardGroup GetLastCompletedRewardGroup()
+        {
+            const int SkipTheCurrentRewardGroup = 1;
+            var currentRewardGroup = MongoUtil.GetCollection<RewardGroup>(RewardGroupTableName)
+                .Find(it => true)
+                .SortByDescending(it => it.ExpiredDate)
+                .Skip(SkipTheCurrentRewardGroup)
                 .FirstOrDefault();
             return currentRewardGroup;
         }
@@ -61,7 +75,7 @@ namespace ApiApp.Repositories
         }
 
         /// <summary>
-        /// ดึงรายการของรางวัลและผู้ชนะจากรหัสบัญชีผู้ใช้
+        /// ดึงรายการของผู้โชคดีจากรหัสบัญชีผู้ใช้
         /// </summary>
         /// <param name="userId">รหัสบัญชีผู้ใช้</param>
         public IEnumerable<Winner> GetWinnersByUserId(string userId)
@@ -73,13 +87,13 @@ namespace ApiApp.Repositories
         }
 
         /// <summary>
-        /// ดึงรายการของรางวัลและผู้ชนะจากรหัสบัญชีผู้ใช้
+        /// ดึงรายการของผู้โชคดีจากรหัสของรางวัล
         /// </summary>
-        /// <param name="rewardId">รหัสบัญชีผู้ใช้</param>
-        public IEnumerable<Winner> GetWinnersByRewardId(string rewardId)
+        /// <param name="rewardIds">รหัสของรางวัลที่ต้องการขอ</param>
+        public IEnumerable<Winner> GetWinnersByRewardIds(IEnumerable<string> rewardIds)
         {
             var qry = MongoUtil.GetCollection<Winner>(WinnerTableName)
-                .Find(it => it.RewardId.Equals(rewardId))
+                .Find(it => rewardIds.Contains(it.RewardId))
                 .ToEnumerable();
             return qry;
         }
