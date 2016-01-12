@@ -13,7 +13,7 @@
     <ion-side-menu side="right">
         <ion-header-bar class="bar-dark row">
             <div class="col col-10 col-center">
-                <i>
+                <i class="ion-star">
                 </i>
             </div>
             <div class="col col-center">
@@ -25,49 +25,44 @@
                 </a>
             </div>
         </ion-header-bar>
-        <ion-content class="padding">
+        <ion-content class="padding side-menu">
             <ion-list>
                 <ion-item href="#" menu-close ui-sref="app.main.matches({day: cx.CurrentDay})" class="item-royal ">
                     <div>
-                        <i>
-                        </i>
+                        <img height="25" src="img/MenuIcon1x1.png" bh-src-responsive="[ [ 'small', 'img/MenuIcon1x2.png' ], [ 'medium', 'img/MenuIcon1x3.png' ], [ 'retina', 'img/MenuIcon1x3.png' ] ]" />
                         <span class="stable">
-                            ตารางแข่งขัน
+                            &nbsp;ตารางแข่งขัน
                         </span>
                     </div>
                 </ion-item>
                 <ion-item href="#" menu-close ui-sref="app.underconstruction" class="item-royal">
                     <div>
-                        <i>
-                        </i>
+                        <img height="25" src="img/MenuIcon2x1.png" bh-src-responsive="[ [ 'small', 'img/MenuIcon2x2.png' ], [ 'medium', 'img/MenuIcon2x3.png' ], [ 'retina', 'img/MenuIcon2x3.png' ] ]" />
                         <span class="stable">
-                            ทีมและลีค
+                            &nbsp;ทีมและลีค
                         </span>
                     </div>
                 </ion-item>
                 <ion-item href="#" menu-close ui-sref="app.history.summary" class="item-royal">
                     <div>
-                        <i>
-                        </i>
+                        <img height="25" src="img/MenuIcon3x1.png" bh-src-responsive="[ [ 'small', 'img/MenuIcon3x2.png' ], [ 'medium', 'img/MenuIcon3x3.png' ], [ 'retina', 'img/MenuIcon3x3.png' ] ]" />
                         <span class="stable">
-                            สถิติการทายผล
+                            &nbsp;สถิติการทายผล
                         </span>
                     </div>
                 </ion-item>
                 <ion-item href="#" menu-close ng-click="cx.ShowPopUp()" class="item-royal">
                     <div>
-                        <i>
-                        </i>
+                        <img height="25" src="img/MenuIcon4x1.png" bh-src-responsive="[ [ 'small', 'img/MenuIcon4x2.png' ], [ 'medium', 'img/MenuIcon4x3.png' ], [ 'retina', 'img/MenuIcon4x3.png' ] ]" />
                         <span class="stable">
-                            ตั้งค่า
+                            &nbsp;ตั้งค่า
                         </span>
                     </div>
                 </ion-item>
 
                 <ion-item menu-close href="#" class="item-royal">
                     <div class="text-gray">
-                        <i>
-                        </i>
+                        <img height="25" src="img/MenuIcon5x1.png" bh-src-responsive="[ [ 'small', 'img/MenuIcon5x2.png' ], [ 'medium', 'img/MenuIcon5x3.png' ], [ 'retina', 'img/MenuIcon5x3.png' ] ]" />
                         <span class="stable">
                             ออกจากระบบ
                         </span>
@@ -78,11 +73,10 @@
 
                 <div>
                     <a href="#" menu-close class="button button-block button-balanced " ui-sref="app.underconstruction">
-                        <div>
-                            <h2 class="light">
-                                เล่นเกมส์
-                            </h2>
-                        </div>
+                       <div class="light padding-small">
+                           <img height="40" src="img/Playgamex1.png" bh-src-responsive="[ [ 'small', 'img/Playgamex2.png' ], [ 'medium', 'img/Playgamex3.png' ], [ 'retina', 'img/Playgamex3.png' ] ]" />
+                          &nbsp; เล่นเกมส์
+                       </div>
                     </a>
                 </div>
             </ion-list>
