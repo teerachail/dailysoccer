@@ -41,6 +41,7 @@
         public Pages: number;
         public team: any;
         public league: any;
+        public SelectedTeam: string;
 
         static $inject = ['$scope', '$ionicModal', 'app.shared.FavoriteTeamService'];
         constructor(private $scope, private $ionicModal, public svc: app.shared.FavoriteTeamService) {                 
@@ -50,6 +51,14 @@
                 this.getTeamsByLeague(this.Pages);
             });
 
+        }
+
+        public IsSelectedTeam(teamId: string) {
+            return this.SelectedTeam == teamId;
+        }
+
+        public SelectTeam(teamId: string) {
+            this.SelectedTeam = teamId;
         }
 
         private getTeamsByLeague(page: number) {

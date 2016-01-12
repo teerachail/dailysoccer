@@ -19,13 +19,13 @@
         </div>
         <div class="title padding row" ng-repeat="item in favCtlr.team">
             <label class="col borderless row item item-radio item-stable ng-valid">
-                <input type="radio" name="radio-group" ng-value="{{item.id}}">
-                <div class="radio-content">
+                <input type="radio" name="radio-group" ng-value="{{item.id}}" ng-checked="favCtlr.IsSelectedTeam(item.id)" ng-click="favCtlr.SelectTeam(item.id)">
+                <span class="radio-content">
                     <span class="title">{{item.Name}}</span>
                     <span>
                         <i class="radio-icon disable-pointer-events icon ion-ios-star"></i>
                     </span>
-                </div>
+                </span>
             </label>
         </div>
     </ion-content>
