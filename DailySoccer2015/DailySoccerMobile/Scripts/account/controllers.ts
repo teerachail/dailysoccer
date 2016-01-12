@@ -5,8 +5,8 @@
 
         private userprofile: shared.UserProfile;
 
-        static $inject = ['$scope', '$state', 'phoneNo', 'app.account.PhoneVerificationService', 'app.shared.UserProfileService'];
-        constructor(private $scope: ng.IScope, private $state: angular.ui.IStateService, private phoneNo: string, private phoneSvc: app.account.PhoneVerificationService, private userprofileSvc: app.shared.UserProfileService) {
+        static $inject = ['$scope', '$ionicPopup', '$state', 'phoneNo', 'app.account.PhoneVerificationService', 'app.shared.UserProfileService'];
+        constructor(private $scope: ng.IScope, private $ionicPopup, private $state: angular.ui.IStateService, private phoneNo: string, private phoneSvc: app.account.PhoneVerificationService, private userprofileSvc: app.shared.UserProfileService) {
             this.userprofile = this.userprofileSvc.GetUserProfile();
             this.ResendSMS();
         }
@@ -23,6 +23,12 @@
                     if (respond.IsSuccess) {
                         this.userprofileSvc.UpdateVerifiedPhoneNo(this.phoneNo);
                         this.$state.go("app.coupon.processing", {}, { location: 'replace' });
+                    }
+                    else {
+                        this.$ionicPopup.alert({
+                            title: 'พบข้อผิดพลาด!',
+                            template: 'รหัสยืนยันที่ระบุไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง'
+                        });
                     }
                 })
                 .catch(err=> { 

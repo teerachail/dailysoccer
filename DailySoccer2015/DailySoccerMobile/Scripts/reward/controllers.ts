@@ -59,15 +59,22 @@
 
     class BuyCouponController {
 
-        static $inject = ['$ionicModal', '$scope', '$state', 'app.reward.BuyCouponDataService'];
-        constructor(private $ionicModal, private $scope, private $state: angular.ui.IStateService, private buySvc: app.reward.BuyCouponDataService) {
+        static $inject = ['$ionicModal', '$ionicPopup', '$scope', '$state', 'app.reward.BuyCouponDataService'];
+        constructor(private $ionicModal, private $ionicPopup, private $scope, private $state: angular.ui.IStateService, private buySvc: app.reward.BuyCouponDataService) {
         }
 
         public BuyCoupons(buyAmount: number): void {
             const MinimumBuyAmount = 1;
             var isRequestValid = buyAmount >= MinimumBuyAmount && buyAmount <= this.buySvc.BuyingPower;
-            if (!isRequestValid) return;
+            if (!isRequestValid) {
+                this.$ionicPopup.alert({
+                    title: 'พบข้อผิดพลาด!',
+                    template: 'ข้อมูลในการสั่งซื้อไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง'
+                });
+                return;
+            }
 
+            this.buySvc.ResetAllRequests();
             this.buySvc.RequestBuyAmount = buyAmount;
             this.$state.go("app.coupon.processing");
         }
@@ -78,8 +85,8 @@
 
         private buyCouponResult: BuyCouponRespond;
 
-        static $inject = ['$scope', '$timeout', '$ionicModal', '$state', 'app.reward.BuyCouponDataService', 'app.shared.UserProfileService', 'app.reward.BuyCouponService'];
-        constructor(private $scope, private $timeout: ng.ITimeoutService, private $ionicModal, private $state: angular.ui.IStateService, private couponDataSvc: app.reward.BuyCouponDataService, private userprofileSvc: app.shared.UserProfileService, private buySvc: app.reward.BuyCouponService) {
+        static $inject = ['$scope', '$timeout', '$ionicModal', '$ionicPopup', '$state', 'app.reward.BuyCouponDataService', 'app.shared.UserProfileService', 'app.reward.BuyCouponService'];
+        constructor(private $scope, private $timeout: ng.ITimeoutService, private $ionicModal, private $ionicPopup, private $state: angular.ui.IStateService, private couponDataSvc: app.reward.BuyCouponDataService, private userprofileSvc: app.shared.UserProfileService, private buySvc: app.reward.BuyCouponService) {
             this.$ionicModal.fromTemplateUrl('templates/Facebook.html',
                 {
                     scope: $scope,
@@ -162,8 +169,7 @@
                 });
         }
         private gobackToBuyCouponPage(): void {
-            this.couponDataSvc.ResetAllRequests();
-            this.$state.go('app.coupon.buy');
+            this.$state.go('app.coupon.buy', { location: 'replace' });
         }
 
     }
