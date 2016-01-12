@@ -1,11 +1,15 @@
-﻿<ion-modal-view class="bg-main scroll-middle">
-    <ion-content class="text-white font-large">
+﻿<ion-modal-view class="bg-main">
+    <ion-content class="light">
+        <br />
+        <br />
+        <br />
+        <br />
         <p>
             คุณเหลือแต้มที่ใช้ได้
         </p>
-        <p class="font-large">
+        <h2>
             {{ cx.couponDataSvc.RemainingPoints }} แต้ม
-        </p>
+        </h2>
         <br />
         <p>รอประกาศผลรายชื่อผู้โชคดี <br /> ในวันที่  {{ cx.buyCouponResult.AnnounceableDate | date : dd/MM/yyyy }}<br /> ขอบพระคุณที่ร่วมสนุกกับเรา</p>
     </ion-content>
