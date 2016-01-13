@@ -13,13 +13,15 @@
             this.$ionicModal.fromTemplateUrl('templates/Login.html',
             {
                 scope: $scope,
-                animation: 'slide-in-up'
+                animation: 'slide-in-up',
+                backdropClickToClose: false
             }).then(function (modal): void { $scope.Login = modal; });
 
             this.$ionicModal.fromTemplateUrl('templates/Favorite.html',
             {
                 scope: $scope,
-                animation: 'slide-in-up'
+                animation: 'slide-in-up',
+                backdropClickToClose: false
             }).then(function (modal): void { $scope.Favorite = modal; });
         }
 
