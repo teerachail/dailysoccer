@@ -11,6 +11,10 @@
 
     }
 
+    export class SetFavoriteTeamRequest {
+        constructor(public id: string, public TeamId: string) { }
+    }
+
     export class VerifyCodeRespond {
         IsSuccess: boolean;
     }
