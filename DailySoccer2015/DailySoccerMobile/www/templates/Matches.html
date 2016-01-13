@@ -23,7 +23,11 @@
             </a>
         </div>
         <div ng-show="cx.leagues.length == 0" class="text-center">
-            <img class="col col-75 block-center" src="img/NoCompetitionx1.png" bh-src-responsive="[ [ 'small', 'img/NoCompetitionx2.png' ], [ 'medium', 'img/NoCompetitionx3.png' ], [ 'retina', 'img/NoCompetitionx3.png' ] ]" />
+            <br />
+            <div class="col col-75 block-center no-item">
+                <img class="col col-60 block-center" src="img/NoMatchIconx1.png" bh-src-responsive="[ [ 'small', 'img/NoMatchIconx2.png' ], [ 'medium', 'img/NoMatchIconx3.png' ], [ 'retina', 'img/NoMatchIconx3.png' ] ]" />
+                <h4 class="royal">ไม่มีข้อมูลการแข่งขัน !</h4>
+            </div>
         </div>
         <div ng-repeat="league in cx.leagues">
             <div class="item item-stable col league text-center borderless small-line-height">{{ league.Name }}</div>

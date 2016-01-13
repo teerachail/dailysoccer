@@ -9898,3 +9898,9 @@ ion-side-menu ion-content {
 
 .side-menu img {
   vertical-align: middle; }
+
+.no-item {
+  background: #dedede;
+  border-radius: 6px;
+  padding: 20px;
+  font-style: italic !important; }

@@ -26,7 +26,11 @@
         </div>
 
         <div ng-show="!cx.data.IsAvailable" class="text-center">
-            <img class="col col-75 block-center" src="img/NoRewardx1.png" bh-src-responsive="[ [ 'small', 'img/NoRewardx2.png' ], [ 'medium', 'img/NoRewardx3.png' ], [ 'retina', 'img/NoRewardx3.png' ] ]" />
+            <br />
+            <div class="col col-75 block-center no-item">
+                <img class="col col-33 block-center" src="img/NoRewardIconx1.png" bh-src-responsive="[ [ 'small', 'img/NoRewardIconx2.png' ], [ 'medium', 'img/NoRewardIconx3.png' ], [ 'retina', 'img/NoRewardIconx3.png' ] ]" />
+                <h5 class="royal">ยังไม่มีของรางวัลประจำสัปดาห์</h5>
+            </div>  
         </div>
         <div ng-show="cx.data.IsAvailable" class="item text-right" ng-repeat="item in cx.data.Rewards | orderBy:'OrderedNo'">
             <div>
