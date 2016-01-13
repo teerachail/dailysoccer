@@ -33,14 +33,16 @@
             {
                 scope: $scope,
                 animation: 'slide-in-up',
-                backdropClickToClose: false
+                backdropClickToClose: false,
+                hardwareBackButtonClose: false
                 }).then((modal) => {  this.Login = modal; });
 
             this.$ionicModal.fromTemplateUrl('templates/Favorite.html',
             {
                 scope: $scope,
                 animation: 'slide-in-up',
-                backdropClickToClose: false
+                backdropClickToClose: false,
+                hardwareBackButtonClose: false
                 }).then((modal) => { this.Favorite = modal; });
 
             this.Pages = 0;
