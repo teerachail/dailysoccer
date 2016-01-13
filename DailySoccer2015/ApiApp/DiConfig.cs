@@ -19,6 +19,7 @@ namespace ApiApp
                 c.For<repo.ISMSSender>().Use<repo.TwilioSMSSender>();
                 c.For<repo.IPredictionRepository>().Use<repo.PredictionRepository>();
                 c.For<repo.IMatchesRepository>().Use<repo.MatchesRepository>();
+                c.For<repo.IAdvertisementsRepository>().Use<repo.AdvertisementsRepository>();
             });
         }
     }

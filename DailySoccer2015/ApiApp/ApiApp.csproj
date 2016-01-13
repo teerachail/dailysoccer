@@ -159,6 +159,7 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdvertisementsController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\LeaguesController.cs" />
@@ -171,6 +172,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Advertisement.cs" />
+    <Compile Include="Models\AdvertisementInformation.cs" />
     <Compile Include="Models\BuyCouponRespond.cs" />
     <Compile Include="Models\BuyCouponRequest.cs" />
     <Compile Include="Models\CouponSummaryRespond.cs" />
@@ -202,9 +205,9 @@
     <Compile Include="MongoAccess\MongoUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
-    <Compile Include="Repositories\AdvertisementRepository.cs" />
+    <Compile Include="Repositories\AdvertisementsRepository.cs" />
     <Compile Include="Repositories\IAccountRepository.cs" />
-    <Compile Include="Repositories\IAdvertisementRepository.cs" />
+    <Compile Include="Repositories\IAdvertisementsRepository.cs" />
     <Compile Include="Repositories\IMarkerRepository.cs" />
     <Compile Include="Repositories\IMatchesRepository.cs" />
     <Compile Include="Repositories\IPredictionRepository.cs" />

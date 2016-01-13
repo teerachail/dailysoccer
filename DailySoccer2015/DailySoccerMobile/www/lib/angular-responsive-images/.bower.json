@@ -1,0 +1,42 @@
+{
+  "name": "angular-responsive-images",
+  "authors": [
+    "Brian Hann"
+  ],
+  "description": "Angular directive for handling responsive images",
+  "license": "MIT",
+  "version": "0.1.0",
+  "main": [
+    "js/angular-responsive-images.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "stylesheets",
+    "node_modules",
+    "bower_components",
+    "index.html",
+    "README.md",
+    "params.json"
+  ],
+  "keywords": [
+    "angular",
+    "responsive",
+    "images",
+    "image",
+    "mobile",
+    "directive"
+  ],
+  "dependencies": {
+    "angular": ">= 1.0.6"
+  },
+  "homepage": "https://github.com/c0bra/angular-responsive-images",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.0",
+    "commit": "89907f06c1700b20c12272236a879dc073d34c50"
+  },
+  "_source": "git://github.com/c0bra/angular-responsive-images.git",
+  "_target": "~0.1.0",
+  "_originalSource": "angular-responsive-images"
+}
