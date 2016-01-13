@@ -1,5 +1,5 @@
 ﻿<ion-modal-view class="bg-main">
-    <ion-content class="light">
+    <ion-content class="light text-center">
         <br />
         <br />
         <br />
@@ -7,17 +7,15 @@
         <p>
             คุณเหลือแต้มที่ใช้ได้
         </p>
-        <h2>
+        <h4 class="light">
             {{ cx.couponDataSvc.RemainingPoints }} แต้ม
-        </h2>
+        </h4>
         <br />
         <p>รอประกาศผลรายชื่อผู้โชคดี <br /> ในวันที่  {{ cx.buyCouponResult.AnnounceableDate | date : dd/MM/yyyy }}<br /> ขอบพระคุณที่ร่วมสนุกกับเรา</p>
     </ion-content>
-    <ion-footer-bar align-title="left" class="bar-balanced">
-        <h1 class="title text-right">
-            <a  ng-click="CompletedPopup.hide()">
-                เสร็จสิ้น >>
-            </a>
-        </h1>
+    <ion-footer-bar class="bar-balanced">
+        <a menu-close class="col button button-clear text-right" ng-click="CompletedPopup.hide()" href="#">
+            เสร็จสิ้น >>
+        </a>
     </ion-footer-bar>
 </ion-modal-view>
