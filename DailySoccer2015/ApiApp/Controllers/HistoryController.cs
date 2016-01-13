@@ -53,7 +53,7 @@ namespace ApiApp.Controllers
                 var date = new DateTime(now.Year, month, 1);
                 result.Add(new PredictionMonthlySummary { Date = date, TotalPoints = totalPoints });
             }
-            return result;
+            return result.OrderByDescending(it => it.Date);
         }
 
         // GET: api/History/5/2015/12
@@ -107,7 +107,7 @@ namespace ApiApp.Controllers
                 var totalPoints = predictions.Sum(it => it.ActualPoints);
                 result.Add(new PredictionDailySummary { Date = date, TotalPoints = totalPoints, PredictionResults = predictionResults });
             }
-            return result;
+            return result.OrderByDescending(it => it.Date);
         }
 
         private IEnumerable<Prediction> getPredictions(string id, IEnumerable<Match> matches)

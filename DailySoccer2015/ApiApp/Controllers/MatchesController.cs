@@ -85,11 +85,10 @@ namespace ApiApp.Controllers
                                       select new LeagueInformation
                                       {
                                           Name = leagueGroup.Key,
-                                          Matches = leagueGroup.ToList()
+                                          Matches = leagueGroup.OrderBy(it => it.BeginDate).ToList()
                                       };
 
             return selectedLeagueGroup;
-
         }
     }
 }
