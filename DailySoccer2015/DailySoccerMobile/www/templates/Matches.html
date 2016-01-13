@@ -35,17 +35,22 @@
                     <div ng-repeat="item in league.Matches" class="text-center">
                         <div class="item match">
                             <div class="match-status">
-                                <span class="col">{{item.Status}}</span>
+                                <span class="col" ng-show="item.StartedDate == null"></span>
+                                <span class="col" ng-show="item.StartedDate != null"
+                                      ng-class="{
+                                      'energized': !cx.CompletedMatch(item),
+                                      'stable': cx.CompletedMatch(item)}"
+                                      >{{ item.Status }}</span>
                             </div>
                             <div class="row match-name">
-                                <div class="col team-name">{{item.TeamHomeName}}</div>
+                                <div class="col team-name">{{ item.TeamHomeName }}</div>
                                 <div class="col">
-                                    <span ng-show="item.StartedDate == null">{{ item.BeginDate | date: 'HH:mm' }}</span>
-                                    <span ng-show="item.StartedDate != null">{{item.TeamHomeScore}} - {{item.TeamAwayScore}}</span>
+                                    <span ng-show="item.StartedDate == null">{{ item.BeginDate| date: 'HH:mm' }}</span>
+                                    <span ng-show="item.StartedDate != null">{{ item.TeamHomeScore }} - {{ item.TeamAwayScore }}</span>
                                 </div>
                                 <div class="col team-name">{{item.TeamAwayName}}</div>
                             </div>
-                            <div class="row">
+                            <div ng-show="cx.IsMatchAvailable(item)" class="row">
                                 <div class="col">
                                     <button ng-class="{
                                         'button-dark': cx.IsUnSelectedHome(item),

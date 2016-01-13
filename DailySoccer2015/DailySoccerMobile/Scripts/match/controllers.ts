@@ -275,14 +275,8 @@
             return isAvailable;
         }
 
-        public IsPendingMatch(item: MatchInformation): boolean {
-            return item.StartedDate == null;
-        }
-        public IsDuringMatch(item: MatchInformation): boolean {
-            return item.StartedDate != null && item.CompletedDate == null;
-        }
-        public IsEndedMatch(item: MatchInformation): boolean {
-            return item.CompletedDate != null;
+        public CompletedMatch(match: MatchInformation): boolean {
+            return match.CompletedDate != null;
         }
     }
 
