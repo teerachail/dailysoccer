@@ -34,7 +34,7 @@ namespace ApiApp.Models
         /// <summary>
         /// คะแนนที่จะได้เมื่อทายผลทีมเจ้าบ้าน
         /// </summary>
-        public int TeamHomePoint { get; set; }
+        public int? TeamHomePoint { get; set; }
 
         /// <summary>
         /// รหัสทีมเยือน
@@ -49,7 +49,7 @@ namespace ApiApp.Models
         /// <summary>
         /// คะแนนที่จะได้เมื่อทายผลทีมเยือน
         /// </summary>
-        public int TeamAwayPoint { get; set; }
+        public int? TeamAwayPoint { get; set; }
 
         /// <summary>
         /// วันเวลาในการแข่งขัน
@@ -79,7 +79,7 @@ namespace ApiApp.Models
         /// <summary>
         /// คะแนนที่จะได้เมื่อทายผลเสมอ
         /// </summary>
-        public int DrawPoints { get; set; }
+        public int? DrawPoints { get; set; }
 
         #endregion Properties
     }

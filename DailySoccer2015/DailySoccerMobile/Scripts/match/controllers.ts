@@ -267,6 +267,23 @@
             return selectedPrediction.PredictionPoints;
         }
         //#endregion Gamestatus
+
+        public IsMatchAvailable(match: MatchInformation): boolean {
+            var isAvailable = match.TeamHomePoint != null
+                && match.TeamAwayPoint != null
+                && match.DrawPoints != null;
+            return isAvailable;
+        }
+
+        public IsPendingMatch(item: MatchInformation): boolean {
+            return item.StartedDate == null;
+        }
+        public IsDuringMatch(item: MatchInformation): boolean {
+            return item.StartedDate != null && item.CompletedDate == null;
+        }
+        public IsEndedMatch(item: MatchInformation): boolean {
+            return item.CompletedDate != null;
+        }
     }
 
     class DaylyHistoryController {

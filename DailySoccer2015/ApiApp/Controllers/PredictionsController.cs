@@ -74,7 +74,8 @@ namespace ApiApp.Controllers
             {
                 var predictionPoints = string.IsNullOrEmpty(value.TeamId) ? selectedMatch.DrawPoints :
                     value.TeamId.Equals(selectedMatch.TeamHomeId) ? selectedMatch.TeamHomePoint : selectedMatch.TeamAwayPoint;
-                _predictionRepo.SetUserPrediction(id, value.MatchId, value.TeamId, predictionPoints, DateTime.Now);
+                var actualPredictionPoints = predictionPoints.HasValue ? predictionPoints.Value : 0;
+                _predictionRepo.SetUserPrediction(id, value.MatchId, value.TeamId, actualPredictionPoints, DateTime.Now);
             }
             var now = DateTime.Now;
             return getPredictionsByDay(id, selectedMatch.BeginDate.Date.Day);
