@@ -3,6 +3,7 @@
 
     class SideMenuController {
 
+        public CurrentDay: number;
         public Favorite: any;
         public Login: any;
         public Pages: number;
@@ -10,8 +11,24 @@
         public league: any;
         public SelectedTeam: string;
 
-        static $inject = ['couponSummary', '$scope', '$ionicModal', 'app.shared.FavoriteTeamService', 'app.account.UserProfileService', 'app.shared.UserProfileService'];
-        constructor(public couponSummary, private $scope, private $ionicModal, public svc: app.shared.FavoriteTeamService, public userSvc: app.account.UserProfileService, public userInfo: app.shared.UserProfileService) {          
+        static $inject = [
+            'couponSummary',
+            '$scope',
+            '$ionicModal',
+            'app.shared.FavoriteTeamService',
+            'app.account.UserProfileService',
+            'app.shared.UserProfileService'];
+        constructor(
+            public couponSummary,
+            private $scope,
+            private $ionicModal,
+            public svc: app.shared.FavoriteTeamService,
+            public userSvc: app.account.UserProfileService,
+            public userInfo: app.shared.UserProfileService) {          
+
+            var now = new Date();
+            this.CurrentDay = now.getDate();
+
             this.$ionicModal.fromTemplateUrl('templates/Login.html',
             {
                 scope: $scope,
