@@ -133,7 +133,6 @@
                 else this.gobackToBuyCouponPage();
             }
             return userprofile.IsVerifiedFacebook;
-
         }
         private checkPhoneVerification(): boolean {
             var userprofile = this.userprofileSvc.GetUserProfile();

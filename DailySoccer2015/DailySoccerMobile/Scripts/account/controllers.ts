@@ -5,8 +5,8 @@
 
         private userprofile: shared.UserProfile;
 
-        static $inject = ['$scope', '$ionicPopup', '$state', 'phoneNo', 'app.account.PhoneVerificationService', 'app.shared.UserProfileService'];
-        constructor(private $scope: ng.IScope, private $ionicPopup, private $state: angular.ui.IStateService, private phoneNo: string, private phoneSvc: app.account.PhoneVerificationService, private userprofileSvc: app.shared.UserProfileService) {
+        static $inject = ['$scope', '$ionicPopup', '$state', 'phoneNo', 'app.account.PhoneVerificationService', 'app.shared.UserProfileService', '$ionicHistory'];
+        constructor(private $scope: ng.IScope, private $ionicPopup, private $state: angular.ui.IStateService, private phoneNo: string, private phoneSvc: app.account.PhoneVerificationService, private userprofileSvc: app.shared.UserProfileService, private $ionicHistory: ionic.navigation.IonicHistoryService) {
             this.userprofile = this.userprofileSvc.GetUserProfile();
             this.ResendSMS();
         }
@@ -22,7 +22,7 @@
                     console.log("Verify phone result: " + respond.IsSuccess);
                     if (respond.IsSuccess) {
                         this.userprofileSvc.UpdateVerifiedPhoneNo(this.phoneNo);
-                        this.$state.go("app.coupon.processing", {}, { location: 'replace' });
+                        this.$ionicHistory.goBack(-2);
                     }
                     else {
                         this.$ionicPopup.alert({
