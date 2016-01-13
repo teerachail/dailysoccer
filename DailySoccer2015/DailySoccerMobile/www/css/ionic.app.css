@@ -9839,9 +9839,20 @@ a.button {
   min-height: 31px;
   line-height: 32px; }
 
-.league {
+.bar-league {
   line-height: 30px;
-  position: relative; }
+  position: relative;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f3f3f3+0,bfbfbf+100 */
+  background: #f3f3f3;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f3f3f3 0%, #bfbfbf 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f3f3f3 0%, #bfbfbf 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f3f3f3 0%, #bfbfbf 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3f3f3', endColorstr='#bfbfbf',GradientType=0 );
+  /* IE6-9 */ }
 
 ion-side-menu ion-content {
   background: #404040; }
