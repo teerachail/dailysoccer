@@ -1,25 +1,26 @@
 ﻿module app.ads {
 	'use strict';
 
-	export interface IMyService {
-		method(): void;
-	}
+    interface IAdvertisementResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        GetAdvertisement(): T;
+    }
+    export class AdvertisementService {
 
-	export class MyService implements IMyService {
+        private svc: IAdvertisementResourceClass<any>;
 
-		static $inject = ['$resource'];
-		constructor(private $resource: angular.resource.IResourceService) {
-			// TODO: initialize service
-			
-		}
+        static $inject = ['appConfig', '$resource'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
+            this.svc = <IAdvertisementResourceClass<any>>$resource(appConfig.AdvertisementUrl, {}, {
+                GetAdvertisement: { method: 'GET' }
+            });
+        }
 
-		public method(): void {
-			// TODO: Implement or remove a method
-		}
-
-	}
+        public GetAdvertisement(): ng.IPromise<any> {
+            return this.svc.GetAdvertisement().$promise;
+        }
+    }
 
 	angular
 		.module('app.ads')
-		.service('app.ads.MyService', MyService);
+        .service('app.ads.AdvertisementService', AdvertisementService);
 }

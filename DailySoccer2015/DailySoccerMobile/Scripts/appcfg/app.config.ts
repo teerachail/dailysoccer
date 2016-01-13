@@ -12,6 +12,7 @@
         HistoryUrl: string;
         TeamUrl: string;
         LeagueUrl: string;
+        AdvertisementUrl: string;
     }
 
     export class AppConfig implements IAppConfig {
@@ -26,6 +27,7 @@
         public HistoryUrl: string;
         public TeamUrl: string;
         public LeagueUrl: string;
+        public AdvertisementUrl: string;
 
         static $inject = ['defaultUrl'];
         constructor(defaultUrl: string) {
@@ -41,6 +43,7 @@
             this.HistoryUrl = apiUrl + '/history';
             this.TeamUrl = apiUrl + '/teams';
             this.LeagueUrl = apiUrl + '/leagues';
+            this.AdvertisementUrl = apiUrl + '/advertisements';
         }
 
     }

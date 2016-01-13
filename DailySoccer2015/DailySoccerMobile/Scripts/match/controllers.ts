@@ -62,7 +62,8 @@
             '$ionicModal',
             '$scope',
             '$stateParams',
-            '$ionicPopup'];
+            '$ionicPopup',
+            'ads'];
         constructor(
             public leagues: any,
             public userSvc: app.shared.UserProfileService,
@@ -72,7 +73,8 @@
             private $ionicModal,
             private $scope,
             private params,
-            private $ionicPopup) {
+            private $ionicPopup,
+            private ads) {
 
             this.userProfile = this.userSvc.GetUserProfile();
             this.updatePredictionRemainning();
@@ -277,6 +279,10 @@
 
         public CompletedMatch(match: MatchInformation): boolean {
             return match.CompletedDate != null;
+        }
+
+        public OpenAds(): void {
+            window.open(this.ads.LinkUrl, '_blank', 'location=yes');
         }
     }
 

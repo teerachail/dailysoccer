@@ -53,6 +53,9 @@
                          }],
                          "couponSummary": ["app.reward.CouponSummaryService", svc => {
                              return svc.GetCouponSummary();
+                         }],
+                         "ads": ["app.ads.AdvertisementService", svc => {
+                             return svc.GetAdvertisement();
                          }]
                      }
                  }
