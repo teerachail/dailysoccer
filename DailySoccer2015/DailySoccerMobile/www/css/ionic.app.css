@@ -9904,3 +9904,6 @@ ion-side-menu ion-content {
   border-radius: 6px;
   padding: 20px;
   font-style: italic !important; }
+
+.popup-head {
+  border: 0px; }

@@ -57,8 +57,9 @@
             var isRequestValid = buyAmount >= MinimumBuyAmount && buyAmount <= this.buySvc.BuyingPower;
             if (!isRequestValid) {
                 this.$ionicPopup.alert({
-                    title: 'พบข้อผิดพลาด!',
-                    template: 'ข้อมูลในการสั่งซื้อไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง'
+                    title: 'ข้อมูลในการสั่งซื้อไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง!',
+                    okType: 'button-royal',
+                    okText: 'ระบุใหม่'
                 });
                 return;
             }
