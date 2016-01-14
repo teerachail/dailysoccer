@@ -167,6 +167,7 @@
     <Compile Include="Controllers\PredictionsController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\RewardsController.cs" />
+    <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="DiConfig.cs" />
     <Compile Include="Global.asax.cs">
@@ -181,6 +182,7 @@
     <Compile Include="Models\FacebookRequest.cs" />
     <Compile Include="Models\LeagueInformation.cs" />
     <Compile Include="Models\League.cs" />
+    <Compile Include="Models\MatchAPIInformation.cs" />
     <Compile Include="Models\Prediction.cs" />
     <Compile Include="Models\PredictionDailyDetail.cs" />
     <Compile Include="Models\PredictionDailySummary.cs" />
