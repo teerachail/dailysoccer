@@ -12,7 +12,6 @@ namespace ApiApp.Controllers
     /// <summary>
     /// Reward API
     /// </summary>
-    [RoutePrefix("api/Rewards")]
     public class RewardsController : ApiController
     {
         private IRewardRepository _repo;

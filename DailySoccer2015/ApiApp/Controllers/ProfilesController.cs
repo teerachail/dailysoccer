@@ -12,7 +12,6 @@ namespace ApiApp.Controllers
     /// <summary>
     /// Profiles API
     /// </summary>
-    [RoutePrefix("api/profiles")]
     public class ProfilesController : ApiController
     {
         private IAccountRepository _accountRepo;

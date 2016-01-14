@@ -12,7 +12,6 @@ namespace ApiApp.Controllers
     /// <summary>
     /// Advertisements API
     /// </summary>
-    [RoutePrefix("api/advertisements")]
     public class AdvertisementsController : ApiController
     {
         private IAdvertisementsRepository _repo;
