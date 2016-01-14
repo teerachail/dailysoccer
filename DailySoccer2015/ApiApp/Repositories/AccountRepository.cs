@@ -150,6 +150,19 @@ namespace ApiApp.Repositories
             userprofile.UpdateMany(it => it.id.Equals(userId), update);
         }
 
+        /// <summary>
+        /// อัพเดทคะแนนบัญชีผู้ใช้
+        /// </summary>
+        /// <param name="point">จำนวแต้มที่ต้องการเพิ่ม</param>
+        public void UpdatePoint(string userId, int point)
+        {
+            var update = Builders<UserProfile>.Update
+                .Set(it => it.Points, point);
+
+            var userprofile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName);
+            userprofile.UpdateMany(it => it.id.Equals(userId), update);
+        }
+
         #endregion IAccountRepository members
     }
 }

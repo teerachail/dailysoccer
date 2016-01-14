@@ -160,7 +160,8 @@ namespace ApiApp.Controllers
             var Now = DateTime.Now;
             var matches = _matchRepo.GetAllMatches().ToList();
             var predictions = _predictionRepo.GetUserPredictions().ToList();
-            var completedMatch = matches.Where(it => it.CompletedDate.HasValue && it.LastCalculatedDateTime.HasValue == false).ToList();
+            
+            var completedMatch = matches.Where(it => it.LastCalculatedDateTime.HasValue == false || it.LastUpdateDateTime > it.LastCalculatedDateTime).ToList();
             completedMatch.ForEach(match => {
                 var prediction = predictions.Where(predict => predict.PredictionTeamId == match.id).ToList();
                 GameResult gameResult;
@@ -177,8 +178,14 @@ namespace ApiApp.Controllers
 
                     if (gameResult == userPrediction) predict.ActualPoints = predict.PredictionPoints;
                     else predict.ActualPoints = 0;
-
                     _predictionRepo.UpdatePrediction(predict);
+
+                    var splitSeparetor = '-';
+                    var userIdPosition = 0;
+                    var users = _accountRepo.GetUserProfileById(predict.id.Split(splitSeparetor)[userIdPosition]);
+                    users.Points += predict.PredictionPoints;
+                    _accountRepo.UpdatePoint(users.id, users.Points);
+                    
                 });
 
                 match.LastCalculatedDateTime = Now;

@@ -75,6 +75,12 @@ namespace ApiApp.Repositories
         /// <param name="orderedCoupons">จำนวนคูปองที่สั่งซื้อไปแล้ว</param>
         void UpdateFromBuyCoupons(string userId, int remainingPoints, int orderedCoupons);
 
+        /// <summary>
+        /// อัพเดทคะแนนบัญชีผู้ใช้
+        /// </summary>
+        /// <param name="point">จำนวแต้มที่ต้องการเพิ่ม</param>
+        void UpdatePoint(string userId, int point)ว
+
         #endregion Methods
     }
 }
