@@ -19,4 +19,7 @@
         IsSuccess: boolean;
     }
     
+    export class GetUserProfileRequest {
+        constructor(public id: string) { }
+    }
 }

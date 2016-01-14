@@ -20,10 +20,7 @@
             this.phoneSvc.SendVerificationCode(this.userprofile.UserId, this.phoneNo, verificationCode)
                 .then((respond: VerifyCodeRespond) => {
                     console.log("Verify phone result: " + respond.IsSuccess);
-                    if (respond.IsSuccess) {
-                        this.userprofileSvc.UpdateVerifiedPhoneNo(this.phoneNo);
-                        this.$ionicHistory.goBack(-2);
-                    }
+                    if (respond.IsSuccess) this.$ionicHistory.goBack(-2);
                     else {
                         this.$ionicPopup.alert({
                             title: 'รหัสยืนยันที่ระบุไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง',
@@ -39,7 +36,14 @@
 
     }
 
+    class SettingController {
+        static $inject = ['$scope', 'userprofile'];
+        constructor(private $scope: ng.IScope, private userprofile) {
+        }
+    }
+
     angular
         .module('app.account')
-        .controller('app.account.VerifySecretCodeController', VerifySecretCodeController);
+        .controller('app.account.VerifySecretCodeController', VerifySecretCodeController)
+        .controller('app.account.SettingController', SettingController);
 }

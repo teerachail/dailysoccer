@@ -6,8 +6,6 @@
         Logout(): void;
         LoggedInWithGuest(userId: string): void;
         LoggedInWithFacebook(userId: string, verifiedPhoneNo: string): void;
-        UpdateVerifiedPhoneNo(phoneNo: string): void;
-        DeleteVerifiedPhoneNo(): void;
     }
 
     interface ITeamResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
@@ -25,13 +23,14 @@
         constructor() {           
             this.userprofile = new UserProfile();
             this.userprofile.UserId = "u01guest";
-            this.userprofile.IsVerifiedFacebook = true;
+            this.userprofile.IsLoggedFacebook = true;
+            this.userprofile.IsLoggedIn = true;
 
             // HACK: Initial UserProfile (Load data from ionic user)
             //var user = Ionic.User.current();
             //this.userprofile.UserId = user.id;
-            //this.userprofile.IsVerifiedFacebook = user.get('IsVerifiedFacebook', false);
-            //this.userprofile.VerifiedPhoneNumber = user.get('VerifiedPhoneNumber', null);
+            //this.userprofile.IsLoggedIn = user.get('IsLoggedIn', false);
+            //this.userprofile.IsLoggedFacebook = user.get('IsLoggedFacebook', null);
         }
 
         public GetUserProfile(): UserProfile {
@@ -39,36 +38,28 @@
         }
         public Logout(): void {
             this.userprofile.UserId = null;
-            this.userprofile.IsVerifiedFacebook = false;
-            this.userprofile.VerifiedPhoneNumber = null;
+            this.userprofile.IsLoggedIn = false;
+            this.userprofile.IsLoggedFacebook = false;
             this.updateUserProfile();
         }
         public LoggedInWithGuest(userId: string): void {
             this.userprofile.UserId = userId;
-            this.userprofile.IsVerifiedFacebook = false;
-            this.userprofile.VerifiedPhoneNumber = null;
+            this.userprofile.IsLoggedIn = true;
+            this.userprofile.IsLoggedFacebook = false;
             this.updateUserProfile();
         }
         public LoggedInWithFacebook(userId: string, verifiedPhoneNo: string): void {
             this.userprofile.UserId = userId;
-            this.userprofile.IsVerifiedFacebook = true;
-            this.userprofile.VerifiedPhoneNumber = verifiedPhoneNo;
-            this.updateUserProfile();
-        }
-        public UpdateVerifiedPhoneNo(phoneNo: string): void {
-            this.userprofile.VerifiedPhoneNumber = phoneNo;
-            this.updateUserProfile();
-        }
-        public DeleteVerifiedPhoneNo(): void {
-            this.userprofile.VerifiedPhoneNumber = null;
+            this.userprofile.IsLoggedIn = true;
+            this.userprofile.IsLoggedFacebook = true;
             this.updateUserProfile();
         }
 
         private updateUserProfile(): void {
             var user = Ionic.User.current();
             user.id = this.userprofile.UserId;
-            user.set('IsVerifiedFacebook', this.userprofile.IsVerifiedFacebook);
-            user.set('VerifiedPhoneNumber', this.userprofile.VerifiedPhoneNumber);
+            user.set('IsLoggedIn', this.userprofile.IsLoggedIn);
+            user.set('IsLoggedFacebook', this.userprofile.IsLoggedFacebook);
             user.save();
         }
     }

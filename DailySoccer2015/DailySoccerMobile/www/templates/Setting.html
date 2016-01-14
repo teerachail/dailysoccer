@@ -13,8 +13,11 @@
                         <h2>
                             เบอร์โทรศัพท์
                         </h2>
-                        <p>
-                            085-005-0000
+                        <p ng-show="cx.userprofile.VerifiedPhoneDate != null">
+                            +{{ cx.userprofile.PhoneNo }}
+                        </p>
+                        <p ng-show="cx.userprofile.VerifiedPhoneDate == null">
+                            ยังไม่ได้ยืนยันเบอร์โทรศัพท์
                         </p>
                     </div>
                     <div class="col text-right">

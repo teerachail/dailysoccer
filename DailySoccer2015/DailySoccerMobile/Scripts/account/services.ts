@@ -7,6 +7,7 @@
     }
     interface IProfilesResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
         CreateNewGuest(): T;
+        GetUserProfile(data: T): T;
     }
     interface IUserFavoriteTeamResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
         SetFavoriteTeam(data: T): T;
@@ -38,13 +39,14 @@
         private profileSvc: IProfilesResourceClass<any>;
         private favoriteSvc: IUserFavoriteTeamResourceClass<any>;
 
-        static $inject = ['appConfig', '$resource'];
-        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService) {
-            this.profileSvc = <IProfilesResourceClass<any>>$resource(appConfig.ProfileUrl, {}, {
-                CreateNewGuest: { method: 'POST' }
+        static $inject = ['appConfig', '$resource', 'app.shared.UserProfileService'];
+        constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService, private userProfileSvc: app.shared.UserProfileService) {
+            this.profileSvc = <IProfilesResourceClass<any>>$resource(appConfig.ProfileUrl, { 'id': '@id' }, {
+                CreateNewGuest: { method: 'POST' },
+                GetUserProfile: { method: 'GET' }
             });
-            this.favoriteSvc = <IUserFavoriteTeamResourceClass<any>>$resource(appConfig.ProfileUrl + '/:id/favteam', { 'id': '@id'}, {
-                SetFavoriteTeam: { method: 'POST'},
+            this.favoriteSvc = <IUserFavoriteTeamResourceClass<any>>$resource(appConfig.ProfileUrl, { 'id': '@id'}, {
+                SetFavoriteTeam: { method: 'POST', params: { 'action': 'favteam' } },
             });
         }
 
@@ -53,6 +55,10 @@
         }
         public SetFavoriteTeam(id: string, teamId: string): void {
             this.favoriteSvc.SetFavoriteTeam(new app.account.SetFavoriteTeamRequest(id, teamId));
+        }
+        public GetUserProfile(): ng.IPromise<any> {
+            var userId = this.userProfileSvc.GetUserProfile().UserId;
+            return this.profileSvc.GetUserProfile(new app.account.GetUserProfileRequest(userId)).$promise;
         }
     }
 

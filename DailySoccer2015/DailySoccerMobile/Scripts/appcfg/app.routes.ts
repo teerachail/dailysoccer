@@ -145,7 +145,10 @@
              views: {
                  'menuContent': {
                      templateUrl: 'templates/BuyCouponProcessing.html',
-                     controller: 'app.reward.BuyCouponProcessingController as cx'
+                     controller: 'app.reward.BuyCouponProcessingController as cx',
+                     resolve: {
+                         "userprofile": ["app.account.UserProfileService", svc=> { return svc.GetUserProfile(); }]
+                     }
                  }
              }
             })
@@ -236,7 +239,11 @@
                 url: '/setting',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/Setting.html'
+                        templateUrl: 'templates/Setting.html',
+                        controller: 'app.account.SettingController as cx',
+                        resolve: {
+                            "userprofile": ["app.account.UserProfileService", svc => { return svc.GetUserProfile(); }]
+                        }
                     }
                 }
             })

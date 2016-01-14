@@ -3,8 +3,8 @@
 
     export class UserProfile {
         public UserId: string;
-        public VerifiedPhoneNumber: string;
-        public IsVerifiedFacebook: boolean;
+        public IsLoggedIn: boolean;
+        public IsLoggedFacebook: boolean;
     }
 
     export class TeamRequest {

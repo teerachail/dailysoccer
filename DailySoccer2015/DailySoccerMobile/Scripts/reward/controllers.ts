@@ -75,8 +75,8 @@
 
         private buyCouponResult: BuyCouponRespond;
 
-        static $inject = ['$scope', '$timeout', '$ionicModal', '$ionicPopup', '$state', 'app.reward.BuyCouponDataService', 'app.shared.UserProfileService', 'app.reward.BuyCouponService'];
-        constructor(private $scope, private $timeout: ng.ITimeoutService, private $ionicModal, private $ionicPopup, private $state: angular.ui.IStateService, private couponDataSvc: app.reward.BuyCouponDataService, private userprofileSvc: app.shared.UserProfileService, private buySvc: app.reward.BuyCouponService) {
+        static $inject = ['$scope', '$timeout', '$ionicModal', '$ionicPopup', '$state', 'app.reward.BuyCouponDataService', 'app.shared.UserProfileService', 'app.reward.BuyCouponService', 'userprofile'];
+        constructor(private $scope, private $timeout: ng.ITimeoutService, private $ionicModal, private $ionicPopup, private $state: angular.ui.IStateService, private couponDataSvc: app.reward.BuyCouponDataService, private userprofileSvc: app.shared.UserProfileService, private buySvc: app.reward.BuyCouponService, private userprofile) {
             this.$ionicModal.fromTemplateUrl('templates/Facebook.html',
                 {
                     scope: $scope,
@@ -123,15 +123,14 @@
         }
         private checkFacebookAuthentication(): boolean {
             var userprofile = this.userprofileSvc.GetUserProfile();
-            if (!userprofile.IsVerifiedFacebook) {
+            if (!userprofile.IsLoggedFacebook) {
                 if (this.couponDataSvc.CheckFirstTimeForRequestFacebookLogin()) this.$scope.FacebookPopup.show();
                 else this.gobackToBuyCouponPage();
             }
-            return userprofile.IsVerifiedFacebook;
+            return userprofile.IsLoggedFacebook;
         }
         private checkPhoneVerification(): boolean {
-            var userprofile = this.userprofileSvc.GetUserProfile();
-            var isPhoneNumberVerified = userprofile.VerifiedPhoneNumber != null;
+            var isPhoneNumberVerified = this.userprofile.VerifiedPhoneDate != null;
             if (!isPhoneNumberVerified) {
                 if (this.couponDataSvc.CheckFirstTimeForRequestPhoneVerification()) this.$state.go('app.verify.phone');
                 else this.gobackToBuyCouponPage();

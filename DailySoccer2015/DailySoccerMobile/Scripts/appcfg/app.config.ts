@@ -33,8 +33,8 @@
         constructor(defaultUrl: string) {
             var apiUrl = defaultUrl + '/api';
 
-            this.ProfileUrl = apiUrl + '/profiles';
-            this.VerifyPhoneUrl = this.ProfileUrl + '/:id/:action';
+            this.ProfileUrl = apiUrl + '/profiles/:id/:action';
+            this.VerifyPhoneUrl = this.ProfileUrl;
             this.BuyCouponUrl = apiUrl + '/coupons/buy';
             this.CouponSummaryUrl = apiUrl + '/coupons/summary/:id';
             this.PredictUrl = apiUrl + '/predictions/:id';
