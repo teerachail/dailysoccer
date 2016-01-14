@@ -17,6 +17,7 @@ namespace ApiApp.Controllers
         private IMatchesRepository _matchRepo;
         private IAccountRepository _accountRepo;
         private IPredictionRepository _predictionRepo;
+        private IFootballService _svc;
 
         /// <summary>
         /// Initialize Sync API
@@ -24,11 +25,12 @@ namespace ApiApp.Controllers
         /// <param name="matchRepo">Match repository</param>
         /// <param name="accountRepo">Account  repository</param>
         /// <param name="predictionRepo">Prediction  repository</param>
-        public SyncController(IMatchesRepository matchRepo, IAccountRepository accountRepo, IPredictionRepository predictionRepo)
+        public SyncController(IMatchesRepository matchRepo, IAccountRepository accountRepo, IPredictionRepository predictionRepo, IFootballService svc)
         {
             _matchRepo = matchRepo;
             _accountRepo = accountRepo;
             _predictionRepo = predictionRepo;
+            _svc = svc;
         }
 
         // GET: api/Sync
@@ -48,7 +50,7 @@ namespace ApiApp.Controllers
         /// </summary>
         /// <param name="id">API key</param>
         [HttpGet]
-        [Route("/raw")]
+        [Route("raw")]
         public IEnumerable<MatchAPIInformation> Get(string id)
         {
             var result = getAllMatchesFromAPI();
