@@ -45,7 +45,7 @@
                             <div class="row match-name">
                                 <div class="col team-name">{{ item.TeamHomeName }}</div>
                                 <div class="col">
-                                    <span ng-show="item.StartedDate == null">{{ item.BeginDate| date: 'HH:mm' }}</span>
+                                    <span ng-show="item.StartedDate == null">{{ dx.GetBeginDate(item.BeginDate)| date: 'HH:mm' }}</span>
                                     <span ng-show="item.StartedDate != null">{{ item.TeamHomeScore }} - {{ item.TeamAwayScore }}</span>
                                 </div>
                                 <div class="col team-name">{{item.TeamAwayName}}</div>

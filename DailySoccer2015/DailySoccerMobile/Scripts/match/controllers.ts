@@ -155,6 +155,10 @@
             if (match.StartedDate) return true;
         }
 
+        public GetBeginDate(begindate: any): Date {
+            return begindate;
+        }
+
         public IsSelectedHome(match: any): boolean {
             const firstPrediction = 0;
             var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
