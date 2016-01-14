@@ -36,6 +36,12 @@ namespace ApiApp.Repositories
         /// </summary>
         IEnumerable<Prediction> GetUserPredictions();
 
+        /// <summary>
+        /// อัพเดทข้อมูลการทาย
+        /// </summary>
+        /// <param name="prediction">ข้อมูลการทายจะดำเนินการ</param>
+        void UpdatePrediction(Prediction prediction)ว
+
         #endregion Methods
     }
 }

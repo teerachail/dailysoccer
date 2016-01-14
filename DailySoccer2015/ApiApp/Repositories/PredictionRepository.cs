@@ -84,6 +84,23 @@ namespace ApiApp.Repositories
             return string.Format("{0}-{1}", userId, matchId);
         }
 
+        /// <summary>
+        /// อัพเดทข้อมูลการทาย
+        /// </summary>
+        /// <param name="prediction">ข้อมูลการทายจะดำเนินการ</param>
+        public void UpdatePrediction(Prediction prediction)
+        {
+            var update = Builders<Prediction>.Update
+              .Set(it => it.CompletedDate, prediction.CompletedDate)
+              .Set(it => it.PredictionPoints, prediction.PredictionPoints)
+              .Set(it => it.ActualPoints, prediction.ActualPoints)
+              .Set(it => it.CreatedDate, prediction.CreatedDate)
+              .Set(it => it.PredictionPoints, prediction.PredictionPoints)
+              .Set(it => it.PredictionTeamId, prediction.PredictionTeamId);
+              MongoUtil.GetCollection<Prediction>(PredictionTableName)
+              .UpdateOne(it => it.id == prediction.id, update);
+        }
+
         #endregion IMatchesRepository members
     }
 }

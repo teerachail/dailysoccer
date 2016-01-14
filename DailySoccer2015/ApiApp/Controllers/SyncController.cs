@@ -19,7 +19,7 @@ namespace ApiApp.Controllers
         private IAccountRepository _accountRepo;
         private IPredictionRepository _predictionRepo;
         private IFootballService _svc;
-
+        private enum GameResult { TeamHomeWin, TeamAwayWin, GameDraw }
         /// <summary>
         /// Initialize Sync API
         /// </summary>
@@ -157,8 +157,34 @@ namespace ApiApp.Controllers
 
         private void calculateMatches()
         {
-            // TODO: Not implement
-            throw new NotImplementedException();
+            var Now = DateTime.Now;
+            var matches = _matchRepo.GetAllMatches().ToList();
+            var predictions = _predictionRepo.GetUserPredictions().ToList();
+            var completedMatch = matches.Where(it => it.CompletedDate.HasValue && it.LastCalculatedDateTime.HasValue == false).ToList();
+            completedMatch.ForEach(match => {
+                var prediction = predictions.Where(predict => predict.PredictionTeamId == match.id).ToList();
+                GameResult gameResult;
+                GameResult userPrediction;
+
+                if (match.TeamHomeScore > match.TeamAwayScore) gameResult = GameResult.TeamHomeWin;
+                else if(match.TeamHomeScore < match.TeamAwayScore) gameResult = GameResult.TeamAwayWin;
+                else gameResult = GameResult.GameDraw;
+
+                prediction.ForEach(predict => {
+                    if (predict.PredictionTeamId == match.TeamHomeId) userPrediction = GameResult.TeamHomeWin;
+                    else if (predict.PredictionTeamId == match.TeamAwayId) userPrediction = GameResult.TeamAwayWin;
+                    else userPrediction = GameResult.GameDraw;
+
+                    if (gameResult == userPrediction) predict.ActualPoints = predict.PredictionPoints;
+                    else predict.ActualPoints = 0;
+
+                    _predictionRepo.UpdatePrediction(predict);
+                });
+
+                match.LastCalculatedDateTime = Now;
+                _matchRepo.UpsertMatch(match);
+            });
+           
         }
 
         private void sendNotification()
