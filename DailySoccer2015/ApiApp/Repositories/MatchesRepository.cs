@@ -132,14 +132,16 @@ namespace ApiApp.Repositories
         }
 
         /// <summary>
-        /// ดึงแมช์การแข่งขันที่ยังไม่จบ
+        /// ดึงแมช์ที่ยังไม่แจ้งเตือน
         /// </summary>
-        public IEnumerable<Match> GetMatchesUnComplete()
+        public IEnumerable<Match> GetUnNotifyMatches()
         {
-            var matches = MongoUtil.GetCollection<Match>(TeamTableName)
-               .Find(it => it.CompletedDate.HasValue == false)
+            var qry = MongoUtil.GetCollection<Match>(TeamTableName)
+               .Find(it => true)
+               .ToEnumerable()
+               .Where(it => it.LastUpdateDateTime > it.NotifyDateTime)
                .ToList();
-            return matches;
+            return qry;
         }
 
         #endregion IMatchesRepository members

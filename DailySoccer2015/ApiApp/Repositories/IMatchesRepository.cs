@@ -66,9 +66,9 @@ namespace ApiApp.Repositories
         Team GetTeamById(string teamId);
 
         /// <summary>
-        /// ดึงแมช์การแข่งขันที่ยังไม่จบ
+        /// ดึงแมช์ที่ยังไม่แจ้งเตือน
         /// </summary>
-        IEnumerable<Match> GetMatchesUnComplete();
+        IEnumerable<Match> GetUnNotifyMatches();
 
         #endregion Methods
     }
