@@ -15,17 +15,6 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
-/*$modal-bg-color:                  #fff !default;
-$modal-backdrop-bg-active:        #000 !default;
-$modal-backdrop-bg-inactive:      rgba(0,0,0,0) !default;
-
-$modal-inset-mode-break-point:    200px !default;  // @media min-width
-$modal-inset-mode-top:            40% !default;
-$modal-inset-mode-right:          10% !default;
-$modal-inset-mode-bottom:         35% !default;
-$modal-inset-mode-left:           10% !default;
-$modal-inset-mode-min-height:     150px !default;
-$modal-inset-mode-min-width:     80% !default;*/
 .bg-main {
   background: #233b83 !important; }
 
@@ -5521,7 +5510,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
     width: 250px;
     max-width: 100%;
     max-height: 90%;
-    border-radius: 0px;
+    border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.9);
     display: -webkit-box;
     display: -webkit-flex;
