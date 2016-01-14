@@ -4,7 +4,14 @@
             <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
         </div>
         <ion-list>
-            <div ng-repeat="day in cx.data" class="padding-small">
+            <div ng-show="cx.data.length == 0" class="col text-center">
+                <br />
+                <div class="col col-75 block-center no-item">
+                    <img class="col col-60 block-center" src="img/NoMatchIconx1.png" bh-src-responsive="[ [ 'small', 'img/NoMatchIconx2.png' ], [ 'medium', 'img/NoMatchIconx3.png' ], [ 'retina', 'img/NoMatchIconx3.png' ] ]" />
+                    <h4 class="royal">ไม่มีประวัติการทายผล !</h4>
+                </div>
+            </div>
+            <div ng-hide="cx.data.length == 0" ng-repeat="day in cx.data" class="padding-small">
                 <ion-item class="item-stable row borderless small-line-height no-padding" ng-click="cx.toggleGroup(day)">
                     <div class="col col-20 col-center text-center">
                         <b>+{{day.TotalPoints}}</b>
@@ -17,7 +24,8 @@
                     </dsiv>
                 </ion-item>
                 <div ng-repeat="item in day.PredictionResults" ng-show="cx.isGroupShown(day)" class="row text-center">
-                    <div class="col col-20 col-center"><strong>+{{item.GainPoints}}</strong> 
+                    <div class="col col-20 col-center">
+                        <strong>+{{item.GainPoints}}</strong> 
                     </div>
                     <div class="col col-center">
                         <div class="row match-name">
@@ -44,7 +52,6 @@
                             Away
                         </div>
                     </div>
-
                 </div>
             </div>
         </ion-list>

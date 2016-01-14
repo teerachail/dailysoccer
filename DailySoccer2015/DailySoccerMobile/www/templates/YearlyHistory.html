@@ -4,7 +4,13 @@
             <img class="col banner" src="http://banbanbook.com/banbanbook/assets/upload/file/_1.jpg" />
         </div>
         <div class="list">
-            <div ng-show="cx.data.length == 0" class="col text-center">ไม่มีข้อมูล</div>
+            <div ng-show="cx.data.length == 0" class="col text-center">
+                <br />
+                <div class="col col-75 block-center no-item">
+                    <img class="col col-60 block-center" src="img/NoMatchIconx1.png" bh-src-responsive="[ [ 'small', 'img/NoMatchIconx2.png' ], [ 'medium', 'img/NoMatchIconx3.png' ], [ 'retina', 'img/NoMatchIconx3.png' ] ]" />
+                    <h4 class="royal">ไม่มีประวัติการทายผล !</h4>
+                </div>
+            </div>
             <div class="padding-small" ng-hide="cx.data.length == 0" ng-repeat="item in cx.data">
                 <a class="row item item-stable borderless no-padding  small-line-height" ui-sref="app.history.monthly({month: item.Date.getMonth() + 1})">
                     <div class="item item-royal col col-20 col-center text-center">
