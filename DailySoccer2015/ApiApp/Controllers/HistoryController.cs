@@ -12,6 +12,7 @@ namespace ApiApp.Controllers
     /// <summary>
     /// History API
     /// </summary>
+    [RoutePrefix("api/history")]
     public class HistoryController : ApiController
     {
         private IMatchesRepository _matchesRepo;

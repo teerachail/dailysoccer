@@ -18,7 +18,9 @@ namespace ApiApp.Repositories
         /// ดึงข้อมูลแมช์การแข่งขันจากรหัสลีก
         /// </summary>
         /// <param name="leagueId">รหัสลีก</param>
-        IEnumerable<MatchAPIInformation> GetMatchesByLeagueId(string leagueId);
+        /// <param name="fromDate">เริ่มดึงจากวันที่</param>
+        /// <param name="toDate">ดึงถึงวันที่</param>
+        IEnumerable<MatchAPIInformation> GetMatchesByLeagueId(string leagueId, DateTime fromDate, DateTime toDate);
 
         #endregion Methods
     }

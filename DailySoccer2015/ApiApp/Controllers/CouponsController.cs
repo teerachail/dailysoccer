@@ -12,6 +12,7 @@ namespace ApiApp.Controllers
     /// <summary>
     /// Coupons API
     /// </summary>
+    [RoutePrefix("api/coupons")]
     public class CouponsController : ApiController
     {
         private IRewardRepository _rewardRepo;

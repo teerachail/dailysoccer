@@ -12,6 +12,7 @@ namespace ApiApp.Controllers
     /// <summary>
     /// Predictions API
     /// </summary>
+    [RoutePrefix("api/predictions")]
     public class PredictionsController : ApiController
     {
         private IMatchesRepository _matchesRepo;

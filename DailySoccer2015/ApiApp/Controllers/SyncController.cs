@@ -12,6 +12,7 @@ namespace ApiApp.Controllers
     /// <summary>
     /// Sync API
     /// </summary>
+    [RoutePrefix("api/sync")]
     public class SyncController : ApiController
     {
         private IMatchesRepository _matchRepo;
@@ -25,6 +26,7 @@ namespace ApiApp.Controllers
         /// <param name="matchRepo">Match repository</param>
         /// <param name="accountRepo">Account  repository</param>
         /// <param name="predictionRepo">Prediction  repository</param>
+        /// <param name="svc">Football service</param>
         public SyncController(IMatchesRepository matchRepo, IAccountRepository accountRepo, IPredictionRepository predictionRepo, IFootballService svc)
         {
             _matchRepo = matchRepo;
@@ -79,8 +81,19 @@ namespace ApiApp.Controllers
 
         private IEnumerable<MatchAPIInformation> getAllMatchesFromAPI()
         {
-            // TODO: Not implement
-            throw new NotImplementedException();
+            var result = _matchRepo.GetAllLeagues().ToList()
+                .SelectMany(league =>
+                {
+                    var now = DateTime.Now.Date.AddDays(league.DifferentDay);
+                    const int PreviousOneDay = -1;
+                    var fromDate = now.AddDays(PreviousOneDay);
+                    const int FutureThreeDays = 3;
+                    var toDate = now.AddDays(FutureThreeDays);
+                    var matcheResult = _svc.GetMatchesByLeagueId(league.id, fromDate, toDate).ToList();
+                    return matcheResult;
+                });
+
+            return result;
         }
 
         private string convertAPIMatch(int apiMatch)

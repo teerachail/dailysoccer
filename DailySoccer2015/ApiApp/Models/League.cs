@@ -26,6 +26,11 @@ namespace ApiApp.Models
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// ช่วงเวลาที่แตกต่างกัน
+        /// </summary>
+        public int DifferentDay { get; set; }
+
         #endregion Properties
     }
 }

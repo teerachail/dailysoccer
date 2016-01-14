@@ -12,6 +12,7 @@ namespace ApiApp.Controllers
     /// <summary>
     /// Leagues API
     /// </summary>
+    [RoutePrefix("api/leagues")]
     public class LeaguesController : ApiController
     {
         private IMatchesRepository _repo;

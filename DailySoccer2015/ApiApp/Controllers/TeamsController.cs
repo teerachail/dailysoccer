@@ -12,6 +12,7 @@ namespace ApiApp.Controllers
     /// <summary>
     /// Teams API
     /// </summary>
+    [RoutePrefix("api/teams")]
     public class TeamsController : ApiController
     {
         private IMatchesRepository _repo;

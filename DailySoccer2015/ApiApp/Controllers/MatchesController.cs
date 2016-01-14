@@ -13,6 +13,7 @@ namespace ApiApp.Controllers
     /// <summary>
     /// Matches API
     /// </summary>
+    [RoutePrefix("api/matches")]
     public class MatchesController : ApiController
     {
         private IMatchesRepository _repo;
