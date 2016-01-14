@@ -97,8 +97,11 @@ namespace ApiApp.Controllers
 
         private void sendNotification()
         {
-            // TODO: Not implement
-            var selectedMatches = _matchRepo.GetMatchesUnComplete().ToList();
+            var matches = _matchRepo.GetMatchesUnComplete();
+            var requestNotifyMatches = matches.Where(it => it.LastUpdateDateTime > it.NotifyDateTime).ToList();
+            var uniqueDate = requestNotifyMatches.Select(it => it.BeginDate.Date).Distinct().ToList();
+
+            // TODO: Notify client with SignalR
         }
     }
 }

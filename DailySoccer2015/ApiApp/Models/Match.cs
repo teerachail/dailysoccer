@@ -69,7 +69,12 @@ namespace ApiApp.Models
         /// <summary>
         /// วันที่อัพเดทข้อมูลล่าสุด
         /// </summary>
-        public DateTime? LastUpdateDate { get; set; }
+        public DateTime? LastUpdateDateTime { get; set; }
+
+        /// <summary>
+        /// วันที่แจ้งเตือนล่าสุด
+        /// </summary>
+        public DateTime? NotifyDateTime { get; set; }
 
         /// <summary>
         /// รหัสลีก

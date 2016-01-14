@@ -136,7 +136,10 @@ namespace ApiApp.Repositories
         /// </summary>
         public IEnumerable<Match> GetMatchesUnComplete()
         {
-            return new List<Match>();
+            var matches = MongoUtil.GetCollection<Match>(TeamTableName)
+               .Find(it => it.CompletedDate.HasValue == false)
+               .ToList();
+            return matches;
         }
 
         #endregion IMatchesRepository members
