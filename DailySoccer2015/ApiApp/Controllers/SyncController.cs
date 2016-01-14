@@ -42,8 +42,60 @@ namespace ApiApp.Controllers
         [HttpGet]
         public void Get()
         {
-            // TODO: Not implement
-            throw new NotImplementedException();
+            var now = DateTime.Now;
+            var changed = false;
+            var allMatches = getAllMatchesFromAPI().ToList();
+            var matches = _matchRepo.GetMatchById(allMatches.Select(it => it.match_id)).ToList();
+            allMatches.ForEach(match =>
+            {
+                var apiMatch = convertAPIMatch(match);
+                var dbMatch = matches.FirstOrDefault(it => it.id == match.match_id);
+                var isMatchChanged = dbMatch == null || apiMatch != dbMatch.ComparableMatch;
+                if (isMatchChanged)
+                {
+                    changed = true;
+                    if (dbMatch == null)
+                    {
+                        dbMatch = new Match
+                        {
+                            id = match.match_id,
+                            LeagueId = match.match_comp_id,
+                            Status = match.match_status,
+                            TeamAwayId = match.match_visitorteam_id,
+                            TeamAwayName = match.match_visitorteam_name,
+                            TeamAwayScore = match.match_visitorteam_score,
+                            TeamHomeId = match.match_localteam_id,
+                            TeamHomeName = match.match_localteam_name,
+                            TeamHomeScore = match.match_localteam_score,
+                            LeagueName = match.LeagueName,
+                            CreatedDateTime = now,
+                        };
+                    }
+
+                    //dbMatch.BeginDate
+                    //dbMatch.BeginUTD
+                    //dbMatch.FilterDateTime
+
+                    dbMatch.ComparableMatch = apiMatch;
+
+                    const string PendingStatusCharacter = ":";
+                    var shouldUpdateStartedDate = !dbMatch.StartedDate.HasValue && !match.match_status.Contains(PendingStatusCharacter);
+                    if (shouldUpdateStartedDate) dbMatch.StartedDate = now;
+
+                    const string CompletedMatchStatus = "FT";
+                    var shouldUpdateCompletedMatch = !dbMatch.CompletedDate.HasValue && match.match_status == CompletedMatchStatus;
+                    if (shouldUpdateCompletedMatch) dbMatch.CompletedDate = now;
+
+                    dbMatch.GameMinutes = match.match_status;
+                    _matchRepo.UpsertMatch(dbMatch);
+                }
+            });
+
+            if (changed)
+            {
+                calculateMatches();
+                sendNotification();
+            }
         }
 
         // GET: api/Sync/raw
@@ -89,8 +141,9 @@ namespace ApiApp.Controllers
                     var fromDate = now.AddDays(PreviousOneDay);
                     const int FutureThreeDays = 3;
                     var toDate = now.AddDays(FutureThreeDays);
-                    var matcheResult = _svc.GetMatchesByLeagueId(league.id, fromDate, toDate).ToList();
-                    return matcheResult;
+                    var matchesResult = _svc.GetMatchesByLeagueId(league.id, fromDate, toDate).ToList();
+                    matchesResult.ForEach(it => it.LeagueName = league.Name);
+                    return matchesResult;
                 });
 
             return result;

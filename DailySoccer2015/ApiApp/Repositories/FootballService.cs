@@ -24,16 +24,19 @@ namespace ApiApp.Repositories
         /// <param name="toDate">ดึงถึงวันที่</param>
         public IEnumerable<MatchAPIInformation> GetMatchesByLeagueId(string leagueId, DateTime fromDate, DateTime toDate)
         {
-            const string ClientBaseURL = "http://football-api.com";
-            var client = new RestClient(ClientBaseURL);
-
-            const string dateFormat = "dd.MM.yyyy";
+            const string dateFormat = "dd.mm.yyyy";
             const string APIKey = "d7946ce1-b897-975e-d462b1899cd6";
             const string urlFormat = "api/?Action=fixtures&APIKey={0}&comp_id={1}&from_date={2}&to_date={3}";
             var url = string.Format(urlFormat, APIKey, leagueId, fromDate.ToString(dateFormat), toDate.ToString(dateFormat));
+            
+            const string ClientBaseURL = "http://football-api.com";
+            var client = new RestClient(ClientBaseURL);
             var request = new RestRequest(url);
             var respond = client.Execute<MatchAPIRespond>(request);
-            return respond.Data.matches ?? Enumerable.Empty<MatchAPIInformation>();
+            var error = respond.Data == null || respond.Data.matches == null;
+            if (error) return Enumerable.Empty<MatchAPIInformation>();
+
+            return respond.Data.matches;
         }
 
         #endregion IFootballService members

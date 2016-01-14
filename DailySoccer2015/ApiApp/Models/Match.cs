@@ -91,6 +91,51 @@ namespace ApiApp.Models
         /// </summary>
         public int? DrawPoints { get; set; }
 
+        /// <summary>
+        /// ชื่อทีมเจ้าบ้าน
+        /// </summary>
+        public string TeamHomeName { get; set; }
+
+        /// <summary>
+        /// ชื่อทีมเยือน
+        /// </summary>
+        public string TeamAwayName { get; set; }
+
+        /// <summary>
+        /// ชื่อลีก
+        /// </summary>
+        public string LeagueName { get; set; }
+
+        /// <summary>
+        /// วันเวลาแข่ง UDT format
+        /// </summary>
+        public DateTime BeginDateTimeUTD { get; set; }
+
+        /// <summary>
+        /// วันเวลาที่ใช้แสดงผล
+        /// </summary>
+        public DateTime FilterDateTime { get; set; }
+
+        /// <summary>
+        /// เวลาในเกม
+        /// </summary>
+        public string GameMinutes { get; set; }
+
+        /// <summary>
+        /// วันเวลาที่ทำการคำนวณล่าสุด
+        /// </summary>
+        public DateTime? LastCalculatedDateTime { get; set; }
+
+        /// <summary>
+        /// วันเวลาที่ทำถูก
+        /// </summary>
+        public DateTime CreatedDateTime { get; set; }
+
+        /// <summary>
+        /// ข้อมูลที่ใช้ตรวจสอบแมช์
+        /// </summary>
+        public string ComparableMatch { get; set; }
+
         #endregion Properties
     }
 }

@@ -15,6 +15,12 @@ namespace ApiApp.Repositories
         #region Methods
 
         /// <summary>
+        /// อัพเดทหรือเพิ่มแมช์ใหม่
+        /// </summary>
+        /// <param name="match">ข้อมูลแมช์ที่จะดำเนินการ</param>
+        void UpsertMatch(Match match);
+
+        /// <summary>
         /// ดึงแมช์การแข่งขันทั้งหมดในระบบ
         /// </summary>
         IEnumerable<Match> GetAllMatches();
@@ -30,6 +36,12 @@ namespace ApiApp.Repositories
         /// </summary>
         /// <param name="matchId">รหัสการแข่งขันที่ต้องการดึงข้อมูล</param>
         Match GetMatchById(string matchId);
+
+        /// <summary>
+        /// ดึงแมช์การแข่งขันจากรหัสการแข่งขัน
+        /// </summary>
+        /// <param name="matchIds">รหัสการแข่งขันที่ต้องการดึงข้อมูล</param>
+        IEnumerable<Match> GetMatchById(IEnumerable<string> matchIds);
 
         /// <summary>
         /// ดึงแมช์การแข่งขันจากปี
