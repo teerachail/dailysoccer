@@ -40,7 +40,7 @@ namespace ApiApp.Repositories
         /// อัพเดทข้อมูลการทาย
         /// </summary>
         /// <param name="prediction">ข้อมูลการทายจะดำเนินการ</param>
-        void UpdatePrediction(Prediction prediction)ว
+        void UpdatePrediction(Prediction prediction);
 
         #endregion Methods
     }

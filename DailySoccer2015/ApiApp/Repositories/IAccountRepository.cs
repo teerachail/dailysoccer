@@ -78,8 +78,9 @@ namespace ApiApp.Repositories
         /// <summary>
         /// อัพเดทคะแนนบัญชีผู้ใช้
         /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้ที่ต้องการอัพเดท</param>
         /// <param name="point">จำนวแต้มที่ต้องการเพิ่ม</param>
-        void UpdatePoint(string userId, int point)ว
+        void UpdatePoint(string userId, int point);
 
         #endregion Methods
     }
