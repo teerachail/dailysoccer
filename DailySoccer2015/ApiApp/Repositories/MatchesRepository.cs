@@ -131,6 +131,14 @@ namespace ApiApp.Repositories
             return selectedTeam;
         }
 
+        /// <summary>
+        /// ดึงแมช์การแข่งขันที่ยังไม่จบ
+        /// </summary>
+        public IEnumerable<Match> GetMatchesUnComplete()
+        {
+            return new List<Match>();
+        }
+
         #endregion IMatchesRepository members
     }
 }

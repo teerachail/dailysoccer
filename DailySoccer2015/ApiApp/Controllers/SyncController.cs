@@ -98,7 +98,7 @@ namespace ApiApp.Controllers
         private void sendNotification()
         {
             // TODO: Not implement
-            throw new NotImplementedException();
+            var selectedMatches = _matchRepo.GetMatchesUnComplete().ToList();
         }
     }
 }

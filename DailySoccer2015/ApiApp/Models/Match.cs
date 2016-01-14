@@ -67,6 +67,11 @@ namespace ApiApp.Models
         public DateTime? CompletedDate { get; set; }
 
         /// <summary>
+        /// วันที่อัพเดทข้อมูลล่าสุด
+        /// </summary>
+        public DateTime? LastUpdateDate { get; set; }
+
+        /// <summary>
         /// รหัสลีก
         /// </summary>
         public string LeagueId { get; set; }
