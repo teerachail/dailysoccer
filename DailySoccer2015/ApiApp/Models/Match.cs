@@ -109,12 +109,12 @@ namespace ApiApp.Models
         /// <summary>
         /// วันเวลาแข่ง UDT format
         /// </summary>
-        public DateTime BeginDateTimeUTD { get; set; }
+        public DateTime BeginDateTimeUTC { get; set; }
 
         /// <summary>
-        /// วันเวลาที่ใช้แสดงผล
+        /// วันที่ใช้ในการ filter
         /// </summary>
-        public DateTime FilterDateTime { get; set; }
+        public string FilterDate { get; set; }
 
         /// <summary>
         /// เวลาในเกม

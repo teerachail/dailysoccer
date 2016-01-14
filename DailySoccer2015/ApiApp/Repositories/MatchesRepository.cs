@@ -46,11 +46,14 @@ namespace ApiApp.Repositories
               .Set(it => it.TeamHomeName, match.TeamHomeName)
               .Set(it => it.TeamAwayName, match.TeamAwayName)
               .Set(it => it.LeagueName, match.LeagueName)
-              .Set(it => it.BeginDateTimeUTD, match.BeginDateTimeUTD)
-              .Set(it => it.FilterDateTime, match.FilterDateTime)
+              .Set(it => it.BeginDateTimeUTC, match.BeginDateTimeUTC)
+              .Set(it => it.FilterDate, match.FilterDate)
               .Set(it => it.GameMinutes, match.GameMinutes)
               .Set(it => it.LastCalculatedDateTime, match.LastCalculatedDateTime)
-              .Set(it => it.CreatedDateTime, match.CreatedDateTime);
+              .Set(it => it.CreatedDateTime, match.CreatedDateTime)
+              .Set(it => it.ComparableMatch, match.ComparableMatch)
+              .Set(it => it.LastUpdateDateTime, match.LastUpdateDateTime);
+
             var updateOption = new UpdateOptions { IsUpsert = true };
             MongoUtil.GetCollection<Match>(MatchTableName)
                 .UpdateOne(it => it.id == match.id, update, updateOption);

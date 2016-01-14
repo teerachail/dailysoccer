@@ -38,6 +38,9 @@ namespace ApiApp.Models
         public string match_et_score { get; set; }
 
         public string LeagueName { get; set; }
+        public int DifferentDay { get; set; }
+
+        public string TimeZone { get; set; }
 
         #endregion Properties
     }

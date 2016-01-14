@@ -72,12 +72,6 @@ namespace ApiApp.Controllers
                         };
                     }
 
-                    //dbMatch.BeginDate
-                    //dbMatch.BeginUTD
-                    //dbMatch.FilterDateTime
-
-                    dbMatch.ComparableMatch = apiMatch;
-
                     const string PendingStatusCharacter = ":";
                     var shouldUpdateStartedDate = !dbMatch.StartedDate.HasValue && !match.match_status.Contains(PendingStatusCharacter);
                     if (shouldUpdateStartedDate) dbMatch.StartedDate = now;
@@ -86,7 +80,18 @@ namespace ApiApp.Controllers
                     var shouldUpdateCompletedMatch = !dbMatch.CompletedDate.HasValue && match.match_status == CompletedMatchStatus;
                     if (shouldUpdateCompletedMatch) dbMatch.CompletedDate = now;
 
+                    const string DateFormat = "dd.MM.yyyy";
+                    var provider = System.Globalization.CultureInfo.GetCultureInfo(match.TimeZone);
+                    var matchDate = DateTime.ParseExact(match.match_formatted_date, DateFormat, provider);
+                    var matchTime = string.IsNullOrWhiteSpace(match.match_time) ? TimeSpan.Zero : TimeSpan.Parse(match.match_time);
+
+                    dbMatch.FilterDate = matchDate.AddDays(match.DifferentDay).ToString("yyyyMMdd");
+                    dbMatch.BeginDateTimeUTC = matchDate.Add(matchTime).ToUniversalTime();
+
+                    dbMatch.LastUpdateDateTime = now;
+                    dbMatch.ComparableMatch = apiMatch;
                     dbMatch.GameMinutes = match.match_status;
+
                     _matchRepo.UpsertMatch(dbMatch);
                 }
             });
@@ -142,7 +147,13 @@ namespace ApiApp.Controllers
                     const int FutureThreeDays = 3;
                     var toDate = now.AddDays(FutureThreeDays);
                     var matchesResult = _svc.GetMatchesByLeagueId(league.id, fromDate, toDate).ToList();
-                    matchesResult.ForEach(it => it.LeagueName = league.Name);
+                    matchesResult.ForEach(it =>
+                    {
+                        it.LeagueName = league.Name;
+                        it.DifferentDay = league.DifferentDay;
+                        // TODO: Match's TimeZone
+                        it.TimeZone = "en-GB";
+                    });
                     return matchesResult;
                 });
 
@@ -151,8 +162,7 @@ namespace ApiApp.Controllers
 
         private string convertAPIMatch(MatchAPIInformation apiMatch)
         {
-            // TODO: Not implement
-            throw new NotImplementedException();
+            return apiMatch.match_status;
         }
 
         private void calculateMatches()
