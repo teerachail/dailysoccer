@@ -63,7 +63,8 @@
             '$scope',
             '$stateParams',
             '$ionicPopup',
-            'ads'];
+            'ads',
+        '$ionicHistory'];
         constructor(
             public leagues: any,
             public userSvc: app.shared.UserProfileService,
@@ -74,7 +75,13 @@
             private $scope,
             private params,
             private $ionicPopup,
-            private ads) {
+            private ads,
+            private $ionicHistory) {
+
+            $ionicHistory.nextViewOptions({
+                disableAnimate: true,
+                disableBack: true
+            });
 
             this.userProfile = this.userSvc.GetUserProfile();
             this.updatePredictionRemainning();
