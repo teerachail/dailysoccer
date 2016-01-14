@@ -183,6 +183,7 @@
     <Compile Include="Models\LeagueInformation.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\MatchAPIInformation.cs" />
+    <Compile Include="Models\MatchAPIRespond.cs" />
     <Compile Include="Models\Prediction.cs" />
     <Compile Include="Models\PredictionDailyDetail.cs" />
     <Compile Include="Models\PredictionDailySummary.cs" />

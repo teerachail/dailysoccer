@@ -96,7 +96,7 @@ namespace ApiApp.Controllers
             return result;
         }
 
-        private string convertAPIMatch(int apiMatch)
+        private string convertAPIMatch(MatchAPIInformation apiMatch)
         {
             // TODO: Not implement
             throw new NotImplementedException();

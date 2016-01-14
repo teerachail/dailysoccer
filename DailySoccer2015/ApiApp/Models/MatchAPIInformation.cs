@@ -27,6 +27,15 @@ namespace ApiApp.Models
         public string match_visitorteam_name { get; set; }
         public string match_visitorteam_score { get; set; }
         public string match_ht_score { get; set; }
+        public string match_static_id { get; set; }
+        public string match_season_beta { get; set; }
+        public string match_week_beta { get; set; }
+        public string match_venue_beta { get; set; }
+        public string match_venue_id_beta { get; set; }
+        public string match_venue_city_beta { get; set; }
+        public string match_timer { get; set; }
+        public string match_ft_score { get; set; }
+        public string match_et_score { get; set; }
 
         #endregion Properties
     }
