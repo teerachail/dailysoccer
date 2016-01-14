@@ -92,11 +92,6 @@
                     scope: $scope,
                     animation: 'slide-in-up'
                 }).then(modal=> { this.$scope.CompletedPopup = modal; });
-            this.$ionicModal.fromTemplateUrl('templates/BuyCouponPopup.html',
-                {
-                    scope: $scope,
-                    animation: 'slide-ins-up'
-                }).then(modal=> { this.$scope.ErrorPopup = modal; });
 
             this.$scope.$on('modal.hidden', () => this.validateUserProfile());
             this.validateUserProfile();
@@ -119,8 +114,7 @@
         private checkPreparingPopups(): boolean {
             var isSetupCompleted = this.$scope.FacebookPopup != null
                 && this.$scope.TiePopup != null
-                && this.$scope.CompletedPopup != null
-                && this.$scope.ErrorPopup != null;
+                && this.$scope.CompletedPopup != null;
             if (!isSetupCompleted) {
                 console.log('Preparing...');
                 this.$timeout(() => this.validateUserProfile(), 333);
@@ -151,7 +145,13 @@
                     this.buyCouponResult = respond;
                     this.couponDataSvc.SendPurchaseOrderCompleted(respond.IsSuccess);
                     if (respond.IsSuccess) this.$scope.CompletedPopup.show();
-                    else this.$scope.ErrorPopup.show();
+                    else {
+                        this.$ionicPopup.alert({
+                            title: this.buyCouponResult.ErrorMessage,
+                            okType: 'button-royal',
+                            okText: 'ระบุใหม่'
+                        }).then(() => this.validateUserProfile());
+                    }
                 })
                 .catch(err=> {
                     // TODO: Inform error to user
