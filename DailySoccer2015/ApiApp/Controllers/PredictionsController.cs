@@ -89,29 +89,34 @@ namespace ApiApp.Controllers
             var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1)
                                       .Select(d => fromDate.AddDays(d));
             var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
-            var matches = _matchesRepo.GetMatchesByDate(selectedDate).ToList();
             if (selectedDate == null) return null;
-
-            var prediction = _predictionRepo.GetUserPredictions().ToList();
 
             var splitSeparetor = '-';
             var userIdPosition = 0;
             var matchIdPosition = 1;
-            var selectedPredictions = from predict in prediction.Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id && it.CreatedDate.Date == selectedDate.Date).ToList()
-                                      let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
-                                      let selectedMatch = matches.FirstOrDefault(it => it.id == matchId)
-                                      let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
-                                      let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
-                                      let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
-                                      select new PredictionInformation
-                                      {
-                                          MatchId = matchId,
-                                          IsPredictionTeamHome = isPredictTeamHome,
-                                          IsPredictionTeamAway = isPredictTeamAway,
-                                          IsPredictionDraw = isPredictDraw,
-                                          PredictionPoints = predict.PredictionPoints
-                                      };
-            return selectedPredictions;
+
+            var predictions = _predictionRepo.GetUserPredictions()
+                .Where(it => it.id.Split(splitSeparetor)[userIdPosition] == id)
+                .ToList();
+            var matches = _matchesRepo.GetMatchesByDate(selectedDate).ToList();
+
+            var qry = from predict in predictions
+                      let matchId = predict.id.Split(splitSeparetor)[matchIdPosition]
+                      let selectedMatch = matches.FirstOrDefault(it => it.id == matchId)
+                      where selectedMatch != null
+                      let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
+                      let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
+                      let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
+                      select new PredictionInformation
+                      {
+                          MatchId = matchId,
+                          IsPredictionTeamHome = isPredictTeamHome,
+                          IsPredictionTeamAway = isPredictTeamAway,
+                          IsPredictionDraw = isPredictDraw,
+                          PredictionPoints = predict.PredictionPoints
+                      };
+            var result = qry.ToList();
+            return result;
         }
     }
 }
