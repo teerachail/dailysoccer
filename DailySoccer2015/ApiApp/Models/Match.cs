@@ -109,7 +109,7 @@ namespace ApiApp.Models
         /// <summary>
         /// วันเวลาแข่ง UDT format
         /// </summary>
-        public DateTime BeginDateTimeUTC { get; set; }
+        public DateTime? BeginDateTimeUTC { get; set; }
 
         /// <summary>
         /// วันที่ใช้ในการ filter
