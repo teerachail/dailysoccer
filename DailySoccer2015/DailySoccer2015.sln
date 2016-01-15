@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{6BA87A75
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailySoccer.Specs", "DailySoccer.Specs\DailySoccer.Specs.csproj", "{5CE6C941-B1DD-4403-BEA8-A3F69FE19769}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailySoccerBackOffice", "DailySoccerBackOffice\DailySoccerBackOffice.csproj", "{56F65A68-E751-4CAD-BF85-32C3AB7258F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Android = Debug|Android
@@ -155,6 +157,42 @@ Global
 		{5CE6C941-B1DD-4403-BEA8-A3F69FE19769}.Release|Windows-x64.Build.0 = Release|Any CPU
 		{5CE6C941-B1DD-4403-BEA8-A3F69FE19769}.Release|Windows-x86.ActiveCfg = Release|Any CPU
 		{5CE6C941-B1DD-4403-BEA8-A3F69FE19769}.Release|Windows-x86.Build.0 = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Android.ActiveCfg = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Android.Build.0 = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|iOS.ActiveCfg = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|iOS.Build.0 = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows Phone (Universal).ActiveCfg = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows Phone (Universal).Build.0 = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows Phone 8.ActiveCfg = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows Phone 8.Build.0 = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows-AnyCPU.ActiveCfg = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows-AnyCPU.Build.0 = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows-ARM.ActiveCfg = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows-ARM.Build.0 = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows-x64.ActiveCfg = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows-x64.Build.0 = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows-x86.ActiveCfg = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Debug|Windows-x86.Build.0 = Debug|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Android.ActiveCfg = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Android.Build.0 = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|iOS.ActiveCfg = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|iOS.Build.0 = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows Phone (Universal).ActiveCfg = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows Phone (Universal).Build.0 = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows Phone 8.ActiveCfg = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows Phone 8.Build.0 = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows-AnyCPU.ActiveCfg = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows-AnyCPU.Build.0 = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows-ARM.ActiveCfg = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows-ARM.Build.0 = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows-x64.ActiveCfg = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows-x64.Build.0 = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows-x86.ActiveCfg = Release|Any CPU
+		{56F65A68-E751-4CAD-BF85-32C3AB7258F5}.Release|Windows-x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
