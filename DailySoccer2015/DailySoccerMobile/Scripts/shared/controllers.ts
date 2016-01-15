@@ -6,6 +6,7 @@
         public CurrentDay: number;
         public Favorite: any;
         public Login: any;
+        public FacebookPopup: any;
         public Pages: number;
         public team: any;
         public league: any;
@@ -54,6 +55,12 @@
                 hardwareBackButtonClose: false
                 }).then((modal) => { this.Favorite = modal; });
 
+            this.$ionicModal.fromTemplateUrl('templates/Facebook.html',
+                {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then((modal) => { this.FacebookPopup = modal; });
+
             this.svc.GetLeagues().then((respond): any => {
                 this.league = respond;
                 this.getTeamsByLeague(this.Pages);
@@ -74,6 +81,11 @@
         public LoginShow(): void {
             this.Login.show();
         }
+
+        public LoginWithFacebook(): void {
+            this.FacebookPopup.show();
+        }
+
         public LoggedInWithGuest(): void {
             this.userSvc.CreateNewGuest().then((respond) => {
                 this.userInfo.LoggedInWithGuest(respond.id);
