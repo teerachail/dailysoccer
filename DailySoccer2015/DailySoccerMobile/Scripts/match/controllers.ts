@@ -50,15 +50,15 @@
     class PredictionController {
 
         public Leagues: string[];
-        private userProfile: app.shared.UserProfile;
         public PredictionRemainingCount: number;
+        private userProfile: any;
 
         static $inject = [
             'matches',
             'app.shared.UserProfileService',
             'app.match.PredictionsService',
             'predictions',
-            'userprofile',
+            'app.account.UserProfileService',
             '$ionicModal',
             '$scope',
             '$stateParams',
@@ -70,7 +70,7 @@
             public userSvc: app.shared.UserProfileService,
             private predictSvc: app.match.PredictionsService,
             public predictions: any,
-            public userprofile,
+            public userprofileSvc: app.account.UserProfileService,
             private $ionicModal,
             private $scope,
             private params,
@@ -82,8 +82,11 @@
                 disableAnimate: true,
                 disableBack: true
             });
-
-            this.userProfile = this.userSvc.GetUserProfile();
+            this.userprofileSvc.GetUserProfile().then(it=> {
+                this.userSvc.CurrentPoints = it.Points;
+                this.userProfile = it;
+            });
+            
             this.updatePredictionRemainning();
         }
 

@@ -18,6 +18,7 @@
 
     export class UserProfileService implements IUserProfileService {
 
+        public CurrentPoints: number;
         private userprofile: UserProfile;
 
         constructor() {           

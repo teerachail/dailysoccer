@@ -12,14 +12,12 @@
         public SelectedTeam: string;
 
         static $inject = [
-            'userprofile',
             '$scope',
             '$ionicModal',
             'app.shared.FavoriteTeamService',
             'app.account.UserProfileService',
             'app.shared.UserProfileService'];
         constructor(
-            public userprofile,
             private $scope,
             private $ionicModal,
             public svc: app.shared.FavoriteTeamService,

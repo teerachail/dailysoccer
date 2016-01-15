@@ -11,9 +11,14 @@
         private isAlreadyRequireFacebookLogin: boolean;
         private isAlreadyRequirePhoneVerification: boolean;
 
+        static $inject = ['app.shared.UserProfileService'];
+        constructor(private userprofileSvc: app.shared.UserProfileService) {
+        }
+
         public InitialData(couponCost: number, remainingPoints: number): void {
             this.CouponCost = couponCost;
             this.RemainingPoints = remainingPoints;
+            this.userprofileSvc.CurrentPoints = this.RemainingPoints;
             const NotAvailableCost = 0;
             var isCouponCostValid = couponCost > NotAvailableCost;
             this.BuyingPower = isCouponCostValid ? Math.floor(this.RemainingPoints / this.CouponCost) : NotAvailableCost;
@@ -42,7 +47,10 @@
         public SendPurchaseOrderCompleted(isSuccess: boolean): void {
             if (!this.IsBuyingCompleted) {
                 this.IsBuyingCompleted = true;
-                if (isSuccess) this.RemainingPoints -= this.CouponCost * this.RequestBuyAmount;
+                if (isSuccess) {
+                    this.RemainingPoints -= this.CouponCost * this.RequestBuyAmount;
+                    this.userprofileSvc.CurrentPoints = this.RemainingPoints;
+                }
             }
         }
     }

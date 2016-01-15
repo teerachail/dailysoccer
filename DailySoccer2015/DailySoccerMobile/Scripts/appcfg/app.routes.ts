@@ -17,7 +17,6 @@
              templateUrl: 'templates/SideMenu.html',
              controller: 'app.shared.SideMenuController as cx',
              resolve: {
-                 "userprofile": ["app.account.UserProfileService", svc => { return svc.GetUserProfile(); }],
                  "league": ["app.shared.FavoriteTeamService", svc => { return svc.GetLeagues(); }]
              }
             })
@@ -49,9 +48,6 @@
                              (params, svc: app.match.PredictionsService, userService: app.shared.UserProfileService) => {
                              var userId = userService.GetUserProfile().UserId;
                              return svc.GetPredictionsByDate(userId, params.day);
-                         }],
-                         "userprofile": ["app.account.UserProfileService", svc => {
-                             return svc.GetUserProfile();
                          }],
                          "ads": ["app.ads.AdvertisementService", svc => {
                              return svc.GetAdvertisement();
