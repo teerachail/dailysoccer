@@ -153,6 +153,7 @@ namespace ApiApp.Repositories
         /// <summary>
         /// อัพเดทคะแนนบัญชีผู้ใช้
         /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้</param>
         /// <param name="point">จำนวแต้มที่ต้องการเพิ่ม</param>
         public void UpdatePoint(string userId, int point)
         {
@@ -161,6 +162,33 @@ namespace ApiApp.Repositories
 
             var userprofile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName);
             userprofile.UpdateMany(it => it.id.Equals(userId), update);
+        }
+
+        /// <summary>
+        /// อัพเดทข้อมูลบัญชีผู้ใช้จากการจบกลุ่มของรางวัลปัจจุบัน
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้</param>
+        /// <param name="currentOrderedCoupon">จำนวนคูปองที่ซื้อไว้ในรอบปัจจุบัน</param>
+        public void UpdateProfileByEndedCurrentRewardGroup(string userId, int currentOrderedCoupon)
+        {
+            const int ResetOrderedCoupon = 0;
+            var update = Builders<UserProfile>.Update
+                .Set(it => it.PreviousOrderedCoupon, currentOrderedCoupon)
+                .Set(it => it.OrderedCoupon, ResetOrderedCoupon);
+
+            var userprofile = MongoUtil.GetCollection<UserProfile>(UserProfileTableName);
+            userprofile.UpdateOne(it => it.id == userId, update);
+        }
+
+        /// <summary>
+        /// ดึงบัญชีผู้ใช้ทุกคนในระบบ
+        /// </summary>
+        public IEnumerable<UserProfile> GetAllUserProfiles()
+        {
+            var qry = MongoUtil.GetCollection<UserProfile>(UserProfileTableName)
+                .Find(it => true)
+                .ToEnumerable();
+            return qry;
         }
 
         #endregion IAccountRepository members

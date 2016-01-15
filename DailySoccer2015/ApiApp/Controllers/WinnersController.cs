@@ -41,7 +41,8 @@ namespace ApiApp.Controllers
         /// </summary>
         public void Put()
         {
-
+            var userprofiles = _accountRepo.GetAllUserProfiles().ToList();
+            userprofiles.ForEach(it => _accountRepo.UpdateProfileByEndedCurrentRewardGroup(it.id, it.OrderedCoupon));
         }
     }
 }

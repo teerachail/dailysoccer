@@ -82,6 +82,18 @@ namespace ApiApp.Repositories
         /// <param name="point">จำนวแต้มที่ต้องการเพิ่ม</param>
         void UpdatePoint(string userId, int point);
 
+        /// <summary>
+        /// อัพเดทข้อมูลบัญชีผู้ใช้จากการจบกลุ่มของรางวัลปัจจุบัน
+        /// </summary>
+        /// <param name="userId">รหัสบัญชีผู้ใช้</param>
+        /// <param name="currentOrderedCoupon">จำนวนคูปองที่ซื้อไว้ในรอบปัจจุบัน</param>
+        void UpdateProfileByEndedCurrentRewardGroup(string userId, int currentOrderedCoupon);
+
+        /// <summary>
+        /// ดึงบัญชีผู้ใช้ทุกคนในระบบ
+        /// </summary>
+        IEnumerable<UserProfile> GetAllUserProfiles();
+
         #endregion Methods
     }
 }
