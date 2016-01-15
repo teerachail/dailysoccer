@@ -169,6 +169,7 @@
     <Compile Include="Controllers\RewardsController.cs" />
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="Controllers\WinnersController.cs" />
     <Compile Include="DiConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
