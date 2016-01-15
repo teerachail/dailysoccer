@@ -58,19 +58,19 @@
             'app.shared.UserProfileService',
             'app.match.PredictionsService',
             'predictions',
-            'couponSummary',
+            'userprofile',
             '$ionicModal',
             '$scope',
             '$stateParams',
             '$ionicPopup',
             'ads',
-        '$ionicHistory'];
+            '$ionicHistory'];
         constructor(
             public leagues: any,
             public userSvc: app.shared.UserProfileService,
             private predictSvc: app.match.PredictionsService,
             public predictions: any,
-            public couponSummary,
+            public userprofile,
             private $ionicModal,
             private $scope,
             private params,

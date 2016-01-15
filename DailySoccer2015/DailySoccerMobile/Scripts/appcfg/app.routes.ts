@@ -17,9 +17,8 @@
              templateUrl: 'templates/SideMenu.html',
              controller: 'app.shared.SideMenuController as cx',
              resolve: {
-                 "couponSummary": ["app.reward.CouponSummaryService", svc => { return svc.GetCouponSummary(); }],
+                 "userprofile": ["app.account.UserProfileService", svc => { return svc.GetUserProfile(); }],
                  "league": ["app.shared.FavoriteTeamService", svc => { return svc.GetLeagues(); }]
-
              }
             })
 
@@ -51,8 +50,8 @@
                              var userId = userService.GetUserProfile().UserId;
                              return svc.GetPredictionsByDate(userId, params.day);
                          }],
-                         "couponSummary": ["app.reward.CouponSummaryService", svc => {
-                             return svc.GetCouponSummary();
+                         "userprofile": ["app.account.UserProfileService", svc => {
+                             return svc.GetUserProfile();
                          }],
                          "ads": ["app.ads.AdvertisementService", svc => {
                              return svc.GetAdvertisement();
