@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Winner";
+}
+
+<h2>Winner manager</h2>
+
+@using (Html.BeginForm("EndCurrentRewardGroup","Winner", FormMethod.Post))
+{
+    <button type="submit">End current reward group</button>
+}
+
+@using (Html.BeginForm("RandomWinner", "Winner", FormMethod.Post))
+{
+    <button type="submit">Random winners</button>
+}
