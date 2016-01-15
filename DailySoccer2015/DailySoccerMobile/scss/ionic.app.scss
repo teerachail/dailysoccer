@@ -193,6 +193,9 @@ ion-side-menu ion-content {
     ion-item {
         border: 0px !important;
         margin: 0px !important;
+        span {
+            vertical-align:middle;
+        }
     }
 }
 

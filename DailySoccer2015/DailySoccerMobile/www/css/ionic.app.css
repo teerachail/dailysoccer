@@ -9848,6 +9848,8 @@ ion-side-menu ion-content {
   ion-side-menu ion-content ion-item {
     border: 0px !important;
     margin: 0px !important; }
+    ion-side-menu ion-content ion-item span {
+      vertical-align: middle; }
 
 .text-right {
   text-align: right !important; }
