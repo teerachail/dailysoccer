@@ -66,6 +66,7 @@ namespace ApiApp.Controllers
             var rewardIds = lastRewardQry.Select(it => it.id);
             var winners = _repo.GetWinnersByRewardIds(rewardIds).ToList();
 
+            var ordering = 1;
             var result = lastRewardQry.Select(reward => new RewardWinner
             {
                 id = reward.id,
@@ -75,7 +76,8 @@ namespace ApiApp.Controllers
                 OrderedNo = reward.OrderedNo,
                 Price = reward.Price,
                 ThumbImgPath = reward.ThumbImgPath,
-                Winners = winners.Where(it => it.RewardId == reward.id).Select(it => it.UserId).ToList()
+                Winners = winners.Where(it => it.RewardId == reward.id)
+                .Select(it => new DisplayWinner { Ordering = ordering++, DisplayWinnerName = it.UserId }).ToList()
             });
             return result;
         }

@@ -51,7 +51,7 @@ namespace ApiApp.Models
         /// <summary>
         /// รายชื่อผู้โชคดี
         /// </summary>
-        public IEnumerable<string> Winners { get; set; }
+        public IEnumerable<DisplayWinner> Winners { get; set; }
 
         #endregion Properties
     }

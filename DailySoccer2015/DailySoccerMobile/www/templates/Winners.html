@@ -17,9 +17,9 @@
                         - ไม่มีผู้โชคดีได้รับรางวัล
                     </i>
                 </p>
-                <p ng-show="item.Winners.length > 0" ng-repeat="name in item.Winners">
+                <p ng-show="item.Winners.length > 0" ng-repeat="winner in item.Winners">
                     <i>
-                        - {{ name }}
+                        - {{ winner.DisplayWinnerName }}
                     </i>
                 </p>
             </div>
