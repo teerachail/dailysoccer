@@ -186,8 +186,10 @@ namespace ApiApp.Repositories
             var qry = MongoUtil.GetCollection<Match>(TeamTableName)
                .Find(it => true)
                .ToEnumerable()
-               .Where(it => it.LastUpdateDateTime > it.NotifyDateTime)
-               .ToList();
+               .Where(it => !it.LastUpdateDateTime.HasValue
+                   || !it.NotifyDateTime.HasValue
+                   || (it.LastUpdateDateTime.Value > it.NotifyDateTime.Value))
+                   .ToList();
             return qry;
         }
 

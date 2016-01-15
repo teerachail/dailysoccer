@@ -22,10 +22,10 @@ namespace ApiApp.Models
         public string match_commentary_available { get; set; }
         public string match_localteam_id { get; set; }
         public string match_localteam_name { get; set; }
-        public int match_localteam_score { get; set; }
+        public string match_localteam_score { get; set; }
         public string match_visitorteam_id { get; set; }
         public string match_visitorteam_name { get; set; }
-        public int match_visitorteam_score { get; set; }
+        public string match_visitorteam_score { get; set; }
         public string match_ht_score { get; set; }
         public string match_static_id { get; set; }
         public string match_season_beta { get; set; }

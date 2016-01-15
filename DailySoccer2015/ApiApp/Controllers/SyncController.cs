@@ -56,6 +56,12 @@ namespace ApiApp.Controllers
                     changed = true;
                     if (dbMatch == null)
                     {
+                        int teamAwayScore;
+                        int.TryParse(match.match_visitorteam_score, out teamAwayScore);
+
+                        int teamHomeScore;
+                        int.TryParse(match.match_localteam_score, out teamHomeScore);
+
                         dbMatch = new Match
                         {
                             id = match.match_id,
@@ -63,10 +69,10 @@ namespace ApiApp.Controllers
                             Status = match.match_status,
                             TeamAwayId = match.match_visitorteam_id,
                             TeamAwayName = match.match_visitorteam_name,
-                            TeamAwayScore = match.match_visitorteam_score,
+                            TeamAwayScore = teamAwayScore,
                             TeamHomeId = match.match_localteam_id,
                             TeamHomeName = match.match_localteam_name,
-                            TeamHomeScore = match.match_localteam_score,
+                            TeamHomeScore = teamHomeScore,
                             LeagueName = match.LeagueName,
                             CreatedDateTime = now,
                         };
@@ -138,7 +144,8 @@ namespace ApiApp.Controllers
 
         private IEnumerable<MatchAPIInformation> getAllMatchesFromAPI()
         {
-            var result = _matchRepo.GetAllLeagues().ToList()
+            var result = _matchRepo.GetAllLeagues()
+                .ToList()
                 .SelectMany(league =>
                 {
                     var now = DateTime.Now.Date.AddDays(league.DifferentDay);
@@ -167,21 +174,23 @@ namespace ApiApp.Controllers
 
         private void calculateMatches()
         {
-            var Now = DateTime.Now;
+            var now = DateTime.Now;
             var matches = _matchRepo.GetAllMatches().ToList();
             var predictions = _predictionRepo.GetUserPredictions().ToList();
-            
-            var completedMatch = matches.Where(it => it.LastCalculatedDateTime.HasValue == false || it.LastUpdateDateTime > it.LastCalculatedDateTime).ToList();
-            completedMatch.ForEach(match => {
+
+            var changedMatches = matches.Where(it => !it.LastCalculatedDateTime.HasValue || it.LastUpdateDateTime > it.LastCalculatedDateTime).ToList();
+            changedMatches.ForEach(match =>
+            {
                 var prediction = predictions.Where(predict => predict.PredictionTeamId == match.id).ToList();
                 GameResult gameResult;
                 GameResult userPrediction;
 
                 if (match.TeamHomeScore > match.TeamAwayScore) gameResult = GameResult.TeamHomeWin;
-                else if(match.TeamHomeScore < match.TeamAwayScore) gameResult = GameResult.TeamAwayWin;
+                else if (match.TeamHomeScore < match.TeamAwayScore) gameResult = GameResult.TeamAwayWin;
                 else gameResult = GameResult.GameDraw;
 
-                prediction.ForEach(predict => {
+                prediction.ForEach(predict =>
+                {
                     if (predict.PredictionTeamId == match.TeamHomeId) userPrediction = GameResult.TeamHomeWin;
                     else if (predict.PredictionTeamId == match.TeamAwayId) userPrediction = GameResult.TeamAwayWin;
                     else userPrediction = GameResult.GameDraw;
@@ -195,13 +204,11 @@ namespace ApiApp.Controllers
                     var users = _accountRepo.GetUserProfileById(predict.id.Split(splitSeparetor)[userIdPosition]);
                     users.Points += predict.PredictionPoints;
                     _accountRepo.UpdatePoint(users.id, users.Points);
-                    
                 });
 
-                match.LastCalculatedDateTime = Now;
+                match.LastCalculatedDateTime = now;
                 _matchRepo.UpsertMatch(match);
             });
-           
         }
 
         private void sendNotification()
