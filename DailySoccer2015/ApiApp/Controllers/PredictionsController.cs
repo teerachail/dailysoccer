@@ -107,13 +107,14 @@ namespace ApiApp.Controllers
                       let isPredictTeamHome = selectedMatch.TeamHomeId == predict.PredictionTeamId
                       let isPredictTeamAway = selectedMatch.TeamAwayId == predict.PredictionTeamId
                       let isPredictDraw = string.IsNullOrEmpty(predict.PredictionTeamId)
+                      let isDisplayActualPoints = selectedMatch.CompletedDate.HasValue && predict.CompletedDate.HasValue
                       select new PredictionInformation
                       {
                           MatchId = matchId,
                           IsPredictionTeamHome = isPredictTeamHome,
                           IsPredictionTeamAway = isPredictTeamAway,
                           IsPredictionDraw = isPredictDraw,
-                          PredictionPoints = predict.PredictionPoints
+                          PredictionPoints = isDisplayActualPoints ? predict.ActualPoints : predict.PredictionPoints
                       };
             var result = qry.ToList();
             return result;
