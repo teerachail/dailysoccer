@@ -26,7 +26,7 @@ namespace ApiApp.Models
         public int Points { get; set; }
 
         /// <summary>
-        /// จำนวนคูปองที่ซื้อไว้
+        /// จำนวนคูปองที่ซื้อไว้ของรอบปัจจุบัน
         /// </summary>
         public int OrderedCoupon { get; set; }
 
@@ -54,6 +54,11 @@ namespace ApiApp.Models
         /// รหัสทีมที่ชอบ
         /// </summary>
         public string FavouriteTeamId { get; set; }
+
+        /// <summary>
+        /// จำนวนคูปองที่ซื้อไว้ของรอบที่แล้ว
+        /// </summary>
+        public int PreviousOrderedCoupon { get; set; }
 
         #endregion Properties
     }
