@@ -48,6 +48,12 @@ namespace ApiApp.Repositories
         /// <param name="rewardIds">รหัสของรางวัลที่ต้องการขอ</param>
         IEnumerable<Winner> GetWinnersByRewardIds(IEnumerable<string> rewardIds);
 
+        /// <summary>
+        /// สร้างรายการผู้โชคดีใหม่
+        /// </summary>
+        /// <param name="winners">ข้อมูลรายการผู้โชคดี</param>
+        void CreateNewWinners(IEnumerable<Winner> winners);
+
         #endregion Methods
     }
 }

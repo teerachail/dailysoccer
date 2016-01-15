@@ -98,6 +98,15 @@ namespace ApiApp.Repositories
             return qry;
         }
 
+        /// <summary>
+        /// สร้างรายการผู้โชคดีใหม่
+        /// </summary>
+        /// <param name="winners">ข้อมูลรายการผู้โชคดี</param>
+        public void CreateNewWinners(IEnumerable<Winner> winners)
+        {
+            MongoUtil.GetCollection<Winner>(WinnerTableName).InsertMany(winners);
+        }
+
         #endregion IRewardRepository members
     }
 }
