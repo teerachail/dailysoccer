@@ -14,12 +14,12 @@
         </div>
         <div class="row">
             <div class="col">
-                <button menu-close class="button col col-75 block-center button-calm" ng-click="cx.LoginHide()">เข้าใช้งานผ่าน Facebook</button>
+                <button menu-close class="button col col-75 block-center button-calm" ng-show="cx.IsShowNewGuestButton()" ng-click="cx.LoginHide()">เข้าใช้งานผ่าน Facebook</button>
             </div>
         </div>
     </ion-content>
     <ion-footer-bar class="bar-balanced">
-        <a menu-close class="col button button-clear text-right" ng-click="cx.LoginHide()" href="#">
+        <a menu-close class="col button button-clear text-right" ng-click="cx.LoggedInWithGuest()" href="#">
             เริ่มต้นใช้งาน >>
         </a>
     </ion-footer-bar>

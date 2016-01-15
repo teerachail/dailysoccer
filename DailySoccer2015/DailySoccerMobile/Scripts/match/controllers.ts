@@ -52,15 +52,16 @@
         public Leagues: string[];
         public PredictionRemainingCount: number;
         private userProfile: any;
+        public predictions: any;
 
         static $inject = [
             'matches',
             'app.shared.UserProfileService',
             'app.match.PredictionsService',
-            'predictions',
             'app.account.UserProfileService',
             '$ionicModal',
             '$scope',
+            '$rootScope',
             '$stateParams',
             '$ionicPopup',
             'ads',
@@ -69,26 +70,45 @@
             public leagues: any,
             public userSvc: app.shared.UserProfileService,
             private predictSvc: app.match.PredictionsService,
-            public predictions: any,
             public userprofileSvc: app.account.UserProfileService,
             private $ionicModal,
             private $scope,
+            private $rootScope,
             private params,
             private $ionicPopup,
             private ads,
             private $ionicHistory) {
 
+            $rootScope.refresher = () => {
+                this.onPageLoad();
+            };
+            
             $ionicHistory.nextViewOptions({
                 disableAnimate: true,
                 disableBack: true
             });
-            this.userprofileSvc.GetUserProfile().then(it=> {
-                this.userSvc.CurrentPoints = it.Points;
-                this.userProfile = it;
-            });
-            
-            this.updatePredictionRemainning();
+
+            this.onPageLoad();
         }
+
+        private onPageLoad() {
+            if (this.userSvc.IsLogedIn()) {
+                this.userprofileSvc.GetUserProfile().then(it=> {
+                    this.userSvc.CurrentPoints = it.Points;
+                    this.userProfile = it;
+                });
+                this.loadPredictions();
+            }
+        }
+
+        private loadPredictions() {
+            var user = this.userSvc.GetUserProfile().UserId;
+            this.predictSvc.GetPredictionsByDate(user, this.params.day).then((respond) => {
+                this.predictions = respond;
+                this.updatePredictionRemainning();
+            });
+        }
+
 
         private updatePredictionRemainning() {
             var now = new Date();
@@ -131,7 +151,7 @@
             var isCancel: boolean = false;
             if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionTeamHome;
 
-            this.predict(this.userProfile.UserId, match.id, match.TeamHomeId, isCancel);          
+            this.predict(this.userProfile.id, match.id, match.TeamHomeId, isCancel);          
         }
 
         public predictTeamAway(match: any): void {
@@ -140,7 +160,7 @@
             var isCancel: boolean = false;
             if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionTeamAway;
 
-            this.predict(this.userProfile.UserId, match.id, match.TeamAwayId, isCancel);
+            this.predict(this.userProfile.id, match.id, match.TeamAwayId, isCancel);
         }
 
         public predictDraw(match: any): void {
@@ -149,7 +169,7 @@
             var isCancel: boolean = false;
             if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionDraw;
 
-            this.predict(this.userProfile.UserId, match.id, null, isCancel);
+            this.predict(this.userProfile.id, match.id, null, isCancel);
         }
         //#endregion Predictions
 
@@ -163,124 +183,156 @@
         }
 
         public IsSelectedHome(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            if (match.CompletedDate) return false;
-            return selectedPrediction.IsPredictionTeamHome;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                if (match.CompletedDate) return false;
+                return selectedPrediction.IsPredictionTeamHome;
+            }
         }
 
         public IsUnSelectedHome(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return true;
-            return !selectedPrediction.IsPredictionTeamHome;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return true;
+                return !selectedPrediction.IsPredictionTeamHome;
+            }
         }
 
         public IsPredictHomeWin(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            if (!match.CompletedDate) return false;
-            return match.IsTeamHomeWin && selectedPrediction.IsPredictionTeamHome;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                if (!match.CompletedDate) return false;
+                return match.IsTeamHomeWin && selectedPrediction.IsPredictionTeamHome;
+            }
         }
 
         public IsPredictHomeLose(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            if (!match.CompletedDate) return false;
-            return !match.IsTeamHomeWin && selectedPrediction.IsPredictionTeamHome;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                if (!match.CompletedDate) return false;
+                return !match.IsTeamHomeWin && selectedPrediction.IsPredictionTeamHome;
+            }
         }
 
         public IsSelectedAway(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            if (match.CompletedDate) return false;
-            return selectedPrediction.IsPredictionTeamAway;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                if (match.CompletedDate) return false;
+                return selectedPrediction.IsPredictionTeamAway;
+            }
         }
 
         public IsUnSelectedAway(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return true;
-            return !selectedPrediction.IsPredictionTeamAway;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return true;
+                return !selectedPrediction.IsPredictionTeamAway;
+            }
         }
 
         public IsPredictAwayWin(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            if (!match.CompletedDate) return false;
-            return match.IsTeamAwayWin && selectedPrediction.IsPredictionTeamAway;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                if (!match.CompletedDate) return false;
+                return match.IsTeamAwayWin && selectedPrediction.IsPredictionTeamAway;
+            }
         }
 
         public IsPredictAwayLose(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            if (!match.CompletedDate) return false;
-            return !match.IsTeamAwayWin && selectedPrediction.IsPredictionTeamAway;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                if (!match.CompletedDate) return false;
+                return !match.IsTeamAwayWin && selectedPrediction.IsPredictionTeamAway;
+            }
         }
 
         public IsSelectedDraw(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            if (match.CompletedDate) return false;
-            return selectedPrediction.IsPredictionDraw;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                if (match.CompletedDate) return false;
+                return selectedPrediction.IsPredictionDraw;
+            }
         }
 
         public IsUnSelectedDraw(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return true;
-            return !selectedPrediction.IsPredictionDraw;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return true;
+                return !selectedPrediction.IsPredictionDraw;
+            }
         }
 
         public IsPredictDrawWin(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            if (!match.CompletedDate) return false;
-            return match.IsGameDraw && selectedPrediction.IsPredictionDraw;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                if (!match.CompletedDate) return false;
+                return match.IsGameDraw && selectedPrediction.IsPredictionDraw;
+            }
         }
 
         public IsPredictDrawLose(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            if (!match.CompletedDate) return false;
-            return !match.IsGameDraw && selectedPrediction.IsPredictionDraw;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                if (!match.CompletedDate) return false;
+                return !match.IsGameDraw && selectedPrediction.IsPredictionDraw;
+            }
         }
 
         public IsShowHomePredictionPoint(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            return selectedPrediction.IsPredictionTeamHome;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                return selectedPrediction.IsPredictionTeamHome;
+            }
         }
 
         public IsShowAwayPredictionPoint(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            return selectedPrediction.IsPredictionTeamAway;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                return selectedPrediction.IsPredictionTeamAway;
+            }
         }
 
         public IsShowDrawPredictionPoint(match: any): boolean {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return false;
-            return selectedPrediction.IsPredictionDraw;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return false;
+                return selectedPrediction.IsPredictionDraw;
+            }
         }
 
         public GetPredictionPoint(match: any): number {
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
-            if (selectedPrediction == null) return 0;
-            return selectedPrediction.PredictionPoints;
+            if (this.predictions != null) {
+                const firstPrediction = 0;
+                var selectedPrediction = this.predictions.filter(it => it.MatchId == match.id)[firstPrediction];
+                if (selectedPrediction == null) return 0;
+                return selectedPrediction.PredictionPoints;
+            }
         }
         //#endregion Gamestatus
 

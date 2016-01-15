@@ -60,7 +60,7 @@
                     </div>
                 </ion-item>
 
-                <ion-item menu-close href="#" class="item-royal">
+                <ion-item menu-close href="#" class="item-royal" ng-show="cx.IsLogedInFacebook()" ng-click="cx.Logout()">
                     <div class="text-gray">
                         <img height="25" src="img/MenuIcon5x1.png" bh-src-responsive="[ [ 'small', 'img/MenuIcon5x2.png' ], [ 'medium', 'img/MenuIcon5x3.png' ], [ 'retina', 'img/MenuIcon5x3.png' ] ]" />
                         <span class="stable padding-left">
@@ -69,7 +69,7 @@
                     </div>
                 </ion-item>
 
-                <a menu-close class="button button-block dark" ng-click="cx.LoginShow()" href="#">เข้าสู่ระบบ</a>
+                <a menu-close class="button button-block dark" ng-show="!cx.IsLogedInFacebook()" ng-click="cx.LoginShow()" href="#">เข้าสู่ระบบ</a>
 
                 <div>
                     <a href="#" menu-close class="button button-block button-balanced " ui-sref="app.underconstruction">

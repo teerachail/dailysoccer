@@ -6,6 +6,8 @@
         Logout(): void;
         LoggedInWithGuest(userId: string): void;
         LoggedInWithFacebook(userId: string, verifiedPhoneNo: string): void;
+        IsLogedIn(): boolean;
+        IsLoggedFacebook(): boolean;
     }
 
     interface ITeamResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
@@ -23,15 +25,23 @@
 
         constructor() {           
             this.userprofile = new UserProfile();
-            this.userprofile.UserId = "u01guest";
-            this.userprofile.IsLoggedFacebook = true;
-            this.userprofile.IsLoggedIn = true;
+            //this.userprofile.UserId = "u01guest";
+            //this.userprofile.IsLoggedFacebook = true;
+            //this.userprofile.IsLoggedIn = true;
 
             // HACK: Initial UserProfile (Load data from ionic user)
-            //var user = Ionic.User.current();
-            //this.userprofile.UserId = user.id;
-            //this.userprofile.IsLoggedIn = user.get('IsLoggedIn', false);
-            //this.userprofile.IsLoggedFacebook = user.get('IsLoggedFacebook', null);
+            var user = Ionic.User.current();
+            this.userprofile.UserId = user.id;
+            this.userprofile.IsLoggedIn = user.get('IsLoggedIn', false);
+            this.userprofile.IsLoggedFacebook = user.get('IsLoggedFacebook', null);
+        }
+
+        public IsLogedIn(): boolean {
+            return this.userprofile.IsLoggedIn;
+        }
+
+        public IsLoggedFacebook(): boolean {
+            return this.userprofile.IsLoggedFacebook;
         }
 
         public GetUserProfile(): UserProfile {

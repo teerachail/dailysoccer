@@ -44,11 +44,6 @@
                              (params, svc: app.match.MatchService) => {
                              return svc.GetMatchesByDate(params.day);
                          }],
-                         "predictions": ["$stateParams", "app.match.PredictionsService", "app.shared.UserProfileService",
-                             (params, svc: app.match.PredictionsService, userService: app.shared.UserProfileService) => {
-                             var userId = userService.GetUserProfile().UserId;
-                             return svc.GetPredictionsByDate(userId, params.day);
-                         }],
                          "ads": ["app.ads.AdvertisementService", svc => {
                              return svc.GetAdvertisement();
                          }]
