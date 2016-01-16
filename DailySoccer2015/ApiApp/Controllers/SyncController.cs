@@ -177,6 +177,7 @@ namespace ApiApp.Controllers
             var now = DateTime.Now;
             var matches = _matchRepo.GetAllMatches().ToList();
             var predictions = _predictionRepo.GetUserPredictions().ToList();
+            var predictionPoints = new[] { 100, 120, 130, 140, 150 };
 
             var changedMatches = matches.Where(it => !it.LastCalculatedDateTime.HasValue || it.LastUpdateDateTime > it.LastCalculatedDateTime).ToList();
             changedMatches.ForEach(match =>
@@ -199,13 +200,18 @@ namespace ApiApp.Controllers
                     else predict.ActualPoints = 0;
                     _predictionRepo.UpdatePrediction(predict);
 
-                    var splitSeparetor = '-';
-                    var userIdPosition = 0;
+                    const char splitSeparetor = '-';
+                    const int userIdPosition = 0;
                     var users = _accountRepo.GetUserProfileById(predict.id.Split(splitSeparetor)[userIdPosition]);
                     users.Points += predict.PredictionPoints;
                     _accountRepo.UpdatePoint(users.id, users.Points);
                 });
 
+                var random = new Random();
+                var teamHomePoint = predictionPoints[random.Next(predictionPoints.Length)];
+                var teamAwayPoint = predictionPoints[random.Next(predictionPoints.Length)];
+                match.TeamHomePoint = teamHomePoint;
+                match.TeamAwayPoint = teamAwayPoint;
                 match.LastCalculatedDateTime = now;
                 _matchRepo.UpsertMatch(match);
             });
