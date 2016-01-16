@@ -210,8 +210,10 @@ namespace ApiApp.Controllers
                 var random = new Random();
                 var teamHomePoint = predictionPoints[random.Next(predictionPoints.Length)];
                 var teamAwayPoint = predictionPoints[random.Next(predictionPoints.Length)];
+                var drawPoint = predictionPoints[random.Next(predictionPoints.Length)];
                 match.TeamHomePoint = teamHomePoint;
                 match.TeamAwayPoint = teamAwayPoint;
+                match.DrawPoints = drawPoint;
                 match.LastCalculatedDateTime = now;
                 _matchRepo.UpsertMatch(match);
             });
