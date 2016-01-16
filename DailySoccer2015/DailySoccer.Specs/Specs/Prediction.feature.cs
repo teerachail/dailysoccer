@@ -31,8 +31,8 @@ namespace DailySoccer.Specs
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Prediction", "In order to avoid silly mistakes\nAs a math idiot\nI want to be told the sum of two" +
-                    " numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Prediction", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
+                    "wo numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -123,7 +123,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -134,6 +135,7 @@ this.FeatureBackground();
             table3.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -170,7 +172,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -181,6 +184,7 @@ this.FeatureBackground();
             table4.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -217,7 +221,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -228,6 +233,7 @@ this.FeatureBackground();
             table5.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -264,7 +270,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -275,6 +282,7 @@ this.FeatureBackground();
             table6.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -327,7 +335,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -338,6 +347,7 @@ this.FeatureBackground();
             table8.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "1/1/2015",
                         "",
                         "t01",
@@ -373,7 +383,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -384,6 +395,7 @@ this.FeatureBackground();
             table9.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "1/1/2015",
                         "1/1/2015",
                         "t01",
@@ -419,7 +431,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -455,7 +468,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -466,6 +480,7 @@ this.FeatureBackground();
             table11.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -501,7 +516,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -512,6 +528,7 @@ this.FeatureBackground();
             table12.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -547,7 +564,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -558,6 +576,7 @@ this.FeatureBackground();
             table13.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -593,7 +612,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -604,6 +624,7 @@ this.FeatureBackground();
             table14.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -639,7 +660,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -650,6 +672,7 @@ this.FeatureBackground();
             table15.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -685,7 +708,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -696,6 +720,7 @@ this.FeatureBackground();
             table16.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",
@@ -731,7 +756,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -742,6 +768,7 @@ this.FeatureBackground();
             table17.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "1/1/2015",
                         "",
                         "t01",
@@ -794,7 +821,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -805,6 +833,7 @@ this.FeatureBackground();
             table19.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "1/1/2015",
                         "1/1/2015",
                         "t01",
@@ -857,7 +886,8 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                         "id",
-                        "BeginDate",
+                        "BeginDateTimeUTC",
+                        "FilterDate",
                         "StartedDate",
                         "CompletedDate",
                         "TeamHomeId",
@@ -868,6 +898,7 @@ this.FeatureBackground();
             table21.AddRow(new string[] {
                         "m01",
                         "1/1/2015",
+                        "20150101",
                         "",
                         "",
                         "t01",

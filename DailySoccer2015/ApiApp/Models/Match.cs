@@ -52,11 +52,6 @@ namespace ApiApp.Models
         public int? TeamAwayPoint { get; set; }
 
         /// <summary>
-        /// วันเวลาในการแข่งขัน
-        /// </summary>
-        public DateTime BeginDate { get; set; }
-
-        /// <summary>
         /// วันเวลาที่แมทช์การแข่งขันเริ่มแข่งจริง
         /// </summary>
         public DateTime? StartedDate { get; set; }
