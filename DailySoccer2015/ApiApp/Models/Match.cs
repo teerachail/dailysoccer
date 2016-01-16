@@ -136,6 +136,51 @@ namespace ApiApp.Models
         /// </summary>
         public string ComparableMatch { get; set; }
 
+        [BsonIgnore]
+        public int FilterDateYear
+        {
+            get
+            {
+                const int YearBeginIndex = 0;
+                const int YearCharacterLength = 4;
+                return convertFilterDateToValue(YearBeginIndex, YearCharacterLength);
+            }
+        }
+
+        [BsonIgnore]
+        public int FilterDateMonth
+        {
+            get
+            {
+                const int MonthBeginIndex = 4;
+                const int MonthCharacterLength = 2;
+                return convertFilterDateToValue(MonthBeginIndex, MonthCharacterLength);
+            }
+        }
+
+        [BsonIgnore]
+        public int FilterDateDay
+        {
+            get
+            {
+                const int DayBeginIndex = 6;
+                const int DayCharacterLength = 2;
+                return convertFilterDateToValue(DayBeginIndex, DayCharacterLength);
+            }
+        }
+
+        private int convertFilterDateToValue(int fromIndex,int length)
+        {
+            const int IgnoreCase = 0;
+            const int CorrectPatternCharacters = 8;
+            var isDataCorrect = !string.IsNullOrEmpty(FilterDate) && FilterDate.Length == CorrectPatternCharacters;
+            if (!isDataCorrect) return IgnoreCase;
+
+            int year;
+            int.TryParse(FilterDate.Substring(fromIndex, length), out year);
+            return year;
+        }
+
         #endregion Properties
     }
 }

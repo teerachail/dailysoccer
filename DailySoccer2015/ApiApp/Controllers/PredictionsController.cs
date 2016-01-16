@@ -59,8 +59,11 @@ namespace ApiApp.Controllers
             var areArgumentsValid = !string.IsNullOrEmpty(id) && value != null && !string.IsNullOrEmpty(value.MatchId);
             if (!areArgumentsValid) return null;
 
+            const int IgnoreDay = 0;
             var selectedMatch = _matchesRepo.GetMatchById(value.MatchId);
             var isMatchReadyForPrediction = selectedMatch != null
+                && !string.IsNullOrEmpty(selectedMatch.FilterDate)
+                && selectedMatch.FilterDateDay != IgnoreDay
                 && !selectedMatch.StartedDate.HasValue
                 && !selectedMatch.CompletedDate.HasValue
                 && (selectedMatch.TeamAwayId.Equals(value.TeamId) || selectedMatch.TeamHomeId.Equals(value.TeamId) || string.IsNullOrEmpty(value.TeamId));
@@ -78,16 +81,16 @@ namespace ApiApp.Controllers
                 _predictionRepo.SetUserPrediction(id, value.MatchId, value.TeamId, actualPredictionPoints, DateTime.Now);
             }
             var now = DateTime.Now;
-            return getPredictionsByDay(id, selectedMatch.BeginDate.Date.Day);
+            return getPredictionsByDay(id, selectedMatch.FilterDateDay);
         }
 
         // Get Prediction by day
         private IEnumerable<PredictionInformation> getPredictionsByDay(string id, int day)
         {
-            var fromDate = DateTime.Now.AddDays(-3);
-            var toDate = DateTime.Now.AddDays(3);
-            var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1)
-                                      .Select(d => fromDate.AddDays(d));
+            const int DayRange = 3;
+            var fromDate = DateTime.Now.AddDays(-DayRange);
+            var toDate = DateTime.Now.AddDays(DayRange);
+            var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1).Select(d => fromDate.AddDays(d));
             var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
             if (selectedDate == null) return null;
 

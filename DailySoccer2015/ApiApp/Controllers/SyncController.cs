@@ -91,7 +91,7 @@ namespace ApiApp.Controllers
                     var matchDate = DateTime.ParseExact(match.match_formatted_date, DateFormat, provider);
                     var matchTime = string.IsNullOrWhiteSpace(match.match_time) ? TimeSpan.Zero : TimeSpan.Parse(match.match_time);
 
-                    dbMatch.FilterDate = matchDate.AddDays(match.DifferentDay).ToString("yyyyMMdd");
+                    dbMatch.FilterDate = MatchesRepository.ConvertDateTimeToFilterDateFormat(matchDate.AddDays(match.DifferentDay));
                     dbMatch.BeginDateTimeUTC = matchDate.Add(matchTime).ToUniversalTime();
 
                     dbMatch.LastUpdateDateTime = now;
@@ -222,7 +222,11 @@ namespace ApiApp.Controllers
         private void sendNotification()
         {
             var unnotifyMatches = _matchRepo.GetUnNotifyMatches();
-            var uniqueDate = unnotifyMatches.Select(it => it.BeginDate.Date).Distinct().ToList();
+            var uniqueDate = unnotifyMatches
+                .Where(it => it.FilterDate != null)
+                .Select(it => it.FilterDate)
+                .Distinct()
+                .ToList();
 
             // TODO: Notify client with SignalR
         }

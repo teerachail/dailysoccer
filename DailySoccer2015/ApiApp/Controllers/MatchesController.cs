@@ -37,58 +37,44 @@ namespace ApiApp.Controllers
         [Route("{day}")]
         public IEnumerable<LeagueInformation> Get(int day)
         {
-            var fromDate = DateTime.Now.AddDays(-3);
-            var toDate = DateTime.Now.AddDays(3);
-            var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1)
-                                      .Select(d => fromDate.AddDays(d));
-
+            const int DayRange = 3;
+            var fromDate = DateTime.Now.AddDays(-DayRange);
+            var toDate = DateTime.Now.AddDays(DayRange);
+            var dateRange = Enumerable.Range(0, toDate.Subtract(fromDate).Days + 1).Select(d => fromDate.AddDays(d));
             var selectedDate = dateRange.FirstOrDefault(it => it.Date.Day == day);
             if (selectedDate == null) return null;
 
             var matches = _repo.GetMatchesByDate(selectedDate).ToList();
-            var leagueIds = matches.Select(it => it.LeagueId).Distinct().ToList();
-            var leagues = _repo.GetLeaguesByIds(leagueIds).ToList();
+            var result = matches
+                .Where(it => it.BeginDateTimeUTC.HasValue)
+                .Where(it => it.FilterDate == MatchesRepository.ConvertDateTimeToFilterDateFormat(selectedDate))
+                .Select(match => new MatchInformation
+                {
+                    id = match.id,
+                    TeamHomeId = match.TeamHomeId,
+                    TeamHomeName = match.TeamHomeName,
+                    TeamHomePoint = match.TeamHomePoint,
+                    TeamHomeScore = match.TeamHomeScore,
+                    TeamAwayId = match.TeamAwayId,
+                    TeamAwayName = match.TeamAwayName,
+                    TeamAwayPoint = match.TeamAwayPoint,
+                    TeamAwayScore = match.TeamAwayScore,
+                    DrawPoints = match.DrawPoints,
+                    BeginDate = match.BeginDateTimeUTC.Value,
+                    Status = match.Status,
+                    StartedDate = match.StartedDate,
+                    CompletedDate = match.CompletedDate,
+                    LeagueId = match.LeagueId,
+                    LeagueName = match.LeagueName,
+                })
+                .GroupBy(it => it.LeagueName)
+                .Select(it => new LeagueInformation
+                {
+                    Name = it.Key,
+                    Matches = it.ToList()
+                }).ToList();
 
-            var teamIds = matches.Select(it => it.TeamAwayId).Union(matches.Select(it => it.TeamHomeId)).Distinct().ToList();
-            var teams = _repo.GetTeamsByIds(teamIds).ToList();
-
-            var selectedMatch = from match in matches.Where(it => it.BeginDate.Date == selectedDate.Date).ToList()
-                                let teamHome = teams.FirstOrDefault(it => it.id == match.TeamHomeId)
-                                where teamHome != null
-                                let teamHomeName = teamHome.Name
-                                let teamAway = teams.FirstOrDefault(it => it.id == match.TeamAwayId)
-                                where teamAway != null
-                                let teamAwayName = teamAway.Name
-                                let leagueName = leagues.First(league => league.id == match.LeagueId).Name
-                                select new MatchInformation
-                                {
-                                    id = match.id,
-                                    TeamHomeId = match.TeamHomeId,
-                                    TeamHomeName = teamHomeName,
-                                    TeamHomePoint = match.TeamHomePoint,
-                                    TeamHomeScore = match.TeamHomeScore,
-                                    TeamAwayId = match.TeamAwayId,
-                                    TeamAwayName = teamAwayName,
-                                    TeamAwayPoint = match.TeamAwayPoint,
-                                    TeamAwayScore = match.TeamAwayScore,
-                                    DrawPoints = match.DrawPoints,
-                                    BeginDate = match.BeginDate,
-                                    Status = match.Status,
-                                    StartedDate = match.StartedDate,
-                                    CompletedDate = match.CompletedDate,
-                                    LeagueId = match.LeagueId,
-                                    LeagueName = leagueName
-                                };
-
-            var selectedLeagueGroup = from leagueGroup in selectedMatch.GroupBy(it => it.LeagueName).ToList()
-                                      let match = leagueGroup
-                                      select new LeagueInformation
-                                      {
-                                          Name = leagueGroup.Key,
-                                          Matches = leagueGroup.OrderBy(it => it.BeginDate).ToList()
-                                      };
-
-            return selectedLeagueGroup;
+            return result;
         }
     }
 }

@@ -74,7 +74,7 @@ namespace DailySoccer.Specs.Steps
             mockMatchRepo.Setup(dac => dac.GetMatchById(It.IsAny<string>()))
                 .Returns<string>(id => ScenarioContext.Current.Get<List<ApiApp.Models.Match>>().FirstOrDefault(it => it.id == id));
             mockMatchRepo.Setup(dac => dac.GetMatchesByDate(It.IsAny<DateTime>()))
-                .Returns<DateTime>(date => ScenarioContext.Current.Get<List<ApiApp.Models.Match>>().Where(it => it.BeginDate.Date == date.Date));
+                .Returns<DateTime>(date => ScenarioContext.Current.Get<List<ApiApp.Models.Match>>().Where(it => it.FilterDate == MatchesRepository.ConvertDateTimeToFilterDateFormat(date.Date)));
         }
 
         [Given(@"Predictions in the system are")]

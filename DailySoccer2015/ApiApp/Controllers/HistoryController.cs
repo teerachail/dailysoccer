@@ -39,15 +39,16 @@ namespace ApiApp.Controllers
         {
             if (string.IsNullOrEmpty(id)) return null;
 
+            const int IgnoreMonth = 0;
             var now = DateTime.Now;
-            var matches = _matchesRepo.GetMatchesByYear(now.Year).ToList();
+            var matches = _matchesRepo.GetMatchesByYear(now.Year).Where(it => it.FilterDateMonth != IgnoreMonth).ToList();
             var predictionQry = getPredictions(id, matches);
 
             var result = new List<PredictionMonthlySummary>();
-            var months = matches.Select(it => it.BeginDate.Month).Distinct().OrderByDescending(it => it);
+            var months = matches.Select(it => it.FilterDateMonth).Distinct().OrderByDescending(it => it);
             foreach (var month in months)
             {
-                var todayMatches = matches.Where(it => it.BeginDate.Month == month);
+                var todayMatches = matches.Where(it => it.FilterDateMonth == month);
                 var totalPoints = getPredictions(todayMatches, predictionQry).Sum(it => it.ActualPoints);
 
                 var date = new DateTime(now.Year, month, 1);
@@ -69,18 +70,18 @@ namespace ApiApp.Controllers
         {
             if (string.IsNullOrEmpty(id)) return null;
 
-            var matches = _matchesRepo.GetMatchesByYear(year).Where(it => it.BeginDate.Month == month).ToList();
-            //var teamIds = matches.Select(it => it.TeamAwayId).Union(matches.Select(it => it.TeamHomeId)).Distinct();
+            const int IgnoreYear = 0;
+            var matches = _matchesRepo.GetMatchesByYear(year).Where(it => it.FilterDateYear != IgnoreYear).Where(it => it.FilterDateMonth == month).ToList();
             var predictionQry = getPredictions(id, matches);
 
             var result = new List<PredictionDailySummary>();
-            var days = matches.Select(it => it.BeginDate.Day).Distinct().OrderByDescending(it => it);
-            var matchQry = matches.Where(it => days.Contains(it.BeginDate.Day));
+            var days = matches.Where(it => it.FilterDateDay != IgnoreYear).Select(it => it.FilterDateDay).Distinct().OrderByDescending(it => it);
+            var matchQry = matches.Where(it => days.Contains(it.FilterDateDay));
             var teamIds = matchQry.Select(it => it.TeamAwayId).Union(matchQry.Select(it => it.TeamHomeId)).Distinct();
             var teams = _matchesRepo.GetTeamsByIds(teamIds).ToList();
             foreach (var day in days)
             {
-                var todayMatches = matches.Where(it => it.BeginDate.Day == day);
+                var todayMatches = matches.Where(it => it.FilterDateDay == day);
                 var predictions = getPredictions(todayMatches, predictionQry);
                 var predictionResults = (from prediction in predictions
                                          let matchId = prediction.id.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[1]
@@ -100,7 +101,6 @@ namespace ApiApp.Controllers
                                              TeamAwayName = teamAway.Name,
                                              TeamHomeScore = match.TeamHomeScore,
                                              TeamAwayScore = match.TeamAwayScore,
-
                                          }).ToList();
 
                 var date = new DateTime(year, month, day);

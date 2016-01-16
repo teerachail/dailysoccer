@@ -31,7 +31,6 @@ namespace ApiApp.Repositories
         public void UpsertMatch(Match match)
         {
             var update = Builders<Match>.Update
-              .Set(it => it.BeginDate, match.BeginDate)
               .Set(it => it.CompletedDate, match.CompletedDate)
               .Set(it => it.LeagueId, match.LeagueId)
               .Set(it => it.StartedDate, match.StartedDate)
@@ -40,9 +39,9 @@ namespace ApiApp.Repositories
               .Set(it => it.TeamAwayScore, match.TeamAwayScore)
               .Set(it => it.TeamHomeId, match.TeamHomeId)
               .Set(it => it.TeamHomeScore, match.TeamHomeScore)
-              //.Set(it => it.DrawPoints, match.DrawPoints)
-              //.Set(it => it.TeamAwayPoint, match.TeamAwayPoint)
-              //.Set(it => it.TeamHomePoint, match.TeamHomePoint)
+              .Set(it => it.DrawPoints, match.DrawPoints)
+              .Set(it => it.TeamAwayPoint, match.TeamAwayPoint)
+              .Set(it => it.TeamHomePoint, match.TeamHomePoint)
               .Set(it => it.TeamHomeName, match.TeamHomeName)
               .Set(it => it.TeamAwayName, match.TeamAwayName)
               .Set(it => it.LeagueName, match.LeagueName)
@@ -76,10 +75,12 @@ namespace ApiApp.Repositories
         /// <param name="beginDate">วันที่แข่งขันที่ต้องการดึงข้อมูล</param>
         public IEnumerable<Match> GetMatchesByDate(DateTime beginDate)
         {
+            var filterDate = ConvertDateTimeToFilterDateFormat(beginDate);
             var qry = MongoUtil.GetCollection<Match>(MatchTableName)
                .Find(it => true)
                .ToEnumerable()
-               .Where(it => it.BeginDate.Date == beginDate.Date);
+               .Where(it => !string.IsNullOrEmpty(it.FilterDate))
+               .Where(it => it.FilterDate == filterDate);
             return qry;
         }
 
@@ -116,7 +117,7 @@ namespace ApiApp.Repositories
             var qry = MongoUtil.GetCollection<Match>(MatchTableName)
                 .Find(it => true)
                 .ToEnumerable()
-                .Where(it => it.BeginDate.Year == year);
+                .Where(it => it.FilterDateYear == year);
             return qry;
         }
 
@@ -191,6 +192,15 @@ namespace ApiApp.Repositories
                    || (it.LastUpdateDateTime.Value > it.NotifyDateTime.Value))
                    .ToList();
             return qry;
+        }
+
+        /// <summary>
+        /// แปลงรูปแบบเวลาให้อยู่ในรูปแบบที่ใช้กับ FilterDate
+        /// </summary>
+        /// <param name="date"></param>
+        public static string ConvertDateTimeToFilterDateFormat(DateTime date)
+        {
+            return date.ToString("yyyyMMdd");
         }
 
         #endregion IMatchesRepository members
