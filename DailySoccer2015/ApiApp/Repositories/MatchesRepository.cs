@@ -184,7 +184,7 @@ namespace ApiApp.Repositories
         /// </summary>
         public IEnumerable<Match> GetUnNotifyMatches()
         {
-            var qry = MongoUtil.GetCollection<Match>(TeamTableName)
+            var qry = MongoUtil.GetCollection<Match>(MatchTableName)
                .Find(it => true)
                .ToEnumerable()
                .Where(it => !it.LastUpdateDateTime.HasValue
