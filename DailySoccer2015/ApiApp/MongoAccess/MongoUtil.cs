@@ -22,10 +22,9 @@ namespace ApiApp.MongoAccess
 
         static MongoUtil()
         {
-            var connectionString = WebConfigurationManager.AppSettings["primaryConnectionString"];
+            var connectionString = WebConfigurationManager.AppSettings["testConnectionString"];
             _client = new MongoClient(connectionString);
-
-            var dbName = WebConfigurationManager.AppSettings["databaseName"];
+            var dbName = WebConfigurationManager.AppSettings["testDatabaseName"];
             _database = _client.GetDatabase(dbName);
         }
 
