@@ -33,8 +33,16 @@ namespace ApiApp.Controllers
         [HttpGet]
         public IEnumerable<League> Get()
         {
-            var leagues = _repo.GetAllLeagues().ToList();
-            return leagues;
+            try
+            {
+                var leagues = _repo.GetAllLeagues().ToList();
+                return leagues;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Trace.TraceError(e.ToString());
+                return Enumerable.Empty<League>();
+            }
         }
     }
 }
