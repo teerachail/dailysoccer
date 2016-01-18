@@ -105,6 +105,7 @@
             var user = this.userSvc.GetUserProfile().UserId;
             this.predictSvc.GetPredictionsByDate(user, this.params.day).then((respond) => {
                 this.predictions = respond;
+                // TODO:
                 this.updatePredictionRemainning();
             });
         }
@@ -115,21 +116,27 @@
             const MaximunPredictionCount = 5;
             if (this.predictions == null) this.PredictionRemainingCount = MaximunPredictionCount;
             if (this.params.day == now.getDate()) {
-                this.PredictionRemainingCount = MaximunPredictionCount - this.predictions.length;
+
+                for (var it in this.predictions) this.userSvc.MatchPredictions.push(it.MatchId);
+                
+                this.userSvc.PredictionRemainingCount = MaximunPredictionCount - this.userSvc.MatchPredictions.data.length;
             }
         }
 
-        private checkAllowPredict(matchId: string): boolean {
-            const DisabledPrediction = 0;
-            const firstPrediction = 0;
-            var selectedPrediction = this.predictions.filter(it => it.MatchId == matchId)[firstPrediction];
-            var isPredicted = selectedPrediction != null;
-            var isAllowPredict = this.PredictionRemainingCount > DisabledPrediction;
-            return isPredicted || isAllowPredict;
-        }
+        //private checkAllowPredict(matchId: string): boolean {
+        //    const DisabledPrediction = 0;
+        //    const firstPrediction = 0;
+        //    var selectedPrediction = this.predictions.filter(it => it.MatchId == matchId)[firstPrediction];
+        //    var isPredicted = selectedPrediction != null;
+        //    var isAllowPredict = this.userSvc.PredictionRemainingCount > DisabledPrediction;
+        //    return isPredicted || isAllowPredict;
+        //}
 
         private predict(userId: string, matchId: string, selectedTeamId: string, isCancel: boolean): void {            
-            if (this.checkAllowPredict(matchId)) {
+            const MinimumToSendPrediction = 1;
+            var isAllowToPredict = this.userSvc.PredictionRemainingCount >= MinimumToSendPrediction;
+            if (isAllowToPredict) {
+                if (isCancel) this.userSvc.MatchPredictions.pull(matchId);
                 this.predictSvc.Predict(userId, matchId, selectedTeamId, isCancel)
                     .then((respond: any): void => {
                         this.predictions = respond;
