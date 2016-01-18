@@ -117,24 +117,14 @@
         private updatePredictionRemainning() {
             var now = new Date();
             var MaximunPredictionCount = this.maximunPredictionCount;
-            if (this.predictions == null) this.PredictionRemainingCount = MaximunPredictionCount;
             if (this.params.day == now.getDate()) {
-
-                for (var it in this.predictions) this.userSvc.MatchPredictions.push(it.MatchId);
-                
+                for (var elementIndex = 0; elementIndex < this.predictions.length; elementIndex++) {
+                    this.userSvc.MatchPredictions.push(this.predictions[elementIndex].MatchId);
+                }
                 this.userSvc.PredictionRemainingCount = MaximunPredictionCount - this.userSvc.MatchPredictions.data.length;
             }
         }
-
-        //private checkAllowPredict(matchId: string): boolean {
-        //    const DisabledPrediction = 0;
-        //    const firstPrediction = 0;
-        //    var selectedPrediction = this.predictions.filter(it => it.MatchId == matchId)[firstPrediction];
-        //    var isPredicted = selectedPrediction != null;
-        //    var isAllowPredict = this.userSvc.PredictionRemainingCount > DisabledPrediction;
-        //    return isPredicted || isAllowPredict;
-        //}
-
+        
         private predict(userId: string, matchId: string, selectedTeamId: string, isCancel: boolean): void {
             const MinimumToSendPrediction = 1;
             var isAllowToPredict = this.userSvc.PredictionRemainingCount >= MinimumToSendPrediction;
