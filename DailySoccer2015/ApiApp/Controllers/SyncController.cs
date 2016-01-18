@@ -54,29 +54,7 @@ namespace ApiApp.Controllers
                 if (isMatchChanged)
                 {
                     changed = true;
-                    if (dbMatch == null)
-                    {
-                        int teamAwayScore;
-                        int.TryParse(match.match_visitorteam_score, out teamAwayScore);
-
-                        int teamHomeScore;
-                        int.TryParse(match.match_localteam_score, out teamHomeScore);
-
-                        dbMatch = new Match
-                        {
-                            id = match.match_id,
-                            LeagueId = match.match_comp_id,
-                            Status = match.match_status,
-                            TeamAwayId = match.match_visitorteam_id,
-                            TeamAwayName = match.match_visitorteam_name,
-                            TeamAwayScore = teamAwayScore,
-                            TeamHomeId = match.match_localteam_id,
-                            TeamHomeName = match.match_localteam_name,
-                            TeamHomeScore = teamHomeScore,
-                            LeagueName = match.LeagueName,
-                            CreatedDateTime = now,
-                        };
-                    }
+                    if (dbMatch == null) dbMatch = new Match { id = match.match_id, CreatedDateTime = now, };
 
                     const string PendingStatusCharacter = ":";
                     var shouldUpdateStartedDate = !dbMatch.StartedDate.HasValue && !match.match_status.Contains(PendingStatusCharacter);
@@ -94,9 +72,24 @@ namespace ApiApp.Controllers
                     dbMatch.FilterDate = MatchesRepository.ConvertDateTimeToFilterDateFormat(matchDate.AddDays(match.DifferentDay));
                     dbMatch.BeginDateTimeUTC = matchDate.Add(matchTime).ToUniversalTime();
 
+                    int teamAwayScore;
+                    int.TryParse(match.match_visitorteam_score, out teamAwayScore);
+                    dbMatch.TeamAwayScore = teamAwayScore;
+
+                    int teamHomeScore;
+                    int.TryParse(match.match_localteam_score, out teamHomeScore);
+                    dbMatch.TeamHomeScore = teamHomeScore;
+
+                    dbMatch.LeagueId = match.match_comp_id;
+                    dbMatch.TeamAwayId = match.match_visitorteam_id;
+                    dbMatch.TeamAwayName = match.match_visitorteam_name;
+                    dbMatch.TeamHomeId = match.match_localteam_id;
+                    dbMatch.TeamHomeName = match.match_localteam_name;
+                    dbMatch.LeagueName = match.LeagueName;
                     dbMatch.LastUpdateDateTime = now;
                     dbMatch.ComparableMatch = apiMatch;
                     dbMatch.GameMinutes = match.match_status;
+                    dbMatch.Status = match.match_status;
 
                     _matchRepo.UpsertMatch(dbMatch);
                 }

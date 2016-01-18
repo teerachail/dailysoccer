@@ -25,7 +25,9 @@ namespace ApiApp.Repositories
         public IEnumerable<MatchAPIInformation> GetMatchesByLeagueId(string leagueId, DateTime fromDate, DateTime toDate)
         {
             const string dateFormat = "dd.MM.yyyy";
-            const string APIKey = "d7946ce1-b897-975e-d462b1899cd6";
+            //const string APIKey = "d7946ce1-b897-975e-d462b1899cd6"; // miolynet fot Joker azure
+            const string APIKey = "fb8e4d95-d176-b433-7a10ecb4ebe7"; // perawatt fot localhost
+            
             const string urlFormat = "/api/?Action=fixtures&APIKey={0}&comp_id={1}&from_date={2}&to_date={3}";
             var url = string.Format(urlFormat, APIKey, leagueId, fromDate.ToString(dateFormat), toDate.ToString(dateFormat));
             
