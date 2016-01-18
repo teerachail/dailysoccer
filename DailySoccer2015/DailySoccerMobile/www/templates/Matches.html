@@ -53,13 +53,14 @@
                             <div ng-show="cx.IsMatchAvailable(item)" class="row">
                                 <div class="col">
                                     <button ng-class="{
+                                        'click-predict-animation': cx.IsAnimate(item, 'home'),
                                         'button-dark': cx.IsUnSelectedHome(item),
                                         'button-balanced': cx.IsSelectedHome(item),
                                         'button-energized': cx.IsPredictHomeWin(item),
                                         'button-assertive': cx.IsPredictHomeLose(item)}"
-                                            ng-disabled="cx.IsGameStarted(item)"
+                                            ng-disabled="cx.IsGameStarted(item) || cx.IsAnimate(item, 'home')"
                                             ng-click="cx.predictTeamHome(item)"
-                                            class="button col">
+                                            class="button col block-center">
                                         {{item.TeamHomePoint}}
                                         <span class="prediction-point" ng-show="cx.IsShowHomePredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span>
                                     </button>
@@ -67,13 +68,14 @@
                                 </div>
                                 <div class="col">
                                     <button ng-class="{
+                                        'click-predict-animation': cx.IsAnimate(item, 'draw'),
                                         'button-dark': cx.IsUnSelectedDraw(item),
                                         'button-balanced': cx.IsSelectedDraw(item),
                                         'button-energized': cx.IsPredictDrawWin(item),
                                         'button-assertive': cx.IsPredictDrawLose(item)}"
-                                            ng-disabled="cx.IsGameStarted(item)"
+                                            ng-disabled="cx.IsGameStarted(item) || cx.IsAnimate(item, 'draw')"
                                             ng-click="cx.predictDraw(item)"
-                                            class="button col">
+                                            class="button col block-center">
                                         {{item.DrawPoints}}
                                         <span class="prediction-point" ng-show="cx.IsShowDrawPredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span>
                                     </button>
@@ -81,13 +83,14 @@
                                 </div>
                                 <div class="col">
                                     <button ng-class="{
+                                        'click-predict-animation': cx.IsAnimate(item, 'away'),
                                         'button-dark': cx.IsUnSelectedAway(item),
                                         'button-balanced': cx.IsSelectedAway(item),
                                         'button-energized': cx.IsPredictAwayWin(item),
                                         'button-assertive': cx.IsPredictAwayLose(item)}"
-                                            ng-disabled="cx.IsGameStarted(item)"
+                                            ng-disabled="cx.IsGameStarted(item) || cx.IsAnimate(item, 'away')"
                                             ng-click="cx.predictTeamAway(item)"
-                                            class="button col">
+                                            class="button col block-center">
                                         {{item.TeamAwayPoint}}
                                         <span class="prediction-point" ng-show="cx.IsShowAwayPredictionPoint(item)">{{cx.GetPredictionPoint(item)}}'</span>
                                     </button>
