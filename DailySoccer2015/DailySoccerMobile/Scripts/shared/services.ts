@@ -21,6 +21,8 @@
     export class UserProfileService implements IUserProfileService {
 
         public CurrentPoints: number;
+        public MatchPredictions;
+        public PredictionRemainingCount: number;
         private userprofile: UserProfile;
 
         constructor() {           
@@ -34,6 +36,10 @@
             this.userprofile.UserId = user.id;
             this.userprofile.IsLoggedIn = user.get('IsLoggedIn', false);
             this.userprofile.IsLoggedFacebook = user.get('IsLoggedFacebook', null);
+
+            var uniqueIds = new Ionic.DataTypes.UniqueArray();
+            user.set('MatchPredictions', uniqueIds);
+            this.MatchPredictions = user.get('MatchPredictions');
         }
 
         public IsLogedIn(): boolean {
