@@ -49,6 +49,8 @@ namespace ApiApp.Controllers
             foreach (var month in months)
             {
                 var todayMatches = matches.Where(it => it.FilterDateMonth == month);
+                if (!todayMatches.Any()) continue;
+
                 var totalPoints = getPredictions(todayMatches, predictionQry).Sum(it => it.ActualPoints);
 
                 var date = new DateTime(now.Year, month, 1);
@@ -82,6 +84,8 @@ namespace ApiApp.Controllers
             foreach (var day in days)
             {
                 var todayMatches = matches.Where(it => it.FilterDateDay == day);
+                if (!todayMatches.Any()) continue;
+
                 var predictions = getPredictions(todayMatches, predictionQry);
                 var predictionResults = (from prediction in predictions
                                          let matchId = prediction.id.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[1]
