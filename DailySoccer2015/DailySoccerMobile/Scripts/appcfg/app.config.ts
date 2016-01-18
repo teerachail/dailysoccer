@@ -51,5 +51,6 @@
     angular
         .module('app')
         .constant('defaultUrl', 'http://dailysoccer-joker.azurewebsites.net')
+        .constant('MaximunPredictionCount', 5)
         .service('appConfig', AppConfig);
 }

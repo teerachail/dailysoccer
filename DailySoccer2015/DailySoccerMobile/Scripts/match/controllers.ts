@@ -65,7 +65,8 @@
             '$stateParams',
             '$ionicPopup',
             'ads',
-            '$ionicHistory'];
+            '$ionicHistory',
+            'MaximunPredictionCount'];
         constructor(
             public leagues: any,
             public userSvc: app.shared.UserProfileService,
@@ -77,7 +78,8 @@
             private params,
             private $ionicPopup,
             private ads,
-            private $ionicHistory) {
+            private $ionicHistory,
+            private maximunPredictionCount: number) {
 
             $rootScope.refresher = () => {
                 this.onPageLoad();
@@ -113,7 +115,7 @@
 
         private updatePredictionRemainning() {
             var now = new Date();
-            const MaximunPredictionCount = 5;
+            var MaximunPredictionCount = this.maximunPredictionCount;
             if (this.predictions == null) this.PredictionRemainingCount = MaximunPredictionCount;
             if (this.params.day == now.getDate()) {
 
@@ -144,7 +146,7 @@
                     });
             } else {
                 this.$ionicPopup.alert({
-                    title: 'เลือกได้สูงสุดเพียง 5 คู่',
+                    title: 'เลือกได้สูงสุดเพียง ' + this.maximunPredictionCount + ' คู่',
                     okType: 'button-royal',
                     okText: 'ปิด'
                 });
