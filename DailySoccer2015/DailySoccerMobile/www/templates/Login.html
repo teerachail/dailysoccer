@@ -1,4 +1,4 @@
-﻿<ion-modal-view class="bg-main">
+﻿<ion-modal-view class="bg-main" cache-view="false">
     <ion-content has-header="true" padding="true">
         <br />
         <br />
@@ -8,18 +8,18 @@
         <div class="row row-center">
             <div class="col col-center">
                 <div>
-                    <img  class="col col-75 block-center" src="img/LogoLoginx1.png" bh-src-responsive="[ [ 'small', 'img/LogoLoginx2.png' ], [ 'medium', 'img/LogoLoginx3.png' ], [ 'retina', 'img/LogoLoginx3.png' ] ]" />
+                    <img class="col col-75 block-center" src="img/LogoLoginx1.png" bh-src-responsive="[ [ 'small', 'img/LogoLoginx2.png' ], [ 'medium', 'img/LogoLoginx3.png' ], [ 'retina', 'img/LogoLoginx3.png' ] ]" />
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <button menu-close class="button col col-75 block-center button-calm" ng-show="cx.IsShowNewGuestButton()" ng-click="cx.LoginHide()">เข้าใช้งานผ่าน Facebook</button>
+                <button menu-close class="button col col-75 block-center button-calm"  ng-click="cx.LoginWithFacebookAccount()">เข้าใช้งานผ่าน Facebook</button>
             </div>
         </div>
     </ion-content>
     <ion-footer-bar class="bar-balanced">
-        <a menu-close class="col button button-clear text-right" ng-click="cx.LoggedInWithGuest()" href="#">
+        <a menu-close class="col button button-clear text-right" ng-show="cx.IsShowNewGuestButton()" ng-click="cx.LoggedInWithGuest()" href="#">
             เริ่มต้นใช้งาน >>
         </a>
     </ion-footer-bar>

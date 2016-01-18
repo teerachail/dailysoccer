@@ -9,6 +9,9 @@
         CreateNewGuest(): T;
         GetUserProfile(data: T): T;
     }
+    interface IFacebookResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
+        TieFacebook(data: T): T;
+    }
     interface IUserFavoriteTeamResourceClass<T> extends ng.resource.IResourceClass<ng.resource.IResource<T>> {
         SetFavoriteTeam(data: T): T;
     }
@@ -38,6 +41,7 @@
     export class UserProfileService {
         private profileSvc: IProfilesResourceClass<any>;
         private favoriteSvc: IUserFavoriteTeamResourceClass<any>;
+        private tieFacebookSvc: IFacebookResourceClass<any>;
 
         static $inject = ['appConfig', '$resource', 'app.shared.UserProfileService'];
         constructor(appConfig: IAppConfig, private $resource: angular.resource.IResourceService, private userProfileSvc: app.shared.UserProfileService) {
@@ -47,6 +51,9 @@
             });
             this.favoriteSvc = <IUserFavoriteTeamResourceClass<any>>$resource(appConfig.ProfileUrl, { 'id': '@id'}, {
                 SetFavoriteTeam: { method: 'POST', params: { 'action': 'favteam' } },
+            });
+            this.tieFacebookSvc = <IFacebookResourceClass<any>>$resource(appConfig.TieFacebookUrl, {}, {
+                TieFacebook: { method: 'POST' }
             });
         }
 
@@ -59,6 +66,9 @@
         public GetUserProfile(): ng.IPromise<any> {
             var userId = this.userProfileSvc.GetUserProfile().UserId;
             return this.profileSvc.GetUserProfile(new app.account.GetUserProfileRequest(userId)).$promise;
+        }
+        public TieFacebook(FacebookId: string, UserId: string, IsConfirmed: boolean): ng.IPromise<any> {
+            return this.tieFacebookSvc.TieFacebook(new app.account.FacebookRequest(FacebookId, UserId, IsConfirmed)).$promise;
         }
     }
 

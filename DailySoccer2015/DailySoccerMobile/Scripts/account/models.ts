@@ -22,4 +22,8 @@
     export class GetUserProfileRequest {
         constructor(public id: string) { }
     }
+
+    export class FacebookRequest {
+        constructor(public FacebookId: string, public UserId: string, public IsConfirmed: boolean) { }
+    }
 }

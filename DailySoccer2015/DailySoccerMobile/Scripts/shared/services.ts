@@ -21,6 +21,7 @@
     export class UserProfileService implements IUserProfileService {
 
         public CurrentPoints: number;
+        public FacebookId: string;
         public MatchPredictions;
         public PredictionRemainingCount: number;
         private userprofile: UserProfile;
@@ -36,6 +37,7 @@
             this.userprofile.UserId = user.id;
             this.userprofile.IsLoggedIn = user.get('IsLoggedIn', false);
             this.userprofile.IsLoggedFacebook = user.get('IsLoggedFacebook', null);
+            this.FacebookId = "dailysoccer@facebook.com";
 
             var uniqueIds = new Ionic.DataTypes.UniqueArray();
             user.set('MatchPredictions', uniqueIds);
@@ -54,7 +56,7 @@
             return this.userprofile;
         }
         public Logout(): void {
-            this.userprofile.UserId = null;
+            this.userprofile.UserId = 'empty';
             this.userprofile.IsLoggedIn = false;
             this.userprofile.IsLoggedFacebook = false;
             this.updateUserProfile();
@@ -65,7 +67,7 @@
             this.userprofile.IsLoggedFacebook = false;
             this.updateUserProfile();
         }
-        public LoggedInWithFacebook(userId: string, verifiedPhoneNo: string): void {
+        public LoggedInWithFacebook(userId: string): void {
             this.userprofile.UserId = userId;
             this.userprofile.IsLoggedIn = true;
             this.userprofile.IsLoggedFacebook = true;

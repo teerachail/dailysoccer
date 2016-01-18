@@ -3,6 +3,7 @@
 
     export interface IAppConfig {
         ProfileUrl: string;
+        TieFacebookUrl: string;
         VerifyPhoneUrl: string;
         BuyCouponUrl: string;
         CouponSummaryUrl: string;
@@ -18,6 +19,7 @@
     export class AppConfig implements IAppConfig {
 
         public ProfileUrl: string;
+        public TieFacebookUrl: string;
         public VerifyPhoneUrl: string;
         public BuyCouponUrl: string;
         public CouponSummaryUrl: string;
@@ -34,6 +36,7 @@
             var apiUrl = defaultUrl + '/api';
 
             this.ProfileUrl = apiUrl + '/profiles/:id/:action';
+            this.TieFacebookUrl = apiUrl + '/profiles/facebook';
             this.VerifyPhoneUrl = this.ProfileUrl;
             this.BuyCouponUrl = apiUrl + '/coupons/buy';
             this.CouponSummaryUrl = apiUrl + '/coupons/summary/:id';
