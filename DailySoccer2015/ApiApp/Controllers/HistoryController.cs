@@ -80,8 +80,6 @@ namespace ApiApp.Controllers
             var result = new List<PredictionDailySummary>();
             var days = matches.Where(it => it.FilterDateDay != IgnoreYear).Select(it => it.FilterDateDay).Distinct().OrderByDescending(it => it);
             var matchQry = matches.Where(it => days.Contains(it.FilterDateDay));
-            var teamIds = matchQry.Select(it => it.TeamAwayId).Union(matchQry.Select(it => it.TeamHomeId)).Distinct();
-            var teams = _matchesRepo.GetTeamsByIds(teamIds).ToList();
             foreach (var day in days)
             {
                 var todayMatches = matches.Where(it => it.FilterDateDay == day);
@@ -92,19 +90,15 @@ namespace ApiApp.Controllers
                 var predictionResults = (from prediction in predictions
                                          let matchId = prediction.id.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[1]
                                          let match = todayMatches.First(it => it.id.Equals(matchId))
-                                         let teamHome = teams.FirstOrDefault(it=>it.id == match.TeamHomeId)
-                                         where teamHome != null
-                                         let teamAway = teams.FirstOrDefault(it => it.id == match.TeamAwayId)
-                                         where teamAway != null
                                          select new PredictionDailyDetail
                                          {
                                              GainPoints = prediction.ActualPoints,
                                              IsMatchFinish = prediction.CompletedDate.HasValue,
                                              IsPredictionDraw = string.IsNullOrEmpty(prediction.PredictionTeamId),
-                                             IsPredictionTeamHome = string.IsNullOrEmpty(prediction.PredictionTeamId) ? false : prediction.PredictionTeamId.Equals(teamHome.id),
-                                             IsPredictionTeamAway = string.IsNullOrEmpty(prediction.PredictionTeamId) ? false : prediction.PredictionTeamId.Equals(teamAway.id),
-                                             TeamHomeName = teamHome.Name,
-                                             TeamAwayName = teamAway.Name,
+                                             IsPredictionTeamHome = string.IsNullOrEmpty(prediction.PredictionTeamId) ? false : prediction.PredictionTeamId.Equals(match.TeamHomeId),
+                                             IsPredictionTeamAway = string.IsNullOrEmpty(prediction.PredictionTeamId) ? false : prediction.PredictionTeamId.Equals(match.TeamAwayId),
+                                             TeamHomeName = match.TeamHomeName,
+                                             TeamAwayName = match.TeamAwayName,
                                              TeamHomeScore = match.TeamHomeScore,
                                              TeamAwayScore = match.TeamAwayScore,
                                          }).ToList();
