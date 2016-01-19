@@ -71,7 +71,7 @@ namespace ApiApp.Controllers
                 .Select(it => new LeagueInformation
                 {
                     Name = it.Key,
-                    Matches = it.ToList()
+                    Matches = it.OrderBy(match => match.BeginDate).ToList()
                 }).ToList();
 
             return result;
