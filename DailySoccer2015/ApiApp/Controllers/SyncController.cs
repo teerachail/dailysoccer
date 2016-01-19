@@ -1,5 +1,6 @@
 ﻿using ApiApp.Models;
 using ApiApp.Repositories;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -135,6 +136,55 @@ namespace ApiApp.Controllers
             sendNotification();
         }
 
+        // PUT: api/Sync/5
+        [HttpPut]
+        [Route("internalupdate")]
+        public string Internalupdate()
+        {
+            var now = DateTime.Now;
+            var mongoDb = MongoAccess.MongoUtil.GetCollection<MatchTimeLine>("dailysoccer.MatchTimeLine");
+            var changedMatches = mongoDb.Find(it => now > it.UpdateTime && !it.IsAlreadyUsed).ToEnumerable().OrderBy(it => it.UpdateTime).ToList();
+            var dbMatches = _matchRepo.GetMatchById(changedMatches.Select(it => it.MatchId)).ToList();
+
+            foreach (var item in changedMatches)
+            {
+                var selectedMatch = dbMatches.FirstOrDefault(it => it.id == item.MatchId);
+                if (selectedMatch == null) continue;
+
+                selectedMatch.StartedDate = item.StartedDate;
+                selectedMatch.CompletedDate = item.CompletedDate;
+                selectedMatch.TeamAwayScore = item.TeamAwayScore;
+                selectedMatch.TeamHomeScore = item.TeamHomeScore;
+                selectedMatch.LastUpdateDateTime = now;
+                selectedMatch.ComparableMatch = item.Status;
+                selectedMatch.GameMinutes = item.Status;
+                selectedMatch.Status = item.Status;
+                _matchRepo.UpsertMatch(selectedMatch);
+            }
+            calculateMatches();
+
+            foreach (var item in changedMatches)
+            {
+                var update = Builders<MatchTimeLine>.Update.Set(it => it.IsAlreadyUsed, true);
+                mongoDb.UpdateOne(it => it.id == item.id, update);
+            }
+
+            return now.ToString();
+        }
+        public class MatchTimeLine
+        {
+            [MongoDB.Bson.Serialization.Attributes.BsonId]
+            public string id { get; set; }
+            public DateTime UpdateTime { get; set; }
+            public string Status { get; set; }
+            public int TeamAwayScore { get; set; }
+            public int TeamHomeScore { get; set; }
+            public string MatchId { get; set; }
+            public DateTime StartedDate { get; set; }
+            public DateTime? CompletedDate { get; set; }
+            public bool IsAlreadyUsed { get; set; }
+        }
+
         private IEnumerable<MatchAPIInformation> getAllMatchesFromAPI()
         {
             var result = _matchRepo.GetAllLeagues()
@@ -172,33 +222,45 @@ namespace ApiApp.Controllers
             var predictions = _predictionRepo.GetUserPredictions().ToList();
             var predictionPoints = new[] { 100, 120, 130, 140, 150 };
 
-            var changedMatches = matches.Where(it => !it.LastCalculatedDateTime.HasValue || it.LastUpdateDateTime > it.LastCalculatedDateTime).ToList();
+            var changedMatches = matches.Where(it => !it.LastCalculatedDateTime.HasValue 
+            || (it.LastUpdateDateTime.HasValue && it.LastUpdateDateTime > it.LastCalculatedDateTime))
+            .ToList();
             changedMatches.ForEach(match =>
             {
-                var prediction = predictions.Where(predict => predict.PredictionTeamId == match.id).ToList();
-                GameResult gameResult;
-                GameResult userPrediction;
-
-                if (match.TeamHomeScore > match.TeamAwayScore) gameResult = GameResult.TeamHomeWin;
-                else if (match.TeamHomeScore < match.TeamAwayScore) gameResult = GameResult.TeamAwayWin;
-                else gameResult = GameResult.GameDraw;
-
-                prediction.ForEach(predict =>
+                if (match.CompletedDate.HasValue)
                 {
-                    if (predict.PredictionTeamId == match.TeamHomeId) userPrediction = GameResult.TeamHomeWin;
-                    else if (predict.PredictionTeamId == match.TeamAwayId) userPrediction = GameResult.TeamAwayWin;
-                    else userPrediction = GameResult.GameDraw;
+                    GameResult gameResult;
+                    if (match.TeamHomeScore > match.TeamAwayScore) gameResult = GameResult.TeamHomeWin;
+                    else if (match.TeamHomeScore < match.TeamAwayScore) gameResult = GameResult.TeamAwayWin;
+                    else gameResult = GameResult.GameDraw;
 
-                    if (gameResult == userPrediction) predict.ActualPoints = predict.PredictionPoints;
-                    else predict.ActualPoints = 0;
-                    _predictionRepo.UpdatePrediction(predict);
+                    //var prediction = predictions.Where(predict => predict.PredictionTeamId == match.id).ToList();
+                    var prediction = predictions.Where(it =>
+                    {
+                        var matchId = it.id.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+                        if (string.IsNullOrEmpty(matchId)) return false;
+                        return matchId == match.id;
+                    }).ToList();
 
-                    const char splitSeparetor = '-';
-                    const int userIdPosition = 0;
-                    var users = _accountRepo.GetUserProfileById(predict.id.Split(splitSeparetor)[userIdPosition]);
-                    users.Points += predict.PredictionPoints;
-                    _accountRepo.UpdatePoint(users.id, users.Points);
-                });
+                    prediction.ForEach(predict =>
+                    {
+                        GameResult userPrediction;
+                        if (predict.PredictionTeamId == match.TeamHomeId) userPrediction = GameResult.TeamHomeWin;
+                        else if (predict.PredictionTeamId == match.TeamAwayId) userPrediction = GameResult.TeamAwayWin;
+                        else userPrediction = GameResult.GameDraw;
+
+                        if (gameResult == userPrediction) predict.ActualPoints = predict.PredictionPoints;
+                        else predict.ActualPoints = 0;
+                        predict.CompletedDate = now;
+                        _predictionRepo.UpdatePrediction(predict);
+
+                        const char splitSeparetor = '-';
+                        const int userIdPosition = 0;
+                        var users = _accountRepo.GetUserProfileById(predict.id.Split(splitSeparetor)[userIdPosition]);
+                        users.Points += predict.ActualPoints;
+                        _accountRepo.UpdatePoint(users.id, users.Points);
+                    });
+                }
 
                 var random = new Random();
                 var teamHomePoint = predictionPoints[random.Next(predictionPoints.Length)];
