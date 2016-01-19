@@ -7,10 +7,13 @@
         public Favorite: any;
         public Login: any;
         public FacebookPopup: any;
+        public TiePopup: any;
         public Pages: number;
         public team: any;
         public league: any;
         public SelectedTeam: string;
+        public localPoint: number;
+        public facebookPoint: number;
 
         static $inject = [
             '$scope',
@@ -61,6 +64,12 @@
                     animation: 'slide-in-up'
                 }).then((modal) => { this.FacebookPopup = modal; });
 
+            this.$ionicModal.fromTemplateUrl('templates/Tie.html',
+                {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(modal=> { this.TiePopup = modal; });
+
             this.svc.GetLeagues().then((respond): any => {
                 this.league = respond;
                 this.getTeamsByLeague(this.Pages);
@@ -95,8 +104,13 @@
         }
 
         ////#Login#
+        public ShowTiePopup() {
+            this.FacebookPopup.hide();
+            this.TiePopup.show();
+        }
+
         public IsShowNewGuestButton() {
-            return this.userInfo.GetUserProfile().UserId == null;
+            return this.userInfo.GetUserProfile().UserId == null ;
         }
 
         public Logout() {
@@ -118,6 +132,43 @@
                     this.Login.show();
                 }, 1000);                
             }
+        }
+
+        public LoginWithFacebookAccount(): void {
+            var facebookId = this.userInfo.FacebookId;
+            this.userSvc.TieFacebook(facebookId, '', false).then((respond) => {
+                this.userInfo.LoggedInWithFacebook(respond.id);
+                this.Login.hide();
+                if (respond.FavouriteTeamId == null) {
+                    this.Favorite.show();
+                }
+            });
+        }
+
+        public TieFacebook(): void {
+            var facebookId = this.userInfo.FacebookId;
+            this.userSvc.TieFacebook(facebookId, '', false).then((respond) => {
+                this.facebookPoint = respond.Points;
+                this.localPoint = this.userInfo.CurrentPoints;
+            });
+        }
+
+        public TieWithFacebookData(): void {
+            var facebookId = this.userInfo.FacebookId;
+            this.userSvc.TieFacebook(facebookId, '', false).then((respond) => {
+                this.userInfo.LoggedInWithFacebook(respond.id);
+                this.TiePopup.hide();
+            });
+            
+        }
+
+        public TieWithLocalData(): void {
+            var facebookId = this.userInfo.FacebookId;
+            var userId = this.userInfo.GetUserProfile().UserId;
+            this.userSvc.TieFacebook(facebookId, userId, false).then((respond) => {
+                this.userInfo.LoggedInWithFacebook(respond.id);
+                this.TiePopup.hide();
+            });
         }
         ////#End Login#
 

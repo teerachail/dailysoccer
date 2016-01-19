@@ -1,5 +1,6 @@
 ﻿<ion-modal-view class="bg-main">
-    <ion-content class="text-white text-center ">
+    <ion-content class="light text-center">
+        <br />
         <div class="row row-center">
             <div class="col col-center">
                 <div class="col-67 block-center">
@@ -9,7 +10,7 @@
         </div>
         <div class="row">
             <div class="col col-67 block-center">
-                <a class="col button button-block button-calm button-small">ข้อมูลจาก Facebook</a>
+                <a class="col button button-block button-calm button-small" ng-click="cx.TieWithFacebookData()">ข้อมูลจาก Facebook</a>
                 <div class="col">
                     ข้อมูลที่อยู่ใน Facebook จะถูกใช้แทนข้อมูลที่อยู่ในเครื่อง
                 </div>
@@ -22,7 +23,7 @@
         <br />
         <div class="row">
             <div class="col col-67 block-center">
-                <a class="col button button-block button-balanced button-small">ข้อมูลที่อยู่ในเครื่อง</a>
+                <a class="col button button-block button-balanced button-small" ng-click="cx.TieWithLocalData()">ข้อมูลที่อยู่ในเครื่อง</a>
                 <div class="col">
                     ใช้ข้อมูลที่มีอยู่ในเครื่อง
                 </div>
@@ -34,7 +35,7 @@
         <br />
         <div class="row">
             <div class="col col-67 block-center">
-                <a class="col button button-block button-stable button-small"  ng-click="TiePopup.hide()">ยกเลิก</a>
+                <a class="col button button-block button-stable button-small"  ng-click="cx.TiePopup.hide()">ยกเลิก</a>
             </div>
         </div>
     </ion-content>

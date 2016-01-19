@@ -263,3 +263,25 @@ ion-side-menu ion-content {
 .popup-head{
     border:0px;
 }
+//Animation
+@-webkit-keyframes click-predict {
+  0% {
+    /*-webkit-transform: scale3d(1, 0, 1);*/
+    width:100%;
+  }
+ 
+  100% {
+    /*-webkit-transform: scale3d(1, 1, 0);*/
+    width:80%;
+  }
+}
+ 
+.click-predict-animation {
+  -webkit-animation: click-predict linear; 
+  animation: click-predict linear;
+  -webkit-animation-duration: 50ms;
+  animation-duration: 50ms;
+  -webkit-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+}
+//End-Animation

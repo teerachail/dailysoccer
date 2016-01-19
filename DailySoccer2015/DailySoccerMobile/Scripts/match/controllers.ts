@@ -53,6 +53,7 @@
         public PredictionRemainingCount: number;
         private userProfile: any;
         public predictions: any;
+        private disableList: string[] = [];
 
         static $inject = [
             'matches',
@@ -84,7 +85,7 @@
             $rootScope.refresher = () => {
                 this.onPageLoad();
             };
-            
+
             $ionicHistory.nextViewOptions({
                 disableAnimate: true,
                 disableBack: true
@@ -116,32 +117,25 @@
         private updatePredictionRemainning() {
             var now = new Date();
             var MaximunPredictionCount = this.maximunPredictionCount;
-            if (this.predictions == null) this.PredictionRemainingCount = MaximunPredictionCount;
             if (this.params.day == now.getDate()) {
-
-                for (var it in this.predictions) this.userSvc.MatchPredictions.push(it.MatchId);
-                
+                for (var elementIndex = 0; elementIndex < this.predictions.length; elementIndex++) {
+                    this.userSvc.MatchPredictions.push(this.predictions[elementIndex].MatchId);
+                }
                 this.userSvc.PredictionRemainingCount = MaximunPredictionCount - this.userSvc.MatchPredictions.data.length;
             }
         }
-
-        //private checkAllowPredict(matchId: string): boolean {
-        //    const DisabledPrediction = 0;
-        //    const firstPrediction = 0;
-        //    var selectedPrediction = this.predictions.filter(it => it.MatchId == matchId)[firstPrediction];
-        //    var isPredicted = selectedPrediction != null;
-        //    var isAllowPredict = this.userSvc.PredictionRemainingCount > DisabledPrediction;
-        //    return isPredicted || isAllowPredict;
-        //}
-
-        private predict(userId: string, matchId: string, selectedTeamId: string, isCancel: boolean): void {            
+        
+        private predict(userId: string, matchId: string, selectedTeamId: string, isCancel: boolean): void {
             const MinimumToSendPrediction = 1;
             var isAllowToPredict = this.userSvc.PredictionRemainingCount >= MinimumToSendPrediction;
             if (isAllowToPredict) {
                 if (isCancel) this.userSvc.MatchPredictions.pull(matchId);
                 this.predictSvc.Predict(userId, matchId, selectedTeamId, isCancel)
                     .then((respond: any): void => {
+                        this.disableList = [];
+                        this.$scope.$apply();
                         this.predictions = respond;
+                        this.predictions.forEach((value) => value.isAnimate = false);
                         this.updatePredictionRemainning();
                     });
             } else {
@@ -160,7 +154,9 @@
             var isCancel: boolean = false;
             if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionTeamHome;
 
-            this.predict(this.userProfile.id, match.id, match.TeamHomeId, isCancel);          
+            //selectedPrediction.isAnimate = true;
+            this.predict(this.userProfile.id, match.id, match.TeamHomeId, isCancel);
+            this.disableList.push(match.id + 'home');
         }
 
         public predictTeamAway(match: any): void {
@@ -169,7 +165,9 @@
             var isCancel: boolean = false;
             if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionTeamAway;
 
+            //selectedPrediction.isAnimate = true;
             this.predict(this.userProfile.id, match.id, match.TeamAwayId, isCancel);
+            this.disableList.push(match.id + 'away');
         }
 
         public predictDraw(match: any): void {
@@ -178,11 +176,19 @@
             var isCancel: boolean = false;
             if (selectedPrediction != null) isCancel = selectedPrediction.IsPredictionDraw;
 
+            //selectedPrediction.isAnimate = true;
             this.predict(this.userProfile.id, match.id, null, isCancel);
+            this.disableList.push(match.id + 'draw');
         }
         //#endregion Predictions
 
         //#region Gamestatus
+        public IsAnimate(match: any, option: string): boolean {
+            var matchId = match.id + option;
+            var isInTheDisableList = this.disableList.filter(it=> it == matchId).length > 0;
+            return isInTheDisableList;
+        }
+
         public IsGameStarted(match: any): boolean {
             if (match.StartedDate) return true;
         }
